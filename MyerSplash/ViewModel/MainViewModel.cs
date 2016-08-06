@@ -21,6 +21,8 @@ namespace MyerSplash.ViewModel
 {
     public class MainViewModel : ViewModelBase, INavigable
     {
+        private const string DEFAULT_CATEGORY = "FEATURED";
+
         private ImageDataViewModel _mainDataVM;
         public ImageDataViewModel MainDataVM
         {
@@ -295,11 +297,9 @@ namespace MyerSplash.ViewModel
                 {
                     return Categories[SelectedIndex].Title.ToUpper();
                 }
-                else return "FEATURED";
+                else return DEFAULT_CATEGORY;
             }
         }
-
-        private bool[] _hintStates = new bool[3];
 
         public MainViewModel()
         {
@@ -312,22 +312,6 @@ namespace MyerSplash.ViewModel
             App.MainVM = this;
 
             SelectedIndex = -1;
-        }
-
-        private void SaveHintState()
-        {
-            _hintStates[0] = ShowFooterLoading == Visibility.Visible ? true : false;
-            _hintStates[1] = ShowNoItemHint == Visibility.Visible ? true : false;
-            _hintStates[2] = ShowFooterReloadGrid == Visibility.Visible ? true : false;
-
-            ShowFooterLoading = ShowNoItemHint = ShowFooterReloadGrid = Visibility.Collapsed;
-        }
-
-        private void RestoreHintState()
-        {
-            ShowFooterLoading = _hintStates[0] ? Visibility.Visible : Visibility.Collapsed;
-            ShowNoItemHint = _hintStates[1] ? Visibility.Visible : Visibility.Collapsed;
-            ShowFooterReloadGrid = _hintStates[2] ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private async Task RestoreMainListDataAsync()
@@ -344,9 +328,9 @@ namespace MyerSplash.ViewModel
                     for (int i = 0; i < MainDataVM.DataList.Count; i++)
                     {
                         var item = MainDataVM.DataList[i];
-                        if (i % 2 == 0) item.BackColor = new SolidColorBrush(ColorConverter.HexToColor("#FF2E2E2E").Value);
-                        else item.BackColor = new SolidColorBrush(ColorConverter.HexToColor("#FF383838").Value);
-                        var task = item.RestoreAsync();
+                        if (i % 2 == 0) item.BackColor = App.Current.Resources["ImageBackBrush1"] as SolidColorBrush;
+                        else item.BackColor = App.Current.Resources["ImageBackBrush2"] as SolidColorBrush;
+                        var task = item.RestoreDataAsync();
                     }
                     await UpdateLiveTileAsync();
                 }

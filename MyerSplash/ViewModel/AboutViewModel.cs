@@ -22,7 +22,7 @@ namespace MyerSplash.ViewModel
                       EmailRecipient rec = new EmailRecipient("dengweichao@hotmail.com");
                       EmailMessage mes = new EmailMessage();
                       mes.To.Add(rec);
-                      var attach = await ExceptionHelper.GetLogFileAttachement();
+                      var attach = await ExceptionHelper.GetLogFileAttachementAsync();
                       if (attach != null)
                       {
                           mes.Attachments.Add(attach);

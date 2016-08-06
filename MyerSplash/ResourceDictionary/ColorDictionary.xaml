@@ -11,4 +11,6 @@
     <Color x:Key="MyerSplashLikedHeartColor">#FFD93A58</Color>
     <SolidColorBrush x:Key="MyerSplashDarkColor">#FF1D1D1D</SolidColorBrush>
     <SolidColorBrush x:Key="MyerSplashPlaceHolderColor">#FF383838</SolidColorBrush>
+    <SolidColorBrush x:Key="ImageBackBrush1">#FF2E2E2E</SolidColorBrush>
+    <SolidColorBrush x:Key="ImageBackBrush2">#FF383838</SolidColorBrush>
 </ResourceDictionary>

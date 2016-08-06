@@ -7,22 +7,6 @@
              d:DesignHeight="600"
              d:DesignWidth="900"
              mc:Ignorable="d">
-    <UserControl.Resources>
-        <Storyboard x:Name="LikeColorStoryboard">
-            <ColorAnimation Duration="0:0:0.2"
-                            From="{StaticResource MyerSplashUnLikedHeartColor}"
-                            Storyboard.TargetName="LikeBtnEll"
-                            Storyboard.TargetProperty="(LikeBtnEll.Fill).(SolidColorBrush.Color)"
-                            To="{StaticResource MyerSplashLikedHeartColor}" />
-        </Storyboard>
-        <Storyboard x:Name="UnlikeColorStoryboard">
-            <ColorAnimation Duration="0:0:0.2"
-                            From="{StaticResource MyerSplashLikedHeartColor}"
-                            Storyboard.TargetName="LikeBtnEll"
-                            Storyboard.TargetProperty="(LikeBtnEll.Fill).(SolidColorBrush.Color)"
-                            To="{StaticResource MyerSplashUnLikedHeartColor}" />
-        </Storyboard>
-    </UserControl.Resources>
     <Grid x:Name="DetailGrid"
           Grid.RowSpan="5"
           Margin="0 5 0 0"

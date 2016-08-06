@@ -78,7 +78,7 @@
                         <TextBlock Margin="10"
                                    VerticalAlignment="Center"
                                    Foreground="White"
-                                   Text="Oops,try to retry." />
+                                   Text="Oops, try to retry." />
                         <Button Width="100"
                                 Margin="5"
                                 HorizontalAlignment="Stretch"

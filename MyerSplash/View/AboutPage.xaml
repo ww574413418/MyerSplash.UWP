@@ -41,20 +41,16 @@
                                Foreground="White"
                                Text="Splash" />
                     </StackPanel>
-                    <TextBlock HorizontalAlignment="Center"
-                           FontSize="20"
-                           Foreground="#33FFFFFF"
-                           Text="for Windows 10" FontFamily="Segoe UI Light" />
                     <Border Margin="0,10,0,0"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Background="{StaticResource MyerSplashThemeColor}">
-                        <TextBlock Margin="12,2"
+                        <TextBlock Margin="8,0"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"
-                               FontSize="9.333"
+                               FontSize="13"
                                Foreground="Black"
-                               Text="{StaticResource AppVersion}" />
+                               Text="{StaticResource AppVersion}" FontWeight="Bold" />
                     </Border>
                     <TextBlock Margin="0,10,0,0"
                            HorizontalAlignment="Center"
@@ -67,7 +63,7 @@
                            HorizontalAlignment="Center"
                            FontSize="15"
                            Foreground="#70FFFFFF"
-                           Text="All photos are from the website Unsplash."
+                           Text="All photos are from Unsplash. Feel free to download and use whatever you like."
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
                     <TextBlock Margin="0,10,0,0"
@@ -87,7 +83,7 @@
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
                                    Foreground="White"
-                                   Text="SEND ME AN EMAIL" />
+                                   Text="TELL ME YOUR IDEAS" />
                         </Border>
                     </Button>
                     <TextBlock Margin="0,10,0,0"
