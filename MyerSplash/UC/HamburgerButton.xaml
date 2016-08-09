@@ -24,7 +24,7 @@
             <Border Width="20"
                     Height="2"
                     VerticalAlignment="Bottom"
-                    Background="Black"
+                    Background="White"
                     RenderTransformOrigin="0,0.5">
                 <Border.RenderTransform>
                     <CompositeTransform />
@@ -35,7 +35,7 @@
                     Height="2"
                     Margin="0"
                     VerticalAlignment="Center"
-                    Background="Black"
+                    Background="White"
                     RenderTransformOrigin="0,0.5">
                 <Border.RenderTransform>
                     <CompositeTransform />
@@ -46,7 +46,7 @@
                     Height="2"
                     Margin="0"
                     VerticalAlignment="Top"
-                    Background="Black"
+                    Background="White"
                     RenderTransformOrigin="0,0.5">
                 <Border.RenderTransform>
                     <CompositeTransform />

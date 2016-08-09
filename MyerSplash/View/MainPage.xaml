@@ -4,6 +4,7 @@
                      xmlns:attach="using:JP.Utils.Framework"
                      xmlns:cc="using:JP.Utils.Control"
                      xmlns:common="using:MyerSplash.Common"
+                     xmlns:comp="using:SamplesCommon"
                      xmlns:control="using:MyerSplashCustomControl"
                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -27,8 +28,9 @@
                 <FontIcon x:Name="RefreshIcon" CacheMode="BitmapCache" FontFamily="Segoe MDL2 Assets" Glyph="&#xE149;" />
             </Grid>
         </Grid>
+        <comp:BackDrop Margin="0 0 0 0" Canvas.ZIndex="7" TintColor="#C5000000" BlurAmount="10"/>
         <Grid x:Name="TitleGrid"
-              Background="{StaticResource MyerSplashThemeColor}"
+              Background="#0F000000" Margin="0 0 0 0"
               Canvas.ZIndex="8">
             <StackPanel Margin="5"
                         HorizontalAlignment="Center"
@@ -36,7 +38,7 @@
                         CacheMode="BitmapCache"
                         Orientation="Horizontal"
                         Tapped="StackPanel_Tapped">
-                <TextBlock FontSize="25" Text="{x:Bind MainVM.SelectedTitle,Mode=OneWay,FallbackValue=FEATURED}" FontWeight="Bold" />
+                <TextBlock FontSize="25" Text="{x:Bind MainVM.SelectedTitle,Mode=OneWay,FallbackValue=FEATURED}" FontWeight="Bold" Foreground="White" />
             </StackPanel>
             <!--<Button Command="{x:Bind MainVM.SearchCommand,Mode=OneWay}" Width="70" Style="{StaticResource ListButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0">
                 <Grid>
@@ -55,7 +57,7 @@
         <Grid x:Name="ContentGrid"
               Grid.Row="0"
               Grid.RowSpan="2"
-              Margin="0"
+              Margin="0 0 0 0"
               Canvas.ZIndex="5">
             <Grid x:Name="NoItemHint" Visibility="{x:Bind MainVM.ShowNoItemHint, Mode=OneWay,FallbackValue=Collapsed}">
                 <StackPanel HorizontalAlignment="Center"
@@ -105,21 +107,21 @@
         <uc:PhotoDetailControl x:Name="DetailControl"
                                Grid.RowSpan="2"
                                d:IsHidden="True"
-                               Canvas.ZIndex="10"
+                               Canvas.ZIndex="10" Margin="0 0 0 0"
                                Loaded="DetailControl_Loaded"
                                OnHideControl="DetailControl_OnHideControl" />
         <Border x:Name="DrawerMaskBorder"
                 Grid.RowSpan="2"
                 attach:UIElementTapCommand.ItemTapCommand="{x:Bind MainVM.OpenDrawerCommand, Mode=OneWay}"
                 d:IsHidden="True"
-                Background="#CC000000"
+                Background="#CC000000" Margin="0 0 0 0"
                 Canvas.ZIndex="11" />
         <uc:DrawerControl x:Name="DrawerControl"
                           Grid.RowSpan="2"
                           Width="270"
                           HorizontalAlignment="Left"
                           d:IsHidden="True"
-                          Canvas.ZIndex="12"
+                          Canvas.ZIndex="12" Margin="0 0 0 0"
                           DataContext="{x:Bind MainVM, Mode=OneWay}"
                           ManipulationCompleted="DrawerControl_ManipulationCompleted"
                           ManipulationDelta="DrawerControl_ManipulationDelta"

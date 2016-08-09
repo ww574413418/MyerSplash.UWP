@@ -111,6 +111,9 @@
     <Compile Include="Common\ToastHelper.cs" />
     <Compile Include="LiveTile\LiveTileUpdater.cs" />
     <Compile Include="Model\UnsplashCategory.cs" />
+    <Compile Include="UC\EmptyTitleControl.xaml.cs">
+      <DependentUpon>EmptyTitleControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UC\FeatureControl.xaml.cs">
       <DependentUpon>FeatureControl.xaml</DependentUpon>
     </Compile>
@@ -168,6 +171,7 @@
     <Content Include="Assets\NewStoreLogo.scale-150.png" />
     <Content Include="Assets\NewStoreLogo.scale-200.png" />
     <Content Include="Assets\NewStoreLogo.scale-400.png" />
+    <Content Include="Assets\Noise.jpg" />
     <Content Include="Assets\SplashScreen.scale-100.png" />
     <Content Include="Assets\SplashScreen.scale-125.png" />
     <Content Include="Assets\SplashScreen.scale-150.png" />
@@ -236,6 +240,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UC\EmptyTitleControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UC\FeatureControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -289,6 +297,10 @@
     <ProjectReference Include="..\MyerSplashShared\MyerSplashShared.csproj">
       <Project>{56f19610-c6e1-412f-9048-74293d893021}</Project>
       <Name>MyerSplashShared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SamplesCommon\SamplesCommon\SamplesCommon.csproj">
+      <Project>{0b6a4830-d1ff-4018-baa2-7257eb4579fe}</Project>
+      <Name>SamplesCommon</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

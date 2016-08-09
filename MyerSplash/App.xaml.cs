@@ -120,7 +120,8 @@ namespace MyerSplash
             // Ensure the current window is active
             Window.Current.Activate();
 
-            TitleBarHelper.SetUpThemeTitleBar();
+            TitleBarHelper.SetUpBlackTitleBar();
+
             if(DeviceHelper.IsMobile)
             {
                 StatusBarHelper.SetUpStatusBar();

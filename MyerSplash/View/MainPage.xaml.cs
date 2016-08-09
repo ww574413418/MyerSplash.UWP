@@ -1,8 +1,11 @@
 ﻿using MyerSplash.Common;
 using MyerSplash.Model;
+using MyerSplash.UC;
 using MyerSplash.ViewModel;
+using SamplesCommon;
 using System;
 using System.Numerics;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
@@ -10,6 +13,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Navigation;
 
 namespace MyerSplash.View
 {
@@ -117,6 +121,8 @@ namespace MyerSplash.View
 
         private void InitComposition()
         {
+            SurfaceLoader.Initialize(ElementCompositionPreview.GetElementVisual(this).Compositor);
+
             _compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
             _loadingVisual = ElementCompositionPreview.GetElementVisual(LoadingGrid);
             _refreshVisual = ElementCompositionPreview.GetElementVisual(RefreshIcon);
@@ -292,7 +298,7 @@ namespace MyerSplash.View
             offsetAnimation.InsertKeyFrame(1f, show ? 0f : -100f);
             offsetAnimation.Duration = TimeSpan.FromMilliseconds(500);
 
-            _titleGridVisual.StartAnimation("Offset.Y", offsetAnimation);
+            //_titleGridVisual.StartAnimation("Offset.Y", offsetAnimation);
         }
 
         private void ToggleRefreshBtnAnimation(bool show)
@@ -399,5 +405,20 @@ namespace MyerSplash.View
             }
         }
         #endregion
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
+
+            var titleBarUC = new EmptyTitleControl();
+            (this.Content as Grid).Children.Add(titleBarUC);
+            Grid.SetColumnSpan(titleBarUC, 5);
+            Grid.SetRowSpan(titleBarUC, 5);
+            Canvas.SetZIndex(titleBarUC, 100);
+
+            Window.Current.SetTitleBar(titleBarUC);
+        }
     }
 }
