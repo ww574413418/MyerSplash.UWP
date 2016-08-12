@@ -81,6 +81,16 @@ namespace MyerSplash.View
 
             InitComposition();
             InitBinding();
+
+            CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
+
+            var titleBarUC = new EmptyTitleControl();
+            (this.Content as Grid).Children.Add(titleBarUC);
+            Grid.SetColumnSpan(titleBarUC, 5);
+            Grid.SetRowSpan(titleBarUC, 5);
+            Canvas.SetZIndex(titleBarUC, 100);
+
+            Window.Current.SetTitleBar(titleBarUC);
         }
 
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
@@ -410,15 +420,7 @@ namespace MyerSplash.View
         {
             base.OnNavigatedTo(e);
 
-            CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
-
-            var titleBarUC = new EmptyTitleControl();
-            (this.Content as Grid).Children.Add(titleBarUC);
-            Grid.SetColumnSpan(titleBarUC, 5);
-            Grid.SetRowSpan(titleBarUC, 5);
-            Canvas.SetZIndex(titleBarUC, 100);
-
-            Window.Current.SetTitleBar(titleBarUC);
+            
         }
     }
 }

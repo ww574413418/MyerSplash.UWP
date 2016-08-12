@@ -9,5 +9,5 @@
 
     <Grid Height="35"
           VerticalAlignment="Top"
-          Background="#00FFFFFF" />
+          Background="Transparent" />
 </UserControl>

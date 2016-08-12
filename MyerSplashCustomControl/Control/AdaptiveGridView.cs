@@ -3,12 +3,22 @@ using System;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Animation;
 
 namespace MyerSplashCustomControl
 {
     public class AdaptiveGridView : GridView
     {
         #region DependencyProperties
+        public bool EnableChildrenTransition
+        {
+            get { return (bool)GetValue(EnableChildrenTransitionProperty); }
+            set { SetValue(EnableChildrenTransitionProperty, value); }
+        }
+
+        public static readonly DependencyProperty EnableChildrenTransitionProperty =
+            DependencyProperty.Register("EnableChildrenTransition", typeof(bool), typeof(AdaptiveGridView), 
+                new PropertyMetadata(true));
 
         /// <summary>
         /// Minimum height for item
@@ -79,6 +89,15 @@ namespace MyerSplashCustomControl
             var panel = this.ItemsPanelRoot as ItemsWrapGrid;
             if (panel != null)
             {
+                if (EnableChildrenTransition)
+                {
+                    if (panel.ChildrenTransitions == null)
+                    {
+                        panel.ChildrenTransitions = new TransitionCollection();
+                        panel.ChildrenTransitions.Add(new PaneThemeTransition());
+                    }
+                }
+
                 if (MinItemWidth == 0)
                     throw new DivideByZeroException("You need to have a MinItemWidth greater than zero");
 

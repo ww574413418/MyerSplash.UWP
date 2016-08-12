@@ -20,6 +20,7 @@
                               ContainerContentChanging="AdaptiveGridView_ContainerContentChanging"
                               IncrementalLoadingTrigger="Edge"
                               IsItemClickEnabled="True"
+                              EnableChildrenTransition="False"
                               ItemClick="ImageGridView_ItemClick"
                               ItemContainerTransitions="{x:Null}"
                               ItemsSource="{x:Bind MainVM.MainList, Mode=OneWay}"
