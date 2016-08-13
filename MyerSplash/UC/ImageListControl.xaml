@@ -33,7 +33,7 @@
             <DataTemplate x:DataType="model:UnsplashImage">
                 <Grid x:Name="RootGrid" SizeChanged="RootGrid_SizeChanged" Loaded="RootGrid_Loaded" Unloaded="RootGrid_Unloaded">
                     <Border Background="{x:Bind BackColor, Mode=OneWay}" />
-                    <Image x:Name="Img" Source="{x:Bind ListImageBitmap, Mode=OneWay}" Stretch="UniformToFill" />
+                    <Image x:Name="Img" Source="{x:Bind ListImageBitmap.Bitmap, Mode=OneWay}" Stretch="UniformToFill" />
                     <Border x:Name="MaskBorder" Background="#9C000000">
                         <Grid>
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="16,0,0,16">

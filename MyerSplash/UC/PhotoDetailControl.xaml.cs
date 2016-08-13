@@ -49,7 +49,7 @@ namespace MyerSplash.UC
         {
             var control = d as PhotoDetailControl;
             var currentImage = e.NewValue as UnsplashImage;
-            control.LargeImage.Source = currentImage.ListImageBitmap;
+            control.LargeImage.Source = currentImage.ListImageBitmap.Bitmap;
             control.InfoGrid.Background = currentImage.MajorColor;
             control.NameTB.Text = currentImage.Owner.Name;
             if (ColorConverter.IsLight(currentImage.MajorColor.Color))

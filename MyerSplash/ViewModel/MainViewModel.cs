@@ -399,7 +399,7 @@ namespace MyerSplash.ViewModel
 
             foreach (var item in MainList)
             {
-                list.Add(item.ListImageCachedFilePath);
+                list.Add(item.ListImageBitmap.LocalPath);
             }
             if (App.AppSettings.EnableTile && list.Count > 0)
             {

@@ -11,6 +11,7 @@ using Windows.Storage;
 
 namespace MyerSplashShared.API
 {
+    [Obsolete]
     public class CacheUtil
     {
         /// <summary>
