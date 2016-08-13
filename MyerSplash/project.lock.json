@@ -11,7 +11,7 @@
           "lib/portable-net4+sl5+netcore45+wpa81+wp8/Microsoft.Practices.ServiceLocation.dll": {}
         }
       },
-      "Microsoft.ApplicationInsights/2.0.1": {
+      "Microsoft.ApplicationInsights/2.1.0": {
         "dependencies": {
           "System.Collections": "4.0.10",
           "System.Diagnostics.Debug": "4.0.10",
@@ -1884,7 +1884,7 @@
           "lib/netcore451/UmengAnalyticsUniversal.dll": {}
         }
       },
-      "Win2D.uwp/1.18.0": {
+      "Win2D.uwp/1.19.0": {
         "compile": {
           "lib/uap10.0/Microsoft.Graphics.Canvas.winmd": {}
         },
@@ -1916,7 +1916,7 @@
           "lib/portable-net4+sl5+netcore45+wpa81+wp8/Microsoft.Practices.ServiceLocation.dll": {}
         }
       },
-      "Microsoft.ApplicationInsights/2.0.1": {
+      "Microsoft.ApplicationInsights/2.1.0": {
         "dependencies": {
           "System.Collections": "4.0.10",
           "System.Diagnostics.Debug": "4.0.10",
@@ -3650,7 +3650,7 @@
           "lib/netcore451/UmengAnalyticsUniversal.dll": {}
         }
       },
-      "Win2D.uwp/1.18.0": {
+      "Win2D.uwp/1.19.0": {
         "compile": {
           "lib/uap10.0/Microsoft.Graphics.Canvas.winmd": {}
         },
@@ -3671,7 +3671,7 @@
           "lib/portable-net4+sl5+netcore45+wpa81+wp8/Microsoft.Practices.ServiceLocation.dll": {}
         }
       },
-      "Microsoft.ApplicationInsights/2.0.1": {
+      "Microsoft.ApplicationInsights/2.1.0": {
         "dependencies": {
           "System.Collections": "4.0.10",
           "System.Diagnostics.Debug": "4.0.10",
@@ -5363,7 +5363,7 @@
           "lib/netcore451/UmengAnalyticsUniversal.dll": {}
         }
       },
-      "Win2D.uwp/1.18.0": {
+      "Win2D.uwp/1.19.0": {
         "compile": {
           "lib/uap10.0/Microsoft.Graphics.Canvas.winmd": {}
         },
@@ -5384,7 +5384,7 @@
           "lib/portable-net4+sl5+netcore45+wpa81+wp8/Microsoft.Practices.ServiceLocation.dll": {}
         }
       },
-      "Microsoft.ApplicationInsights/2.0.1": {
+      "Microsoft.ApplicationInsights/2.1.0": {
         "dependencies": {
           "System.Collections": "4.0.10",
           "System.Diagnostics.Debug": "4.0.10",
@@ -7126,7 +7126,7 @@
           "lib/netcore451/UmengAnalyticsUniversal.dll": {}
         }
       },
-      "Win2D.uwp/1.18.0": {
+      "Win2D.uwp/1.19.0": {
         "compile": {
           "lib/uap10.0/Microsoft.Graphics.Canvas.winmd": {}
         },
@@ -7147,7 +7147,7 @@
           "lib/portable-net4+sl5+netcore45+wpa81+wp8/Microsoft.Practices.ServiceLocation.dll": {}
         }
       },
-      "Microsoft.ApplicationInsights/2.0.1": {
+      "Microsoft.ApplicationInsights/2.1.0": {
         "dependencies": {
           "System.Collections": "4.0.10",
           "System.Diagnostics.Debug": "4.0.10",
@@ -8839,7 +8839,7 @@
           "lib/netcore451/UmengAnalyticsUniversal.dll": {}
         }
       },
-      "Win2D.uwp/1.18.0": {
+      "Win2D.uwp/1.19.0": {
         "compile": {
           "lib/uap10.0/Microsoft.Graphics.Canvas.winmd": {}
         },
@@ -8860,7 +8860,7 @@
           "lib/portable-net4+sl5+netcore45+wpa81+wp8/Microsoft.Practices.ServiceLocation.dll": {}
         }
       },
-      "Microsoft.ApplicationInsights/2.0.1": {
+      "Microsoft.ApplicationInsights/2.1.0": {
         "dependencies": {
           "System.Collections": "4.0.10",
           "System.Diagnostics.Debug": "4.0.10",
@@ -10602,7 +10602,7 @@
           "lib/netcore451/UmengAnalyticsUniversal.dll": {}
         }
       },
-      "Win2D.uwp/1.18.0": {
+      "Win2D.uwp/1.19.0": {
         "compile": {
           "lib/uap10.0/Microsoft.Graphics.Canvas.winmd": {}
         },
@@ -10623,7 +10623,7 @@
           "lib/portable-net4+sl5+netcore45+wpa81+wp8/Microsoft.Practices.ServiceLocation.dll": {}
         }
       },
-      "Microsoft.ApplicationInsights/2.0.1": {
+      "Microsoft.ApplicationInsights/2.1.0": {
         "dependencies": {
           "System.Collections": "4.0.10",
           "System.Diagnostics.Debug": "4.0.10",
@@ -12315,7 +12315,7 @@
           "lib/netcore451/UmengAnalyticsUniversal.dll": {}
         }
       },
-      "Win2D.uwp/1.18.0": {
+      "Win2D.uwp/1.19.0": {
         "compile": {
           "lib/uap10.0/Microsoft.Graphics.Canvas.winmd": {}
         },
@@ -12340,11 +12340,11 @@
         "lib/portable-net4+sl5+netcore45+wpa81+wp8/Microsoft.Practices.ServiceLocation.pdb"
       ]
     },
-    "Microsoft.ApplicationInsights/2.0.1": {
-      "sha512": "iZjOx8ysupwITjhCl6suEOBQ+yTUBlJhQ2lfXBJkpS66gjB5TDJxIPrqKJ17/v4QqiFw//eHTGtMUCtoMN6WDQ==",
+    "Microsoft.ApplicationInsights/2.1.0": {
+      "sha512": "mviO8PLQd3r22Pmv8JfjYzTCQ9ByhkU9wdC4fwd6WmAARwAMgMw9HEbHeYS3r+8pB3w+fZMi7p4LKijzgNybRQ==",
       "type": "package",
       "files": [
-        "Microsoft.ApplicationInsights.2.0.1.nupkg.sha512",
+        "Microsoft.ApplicationInsights.2.1.0.nupkg.sha512",
         "Microsoft.ApplicationInsights.nuspec",
         "lib/dotnet5.4/Microsoft.ApplicationInsights.XML",
         "lib/dotnet5.4/Microsoft.ApplicationInsights.dll",
@@ -15821,11 +15821,11 @@
         "lib/wpa81/UmengAnalyticsUniversal.dll"
       ]
     },
-    "Win2D.uwp/1.18.0": {
-      "sha512": "qPRgHJF9l7vKLyM/adOjUHE9OE90nYFCpa3/IOaBu1lMyiMwcfXyV2JEri+beNir0eo7luzz8dRBpyBIkjK9qw==",
+    "Win2D.uwp/1.19.0": {
+      "sha512": "pLL/gLb3uY75IlswAKzOvQnwwiGrMxZyBl2DbJOjuzG6SOWMp0sg+tkj+HZU8uyQ8jIdAbOE0Iu5+z9zyT5E6Q==",
       "type": "package",
       "files": [
-        "Win2D.uwp.1.18.0.nupkg.sha512",
+        "Win2D.uwp.1.19.0.nupkg.sha512",
         "Win2D.uwp.nuspec",
         "Win2d.githash.txt",
         "build/native/Win2D.uwp.targets",
@@ -15841,13 +15841,13 @@
   },
   "projectFileDependencyGroups": {
     "": [
-      "Microsoft.ApplicationInsights >= 2.0.1",
+      "Microsoft.ApplicationInsights >= 2.1.0",
       "Microsoft.ApplicationInsights.PersistenceChannel >= 1.2.3",
       "Microsoft.ApplicationInsights.WindowsApps >= 1.1.1",
       "Microsoft.NETCore.UniversalWindowsPlatform >= 5.1.0",
       "MvvmLight >= 5.3.0",
       "NotificationsExtensions.Win10 >= 14295.0.1",
-      "Win2D.uwp >= 1.18.0"
+      "Win2D.uwp >= 1.19.0"
     ],
     "UAP,Version=v10.0": []
   }
