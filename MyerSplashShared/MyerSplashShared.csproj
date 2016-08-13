@@ -111,6 +111,7 @@
     <Compile Include="API\CloudService.cs" />
     <Compile Include="API\CTSFactory.cs" />
     <Compile Include="API\UrlHelper.cs" />
+    <Compile Include="CachedBitmapSource\CachedBitmapSource.cs" />
     <Compile Include="Cache\CacheUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\MyerSplashShared.rd.xml" />

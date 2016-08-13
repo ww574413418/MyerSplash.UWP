@@ -14,9 +14,9 @@
         <Border x:Name="MaskBorder"
                 Margin="0,-30,0,0"
                 Background="Black"
+                Opacity="0.8"
                 ManipulationDelta="DetailGrid_ManipulationDelta"
                 ManipulationMode="TranslateY"
-                Opacity="0.8"
                 Tapped="MaskBorder_Tapped" />
         <Grid x:Name="DetailContentGrid"
               MaxWidth="600"

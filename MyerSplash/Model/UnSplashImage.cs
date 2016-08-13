@@ -19,6 +19,7 @@ using MyerSplash.ViewModel;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage.Streams;
 using System.Collections.Generic;
+using MyerSplashShared.Shared;
 
 namespace MyerSplash.Model
 {
@@ -36,9 +37,9 @@ namespace MyerSplash.Model
 
         public string ThumbImageUrl { get; set; }
 
-        private BitmapImage _listImageBitmap;
+        private CachedBitmapSource _listImageBitmap;
         [IgnoreDataMember]
-        public BitmapImage ListImageBitmap
+        public CachedBitmapSource ListImageBitmap
         {
             get
             {
@@ -54,11 +55,9 @@ namespace MyerSplash.Model
             }
         }
 
-        public string ListImageCachedFilePath { get; set; }
-
-        private BitmapImage _largeBitmap;
+        private CachedBitmapSource _largeBitmap;
         [IgnoreDataMember]
-        public BitmapImage LargeBitmap
+        public CachedBitmapSource LargeBitmap
         {
             get
             {
@@ -205,7 +204,7 @@ namespace MyerSplash.Model
 
         public UnsplashImage()
         {
-
+            ListImageBitmap = new CachedBitmapSource();
         }
 
         public async Task SetDataRequestData(DataRequest request)
@@ -225,7 +224,7 @@ namespace MyerSplash.Model
 
             DataRequestDeferral deferral = request.GetDeferral();
 
-            var file = await StorageFile.GetFileFromPathAsync(ListImageCachedFilePath);
+            var file = await StorageFile.GetFileFromPathAsync(ListImageBitmap.LocalPath);
             if (file != null)
             {
                 List<IStorageItem> imageItems = new List<IStorageItem>();
@@ -252,13 +251,9 @@ namespace MyerSplash.Model
 
             if (string.IsNullOrEmpty(url)) return;
 
-            var file = await App.CacheUtilInstance.DownloadImageAsync(url, this.ID + ".jpg");
-            ListImageCachedFilePath = file.Path;
-            using (var stream = await file.OpenAsync(FileAccessMode.Read))
-            {
-                ListImageBitmap = new BitmapImage();
-                await ListImageBitmap.SetSourceAsync(stream);
-            }
+            ListImageBitmap.ExpectedFileName = this.ID + ".jpg";
+            ListImageBitmap.RemoteUrl = url;
+            await ListImageBitmap.LoadBitmapAsync();
         }
 
         public string GetListImageUrlFromSettings()
