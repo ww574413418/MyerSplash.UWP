@@ -3,7 +3,6 @@ using JP.Utils.Data.Json;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Windows.Data.Json;
-using Windows.UI.Xaml.Media.Imaging;
 using System;
 using Windows.Storage;
 using Windows.UI.Xaml.Media;
@@ -12,7 +11,6 @@ using JP.Utils.UI;
 using System.Threading;
 using Windows.Networking.BackgroundTransfer;
 using MyerSplash.Common;
-using GalaSoft.MvvmLight.Command;
 using MyerSplashCustomControl;
 using JP.Utils.Data;
 using MyerSplash.ViewModel;
@@ -207,7 +205,7 @@ namespace MyerSplash.Model
             ListImageBitmap = new CachedBitmapSource();
         }
 
-        public async Task SetDataRequestData(DataRequest request)
+        public async Task SetDataRequestDataAsync(DataRequest request)
         {
             DataPackage requestData = request.Data;
             requestData.Properties.Title = "Share photo";
@@ -280,7 +278,7 @@ namespace MyerSplash.Model
             }
         }
 
-        public async Task DownloadFullImage(CancellationToken token)
+        public async Task DownloadFullImageAsync(CancellationToken token)
         {
             var url = GetSaveImageUrlFromSettings();
 
@@ -307,7 +305,6 @@ namespace MyerSplash.Model
             }
             var newFile = await folder.CreateFileAsync($"{ID}.jpg", CreationCollisionOption.GenerateUniqueName);
 
-            //backgroundDownloader.FailureToastNotification = ToastHelper.CreateToastNotification("Failed to download :-(", "You may cancel it. Otherwise please check your network.");
             _backgroundDownloader.SuccessToastNotification = ToastHelper.CreateToastNotification("Saved:D",
                 $"You can find it in {folder.Path}.");
 
@@ -326,6 +323,7 @@ namespace MyerSplash.Model
             }
         }
 
+        #region Static method
         public static ObservableCollection<UnsplashImage> ParseListFromJson(string json)
         {
             var list = new ObservableCollection<UnsplashImage>();
@@ -372,5 +370,6 @@ namespace MyerSplash.Model
 
             return img;
         }
+        #endregion
     }
 }

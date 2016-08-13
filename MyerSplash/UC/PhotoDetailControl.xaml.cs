@@ -84,7 +84,7 @@ namespace MyerSplash.UC
               {
                   deferral.Complete();
               };
-            await CurrentImage.SetDataRequestData(args.Request);
+            await CurrentImage.SetDataRequestDataAsync(args.Request);
             deferral.Complete();
         }
 
@@ -235,7 +235,7 @@ namespace MyerSplash.UC
             try
             {
                 _cts = new CancellationTokenSource();
-                await this.CurrentImage.DownloadFullImage(_cts.Token);
+                await this.CurrentImage.DownloadFullImageAsync(_cts.Token);
                 ToggleDownloadingBtnAnimation(false);
 
                 //Still in this page

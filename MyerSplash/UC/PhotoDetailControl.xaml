@@ -14,9 +14,10 @@
           SizeChanged="DetailGrid_SizeChanged">
         <Border x:Name="MaskBorder"
                 Margin="0,-30,0,0"
-                Background="#EA000000"
+                Background="Black"
                 ManipulationDelta="DetailGrid_ManipulationDelta"
                 ManipulationMode="TranslateY"
+                Opacity="0.8"
                 Tapped="MaskBorder_Tapped" />
         <Grid x:Name="DetailContentGrid"
               MaxWidth="600"

@@ -9,17 +9,17 @@ namespace MyerSplash.Common
         public static void SetUpThemeTitleBar()
         {
             var titleBar = ApplicationView.GetForCurrentView().TitleBar;
-            titleBar.BackgroundColor = ColorConverter.HexToColor("#00bebe");
+            titleBar.BackgroundColor = Colors.Transparent;
             titleBar.ForegroundColor = Colors.Black;
-            titleBar.InactiveBackgroundColor = ColorConverter.HexToColor("#00bebe");
+            titleBar.InactiveBackgroundColor = Colors.Transparent;
             titleBar.InactiveForegroundColor = Colors.Black;
-            titleBar.ButtonBackgroundColor = ColorConverter.HexToColor("#00bebe");
+            titleBar.ButtonBackgroundColor = Colors.Transparent;
             titleBar.ButtonForegroundColor = Colors.Black;
-            titleBar.ButtonInactiveBackgroundColor = ColorConverter.HexToColor("#00bebe");
+            titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
             titleBar.ButtonInactiveForegroundColor = Colors.Black;
-            titleBar.ButtonHoverBackgroundColor = ColorConverter.HexToColor("#FF10D6D6");
+            titleBar.ButtonHoverBackgroundColor = ColorConverter.HexToColor("#31FFFFFF");
             titleBar.ButtonHoverForegroundColor = Colors.Black;
-            titleBar.ButtonPressedBackgroundColor = ColorConverter.HexToColor("#FF06AEAE");
+            titleBar.ButtonPressedBackgroundColor = ColorConverter.HexToColor("#5EFFFFFF");
         }
 
         public static void SetUpBlackTitleBar()

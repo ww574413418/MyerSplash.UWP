@@ -67,7 +67,6 @@ namespace MyerSplash
                 this.DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
-
             Frame rootFrame = Window.Current.Content as Frame;
 
             if (rootFrame == null)
@@ -85,10 +84,9 @@ namespace MyerSplash
                 rootFrame.Navigate(typeof(MainPage), e.Arguments);
             }
             Window.Current.Activate();
+            CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
 
-            TitleBarHelper.SetUpBlackTitleBar();
-
-            if(DeviceHelper.IsMobile)
+            if (DeviceHelper.IsMobile)
             {
                 StatusBarHelper.SetUpStatusBar();
             }

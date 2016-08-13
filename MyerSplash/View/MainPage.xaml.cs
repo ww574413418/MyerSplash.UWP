@@ -82,8 +82,6 @@ namespace MyerSplash.View
             InitComposition();
             InitBinding();
 
-            CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
-
             var titleBarUC = new EmptyTitleControl();
             (this.Content as Grid).Children.Add(titleBarUC);
             Grid.SetColumnSpan(titleBarUC, 5);
@@ -419,8 +417,7 @@ namespace MyerSplash.View
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-
-            
+            TitleBarHelper.SetUpBlackTitleBar();
         }
     }
 }
