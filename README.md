@@ -8,4 +8,4 @@ To compile the project, please include [this lib](https://github.com/JuniperPhot
 Welcome PR :D
 
 ##License 
-The project is released under [MIT License](https://github.com/stackia/DNSAgent/blob/master/LICENSE).
+The project is released under MIT License.
