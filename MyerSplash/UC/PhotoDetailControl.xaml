@@ -68,7 +68,7 @@
             </Grid>
             <Grid>
                 <Border Background="#FF1B1B1B" Margin="0" />
-                <ScrollViewer 
+                <ScrollViewer x:Name="PhotoSV"
                               HorizontalScrollMode="Disabled"
                               Style="{StaticResource ScrollViewerCommonStyle}"
                               VerticalScrollBarVisibility="Auto"

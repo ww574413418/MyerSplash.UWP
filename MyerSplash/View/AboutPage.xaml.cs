@@ -26,5 +26,11 @@ namespace MyerSplash.View
             this.InitializeComponent();
             this.DataContext = AboutVM = new AboutViewModel();
         }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            TitleBarHelper.SetUpThemeTitleBar();
+        }
     }
 }

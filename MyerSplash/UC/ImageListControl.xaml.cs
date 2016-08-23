@@ -3,6 +3,7 @@ using MyerSplash.Model;
 using MyerSplash.ViewModel;
 using System;
 using System.Numerics;
+using System.Threading.Tasks;
 using Windows.Devices.Input;
 using Windows.Foundation;
 using Windows.UI.Composition;
@@ -16,7 +17,7 @@ namespace MyerSplash.UC
 {
     public sealed partial class ImageListControl : UserControl
     {
-        public event Action<UnsplashImage, FrameworkElement> OnClickItemStarted;
+        public event Action<UnsplashImageBase, FrameworkElement> OnClickItemStarted;
         public event Action<ScrollViewer> OnScrollViewerViewChanged;
 
         private MainViewModel MainVM
@@ -41,7 +42,7 @@ namespace MyerSplash.UC
             this._compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
         }
 
-        private void ImageGridView_ItemClick(object sender, ItemClickEventArgs e)
+        private async void ImageGridView_ItemClick(object sender, ItemClickEventArgs e)
         {
             var item = e.ClickedItem;
             var container = ImageGridView.ContainerFromItem(item) as FrameworkElement;
@@ -50,7 +51,7 @@ namespace MyerSplash.UC
 
             _containerVisual = ElementCompositionPreview.GetElementVisual(container);
 
-            var unsplashImg = item as UnsplashImage;
+            var unsplashImg = item as UnsplashImageBase;
 
             var maskBorder = rootGrid.Children[2] as FrameworkElement;
             var img = rootGrid.Children[1] as FrameworkElement;

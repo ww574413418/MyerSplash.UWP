@@ -53,11 +53,7 @@ namespace MyerSplash
             e.Handled = true;
         }
 
-        /// <summary>
-        /// Invoked when the application is launched normally by the end user.  Other entry points
-        /// will be used such as when the application is launched to open a specific file.
-        /// </summary>
-        /// <param name="e">Details about the launch request and process.</param>
+#pragma warning disable 1998
         protected async override void OnLaunched(LaunchActivatedEventArgs e)
         {
 
@@ -86,7 +82,7 @@ namespace MyerSplash
             }
             Window.Current.Activate();
 
-            TitleBarHelper.SetUpThemeTitleBar();
+            TitleBarHelper.SetUpDarkTitleBar();
             if (DeviceHelper.IsMobile)
             {
                 StatusBarHelper.SetUpStatusBar();
@@ -98,6 +94,7 @@ namespace MyerSplash
                 HardwareButtons.BackPressed += HardwareButtons_BackPressed;
             }
         }
+#pragma warning restore    
 
         private void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)
         {

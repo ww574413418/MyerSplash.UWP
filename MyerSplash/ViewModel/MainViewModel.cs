@@ -21,7 +21,8 @@ namespace MyerSplash.ViewModel
 {
     public class MainViewModel : ViewModelBase, INavigable
     {
-        private const string DEFAULT_CATEGORY = "FEATURED";
+        private const string FEATURED_CATEGORY_NAME = "FEATURED";
+        private const string NEW_CATEGORY_NAME = "NEW";
 
         private ImageDataViewModel _mainDataVM;
         public ImageDataViewModel MainDataVM
@@ -40,8 +41,8 @@ namespace MyerSplash.ViewModel
             }
         }
 
-        private ObservableCollection<UnsplashImage> _mainList;
-        public ObservableCollection<UnsplashImage> MainList
+        private ObservableCollection<UnsplashImageBase> _mainList;
+        public ObservableCollection<UnsplashImageBase> MainList
         {
             get
             {
@@ -236,7 +237,7 @@ namespace MyerSplash.ViewModel
             get
             {
                 if (_goToSettingsCommand != null) return _goToSettingsCommand;
-                return _goToSettingsCommand = new RelayCommand(async() =>
+                return _goToSettingsCommand = new RelayCommand(async () =>
                   {
                       DrawerOpened = false;
                       await NavigationService.NaivgateToPageAsync(typeof(SettingsPage));
@@ -250,7 +251,7 @@ namespace MyerSplash.ViewModel
             get
             {
                 if (_goToAboutCommand != null) return _goToAboutCommand;
-                return _goToAboutCommand = new RelayCommand(async() =>
+                return _goToAboutCommand = new RelayCommand(async () =>
                   {
                       DrawerOpened = false;
                       await NavigationService.NaivgateToPageAsync(typeof(AboutPage));
@@ -275,11 +276,15 @@ namespace MyerSplash.ViewModel
                     DrawerOpened = false;
                     if (value == 0)
                     {
-                        MainDataVM = new ImageDataViewModel(this, UrlHelper.GetFeaturedImages);
+                        MainDataVM = new ImageDataViewModel(this, UrlHelper.GetNewImages, false);
+                    }
+                    else if (value == 1)
+                    {
+                        MainDataVM = new ImageDataViewModel(this, UrlHelper.GetFeaturedImages, true);
                     }
                     else if (Categories?.Count > 0)
                     {
-                        MainDataVM = new ImageDataViewModel(this, Categories[value].RequestUrl);
+                        MainDataVM = new ImageDataViewModel(this, Categories[value].RequestUrl, false);
                     }
                     if (MainDataVM != null)
                     {
@@ -297,13 +302,13 @@ namespace MyerSplash.ViewModel
                 {
                     return Categories[SelectedIndex].Title.ToUpper();
                 }
-                else return DEFAULT_CATEGORY;
+                else return FEATURED_CATEGORY_NAME;
             }
         }
 
         public MainViewModel()
         {
-            MainList = new ObservableCollection<UnsplashImage>();
+            MainList = new ObservableCollection<UnsplashImageBase>();
 
             ShowFooterLoading = Visibility.Collapsed;
             ShowNoItemHint = Visibility.Collapsed;
@@ -322,7 +327,7 @@ namespace MyerSplash.ViewModel
                 var list = await SerializerHelper.DeserializeFromJsonByFile<IncrementalLoadingCollection<UnsplashImage>>(CachedFileNames.MainListFileName, CacheUtil.GetCachedFileFolder());
                 if (list != null)
                 {
-                    this.MainDataVM = new ImageDataViewModel(this, UrlHelper.GetFeaturedImages);
+                    this.MainDataVM = new ImageDataViewModel(this, UrlHelper.GetFeaturedImages, true);
                     list.ToList().ForEach(s => MainDataVM.DataList.Add(s));
 
                     for (int i = 0; i < MainDataVM.DataList.Count; i++)
@@ -334,9 +339,9 @@ namespace MyerSplash.ViewModel
                     }
                     await UpdateLiveTileAsync();
                 }
-                else MainDataVM = new ImageDataViewModel(this, UrlHelper.GetFeaturedImages);
+                else MainDataVM = new ImageDataViewModel(this, UrlHelper.GetFeaturedImages, true);
             }
-            else MainDataVM = new ImageDataViewModel(this, UrlHelper.GetFeaturedImages);
+            else MainDataVM = new ImageDataViewModel(this, UrlHelper.GetFeaturedImages, true);
         }
 
         private async Task RefreshAllAsync()
@@ -375,8 +380,11 @@ namespace MyerSplash.ViewModel
                 {
                     Title = "Featured",
                 });
-
-                SelectedIndex = 0;
+                this.Categories.Insert(0, new UnsplashCategory()
+                {
+                    Title = "New",
+                });
+                SelectedIndex = 1;
             }
         }
 

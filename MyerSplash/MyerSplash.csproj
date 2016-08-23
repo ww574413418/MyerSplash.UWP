@@ -109,8 +109,12 @@
     <Compile Include="Common\GlobalLocaleHelper.cs" />
     <Compile Include="Common\NavigationService.cs" />
     <Compile Include="Common\ToastHelper.cs" />
+    <Compile Include="Interface\IUnsplashImage.cs" />
+    <Compile Include="Interface\IUnsplashImageFeatured.cs" />
     <Compile Include="LiveTile\LiveTileUpdater.cs" />
     <Compile Include="Model\UnsplashCategory.cs" />
+    <Compile Include="Model\UnsplashFeaturedImage.cs" />
+    <Compile Include="Model\UnsplashImageBase.cs" />
     <Compile Include="UC\FeatureControl.xaml.cs">
       <DependentUpon>FeatureControl.xaml</DependentUpon>
     </Compile>

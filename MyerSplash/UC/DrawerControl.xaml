@@ -25,45 +25,33 @@
                        Text="MyerSplash" />
         </Grid>
         <Grid Grid.Row="1">
-            <!--<Grid Height="60"
-                  VerticalAlignment="Top"
-                  Background="#78464646">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="10" />
-                    <ColumnDefinition Width="50" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Border Background="{StaticResource MyerSplashThemeColor}" />
-                <SymbolIcon Grid.Column="1"
-                            Foreground="White"
-                            Symbol="Home" />
-                <TextBlock x:Uid="AllTB"
-                           Grid.Column="2"
-                           VerticalAlignment="Center"
-                           FontSize="17"
-                           Foreground="White"
-                           Text="ALL" />
-            </Grid>-->
-            <ListBox Margin="0,0,0,70"
-                     attach:ScrollViewerStyleChanger.Style="{StaticResource ScrollViewerCommonStyle}"
-                     Background="{x:Null}"
-                     ItemContainerStyle="{StaticResource MenuListBoxItemStyle}"
-                     ItemsSource="{x:Bind MainVM.Categories, Mode=OneWay}"
-                     SelectedIndex="{x:Bind MainVM.SelectedIndex, Mode=TwoWay}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate x:DataType="model:UnsplashCategory">
-                        <Grid Height="50">
-                            <TextBlock Grid.Column="2"
-                                       Margin="24 0 0 0"
-                                       VerticalAlignment="Center"
-                                       FontSize="15"
-                                       Foreground="White"
-                                       Text="{x:Bind Title, Mode=OneWay}" />
-                        </Grid>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <Grid VerticalAlignment="Bottom">
+            <ScrollViewer Margin="0,0,0,0"
+                          HorizontalAlignment="Center"
+                          attach:ScrollViewerStyleChanger.Style="{StaticResource ScrollViewerCommonStyle}"
+                          VerticalScrollBarVisibility="Auto"
+                          VerticalScrollMode="Auto">
+                <ListBox Margin="0,0,0,70"
+                         attach:ScrollViewerStyleChanger.Style="{StaticResource ScrollViewerCommonStyle}"
+                         Background="{x:Null}"
+                         ItemContainerStyle="{StaticResource MenuListBoxItemStyle}"
+                         ItemsSource="{x:Bind MainVM.Categories, Mode=OneWay}"
+                         SelectedIndex="{x:Bind MainVM.SelectedIndex, Mode=TwoWay}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate x:DataType="model:UnsplashCategory">
+                            <Grid Height="50">
+                                <TextBlock Grid.Column="2"
+                                           Margin="24 0 0 0"
+                                           VerticalAlignment="Center"
+                                           FontSize="15"
+                                           Foreground="White"
+                                           Text="{x:Bind Title, Mode=OneWay}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </ScrollViewer>
+
+            <Grid VerticalAlignment="Bottom" Background="{StaticResource MyerSplashDarkColor}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />

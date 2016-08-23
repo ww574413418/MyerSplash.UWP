@@ -29,18 +29,40 @@
                               SelectionMode="None"
                               ShowsScrollingPlaceholders="False">
         <control:AdaptiveGridView.ItemTemplate>
-            <DataTemplate x:DataType="model:UnsplashImage">
-                <Grid x:Name="RootGrid" SizeChanged="RootGrid_SizeChanged" Loaded="RootGrid_Loaded" Unloaded="RootGrid_Unloaded">
+            <DataTemplate x:DataType="model:UnsplashImageBase">
+                <Grid x:Name="RootGrid"
+                      Loaded="RootGrid_Loaded"
+                      SizeChanged="RootGrid_SizeChanged"
+                      Unloaded="RootGrid_Unloaded">
                     <Border Background="{x:Bind BackColor, Mode=OneWay}" />
-                    <Image x:Name="Img" Source="{x:Bind ListImageBitmap.Bitmap, Mode=OneWay}" Stretch="UniformToFill" />
+                    <Image x:Name="Img"
+                           Source="{x:Bind ListImageBitmap.Bitmap, Mode=OneWay}"
+                           Stretch="UniformToFill" />
                     <Border x:Name="MaskBorder" Background="#9C000000">
                         <Grid>
-                            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="16,0,0,16">
-                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE00B;" Foreground="#FFFF4A43" />
-                                <TextBlock Text="Likes" Foreground="White" FontWeight="Bold" Margin="8,0,0,0"/>
-                                <TextBlock Text="{x:Bind LikesString,Mode=OneWay}" Margin="8,0,0,0" Foreground="White" FontWeight="Bold"/>
+                            <StackPanel Margin="16,0,0,16"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Bottom"
+                                        Orientation="Horizontal">
+                                <FontIcon FontFamily="Segoe MDL2 Assets"
+                                          Foreground="#FFFF4A43"
+                                          Glyph="&#xE00B;" />
+                                <TextBlock Margin="8,0,0,0"
+                                           FontWeight="Bold"
+                                           Foreground="White"
+                                           Text="Likes" />
+                                <TextBlock Margin="8,0,0,0"
+                                           FontWeight="Bold"
+                                           Foreground="White"
+                                           Text="{x:Bind LikesString, Mode=OneWay}" />
                             </StackPanel>
-                            <TextBlock Text="{x:Bind CreateTimeString,Mode=OneWay}" Margin="0,0,16,16" Foreground="White" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+                            <TextBlock Margin="0,0,16,16"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Bottom"
+                                       FontWeight="Bold"
+                                       Foreground="White"
+                                       Text="{Binding Title,
+                                                      Mode=OneWay}" />
                         </Grid>
                     </Border>
                 </Grid>

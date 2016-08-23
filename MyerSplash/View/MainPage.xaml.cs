@@ -1,4 +1,5 @@
-﻿using MyerSplash.Common;
+﻿using JP.Utils.UI;
+using MyerSplash.Common;
 using MyerSplash.Model;
 using MyerSplash.ViewModel;
 using System;
@@ -10,6 +11,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Navigation;
 
 namespace MyerSplash.View
 {
@@ -28,9 +30,11 @@ namespace MyerSplash.View
         private double _lastVerticalOffset = 0;
         private bool _isHideTitleGrid = false;
 
-        private UnsplashImage _clickedImg;
+        private UnsplashImageBase _clickedImg;
         private FrameworkElement _clickedContainer;
         private bool _waitForToggleDetailAnimation;
+
+        private bool _hideTitleBarForDetail = false;
 
         public bool IsLoading
         {
@@ -74,7 +78,7 @@ namespace MyerSplash.View
             this.DataContext = MainVM = new MainViewModel();
             this.SizeChanged += MainPage_SizeChanged;
             this.Loaded += MainPage_Loaded;
-
+            TitleBarHelper.SetUpDarkTitleBar();
             InitComposition();
             InitBinding();
         }
@@ -200,10 +204,15 @@ namespace MyerSplash.View
 
         private void DetailControl_OnHideControl()
         {
+            if(_hideTitleBarForDetail)
+            {
+                _hideTitleBarForDetail = false;
+                ToggleTitleBarAnimation(true);
+            }
             ListControl.HideItemDetailAnimation();
         }
 
-        private void ListControl_OnClickItemStarted(UnsplashImage img, FrameworkElement container)
+        private void ListControl_OnClickItemStarted(UnsplashImageBase img, FrameworkElement container)
         {
             _clickedContainer = container;
             _clickedImg = img;
@@ -232,7 +241,11 @@ namespace MyerSplash.View
 
         private void ToggleDetailControlAnimation()
         {
-            DetailControl.CurrentImage = _clickedImg;
+            if (ListControl.GetScrollViewer().VerticalOffset > 30 && !_hideTitleBarForDetail)
+            {
+                _hideTitleBarForDetail = true;
+                ToggleTitleBarAnimation(false);
+            }
 
             var currentPos = _clickedContainer.TransformToVisual(ListControl).TransformPoint(new Point(0, 0));
             var targetPos = GetTargetPosition();
@@ -241,6 +254,7 @@ namespace MyerSplash.View
             var targetOffsetY = targetPos.Y - currentPos.Y;
 
             ListControl.MoveItemAnimation(new Vector3((float)targetOffsetX, (float)targetOffsetY, 0f), (float)targetRatio);
+            DetailControl.CurrentImage = _clickedImg;
             DetailControl.ToggleDetailGridAnimation(true);
 
             NavigationService.HistoryOperationsBeyondFrame.Push(() =>
@@ -399,5 +413,11 @@ namespace MyerSplash.View
             }
         }
         #endregion
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            TitleBarHelper.SetUpDarkTitleBar();
+        }
     }
 }

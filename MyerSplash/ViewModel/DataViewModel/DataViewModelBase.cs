@@ -63,7 +63,7 @@ namespace MyerSplash.ViewModel
                     }
                     catch (Exception e)
                     {
-                        var task = ExceptionHelper.WriteRecordAsync(e, nameof(DataViewModelBase<T>), nameof(ViewDetailCommand));
+                        var task = Logger.LogAsync(e);
                     }
                 });
             }
@@ -100,7 +100,7 @@ namespace MyerSplash.ViewModel
             }
             catch (Exception e)
             {
-                var task = ExceptionHelper.WriteRecordAsync(e, nameof(DataViewModelBase<T>), nameof(RefreshAsync));
+                var task = Logger.LogAsync(e);
                 return false;
             }
         }
@@ -137,7 +137,7 @@ namespace MyerSplash.ViewModel
             }
             catch (Exception e)
             {
-                var task = ExceptionHelper.WriteRecordAsync(e, nameof(DataViewModelBase<T>), nameof(GetIncrementalListData));
+                var task = Logger.LogAsync(e);
             }
             return new ResultData<T>() { Data = newList, HasMoreItems = HasMoreItems };
         }

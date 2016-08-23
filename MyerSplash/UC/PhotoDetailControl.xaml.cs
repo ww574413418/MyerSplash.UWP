@@ -1,4 +1,5 @@
-﻿using JP.Utils.UI;
+﻿using JP.Utils.Debug;
+using JP.Utils.UI;
 using MyerSplash.Model;
 using MyerSplashCustomControl;
 using System;
@@ -32,23 +33,24 @@ namespace MyerSplash.UC
 
         private CancellationTokenSource _cts;
 
-        public UnsplashImage CurrentImage
+        public UnsplashImageBase CurrentImage
         {
-            get { return (UnsplashImage)GetValue(UnsplashImageProperty); }
+            get { return (UnsplashImageBase)GetValue(UnsplashImageProperty); }
             set { SetValue(UnsplashImageProperty, value); }
         }
 
         public static readonly DependencyProperty UnsplashImageProperty =
-            DependencyProperty.Register("CurrentImage", typeof(UnsplashImage), typeof(PhotoDetailControl), new PropertyMetadata(null, OnImageChanged));
+            DependencyProperty.Register("CurrentImage", typeof(UnsplashImageBase), typeof(PhotoDetailControl), 
+                new PropertyMetadata(null, OnCurrentImagePropertyChanged));
 
         private DataTransferManager _dataTransferManager;
 
         public bool IsShown { get; set; }
 
-        private static void OnImageChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnCurrentImagePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var control = d as PhotoDetailControl;
-            var currentImage = e.NewValue as UnsplashImage;
+            var currentImage = e.NewValue as UnsplashImageBase;
             control.LargeImage.Source = currentImage.ListImageBitmap.Bitmap;
             control.InfoGrid.Background = currentImage.MajorColor;
             control.NameTB.Text = currentImage.Owner.Name;
@@ -112,6 +114,7 @@ namespace MyerSplash.UC
             _okVisual.Offset = new Vector3(100f, 0f, 0f);
             _downloadingHintGridVisual.Offset = new Vector3(100f, 0f, 0f);
 
+            PhotoSV.ChangeView(null, 0, null);
             StartLoadingAnimation();
         }
 
@@ -141,12 +144,12 @@ namespace MyerSplash.UC
         {
             IsShown = show;
 
-            DetailGrid.Visibility = Visibility.Visible;
+            this.Visibility = Visibility.Visible;
 
             var fadeAnimation = _compositor.CreateScalarKeyFrameAnimation();
             fadeAnimation.InsertKeyFrame(1f, show ? 1f : 0f);
             fadeAnimation.Duration = TimeSpan.FromMilliseconds(show ? 500 : 300);
-            fadeAnimation.DelayTime = TimeSpan.FromMilliseconds(show ? 300 : 0);
+            fadeAnimation.DelayTime = TimeSpan.FromMilliseconds(show ? 400 : 0);
 
             var batch = _compositor.CreateScopedBatch(CompositionBatchTypes.Animation);
             _detailGridVisual.StartAnimation("Opacity", fadeAnimation);
@@ -163,7 +166,7 @@ namespace MyerSplash.UC
                 if (!show)
                 {
                     ResetVisualInitState();
-                    DetailGrid.Visibility = Visibility.Collapsed;
+                    this.Visibility = Visibility.Collapsed;
                 }
             };
             batch.End();
@@ -235,7 +238,7 @@ namespace MyerSplash.UC
             try
             {
                 _cts = new CancellationTokenSource();
-                await this.CurrentImage.DownloadFullImage(_cts.Token);
+                await this.CurrentImage.DownloadFullImageAsync(_cts.Token);
                 ToggleDownloadingBtnAnimation(false);
 
                 //Still in this page
@@ -252,12 +255,13 @@ namespace MyerSplash.UC
                 ToggleOkBtnAnimation(false);
                 ToastService.SendToast("Cancelled", TimeSpan.FromMilliseconds(1000));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                var task = Logger.LogAsync(ex);
                 ToggleDownloadBtnAnimation(true);
                 ToggleDownloadingBtnAnimation(false);
                 ToggleOkBtnAnimation(false);
-                ToastService.SendToast("Exception throws.", TimeSpan.FromMilliseconds(1000));
+                ToastService.SendToast($"Exception throws.{ex.Message}", TimeSpan.FromMilliseconds(1000));
             }
         }
 

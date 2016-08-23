@@ -409,6 +409,8 @@
                                   IsOn="{Binding Source={StaticResource AppSettings},
                                                  Path=EnableTile,
                                                  Mode=TwoWay}"
+                                  OnContent="On"
+                                  OffContent="Off"
                                   RequestedTheme="Dark"
                                   Style="{StaticResource ToggleSwitchStyle1}" />
                 </Grid>
@@ -441,7 +443,7 @@
                                                   Mode=TwoWay}">
                     <ComboBoxItem Content="Large" Style="{StaticResource ComboBoxItemStyle}" />
                     <ComboBoxItem Content="Small" Style="{StaticResource ComboBoxItemStyle}" />
-                    <ComboBoxItem Content="Thumb" Style="{StaticResource ComboBoxItemStyle}" />
+                    <ComboBoxItem Content="Thumbnail" Style="{StaticResource ComboBoxItemStyle}" />
                 </ComboBox>
                 <TextBlock Margin="10,10,0,0"
                            VerticalAlignment="Center"
@@ -454,9 +456,9 @@
                           SelectedIndex="{Binding Source={StaticResource AppSettings},
                                                   Path=SaveQuality,
                                                   Mode=TwoWay}">
-                    <ComboBoxItem Content="Highest(Up to 8MB)" Style="{StaticResource ComboBoxItemStyle}" />
-                    <ComboBoxItem Content="High(Up to 3MB)" Style="{StaticResource ComboBoxItemStyle}" />
-                    <ComboBoxItem Content="Medium(500 KB)" Style="{StaticResource ComboBoxItemStyle}" />
+                    <ComboBoxItem Content="Highest (Up to 8MB)" Style="{StaticResource ComboBoxItemStyle}" />
+                    <ComboBoxItem Content="High (Up to 3MB)" Style="{StaticResource ComboBoxItemStyle}" />
+                    <ComboBoxItem Content="Medium (500 KB)" Style="{StaticResource ComboBoxItemStyle}" />
                 </ComboBox>
                 <TextBlock Margin="10,20,0,0"
                            HorizontalAlignment="Left"

@@ -25,7 +25,7 @@ namespace MyerSplashShared.Shared
             {
                 return _bitmap;
             }
-            set
+            private set
             {
                 if (_bitmap != value)
                 {
@@ -53,34 +53,22 @@ namespace MyerSplashShared.Shared
 
         public async Task LoadBitmapAsync()
         {
-            if (Bitmap == null)
-            {
-                Bitmap = new BitmapImage();
-            }
             if (!string.IsNullOrEmpty(LocalPath))
             {
-                var folder = GetCachedFileFolder();
-                var file = await folder.TryGetItemAsync(LocalPath);
+                var cachedFolder = ApplicationData.Current.TemporaryFolder;
+                var file = await cachedFolder.TryGetItemAsync(LocalPath);
                 if (file != null)
                 {
-                    var buffer = await FileIO.ReadBufferAsync(file as StorageFile);
-                    await Bitmap.SetSourceAsync(buffer.AsStream().AsRandomAccessStream());
+                    await SetImageSourceAsync(file as StorageFile);
                     return;
                 }
-                else
-                {
-                    await DownloadFromRemoteUrlAsync();
-                }
             }
-            else
-            {
-                await DownloadFromRemoteUrlAsync();
-            }
+            await DownloadFromRemoteUrlAsync();
         }
 
         private async Task DownloadFromRemoteUrlAsync()
         {
-            var cachedFolder = GetCachedFileFolder();
+            var cachedFolder = ApplicationData.Current.TemporaryFolder;
 
             if (!string.IsNullOrEmpty(ExpectedFileName))
             {
@@ -88,13 +76,13 @@ namespace MyerSplashShared.Shared
                 if (file != null)
                 {
                     LocalPath = file.Path;
-                    await SetSourceAsync(file);
+                    await SetImageSourceAsync(file);
                     return;
                 }
             }
             else
             {
-                ExpectedFileName = "temp.jpg";
+                ExpectedFileName = GenerateRandomFileName();
             }
             using (var stream = await FileDownloadUtil.GetIRandomAccessStreamFromUrlAsync(this.RemoteUrl, CTSFactory.MakeCTS(20000).Token))
             {
@@ -106,45 +94,35 @@ namespace MyerSplashShared.Shared
                 stream.Seek(0);
                 if (stream != null)
                 {
-                    await Bitmap.SetSourceAsync(stream);
+                    await SetImageSourceAsync(stream);
                 }
             }
         }
 
-        public async Task SetSourceAsync(IRandomAccessStream source)
+        public async Task SetImageSourceAsync(IRandomAccessStream source)
         {
-            if (Bitmap == null)
-            {
-                Bitmap = new BitmapImage();
-            }
+            Bitmap = new BitmapImage();
             await Bitmap.SetSourceAsync(source);
-            RaisePropertyChanged(nameof(Bitmap));
         }
 
-        public async Task SetSourceAsync(StorageFile source)
+        public async Task SetImageSourceAsync(StorageFile source)
         {
-            if (Bitmap == null)
-            {
-                Bitmap = new BitmapImage();
-            }
             using (var fs = await source.OpenAsync(FileAccessMode.Read))
             {
-                await SetSourceAsync(fs);
+                await SetImageSourceAsync(fs);
             }
         }
 
-        private StorageFolder GetCachedFileFolder()
+        public void SetBitmap(BitmapImage targetBitmap)
         {
-            return ApplicationData.Current.LocalFolder;
+            Bitmap = targetBitmap;
         }
 
-        /// <summary>
-        /// 保存Stream到目标文件夹，并制定文件名
-        /// </summary>
-        /// <param name="stream"></param>
-        /// <param name="expectedFileName"></param>
-        /// <param name="destinationFolder"></param>
-        /// <returns></returns>
+        private string GenerateRandomFileName()
+        {
+            return DateTime.Now.ToFileTime().ToString() + ".jpg";
+        }
+
         private async Task<StorageFile> SaveStreamIntoFileAsync(Stream stream, string expectedFileName,
             StorageFolder destinationFolder)
         {
@@ -159,7 +137,7 @@ namespace MyerSplashShared.Shared
             }
             catch (Exception e)
             {
-                var task = ExceptionHelper.WriteRecordAsync(e, nameof(CachedBitmapSource), nameof(SaveStreamIntoFileAsync), expectedFileName);
+                var task = Logger.LogAsync(e);
                 return null;
             }
         }

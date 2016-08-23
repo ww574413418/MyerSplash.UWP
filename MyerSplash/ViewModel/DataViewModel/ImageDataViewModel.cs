@@ -15,30 +15,34 @@ using System.Runtime.Serialization;
 
 namespace MyerSplash.ViewModel
 {
-    public class ImageDataViewModel : DataViewModelBase<UnsplashImage>
+    public class ImageDataViewModel : DataViewModelBase<UnsplashImageBase>
     {
         [IgnoreDataMember]
         public MainViewModel MainVM { get; set; }
 
         public string RequestUrl { get; set; }
 
-        public ImageDataViewModel(MainViewModel mainVM, string url)
+        public bool Featured { get; set; } = false;
+
+        public ImageDataViewModel(MainViewModel mainVM, string url, bool featured)
         {
             this.MainVM = mainVM;
             this.RequestUrl = url;
+            this.Featured = featured;
         }
 
-        public ImageDataViewModel(string url)
+        public ImageDataViewModel(string url, bool featured)
         {
             this.RequestUrl = url;
+            this.Featured = featured;
         }
 
-        protected override void ClickItem(UnsplashImage item)
+        protected override void ClickItem(UnsplashImageBase item)
         {
 
         }
 
-        protected async override Task<IEnumerable<UnsplashImage>> GetList(int pageIndex)
+        protected async override Task<IEnumerable<UnsplashImageBase>> GetList(int pageIndex)
         {
             try
             {
@@ -50,8 +54,16 @@ namespace MyerSplash.ViewModel
                 var result = await CloudService.GetImages(pageIndex, (int)DEFAULT_PER_PAGE, CTSFactory.MakeCTS(10000).Token, RequestUrl);
                 if (result.IsRequestSuccessful)
                 {
-                    var list = UnsplashImage.ParseListFromJson(result.JsonSrc);
-                    return list;
+                    if (Featured)
+                    {
+                        var list = UnsplashFeaturedImage.ParseListFromJson(result.JsonSrc);
+                        return list;
+                    }
+                    else
+                    {
+                        var list = UnsplashImage.ParseListFromJson(result.JsonSrc);
+                        return list;
+                    }
                 }
                 else
                 {
@@ -92,12 +104,12 @@ namespace MyerSplash.ViewModel
             }
             catch (Exception e)
             {
-                var task = ExceptionHelper.WriteRecordAsync(e, nameof(ImageDataViewModel), nameof(GetList));
+                var task = Logger.LogAsync(e);
                 return new List<UnsplashImage>();
             }
         }
 
-        protected async override void LoadMoreItemCompleted(IEnumerable<UnsplashImage> list, int index)
+        protected async override void LoadMoreItemCompleted(IEnumerable<UnsplashImageBase> list, int index)
         {
             var tasks = new List<Task>();
             for (var i = 0; i < list.Count(); i++)
@@ -106,9 +118,9 @@ namespace MyerSplash.ViewModel
 
                 if (i % 2 == 0) item.BackColor = new SolidColorBrush(ColorConverter.HexToColor("#FF2E2E2E").Value);
                 else item.BackColor = new SolidColorBrush(ColorConverter.HexToColor("#FF383838").Value);
+                item.MajorColor = new SolidColorBrush(ColorConverter.HexToColor(item.ColorValue).Value);
 
                 tasks.Add(item.DownloadImgForListAsync());
-                item.MajorColor = new SolidColorBrush(ColorConverter.HexToColor(item.ColorValue).Value);
             }
             await Task.WhenAll(tasks);
         }
