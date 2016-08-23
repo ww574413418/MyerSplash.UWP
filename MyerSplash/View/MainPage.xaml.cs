@@ -209,6 +209,9 @@ namespace MyerSplash.View
                 _hideTitleBarForDetail = false;
                 ToggleTitleBarAnimation(true);
             }
+            Canvas.SetZIndex(TitleGrid, 0);
+            Canvas.SetZIndex(ContentGrid, 0);
+            Canvas.SetZIndex(DetailControl, 0);
             ListControl.HideItemDetailAnimation();
         }
 
@@ -241,10 +244,16 @@ namespace MyerSplash.View
 
         private void ToggleDetailControlAnimation()
         {
-            if (ListControl.GetScrollViewer().VerticalOffset > 30 && !_hideTitleBarForDetail)
+            if(ListControl.GetScrollViewer().VerticalOffset>70 && !_hideTitleBarForDetail)
             {
                 _hideTitleBarForDetail = true;
                 ToggleTitleBarAnimation(false);
+            }
+            else
+            {
+                Canvas.SetZIndex(TitleGrid, 1);
+                Canvas.SetZIndex(ContentGrid, 2);
+                Canvas.SetZIndex(DetailControl, 3);
             }
 
             var currentPos = _clickedContainer.TransformToVisual(ListControl).TransformPoint(new Point(0, 0));
@@ -320,7 +329,7 @@ namespace MyerSplash.View
 
         private void ListControl_OnScrollViewerViewChanged(ScrollViewer scrollViewer)
         {
-            if ((scrollViewer.VerticalOffset - _lastVerticalOffset) > 30 && !_isHideTitleGrid)
+            if ((scrollViewer.VerticalOffset - _lastVerticalOffset) > 5 && !_isHideTitleGrid)
             {
                 _isHideTitleGrid = true;
                 ToggleRefreshBtnAnimation(false);
