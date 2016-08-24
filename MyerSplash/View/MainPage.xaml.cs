@@ -24,6 +24,8 @@ namespace MyerSplash.View
         private Visual _drawerMaskVisual;
         private Visual _titleGridVisual;
         private Visual _refreshBtnVisual;
+        private Visual _loadingVisual;
+        private Visual _refreshVisual;
 
         private double _lastVerticalOffset = 0;
         private bool _isHideTitleGrid = false;
@@ -41,7 +43,7 @@ namespace MyerSplash.View
         }
 
         public static readonly DependencyProperty IsLoadingProperty =
-            DependencyProperty.Register("IsLoading", typeof(bool), typeof(MainViewModel), 
+            DependencyProperty.Register("IsLoading", typeof(bool), typeof(MainViewModel),
                 new PropertyMetadata(false, OnLoadingPropertyChanged));
 
         public static void OnLoadingPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -49,12 +51,9 @@ namespace MyerSplash.View
             var page = d as MainPage;
             if (!(bool)e.NewValue)
             {
-                page.ListControl.HideLoadingAnimation();
+                page.HideLoading();
             }
-            else
-            {
-                page.ListControl.ShowLoadingAnimation();
-            }
+            else page.ShowLoading();
         }
 
         public bool DrawerOpended
@@ -64,7 +63,7 @@ namespace MyerSplash.View
         }
 
         public static readonly DependencyProperty DrawerOpendedProperty =
-            DependencyProperty.Register("DrawerOpended", typeof(bool), typeof(MainPage), 
+            DependencyProperty.Register("DrawerOpended", typeof(bool), typeof(MainPage),
                 new PropertyMetadata(false, OnDrawerOpenedPropertyChanged));
 
         public static void OnDrawerOpenedPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -88,7 +87,7 @@ namespace MyerSplash.View
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
             _drawerMaskVisual.Opacity = 0;
-            _drawerVisual.Offset = new Vector3(-300f, 0f, 0f);
+            _drawerVisual.Offset = new Vector3(-270f, 0f, 0f);
 
             DrawerMaskBorder.Visibility = Visibility.Collapsed;
         }
@@ -123,12 +122,57 @@ namespace MyerSplash.View
         private void InitComposition()
         {
             _compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
-
+            _loadingVisual = ElementCompositionPreview.GetElementVisual(LoadingGrid);
+            _refreshVisual = ElementCompositionPreview.GetElementVisual(RefreshIcon);
             _drawerVisual = ElementCompositionPreview.GetElementVisual(DrawerControl);
             _drawerMaskVisual = ElementCompositionPreview.GetElementVisual(DrawerMaskBorder);
             _titleGridVisual = ElementCompositionPreview.GetElementVisual(TitleGrid);
             _refreshBtnVisual = ElementCompositionPreview.GetElementVisual(RefreshBtn);
+            _loadingVisual.Offset = new Vector3(0f, -60f, 0f);
         }
+
+        #region Loading animation
+        private void ShowLoading()
+        {
+            var showAnimation = _compositor.CreateScalarKeyFrameAnimation();
+            showAnimation.InsertKeyFrame(1, 80f);
+            showAnimation.Duration = TimeSpan.FromMilliseconds(500);
+
+            var linearEasingFunc = _compositor.CreateLinearEasingFunction();
+
+            var rotateAnimation = _compositor.CreateScalarKeyFrameAnimation();
+            rotateAnimation.InsertKeyFrame(1, 3600f, linearEasingFunc);
+            rotateAnimation.Duration = TimeSpan.FromMilliseconds(10000);
+            rotateAnimation.IterationBehavior = AnimationIterationBehavior.Forever;
+
+            _loadingVisual.IsVisible = true;
+            if (_refreshVisual.CenterPoint.X == 0)
+            {
+                _refreshVisual.CenterPoint = new Vector3(25f, 25f, 0f);
+            }
+            _refreshVisual.RotationAngleInDegrees = 0;
+
+            _refreshVisual.StopAnimation("RotationAngleInDegrees");
+            _refreshVisual.StartAnimation("RotationAngleInDegrees", rotateAnimation);
+            _loadingVisual.StartAnimation("Offset.y", showAnimation);
+        }
+
+        private void HideLoading()
+        {
+            var hideAnimation = _compositor.CreateScalarKeyFrameAnimation();
+            hideAnimation.InsertKeyFrame(1, -60f);
+            hideAnimation.Duration = TimeSpan.FromMilliseconds(500);
+            hideAnimation.DelayTime = TimeSpan.FromMilliseconds(500);
+
+            var batch = _compositor.CreateScopedBatch(CompositionBatchTypes.Animation);
+            _loadingVisual.StartAnimation("Offset.y", hideAnimation);
+            batch.Completed += (sender, e) =>
+              {
+                  _loadingVisual.IsVisible = false;
+              };
+            batch.End();
+        }
+        #endregion
 
         #region Drawer animation
         private void ToggleDrawerAnimation(bool show)
@@ -165,13 +209,14 @@ namespace MyerSplash.View
 
         private void DetailControl_OnHideControl()
         {
-            if(_hideTitleBarForDetail)
+            if (_hideTitleBarForDetail)
             {
                 _hideTitleBarForDetail = false;
                 ToggleTitleBarAnimation(true);
             }
             Canvas.SetZIndex(TitleGrid, 0);
             Canvas.SetZIndex(ContentGrid, 0);
+            Canvas.SetZIndex(LoadingGrid, 0);
             Canvas.SetZIndex(DetailControl, 0);
             ListControl.HideItemDetailAnimation();
         }
@@ -205,7 +250,7 @@ namespace MyerSplash.View
 
         private void ToggleDetailControlAnimation()
         {
-            if(ListControl.GetScrollViewer().VerticalOffset>70 && !_hideTitleBarForDetail)
+            if (ListControl.GetScrollViewer().VerticalOffset > 70 && !_hideTitleBarForDetail)
             {
                 _hideTitleBarForDetail = true;
                 ToggleTitleBarAnimation(false);
@@ -213,6 +258,7 @@ namespace MyerSplash.View
             else
             {
                 Canvas.SetZIndex(TitleGrid, 1);
+                Canvas.SetZIndex(LoadingGrid, 0);
                 Canvas.SetZIndex(ContentGrid, 2);
                 Canvas.SetZIndex(DetailControl, 3);
             }
@@ -245,7 +291,7 @@ namespace MyerSplash.View
 
             var x = 0f;
             var y = 0f;
-            if(size.X!= this.ActualWidth)
+            if (size.X != this.ActualWidth)
             {
                 x = (float)(this.ActualWidth - size.X) / 2f;
             }

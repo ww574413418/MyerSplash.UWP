@@ -313,6 +313,7 @@ namespace MyerSplash.ViewModel
             ShowFooterLoading = Visibility.Collapsed;
             ShowNoItemHint = Visibility.Collapsed;
             ShowFooterReloadGrid = Visibility.Collapsed;
+            IsRefreshing = true;
 
             App.MainVM = this;
 

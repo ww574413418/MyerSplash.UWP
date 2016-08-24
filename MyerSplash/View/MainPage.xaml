@@ -11,7 +11,7 @@
                      xmlns:uc="using:MyerSplash.UC"
                      Background="{StaticResource MyerSplashThemeColor}"
                      mc:Ignorable="d">
-    <Grid Background="{StaticResource TitleBarDarkBrush}">
+    <Grid Background="#FF0C0C0C">
         <Grid.RowDefinitions>
             <RowDefinition Height="70" />
             <RowDefinition />
@@ -65,6 +65,20 @@
                     ManipulationDelta="TouchGrid_ManipulationDelta"
                     ManipulationMode="TranslateX" />
         </Grid>
+        <Grid Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <Grid x:Name="LoadingGrid"
+                  Margin="0,0,0,0"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Top">
+                <Ellipse Width="50"
+                         Height="50"
+                         Fill="#FFE5E5E5" />
+                <FontIcon x:Name="RefreshIcon"
+                          CacheMode="BitmapCache"
+                          FontFamily="Segoe MDL2 Assets"
+                          Glyph="&#xE149;" />
+            </Grid>
+        </Grid>
         <Grid x:Name="TitleGrid" Background="{StaticResource TitleBarDarkBrush}">
             <StackPanel Margin="5"
                         HorizontalAlignment="Center"
@@ -91,6 +105,7 @@
                                 Background="White"
                                 Command="{x:Bind MainVM.OpenDrawerCommand, Mode=OneWay}" />
         </Grid>
+        
 
         <uc:PhotoDetailControl x:Name="DetailControl"
                                Grid.RowSpan="2"
