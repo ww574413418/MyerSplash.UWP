@@ -1,4 +1,5 @@
-﻿using JP.Utils.UI;
+﻿using CompositionHelper.Animation.Fluent;
+using JP.Utils.UI;
 using MyerSplash.Model;
 using MyerSplash.ViewModel;
 using System;
@@ -29,6 +30,7 @@ namespace MyerSplash.UC
         }
 
         private Visual _containerVisual;
+        private Visual _listVisual;
         private Compositor _compositor;
 
         private int _zindex = 1;
@@ -40,9 +42,10 @@ namespace MyerSplash.UC
         {
             this.InitializeComponent();
             this._compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
+            this._listVisual = ElementCompositionPreview.GetElementVisual(ImageGridView);
         }
 
-        private async void ImageGridView_ItemClick(object sender, ItemClickEventArgs e)
+        private void ImageGridView_ItemClick(object sender, ItemClickEventArgs e)
         {
             var item = e.ClickedItem;
             var container = ImageGridView.ContainerFromItem(item) as FrameworkElement;
@@ -56,7 +59,7 @@ namespace MyerSplash.UC
             var maskBorder = rootGrid.Children[2] as FrameworkElement;
             var img = rootGrid.Children[1] as FrameworkElement;
 
-            ToggleItemMaskAnimation(maskBorder, img, false);
+            ToggleItemPointAnimation(maskBorder, img, false);
 
             OnClickItemStarted?.Invoke(unsplashImg, container);
         }
@@ -98,6 +101,26 @@ namespace MyerSplash.UC
         public void ScrollToTop()
         {
             ImageGridView.GetScrollViewer().ChangeView(null, 0, null);
+        }
+
+        public void ShowLoadingAnimation()
+        {
+            ScrollToTop();
+            ToggleLoadingAnimation(true);
+        }
+
+        public void HideLoadingAnimation()
+        {
+            ToggleLoadingAnimation(false);
+        }
+
+        private void ToggleLoadingAnimation(bool show)
+        {
+            var offsetAnimation = _compositor.CreateVector3KeyFrameAnimation();
+            offsetAnimation.InsertKeyFrame(1, new Vector3(0f, show?70f:0f, 0f));
+            offsetAnimation.Duration = TimeSpan.FromMilliseconds(500);
+
+            _listVisual.StartAnimation("Offset", offsetAnimation);
         }
 
         #region List Animation
@@ -180,7 +203,7 @@ namespace MyerSplash.UC
             var maskBorder = rootGrid.Children[2] as FrameworkElement;
             var img = rootGrid.Children[1] as FrameworkElement;
 
-            ToggleItemMaskAnimation(maskBorder, img, false);
+            ToggleItemPointAnimation(maskBorder, img, false);
         }
 
         private void RootGrid_PointerEntered(object sender, PointerRoutedEventArgs e)
@@ -193,7 +216,7 @@ namespace MyerSplash.UC
             var maskBorder = rootGrid.Children[2] as FrameworkElement;
             var img = rootGrid.Children[1] as FrameworkElement;
 
-            ToggleItemMaskAnimation(maskBorder, img, true);
+            ToggleItemPointAnimation(maskBorder, img, true);
         }
 
         private void RootGrid_Unloaded(object sender, RoutedEventArgs e)
@@ -208,7 +231,7 @@ namespace MyerSplash.UC
             var scaleAnimation = _compositor.CreateScalarKeyFrameAnimation();
             scaleAnimation.InsertKeyFrame(1f, show ? 1.1f : 1f);
             scaleAnimation.Duration = TimeSpan.FromMilliseconds(1000);
-
+            scaleAnimation.StopBehavior = AnimationStopBehavior.LeaveCurrentValue;
             return scaleAnimation;
         }
 
@@ -221,7 +244,7 @@ namespace MyerSplash.UC
             return fadeAnimation;
         }
 
-        private void ToggleItemMaskAnimation(FrameworkElement mask, FrameworkElement img, bool show)
+        private void ToggleItemPointAnimation(FrameworkElement mask, FrameworkElement img, bool show)
         {
             var maskVisual = ElementCompositionPreview.GetElementVisual(mask);
             var imgVisual = ElementCompositionPreview.GetElementVisual(img);
@@ -229,7 +252,10 @@ namespace MyerSplash.UC
             var fadeAnimation = CreateFadeAnimation(show);
             var scaleAnimation = CreateScaleAnimation(show);
 
-            imgVisual.CenterPoint = new Vector3((float)img.ActualHeight / 2, (float)img.ActualHeight / 2, 0f);
+            if (imgVisual.CenterPoint.X == 0 && imgVisual.CenterPoint.Y == 0)
+            {
+                imgVisual.CenterPoint = new Vector3((float)img.ActualHeight / 2, (float)img.ActualHeight / 2, 0f);
+            }
 
             maskVisual.StartAnimation("Opacity", fadeAnimation);
             imgVisual.StartAnimation("Scale.x", scaleAnimation);

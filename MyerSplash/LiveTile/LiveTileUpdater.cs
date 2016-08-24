@@ -46,7 +46,7 @@ namespace MyerSplash.LiveTile
             }
             catch (Exception e)
             {
-                var task = ExceptionHelper.WriteRecordAsync(e, nameof(LiveTileUpdater), nameof(UpdateImagesTileAsync));
+                var task = Logger.LogAsync(e);
             }
         }
 

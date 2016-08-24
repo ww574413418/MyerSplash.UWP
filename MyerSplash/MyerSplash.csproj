@@ -121,6 +121,9 @@
     <Compile Include="UC\ImageListControl.xaml.cs">
       <DependentUpon>ImageListControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UC\LoadingControl.xaml.cs">
+      <DependentUpon>LoadingControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UC\PhotoDetailControl.xaml.cs">
       <DependentUpon>PhotoDetailControl.xaml</DependentUpon>
     </Compile>
@@ -249,6 +252,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UC\ImageListControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\LoadingControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

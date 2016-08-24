@@ -16,20 +16,6 @@
             <RowDefinition Height="70" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Grid Grid.RowSpan="2">
-            <Grid x:Name="LoadingGrid"
-                  Margin="0,70,0,0"
-                  HorizontalAlignment="Center"
-                  VerticalAlignment="Top">
-                <Ellipse Width="50"
-                         Height="50"
-                         Fill="#FFE5E5E5" />
-                <FontIcon x:Name="RefreshIcon"
-                          CacheMode="BitmapCache"
-                          FontFamily="Segoe MDL2 Assets"
-                          Glyph="&#xE149;" />
-            </Grid>
-        </Grid>
         <Grid x:Name="ContentGrid"
               Grid.Row="0"
               Grid.RowSpan="2"

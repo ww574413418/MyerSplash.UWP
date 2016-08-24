@@ -28,6 +28,11 @@
                               MinItemWidth="300"
                               SelectionMode="None"
                               ShowsScrollingPlaceholders="False">
+        <control:AdaptiveGridView.Header>
+            <Grid Height="70">
+                <ProgressBar IsIndeterminate="True" Foreground="{StaticResource MyerSplashThemeColor}" Background="{x:Null}"/>
+            </Grid>
+        </control:AdaptiveGridView.Header>
         <control:AdaptiveGridView.ItemTemplate>
             <DataTemplate x:DataType="model:UnsplashImageBase">
                 <Grid x:Name="RootGrid"
@@ -77,9 +82,7 @@
                 <Setter Property="Margin" Value="0" />
             </Style>
         </control:AdaptiveGridView.ItemContainerStyle>
-        <control:AdaptiveGridView.Header>
-            <Grid Height="70" />
-        </control:AdaptiveGridView.Header>
+       
         <control:AdaptiveGridView.Footer>
             <Grid Height="100">
                 <Grid Height="50" Visibility="{x:Bind MainVM.ShowFooterLoading, Mode=OneWay}">

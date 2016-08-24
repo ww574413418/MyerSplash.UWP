@@ -20,8 +20,6 @@ namespace MyerSplash.View
         private MainViewModel MainVM { get; set; }
 
         private Compositor _compositor;
-        private Visual _loadingVisual;
-        private Visual _refreshVisual;
         private Visual _drawerVisual;
         private Visual _drawerMaskVisual;
         private Visual _titleGridVisual;
@@ -43,16 +41,20 @@ namespace MyerSplash.View
         }
 
         public static readonly DependencyProperty IsLoadingProperty =
-            DependencyProperty.Register("IsLoading", typeof(bool), typeof(MainViewModel), new PropertyMetadata(false, OnLoadingPropertyChanged));
+            DependencyProperty.Register("IsLoading", typeof(bool), typeof(MainViewModel), 
+                new PropertyMetadata(false, OnLoadingPropertyChanged));
 
         public static void OnLoadingPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var page = d as MainPage;
             if (!(bool)e.NewValue)
             {
-                page.HideLoading();
+                page.ListControl.HideLoadingAnimation();
             }
-            else page.ShowLoading();
+            else
+            {
+                page.ListControl.ShowLoadingAnimation();
+            }
         }
 
         public bool DrawerOpended
@@ -85,7 +87,6 @@ namespace MyerSplash.View
 
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
-            _loadingVisual.Offset = new Vector3(0f, -60f, 0f);
             _drawerMaskVisual.Opacity = 0;
             _drawerVisual.Offset = new Vector3(-300f, 0f, 0f);
 
@@ -122,52 +123,12 @@ namespace MyerSplash.View
         private void InitComposition()
         {
             _compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
-            _loadingVisual = ElementCompositionPreview.GetElementVisual(LoadingGrid);
-            _refreshVisual = ElementCompositionPreview.GetElementVisual(RefreshIcon);
+
             _drawerVisual = ElementCompositionPreview.GetElementVisual(DrawerControl);
             _drawerMaskVisual = ElementCompositionPreview.GetElementVisual(DrawerMaskBorder);
             _titleGridVisual = ElementCompositionPreview.GetElementVisual(TitleGrid);
             _refreshBtnVisual = ElementCompositionPreview.GetElementVisual(RefreshBtn);
         }
-
-        #region Loading animation
-        private void ShowLoading()
-        {
-            var showAnimation = _compositor.CreateVector3KeyFrameAnimation();
-            showAnimation.InsertKeyFrame(1, new Vector3(0f, 50f, 0f));
-            showAnimation.Duration = TimeSpan.FromMilliseconds(500);
-
-            var linearEasingFunc = _compositor.CreateLinearEasingFunction();
-
-            var rotateAnimation = _compositor.CreateScalarKeyFrameAnimation();
-            rotateAnimation.InsertKeyFrame(1, 3600f, linearEasingFunc);
-            rotateAnimation.Duration = TimeSpan.FromMilliseconds(10000);
-            rotateAnimation.IterationBehavior = AnimationIterationBehavior.Forever;
-
-            _loadingVisual.IsVisible = true;
-            _refreshVisual.CenterPoint = new Vector3((float)LoadingGrid.ActualWidth / 2, (float)LoadingGrid.ActualHeight / 2, 0f);
-            _refreshVisual.RotationAngleInDegrees = 0;
-
-            _refreshVisual.StopAnimation("RotationAngleInDegrees");
-            _refreshVisual.StartAnimation("RotationAngleInDegrees", rotateAnimation);
-            _loadingVisual.StartAnimation("Offset", showAnimation);
-        }
-
-        private void HideLoading()
-        {
-            var showAnimation = _compositor.CreateScalarKeyFrameAnimation();
-            showAnimation.InsertKeyFrame(1, -60f);
-            showAnimation.Duration = TimeSpan.FromMilliseconds(500);
-
-            var batch = _compositor.CreateScopedBatch(CompositionBatchTypes.Animation);
-            _loadingVisual.StartAnimation("Offset.y", showAnimation);
-            batch.Completed += (sender, e) =>
-              {
-                  _loadingVisual.IsVisible = false;
-              };
-            batch.End();
-        }
-        #endregion
 
         #region Drawer animation
         private void ToggleDrawerAnimation(bool show)
