@@ -106,6 +106,7 @@
     <Compile Include="Common\AppSettings.cs" />
     <Compile Include="Common\BindablePage.cs" />
     <Compile Include="Common\CachedFileNames.cs" />
+    <Compile Include="Common\CustomizedTitleBarPage.cs" />
     <Compile Include="Common\GlobalLocaleHelper.cs" />
     <Compile Include="Common\NavigationService.cs" />
     <Compile Include="Common\ToastHelper.cs" />
@@ -115,8 +116,8 @@
     <Compile Include="Model\UnsplashCategory.cs" />
     <Compile Include="Model\UnsplashFeaturedImage.cs" />
     <Compile Include="Model\UnsplashImageBase.cs" />
-    <Compile Include="UC\EmptyTitleControl.xaml.cs">
-      <DependentUpon>EmptyTitleControl.xaml</DependentUpon>
+    <Compile Include="UC\TitleBarControl.xaml.cs">
+      <DependentUpon>TitleBarControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UC\FeatureControl.xaml.cs">
       <DependentUpon>FeatureControl.xaml</DependentUpon>
@@ -246,7 +247,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UC\EmptyTitleControl.xaml">
+    <Page Include="UC\TitleBarControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

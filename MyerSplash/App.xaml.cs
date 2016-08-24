@@ -79,7 +79,7 @@ namespace MyerSplash
             }
             Window.Current.Activate();
 
-            TitleBarHelper.SetUpDarkTitleBar();
+            TitleBarHelper.SetUpLightTitleBar();
             if (DeviceHelper.IsMobile)
             {
                 StatusBarHelper.SetUpStatusBar();
@@ -87,6 +87,7 @@ namespace MyerSplash
 
             CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
 
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
             SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
             if (APIInfoHelper.HasHardwareButton)
             {

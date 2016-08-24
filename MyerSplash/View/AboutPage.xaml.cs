@@ -1,4 +1,5 @@
 ﻿using MyerSplash.Common;
+using MyerSplash.UC;
 using MyerSplash.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -17,7 +19,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace MyerSplash.View
 {
-    public sealed partial class AboutPage : BindablePage
+    public sealed partial class AboutPage : CustomizedTitleBarPage
     {
         private AboutViewModel AboutVM { get; set; }
 
@@ -30,7 +32,7 @@ namespace MyerSplash.View
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            TitleBarHelper.SetUpThemeTitleBar();
+            TitleBarHelper.SetUpDarkTitleBar();
         }
     }
 }

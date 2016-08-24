@@ -8,10 +8,11 @@ namespace MyerSplash.Common
     {
         private static StatusBar sb = StatusBar.GetForCurrentView();
 
+#pragma warning disable 4014
         public static void SetUpStatusBar()
         {
-            sb.BackgroundOpacity = 0;
-            sb.ForegroundColor = Colors.Black;
+            sb.HideAsync();
         }
+#pragma warning restore
     }
 }

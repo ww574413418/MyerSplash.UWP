@@ -1,4 +1,5 @@
-﻿using JP.Utils.UI;
+﻿using JP.Utils.Helper;
+using JP.Utils.UI;
 using MyerSplash.Common;
 using MyerSplash.Model;
 using MyerSplash.UC;
@@ -18,6 +19,9 @@ namespace MyerSplash.View
 {
     public sealed partial class MainPage : BindablePage
     {
+        private const float TITLE_GRID_HEIGHT = 70;
+        private const float DRAWER_WIDTH = 270;
+
         private MainViewModel MainVM { get; set; }
 
         private Compositor _compositor;
@@ -78,35 +82,29 @@ namespace MyerSplash.View
         {
             this.InitializeComponent();
             this.DataContext = MainVM = new MainViewModel();
-            this.SizeChanged += MainPage_SizeChanged;
             this.Loaded += MainPage_Loaded;
-            TitleBarHelper.SetUpDarkTitleBar();
+            TitleBarHelper.SetUpLightTitleBar();
             InitComposition();
             InitBinding();
 
-            var titleBar = new EmptyTitleControl();
-            (this.Content as Grid).Children.Add(titleBar);
-            Grid.SetColumnSpan(titleBar, 5);
-            Grid.SetRowSpan(titleBar, 5);
-            Canvas.SetZIndex(titleBar, 100);
+            if (DeviceHelper.IsDesktop)
+            {
+                var titleBar = new TitleBarControl() { ShowBackBtn = false };
+                (this.Content as Grid).Children.Add(titleBar);
+                Grid.SetColumnSpan(titleBar, 5);
+                Grid.SetRowSpan(titleBar, 5);
+                Canvas.SetZIndex(titleBar, 100);
 
-            Window.Current.SetTitleBar(titleBar);
+                Window.Current.SetTitleBar(titleBar);
+            }
         }
 
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
             _drawerMaskVisual.Opacity = 0;
-            _drawerVisual.Offset = new Vector3(-270f, 0f, 0f);
+            _drawerVisual.Offset = new Vector3(-DRAWER_WIDTH, 0f, 0f);
 
             DrawerMaskBorder.Visibility = Visibility.Collapsed;
-        }
-
-        private void MainPage_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            if (!DrawerOpended)
-            {
-                _drawerVisual.Offset = new Vector3(-(float)Window.Current.Bounds.Width, 0f, 0f);
-            }
         }
 
         private void InitBinding()
@@ -187,7 +185,7 @@ namespace MyerSplash.View
         private void ToggleDrawerAnimation(bool show)
         {
             var offsetAnim = _compositor.CreateScalarKeyFrameAnimation();
-            offsetAnim.InsertKeyFrame(1f, show ? 0f : -300);
+            offsetAnim.InsertKeyFrame(1f, show ? 0f : -DRAWER_WIDTH);
             offsetAnim.Duration = TimeSpan.FromMilliseconds(300);
 
             _drawerVisual.StartAnimation("Offset.X", offsetAnim);
@@ -259,24 +257,27 @@ namespace MyerSplash.View
 
         private void ToggleDetailControlAnimation()
         {
-            if (ListControl.GetScrollViewer().VerticalOffset > 70 && !_hideTitleBarForDetail)
-            {
-                _hideTitleBarForDetail = true;
-                ToggleTitleBarAnimation(false);
-            }
-            else
-            {
-                Canvas.SetZIndex(TitleGrid, 1);
-                Canvas.SetZIndex(LoadingGrid, 0);
-                Canvas.SetZIndex(ContentGrid, 2);
-                Canvas.SetZIndex(DetailControl, 3);
-            }
-
             var currentPos = _clickedContainer.TransformToVisual(ListControl).TransformPoint(new Point(0, 0));
             var targetPos = GetTargetPosition();
             var targetRatio = GetTargetSize().X / _clickedContainer.ActualWidth;
             var targetOffsetX = targetPos.X - currentPos.X;
             var targetOffsetY = targetPos.Y - currentPos.Y;
+
+            if (targetPos.Y <= TITLE_GRID_HEIGHT)
+            {
+                if (ListControl.GetScrollViewer().VerticalOffset > 70 && !_hideTitleBarForDetail)
+                {
+                    _hideTitleBarForDetail = true;
+                    ToggleTitleBarAnimation(false);
+                }
+                else
+                {
+                    Canvas.SetZIndex(TitleGrid, 1);
+                    Canvas.SetZIndex(LoadingGrid, 0);
+                    Canvas.SetZIndex(ContentGrid, 2);
+                    Canvas.SetZIndex(DetailControl, 3);
+                }
+            }
 
             ListControl.MoveItemAnimation(new Vector3((float)targetOffsetX, (float)targetOffsetY, 0f), (float)targetRatio);
             DetailControl.CurrentImage = _clickedImg;
@@ -442,7 +443,7 @@ namespace MyerSplash.View
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            TitleBarHelper.SetUpDarkTitleBar();
+            TitleBarHelper.SetUpLightTitleBar();
         }
     }
 }

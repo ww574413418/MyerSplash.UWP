@@ -9,7 +9,7 @@
                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                      xmlns:model="using:MyerSplash.Model"
                      xmlns:uc="using:MyerSplash.UC"
-                     Background="{StaticResource MyerSplashThemeColor}"
+                     Background="{StaticResource TitleBarDarkBrush}"
                      mc:Ignorable="d">
     <Grid Background="#FF0C0C0C" x:Name="RootGrid">
         <Grid.RowDefinitions>
@@ -105,8 +105,6 @@
                                 Background="White"
                                 Command="{x:Bind MainVM.OpenDrawerCommand, Mode=OneWay}" />
         </Grid>
-        
-
         <uc:PhotoDetailControl x:Name="DetailControl"
                                Grid.RowSpan="2"
                                d:IsHidden="True"
@@ -116,7 +114,8 @@
                 Grid.RowSpan="2"
                 attach:UIElementTapCommand.ItemTapCommand="{x:Bind MainVM.OpenDrawerCommand, Mode=OneWay}"
                 d:IsHidden="True"
-                Background="#CC000000" />
+                Background="Black" 
+                Opacity="0.9"/>
         <uc:DrawerControl x:Name="DrawerControl"
                           Grid.RowSpan="2"
                           Width="270"
