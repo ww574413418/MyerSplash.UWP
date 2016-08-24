@@ -269,7 +269,7 @@ namespace MyerSplash.Model
 
             if (string.IsNullOrEmpty(url)) return;
 
-            ListImageBitmap.ExpectedFileName = DateTime.Now.ToFileTime().ToString() + ".jpg";
+            ListImageBitmap.ExpectedFileName = this.ID + ".jpg";
             ListImageBitmap.RemoteUrl = url;
             await ListImageBitmap.LoadBitmapAsync();
         }

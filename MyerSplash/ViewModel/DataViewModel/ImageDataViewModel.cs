@@ -12,6 +12,8 @@ using Windows.UI.Core;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml;
 using System.Runtime.Serialization;
+using System.Diagnostics;
+using MyerSplash.LiveTile;
 
 namespace MyerSplash.ViewModel
 {
@@ -123,6 +125,28 @@ namespace MyerSplash.ViewModel
                 tasks.Add(item.DownloadImgForListAsync());
             }
             await Task.WhenAll(tasks);
+
+            if(index==1)
+            {
+                await UpdateLiveTileAsync();
+            }
+        }
+
+        private async Task UpdateLiveTileAsync()
+        {
+            var list = new List<string>();
+
+            if (DataList == null) return;
+
+            foreach (var item in DataList)
+            {
+                list.Add(item.ListImageBitmap.LocalPath);
+            }
+            if (App.AppSettings.EnableTile && list.Count > 0)
+            {
+                Debug.WriteLine("About to update tile.");
+                await LiveTileUpdater.UpdateImagesTileAsync(list);
+            }
         }
     }
 }

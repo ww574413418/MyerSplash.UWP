@@ -338,7 +338,6 @@ namespace MyerSplash.ViewModel
                         else item.BackColor = App.Current.Resources["ImageBackBrush2"] as SolidColorBrush;
                         var task = item.RestoreDataAsync();
                     }
-                    await UpdateLiveTileAsync();
                 }
                 else MainDataVM = new ImageDataViewModel(this, UrlHelper.GetFeaturedImages, true);
             }
@@ -350,7 +349,6 @@ namespace MyerSplash.ViewModel
             var task1 = GetCategoriesAsync();
             await RefreshListAsync();
             await SaveMainListDataAsync();
-            await UpdateLiveTileAsync();
         }
 
         private async Task RefreshListAsync()
@@ -394,26 +392,6 @@ namespace MyerSplash.ViewModel
             if (this.MainDataVM.DataList?.Count > 0)
             {
                 await SerializerHelper.SerializerToJson<IncrementalLoadingCollection<UnsplashImage>>(this.MainDataVM.DataList, CachedFileNames.MainListFileName, CacheUtil.GetCachedFileFolder());
-                //if (MainList?.ToList().FirstOrDefault()?.ID != MainDataVM?.DataList?.FirstOrDefault()?.ID && SelectedIndex == 0)
-                //{
-                //    MainList = MainDataVM.DataList;
-                //}
-            }
-        }
-        private async Task UpdateLiveTileAsync()
-        {
-            var list = new List<string>();
-
-            if (MainList == null) return;
-
-            foreach (var item in MainList)
-            {
-                list.Add(item.ListImageBitmap.LocalPath);
-            }
-            if (App.AppSettings.EnableTile && list.Count > 0)
-            {
-                Debug.WriteLine("About to update tile.");
-                await LiveTileUpdater.UpdateImagesTileAsync(list);
             }
         }
 

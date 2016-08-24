@@ -56,15 +56,16 @@ namespace MyerSplash
 #pragma warning disable 1998
         protected async override void OnLaunched(LaunchActivatedEventArgs e)
         {
-
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
             {
                 this.DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
-            Frame rootFrame = Window.Current.Content as Frame;
+            if (e.PrelaunchActivated) return;
 
+            Frame rootFrame = Window.Current.Content as Frame;
+            
             if (rootFrame == null)
             {
                 rootFrame = new Frame();
@@ -84,8 +85,6 @@ namespace MyerSplash
             {
                 StatusBarHelper.SetUpStatusBar();
             }
-
-            CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
 
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
             SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;

@@ -84,7 +84,7 @@ namespace MyerSplashShared.Shared
             {
                 ExpectedFileName = GenerateRandomFileName();
             }
-            using (var stream = await FileDownloadUtil.GetIRandomAccessStreamFromUrlAsync(this.RemoteUrl, CTSFactory.MakeCTS(20000).Token))
+            using (var stream = await FileDownloadUtil.GetIRandomAccessStreamFromUrlAsync(this.RemoteUrl, CTSFactory.MakeCTS().Token))
             {
                 var file = await SaveStreamIntoFileAsync(stream.AsStream(), ExpectedFileName, cachedFolder);
                 if (file != null)
