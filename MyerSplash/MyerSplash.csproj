@@ -115,6 +115,9 @@
     <Compile Include="Model\UnsplashCategory.cs" />
     <Compile Include="Model\UnsplashFeaturedImage.cs" />
     <Compile Include="Model\UnsplashImageBase.cs" />
+    <Compile Include="UC\EmptyTitleControl.xaml.cs">
+      <DependentUpon>EmptyTitleControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UC\FeatureControl.xaml.cs">
       <DependentUpon>FeatureControl.xaml</DependentUpon>
     </Compile>
@@ -242,6 +245,10 @@
     <Page Include="UC\DrawerControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\EmptyTitleControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UC\FeatureControl.xaml">
       <SubType>Designer</SubType>

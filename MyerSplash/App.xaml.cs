@@ -63,16 +63,13 @@ namespace MyerSplash
                 this.DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
-
             Frame rootFrame = Window.Current.Content as Frame;
 
             if (rootFrame == null)
             {
                 rootFrame = new Frame();
                 rootFrame.Background = App.Current.Resources["MyerSplashDarkColor"] as SolidColorBrush;
-
                 rootFrame.NavigationFailed += OnNavigationFailed;
-
                 Window.Current.Content = rootFrame;
             }
 
@@ -87,6 +84,8 @@ namespace MyerSplash
             {
                 StatusBarHelper.SetUpStatusBar();
             }
+
+            CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
 
             SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
             if (APIInfoHelper.HasHardwareButton)

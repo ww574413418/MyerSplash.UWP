@@ -1,6 +1,7 @@
 ﻿using JP.Utils.UI;
 using MyerSplash.Common;
 using MyerSplash.Model;
+using MyerSplash.UC;
 using MyerSplash.ViewModel;
 using System;
 using System.Numerics;
@@ -82,6 +83,14 @@ namespace MyerSplash.View
             TitleBarHelper.SetUpDarkTitleBar();
             InitComposition();
             InitBinding();
+
+            var titleBar = new EmptyTitleControl();
+            (this.Content as Grid).Children.Add(titleBar);
+            Grid.SetColumnSpan(titleBar, 5);
+            Grid.SetRowSpan(titleBar, 5);
+            Canvas.SetZIndex(titleBar, 100);
+
+            Window.Current.SetTitleBar(titleBar);
         }
 
         private void MainPage_Loaded(object sender, RoutedEventArgs e)

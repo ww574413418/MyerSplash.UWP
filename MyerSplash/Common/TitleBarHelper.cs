@@ -30,13 +30,13 @@ namespace MyerSplash.Common
             titleBar.ForegroundColor = Colors.White;
             titleBar.InactiveBackgroundColor = (App.Current.Resources["TitleBarDarkBrush"] as SolidColorBrush).Color;
             titleBar.InactiveForegroundColor = Colors.White;
-            titleBar.ButtonBackgroundColor = (App.Current.Resources["TitleBarDarkBrush"] as SolidColorBrush).Color;
+            titleBar.ButtonBackgroundColor = ColorConverter.HexToColor("#00000000");
             titleBar.ButtonForegroundColor = Colors.White;
-            titleBar.ButtonInactiveBackgroundColor = (App.Current.Resources["TitleBarDarkBrush"] as SolidColorBrush).Color;
+            titleBar.ButtonInactiveBackgroundColor = ColorConverter.HexToColor("#00000000");
             titleBar.ButtonInactiveForegroundColor = Colors.White;
-            titleBar.ButtonHoverBackgroundColor = ColorConverter.HexToColor("#FF2B2B2B");
+            titleBar.ButtonHoverBackgroundColor = ColorConverter.HexToColor("#73000000");
             titleBar.ButtonHoverForegroundColor = Colors.White;
-            titleBar.ButtonPressedBackgroundColor = ColorConverter.HexToColor("#FF1D1D1D");
+            titleBar.ButtonPressedBackgroundColor = ColorConverter.HexToColor("#28000000");
             titleBar.ButtonPressedForegroundColor = Colors.White;
         }
     }

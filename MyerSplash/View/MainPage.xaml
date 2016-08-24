@@ -11,7 +11,7 @@
                      xmlns:uc="using:MyerSplash.UC"
                      Background="{StaticResource MyerSplashThemeColor}"
                      mc:Ignorable="d">
-    <Grid Background="#FF0C0C0C">
+    <Grid Background="#FF0C0C0C" x:Name="RootGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="70" />
             <RowDefinition />

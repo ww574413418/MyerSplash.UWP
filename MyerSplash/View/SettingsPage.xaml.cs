@@ -32,11 +32,5 @@ namespace MyerSplash.View
             base.OnNavigatedTo(e);
             TitleBarHelper.SetUpThemeTitleBar();
         }
-
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
-        {
-            base.OnNavigatedFrom(e);
-            TitleBarHelper.SetUpDarkTitleBar();
-        }
     }
 }
