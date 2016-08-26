@@ -96,6 +96,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Design\projectGuides.guides" />
     <None Include="MyerSplash_StoreKey.pfx" />
     <None Include="project.json" />
   </ItemGroup>
