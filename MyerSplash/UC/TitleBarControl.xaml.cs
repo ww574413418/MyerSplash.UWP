@@ -2,12 +2,14 @@
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 
 namespace MyerSplash.UC
 {
     public sealed partial class TitleBarControl : UserControl
     {
         public event Action OnClickBackBtn;
+        public event Action OnTapClickBackPlaceHolder;
 
         public bool ShowBackBtn
         {
@@ -41,7 +43,7 @@ namespace MyerSplash.UC
 
         public void Setup()
         {
-            Window.Current.SetTitleBar(backGrdRect);
+            Window.Current.SetTitleBar(BackGrdRect);
         }
     }
 }

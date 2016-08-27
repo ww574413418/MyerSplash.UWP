@@ -70,7 +70,6 @@ namespace MyerSplash
             {
                 rootFrame = new Frame();
                 rootFrame.Background = App.Current.Resources["MyerSplashDarkColor"] as SolidColorBrush;
-                rootFrame.NavigationFailed += OnNavigationFailed;
                 Window.Current.Content = rootFrame;
             }
 
@@ -103,16 +102,6 @@ namespace MyerSplash
         private void App_BackRequested(object sender, BackRequestedEventArgs e)
         {
             e.Handled = NavigationService.GoBack();
-        }
-
-        /// <summary>
-        /// Invoked when Navigation to a certain page fails
-        /// </summary>
-        /// <param name="sender">The Frame which failed navigation</param>
-        /// <param name="e">Details about the navigation failure</param>
-        void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
-        {
-            throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
         }
 
         /// <summary>

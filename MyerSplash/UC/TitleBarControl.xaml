@@ -105,9 +105,10 @@
     <Grid Height="35"
           VerticalAlignment="Top"
           Background="Transparent">
-        <Rectangle x:Name="backGrdRect"
+        <Rectangle x:Name="BackGrdRect"
                    HorizontalAlignment="Stretch"
-                   Fill="#00FFFFFF" />
+                   Fill="#00FFFFFF"
+                    />
         <Button x:Name="BackBtn"
                 Width="60"
                 HorizontalAlignment="Left"
@@ -115,8 +116,7 @@
                 Background="Transparent"
                 BorderThickness="0"
                 Click="BackBtn_Click"
-                Style="{StaticResource ButtonStyle2}"
-                >
+                Style="{StaticResource ButtonStyle2}">
             <Grid Background="#00000000">
                 <TextBlock x:Name="BackSymbol"
                            HorizontalAlignment="Center"
