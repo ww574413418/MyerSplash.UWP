@@ -30,6 +30,7 @@
                               ShowsScrollingPlaceholders="False">
         <control:AdaptiveGridView.Header>
             <Grid Height="70">
+                <uc:LoadingControl x:Name="LoadingControl"/>
             </Grid>
         </control:AdaptiveGridView.Header>
         <control:AdaptiveGridView.ItemTemplate>

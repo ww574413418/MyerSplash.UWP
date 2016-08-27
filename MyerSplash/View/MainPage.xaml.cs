@@ -131,6 +131,9 @@ namespace MyerSplash.View
         #region Loading animation
         private void ShowLoading()
         {
+            ListControl.Refreshing = true;
+            return;
+
             var showAnimation = _compositor.CreateScalarKeyFrameAnimation();
             showAnimation.InsertKeyFrame(1, 80f);
             showAnimation.Duration = TimeSpan.FromMilliseconds(500);
@@ -156,6 +159,9 @@ namespace MyerSplash.View
 
         private void HideLoading()
         {
+            ListControl.Refreshing = false;
+            return;
+
             var hideAnimation = _compositor.CreateScalarKeyFrameAnimation();
             hideAnimation.InsertKeyFrame(1, -60f);
             hideAnimation.Duration = TimeSpan.FromMilliseconds(500);

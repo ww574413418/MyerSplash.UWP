@@ -35,8 +35,6 @@ namespace MyerSplash.UC
             _rootVisual = RootGrid.GetVisual();
             _e1Visual = E1.GetVisual();
             _e2Visual = E2.GetVisual();
-
-            _e1Visual.Offset = new Vector3(-50f, 0f, 0f);
         }
 
         private void LoadingControl_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -47,16 +45,14 @@ namespace MyerSplash.UC
             };
         }
 
-        private void Start()
+        public void Start()
         {
-            _e1Visual.Offset = new Vector3(-50f, 0f, 0f);
+            StartStory.Begin();
+        }
 
-            var animation1 = _compositor.CreateScalarKeyFrameAnimation();
-            animation1.InsertKeyFrame(1f, 0f);
-            animation1.Duration = TimeSpan.FromMilliseconds(200);
-
-            _e1Visual.StartAnimation("Offset.y", animation1);
-
+        public void Stop()
+        {
+            StartStory.Stop();
         }
     }
 }

@@ -38,6 +38,27 @@ namespace MyerSplash.UC
         public int TargetOffsetX;
         public int TargetOffsetY;
 
+
+        public bool Refreshing
+        {
+            get { return (bool)GetValue(MyPropertyProperty); }
+            set { SetValue(MyPropertyProperty, value); }
+        }
+
+        public static readonly DependencyProperty MyPropertyProperty =
+            DependencyProperty.Register("Refreshing", typeof(bool), typeof(ImageListControl),
+                new PropertyMetadata(false, OnRefreshingPropertyChanged));
+
+        private static void OnRefreshingPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var control = d as ImageListControl;
+            if ((bool)e.NewValue)
+            {
+                control.ShowRefreshing();
+            }
+            else control.HideRefreshing();
+        }
+
         public ImageListControl()
         {
             this.InitializeComponent();
@@ -117,7 +138,7 @@ namespace MyerSplash.UC
         private void ToggleLoadingAnimation(bool show)
         {
             var offsetAnimation = _compositor.CreateVector3KeyFrameAnimation();
-            offsetAnimation.InsertKeyFrame(1, new Vector3(0f, show?70f:0f, 0f));
+            offsetAnimation.InsertKeyFrame(1, new Vector3(0f, show ? 70f : 0f, 0f));
             offsetAnimation.Duration = TimeSpan.FromMilliseconds(500);
 
             _listVisual.StartAnimation("Offset", offsetAnimation);
@@ -184,7 +205,7 @@ namespace MyerSplash.UC
         private void RootGrid_Loaded(object sender, RoutedEventArgs e)
         {
             var rootGrid = sender as Grid;
-           
+
             rootGrid.PointerEntered += RootGrid_PointerEntered;
             rootGrid.PointerExited += RootGrid_PointerExited;
 
@@ -208,7 +229,7 @@ namespace MyerSplash.UC
 
         private void RootGrid_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
-            if(e.Pointer.PointerDeviceType!=PointerDeviceType.Mouse)
+            if (e.Pointer.PointerDeviceType != PointerDeviceType.Mouse)
             {
                 return;
             }
@@ -269,6 +290,32 @@ namespace MyerSplash.UC
             {
                 Rect = new Rect(0, 0, rootGrid.ActualWidth, rootGrid.ActualHeight)
             };
+        }
+
+        private void ShowRefreshing()
+        {
+            var sv = ImageGridView.GetScrollViewer();
+            if (sv != null)
+            {
+                sv.ChangeView(null, 0, null);
+
+                var offsetAnimation = _compositor.CreateScalarKeyFrameAnimation();
+                offsetAnimation.InsertKeyFrame(1f, 70f);
+                offsetAnimation.Duration = TimeSpan.FromMilliseconds(300);
+
+                _listVisual.StartAnimation("Offset.y", offsetAnimation);
+                LoadingControl.Start();
+            }
+        }
+
+        private void HideRefreshing()
+        {
+            var offsetAnimation = _compositor.CreateScalarKeyFrameAnimation();
+            offsetAnimation.InsertKeyFrame(1f, 0f);
+            offsetAnimation.Duration = TimeSpan.FromMilliseconds(300);
+
+            _listVisual.StartAnimation("Offset.y", offsetAnimation);
+            LoadingControl.Stop();
         }
     }
 }

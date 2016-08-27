@@ -8,234 +8,64 @@
              d:DesignWidth="200"
              mc:Ignorable="d">
     <UserControl.Resources>
-        <Storyboard x:Name="StartStory">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="E1" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0.2" />
-                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0.2" />
-                <EasingDoubleKeyFrame KeyTime="0:0:1.3" Value="0.2" />
-                <EasingDoubleKeyFrame KeyTime="0:0:1.6" Value="0.4" />
-                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0.5" />
-                <EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="1" />
-                <EasingDoubleKeyFrame KeyTime="0:0:3.2" Value="1" />
-                <EasingDoubleKeyFrame KeyTime="0:0:3.5" Value="0.5" />
-                <EasingDoubleKeyFrame KeyTime="0:0:5" Value="0.2" />
-                <EasingDoubleKeyFrame KeyTime="0:0:6" Value="0.2" />
-                <EasingDoubleKeyFrame KeyTime="0:0:6.3" Value="0.2" />
-                <EasingDoubleKeyFrame KeyTime="0:0:6.6" Value="0.4" />
-                <EasingDoubleKeyFrame KeyTime="0:0:7" Value="0.5" />
-                <EasingDoubleKeyFrame KeyTime="0:0:7.3" Value="1" />
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="E1" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0.2" />
-                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0.2" />
-                <EasingDoubleKeyFrame KeyTime="0:0:1.3" Value="0.2" />
-                <EasingDoubleKeyFrame KeyTime="0:0:1.6" Value="0.4" />
-                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0.5" />
-                <EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="1" />
-                <EasingDoubleKeyFrame KeyTime="0:0:3.2" Value="1" />
-                <EasingDoubleKeyFrame KeyTime="0:0:3.5" Value="0.5" />
-                <EasingDoubleKeyFrame KeyTime="0:0:5" Value="0.2" />
-                <EasingDoubleKeyFrame KeyTime="0:0:6" Value="0.2" />
-                <EasingDoubleKeyFrame KeyTime="0:0:6.3" Value="0.2" />
-                <EasingDoubleKeyFrame KeyTime="0:0:6.6" Value="0.4" />
-                <EasingDoubleKeyFrame KeyTime="0:0:7" Value="0.5" />
-                <EasingDoubleKeyFrame KeyTime="0:0:7.3" Value="1" />
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="E1" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0" />
-                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0" />
-                <EasingDoubleKeyFrame KeyTime="0:0:1.3" Value="-20" />
-                <EasingDoubleKeyFrame KeyTime="0:0:1.6" Value="-25" />
-                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="-40" />
-                <EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="-70" />
-                <EasingDoubleKeyFrame KeyTime="0:0:3.2" Value="-70" />
-                <EasingDoubleKeyFrame KeyTime="0:0:3.5" Value="-30" />
-                <EasingDoubleKeyFrame KeyTime="0:0:5" Value="0" />
-                <EasingDoubleKeyFrame KeyTime="0:0:6" Value="0" />
-                <EasingDoubleKeyFrame KeyTime="0:0:6.3" Value="20" />
-                <EasingDoubleKeyFrame KeyTime="0:0:6.6" Value="25" />
-                <EasingDoubleKeyFrame KeyTime="0:0:7" Value="40" />
-                <EasingDoubleKeyFrame KeyTime="0:0:7.3" Value="70" />
-            </DoubleAnimationUsingKeyFrames>
+        <Storyboard x:Name="StartStory" RepeatBehavior="Forever">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="E2" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)">
                 <EasingDoubleKeyFrame KeyTime="0" Value="0.2" />
                 <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1" />
-                <EasingDoubleKeyFrame KeyTime="0:0:1.3" Value="1" />
-                <EasingDoubleKeyFrame KeyTime="0:0:1.6" Value="1" />
+                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="0.8" />
                 <EasingDoubleKeyFrame KeyTime="0:0:2" Value="1" />
-                <EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="1" />
-                <EasingDoubleKeyFrame KeyTime="0:0:3.2" Value="1" />
-                <EasingDoubleKeyFrame KeyTime="0:0:3.6" Value="1" />
+                <EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="0.8" />
+                <EasingDoubleKeyFrame KeyTime="0:0:3" Value="1" />
+                <EasingDoubleKeyFrame KeyTime="0:0:3.5" Value="0.8" />
                 <EasingDoubleKeyFrame KeyTime="0:0:4" Value="1" />
-                <EasingDoubleKeyFrame KeyTime="0:0:4.4" Value="1" />
-                <EasingDoubleKeyFrame KeyTime="0:0:5" Value="1" />
-                <EasingDoubleKeyFrame KeyTime="0:0:6" Value="1" />
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="E2" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)">
                 <EasingDoubleKeyFrame KeyTime="0" Value="0.2" />
                 <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1" />
-                <EasingDoubleKeyFrame KeyTime="0:0:1.3" Value="1" />
-                <EasingDoubleKeyFrame KeyTime="0:0:1.6" Value="1" />
+                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="0.8" />
                 <EasingDoubleKeyFrame KeyTime="0:0:2" Value="1" />
-                <EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="1" />
-                <EasingDoubleKeyFrame KeyTime="0:0:3.2" Value="1" />
-                <EasingDoubleKeyFrame KeyTime="0:0:3.6" Value="1" />
+                <EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="0.8" />
+                <EasingDoubleKeyFrame KeyTime="0:0:3" Value="1" />
+                <EasingDoubleKeyFrame KeyTime="0:0:3.5" Value="0.8" />
                 <EasingDoubleKeyFrame KeyTime="0:0:4" Value="1" />
-                <EasingDoubleKeyFrame KeyTime="0:0:4.4" Value="1" />
-                <EasingDoubleKeyFrame KeyTime="0:0:5" Value="1" />
-                <EasingDoubleKeyFrame KeyTime="0:0:6" Value="1" />
             </DoubleAnimationUsingKeyFrames>
-            <PointAnimationUsingKeyFrames EnableDependentAnimation="True"
-                                          Storyboard.TargetName="E2"
-                                          Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[2].(BezierSegment.Point2)">
-                <EasingPointKeyFrame KeyTime="0:0:1" Value="14.7505,24.9549" />
-                <EasingPointKeyFrame KeyTime="0:0:1.3" Value="9.5561,24.9827" />
-                <EasingPointKeyFrame KeyTime="0:0:1.6" Value="4.88899,25.316" />
-                <EasingPointKeyFrame KeyTime="0:0:2" Value="0,25.316" />
-                <EasingPointKeyFrame KeyTime="0:0:2.3" Value="14.7222,25.1493" />
-                <EasingPointKeyFrame KeyTime="0:0:3.2" Value="14.7222,25.1493" />
-                <EasingPointKeyFrame KeyTime="0:0:3.6" Value="14.7153,25.198" />
-                <EasingPointKeyFrame KeyTime="0:0:4" Value="10.25,25.0799" />
-                <EasingPointKeyFrame KeyTime="0:0:4.4" Value="13.0833,24.9688" />
-                <EasingPointKeyFrame KeyTime="0:0:5" Value="14.75,25.2882" />
-                <EasingPointKeyFrame KeyTime="0:0:6" Value="14.75,25.2882" />
-            </PointAnimationUsingKeyFrames>
-            <PointAnimationUsingKeyFrames EnableDependentAnimation="True"
-                                          Storyboard.TargetName="E2"
-                                          Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[2].(BezierSegment.Point3)">
-                <EasingPointKeyFrame KeyTime="0:0:1" Value="14.7505,20" />
-                <EasingPointKeyFrame KeyTime="0:0:1.3" Value="9.5561,20.0278" />
-                <EasingPointKeyFrame KeyTime="0:0:1.6" Value="4.88899,20.3611" />
-                <EasingPointKeyFrame KeyTime="0:0:2" Value="0,20.3611" />
-                <EasingPointKeyFrame KeyTime="0:0:2.3" Value="14.7222,20.1944" />
-                <EasingPointKeyFrame KeyTime="0:0:3.2" Value="14.7222,20.1944" />
-                <EasingPointKeyFrame KeyTime="0:0:3.6" Value="14.7153,20.2431" />
-                <EasingPointKeyFrame KeyTime="0:0:4" Value="10.25,20.125" />
-                <EasingPointKeyFrame KeyTime="0:0:4.4" Value="13.0833,20.0139" />
-                <EasingPointKeyFrame KeyTime="0:0:5" Value="14.75,20.3333" />
-                <EasingPointKeyFrame KeyTime="0:0:6" Value="14.75,20.3333" />
-                <EasingPointKeyFrame KeyTime="0:0:6" Value="14.7505,20" />
-                <EasingPointKeyFrame KeyTime="0:0:6.3" Value="9.5561,20.0278" />
-                <EasingPointKeyFrame KeyTime="0:0:6.6" Value="4.88899,20.3611" />
-                <EasingPointKeyFrame KeyTime="0:0:7" Value="0,20.3611" />
-                <EasingPointKeyFrame KeyTime="0:0:7.3" Value="14.7222,20.1944" />
-            </PointAnimationUsingKeyFrames>
-            <PointAnimationUsingKeyFrames EnableDependentAnimation="True"
-                                          Storyboard.TargetName="E2"
-                                          Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[3].(BezierSegment.Point1)">
-                <EasingPointKeyFrame KeyTime="0:0:1" Value="14.7505,15.0704" />
-                <EasingPointKeyFrame KeyTime="0:0:1.3" Value="9.5561,15.0982" />
-                <EasingPointKeyFrame KeyTime="0:0:1.6" Value="4.88899,15.4315" />
-                <EasingPointKeyFrame KeyTime="0:0:2" Value="0,15.4315" />
-                <EasingPointKeyFrame KeyTime="0:0:2.3" Value="14.7222,15.2648" />
-                <EasingPointKeyFrame KeyTime="0:0:3.2" Value="14.7222,15.2648" />
-                <EasingPointKeyFrame KeyTime="0:0:3.6" Value="14.7153,15.3134" />
-                <EasingPointKeyFrame KeyTime="0:0:4" Value="10.25,15.1954" />
-                <EasingPointKeyFrame KeyTime="0:0:4.4" Value="13.0833,15.0843" />
-                <EasingPointKeyFrame KeyTime="0:0:5" Value="14.75,15.4037" />
-                <EasingPointKeyFrame KeyTime="0:0:6" Value="14.75,15.4037" />
-            </PointAnimationUsingKeyFrames>
-            <PointAnimationUsingKeyFrames EnableDependentAnimation="True"
-                                          Storyboard.TargetName="E2"
-                                          Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[3].(BezierSegment.Point2)">
-                <EasingPointKeyFrame KeyTime="0:0:1" Value="16.5341,10.5573" />
-                <EasingPointKeyFrame KeyTime="0:0:1.3" Value="14.1543,13.8476" />
-                <EasingPointKeyFrame KeyTime="0:0:1.6" Value="14.1543,13.8476" />
-                <EasingPointKeyFrame KeyTime="0:0:2" Value="11.932,15.9587" />
-                <EasingPointKeyFrame KeyTime="0:0:2.3" Value="16.9876,10.5698" />
-                <EasingPointKeyFrame KeyTime="0:0:3.2" Value="16.9876,10.5698" />
-                <EasingPointKeyFrame KeyTime="0:0:3.6" Value="16.9876,10.5698" />
-                <EasingPointKeyFrame KeyTime="0:0:4" Value="16.9876,10.5698" />
-                <EasingPointKeyFrame KeyTime="0:0:4.4" Value="16.9876,10.5698" />
-                <EasingPointKeyFrame KeyTime="0:0:5" Value="16.9876,10.5698" />
-                <EasingPointKeyFrame KeyTime="0:0:6" Value="16.9876,10.5698" />
-            </PointAnimationUsingKeyFrames>
-            <PointAnimationUsingKeyFrames EnableDependentAnimation="True"
-                                          Storyboard.TargetName="E2"
-                                          Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[3].(BezierSegment.Point3)">
-                <EasingPointKeyFrame KeyTime="0:0:1" Value="19.491,7.07083" />
-                <EasingPointKeyFrame KeyTime="0:0:1.3" Value="17.1112,10.3611" />
-                <EasingPointKeyFrame KeyTime="0:0:1.6" Value="17.1112,10.3611" />
-                <EasingPointKeyFrame KeyTime="0:0:2" Value="14.8889,12.4722" />
-                <EasingPointKeyFrame KeyTime="0:0:2.3" Value="19.9445,7.08333" />
-                <EasingPointKeyFrame KeyTime="0:0:3.2" Value="19.9445,7.08333" />
-                <EasingPointKeyFrame KeyTime="0:0:3.6" Value="19.9445,7.08333" />
-                <EasingPointKeyFrame KeyTime="0:0:4" Value="19.9445,7.08333" />
-                <EasingPointKeyFrame KeyTime="0:0:4.4" Value="19.9445,7.08333" />
-                <EasingPointKeyFrame KeyTime="0:0:5" Value="19.9445,7.08333" />
-                <EasingPointKeyFrame KeyTime="0:0:6" Value="19.9445,7.08333" />
-            </PointAnimationUsingKeyFrames>
-            <PointAnimationUsingKeyFrames EnableDependentAnimation="True"
-                                          Storyboard.TargetName="E2"
-                                          Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[4].(BezierSegment.Point1)">
-                <EasingPointKeyFrame KeyTime="0:0:1" Value="23.1596,2.74529" />
-                <EasingPointKeyFrame KeyTime="0:0:1.3" Value="20.7798,6.03557" />
-                <EasingPointKeyFrame KeyTime="0:0:1.6" Value="20.7798,6.03557" />
-                <EasingPointKeyFrame KeyTime="0:0:2" Value="18.5575,8.14669" />
-                <EasingPointKeyFrame KeyTime="0:0:2.3" Value="23.6131,2.75782" />
-                <EasingPointKeyFrame KeyTime="0:0:3.2" Value="23.6131,2.75782" />
-                <EasingPointKeyFrame KeyTime="0:0:3.6" Value="23.6131,2.75782" />
-                <EasingPointKeyFrame KeyTime="0:0:4" Value="23.6131,2.75782" />
-                <EasingPointKeyFrame KeyTime="0:0:4.4" Value="23.6131,2.75782" />
-                <EasingPointKeyFrame KeyTime="0:0:5" Value="23.6131,2.75782" />
-                <EasingPointKeyFrame KeyTime="0:0:6" Value="23.6131,2.75782" />
-            </PointAnimationUsingKeyFrames>
-            <PointAnimationUsingKeyFrames EnableDependentAnimation="True"
-                                          Storyboard.TargetName="E2"
-                                          Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[1].(BezierSegment.Point2)">
-                <EasingPointKeyFrame KeyTime="0:0:1" Value="23.2049,37.2774" />
-                <EasingPointKeyFrame KeyTime="0:0:1.3" Value="21.1129,34.2114" />
-                <EasingPointKeyFrame KeyTime="0:0:1.6" Value="21.1129,34.2114" />
-                <EasingPointKeyFrame KeyTime="0:0:2" Value="18.4461,32.3225" />
-                <EasingPointKeyFrame KeyTime="0:0:2.3" Value="23.6128,37.2669" />
-                <EasingPointKeyFrame KeyTime="0:0:3.2" Value="23.6128,37.2669" />
-                <EasingPointKeyFrame KeyTime="0:0:3.6" Value="23.6128,37.2669" />
-                <EasingPointKeyFrame KeyTime="0:0:4" Value="23.6128,37.2669" />
-                <EasingPointKeyFrame KeyTime="0:0:4.4" Value="23.6128,37.2669" />
-                <EasingPointKeyFrame KeyTime="0:0:5" Value="23.6128,37.2669" />
-                <EasingPointKeyFrame KeyTime="0:0:6" Value="23.6128,37.2669" />
-            </PointAnimationUsingKeyFrames>
-            <PointAnimationUsingKeyFrames EnableDependentAnimation="True"
-                                          Storyboard.TargetName="E2"
-                                          Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[1].(BezierSegment.Point3)">
-                <EasingPointKeyFrame KeyTime="0:0:1" Value="19.5366,32.9827" />
-                <EasingPointKeyFrame KeyTime="0:0:1.3" Value="17.4446,29.9167" />
-                <EasingPointKeyFrame KeyTime="0:0:1.6" Value="17.4446,29.9167" />
-                <EasingPointKeyFrame KeyTime="0:0:2" Value="14.7778,28.0278" />
-                <EasingPointKeyFrame KeyTime="0:0:2.3" Value="19.9445,32.9722" />
-                <EasingPointKeyFrame KeyTime="0:0:3.2" Value="19.9445,32.9722" />
-                <EasingPointKeyFrame KeyTime="0:0:3.6" Value="19.9445,32.9722" />
-                <EasingPointKeyFrame KeyTime="0:0:4" Value="19.9445,32.9722" />
-                <EasingPointKeyFrame KeyTime="0:0:4.4" Value="19.9445,32.9722" />
-                <EasingPointKeyFrame KeyTime="0:0:5" Value="19.9445,32.9722" />
-                <EasingPointKeyFrame KeyTime="0:0:6" Value="19.9445,32.9722" />
-            </PointAnimationUsingKeyFrames>
-            <PointAnimationUsingKeyFrames EnableDependentAnimation="True"
-                                          Storyboard.TargetName="E2"
-                                          Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[2].(BezierSegment.Point1)">
-                <EasingPointKeyFrame KeyTime="0:0:1" Value="16.5524,29.489" />
-                <EasingPointKeyFrame KeyTime="0:0:1.3" Value="14.4604,26.423" />
-                <EasingPointKeyFrame KeyTime="0:0:1.6" Value="14.4604,26.423" />
-                <EasingPointKeyFrame KeyTime="0:0:2" Value="11.7936,24.5341" />
-                <EasingPointKeyFrame KeyTime="0:0:2.3" Value="16.9603,29.4785" />
-                <EasingPointKeyFrame KeyTime="0:0:3.2" Value="16.9603,29.4785" />
-                <EasingPointKeyFrame KeyTime="0:0:3.6" Value="16.9603,29.4785" />
-                <EasingPointKeyFrame KeyTime="0:0:4" Value="16.9603,29.4785" />
-                <EasingPointKeyFrame KeyTime="0:0:4.4" Value="16.9603,29.4785" />
-                <EasingPointKeyFrame KeyTime="0:0:5" Value="16.9603,29.4785" />
-                <EasingPointKeyFrame KeyTime="0:0:6" Value="16.9603,29.4785" />
-            </PointAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="E1" Storyboard.TargetProperty="(UIElement.Opacity)">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0" />
-                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1" />
-                <EasingDoubleKeyFrame KeyTime="0:0:1.3" Value="1" />
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="E1" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0.2" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="0.2" />
+                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="1" />
                 <EasingDoubleKeyFrame KeyTime="0:0:1.6" Value="1" />
-                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="1" />
-                <EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="1" />
-                <EasingDoubleKeyFrame KeyTime="0:0:3.2" Value="1" />
-                <EasingDoubleKeyFrame KeyTime="0:0:3.5" Value="1" />
-                <EasingDoubleKeyFrame KeyTime="0:0:5" Value="1" />
-                <EasingDoubleKeyFrame KeyTime="0:0:6" Value="1" />
+                <EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="0.3" />
+                <EasingDoubleKeyFrame KeyTime="0:0:3" Value="1" />
+                <EasingDoubleKeyFrame KeyTime="0:0:3.1" Value="1" />
+                <EasingDoubleKeyFrame KeyTime="0:0:4" Value="0.3" />
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="E1" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0.2" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="0.2" />
+                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="1" />
+                <EasingDoubleKeyFrame KeyTime="0:0:1.6" Value="1" />
+                <EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="0.3" />
+                <EasingDoubleKeyFrame KeyTime="0:0:3" Value="1" />
+                <EasingDoubleKeyFrame KeyTime="0:0:3.1" Value="1" />
+                <EasingDoubleKeyFrame KeyTime="0:0:4" Value="0.3" />
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="E1" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="0" />
+                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="-70" />
+                <EasingDoubleKeyFrame KeyTime="0:0:1.6" Value="-70" />
+                <EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="0" />
+                <EasingDoubleKeyFrame KeyTime="0:0:3" Value="70" />
+                <EasingDoubleKeyFrame KeyTime="0:0:3.1" Value="70" />
+                <EasingDoubleKeyFrame KeyTime="0:0:4" Value="0" />
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="E1" Storyboard.TargetProperty="(UIElement.Opacity)">
+                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="1" />
+                <EasingDoubleKeyFrame KeyTime="0:0:1.6" Value="1" />
+                <EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="0.5" />
+                <EasingDoubleKeyFrame KeyTime="0:0:3" Value="1" />
+                <EasingDoubleKeyFrame KeyTime="0:0:3.1" Value="1" />
+                <EasingDoubleKeyFrame KeyTime="0:0:4" Value="0.5" />
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </UserControl.Resources>
@@ -248,59 +78,31 @@
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <Path x:Name="E1"
+        <Ellipse x:Name="E1"
               Grid.Column="1"
               Width="40"
               Height="40"
               HorizontalAlignment="Center"
               VerticalAlignment="Center"
-              Data="M40,20 C40,31.0457 31.0457,40 20,40 C8.9543,40 0,31.0457 0,20 C0,8.9543 8.9543,0 20,0 C31.0457,0 40,8.9543 40,20 z"
               Fill="{StaticResource MyerSplashThemeColor}"
               RenderTransformOrigin="0.5,0.5"
               Stretch="Fill">
-            <Path.RenderTransform>
-                <CompositeTransform ScaleX="0.2" ScaleY="0.2" />
-            </Path.RenderTransform>
-        </Path>
-        <Path x:Name="E2"
+            <Ellipse.RenderTransform>
+                <CompositeTransform ScaleX="1" ScaleY="1" />
+            </Ellipse.RenderTransform>
+        </Ellipse>
+        <Ellipse x:Name="E2"
               Grid.Column="1"
-              Width="54.75"
+              Width="40"
               Height="40"
-              Margin="-1.417,5,13.333,5"
               HorizontalAlignment="Center"
               VerticalAlignment="Center"
               Fill="{StaticResource MyerSplashThemeColor}"
               RenderTransformOrigin="0.5,0.5"
-              UseLayoutRounding="False">
-            <Path.Data>
-                <PathGeometry FillRule="EvenOdd">
-                    <PathFigure IsClosed="True"
-                                IsFilled="True"
-                                StartPoint="54.7505,20">
-                        <BezierSegment Point1="54.7505,31.0457"
-                                       Point2="45.7962,40"
-                                       Point3="34.7505,40" />
-                        <BezierSegment Point1="28.6597,40"
-                                       Point2="23.2049,37.2774"
-                                       Point3="19.5366,32.9827" />
-                        <BezierSegment Point1="16.5524,29.489"
-                                       Point2="14.7505,24.9549"
-                                       Point3="14.7505,20" />
-                        <BezierSegment Point1="14.7505,15.0704"
-                                       Point2="16.5341,10.5573"
-                                       Point3="19.491,7.07083" />
-                        <BezierSegment Point1="23.1596,2.74529"
-                                       Point2="28.6344,0"
-                                       Point3="34.7505,0" />
-                        <BezierSegment Point1="45.7962,0"
-                                       Point2="54.7505,8.9543"
-                                       Point3="54.7505,20" />
-                    </PathFigure>
-                </PathGeometry>
-            </Path.Data>
-            <Path.RenderTransform>
-                <CompositeTransform ScaleX="0.2" ScaleY="0.2" />
-            </Path.RenderTransform>
-        </Path>
+              Stretch="Fill">
+            <Ellipse.RenderTransform>
+                <CompositeTransform ScaleX="1" ScaleY="1" />
+            </Ellipse.RenderTransform>
+        </Ellipse>
     </Grid>
 </UserControl>
