@@ -20,7 +20,7 @@ namespace MyerSplash.View
     public sealed partial class MainPage : CustomizedTitleBarPage
     {
         private const float TITLE_GRID_HEIGHT = 70;
-        private const float DRAWER_WIDTH = 270;
+        private const float DRAWER_WIDTH = 275;
 
         private MainViewModel MainVM { get; set; }
 
@@ -186,8 +186,8 @@ namespace MyerSplash.View
             if (show) DrawerMaskBorder.Visibility = Visibility.Visible;
 
             var fadeAnimation = _compositor.CreateScalarKeyFrameAnimation();
-            fadeAnimation.InsertKeyFrame(1f, show ? 1f : 0f, _compositor.CreateLinearEasingFunction());
-            fadeAnimation.Duration = TimeSpan.FromMilliseconds(300);
+            fadeAnimation.InsertKeyFrame(1f, show ? 0.8f : 0f);
+            fadeAnimation.Duration = TimeSpan.FromMilliseconds(500);
 
             var batch = _compositor.CreateScopedBatch(CompositionBatchTypes.Animation);
             _drawerMaskVisual.StartAnimation("Opacity", fadeAnimation);
