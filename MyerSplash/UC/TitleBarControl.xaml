@@ -107,7 +107,7 @@
           Background="Transparent">
         <Rectangle x:Name="backGrdRect"
                    HorizontalAlignment="Stretch"
-                   Fill="Transparent" />
+                   Fill="#00FFFFFF" />
         <Button x:Name="BackBtn"
                 Width="60"
                 HorizontalAlignment="Left"

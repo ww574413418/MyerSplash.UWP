@@ -17,7 +17,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace MyerSplash.View
 {
-    public sealed partial class MainPage : BindablePage
+    public sealed partial class MainPage : CustomizedTitleBarPage
     {
         private const float TITLE_GRID_HEIGHT = 70;
         private const float DRAWER_WIDTH = 270;
@@ -40,6 +40,8 @@ namespace MyerSplash.View
         private bool _waitForToggleDetailAnimation;
 
         private bool _hideTitleBarForDetail = false;
+
+        private TitleBarControl _titleBar;
 
         public bool IsLoading
         {
@@ -83,20 +85,8 @@ namespace MyerSplash.View
             this.InitializeComponent();
             this.DataContext = MainVM = new MainViewModel();
             this.Loaded += MainPage_Loaded;
-            TitleBarHelper.SetUpLightTitleBar();
             InitComposition();
             InitBinding();
-
-            if (DeviceHelper.IsDesktop)
-            {
-                var titleBar = new TitleBarControl() { ShowBackBtn = false };
-                (this.Content as Grid).Children.Add(titleBar);
-                Grid.SetColumnSpan(titleBar, 5);
-                Grid.SetRowSpan(titleBar, 5);
-                Canvas.SetZIndex(titleBar, 100);
-
-                Window.Current.SetTitleBar(titleBar);
-            }
         }
 
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
@@ -443,7 +433,25 @@ namespace MyerSplash.View
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+            
+        }
+
+        protected override void SetUpTitleBar()
+        {
             TitleBarHelper.SetUpLightTitleBar();
+        }
+
+        protected override void CustomTitleBar()
+        {
+            if (DeviceHelper.IsDesktop && _titleBar == null)
+            {
+                _titleBar = new TitleBarControl() { ShowBackBtn = false };
+                (this.Content as Grid).Children.Add(_titleBar);
+                Grid.SetColumnSpan(_titleBar, 5);
+                Grid.SetRowSpan(_titleBar, 5);
+                Canvas.SetZIndex(_titleBar, 100);
+            }
+            _titleBar.Setup();
         }
     }
 }

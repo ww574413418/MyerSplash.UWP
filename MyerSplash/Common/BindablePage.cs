@@ -22,7 +22,6 @@ namespace MyerSplash.Common
             SetUpNavigationCache();
             IsTextScaleFactorEnabled = false;
             this.Loaded += BindablePage_Loaded;
-            CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
         }
 
         private void BindablePage_Loaded(object sender, RoutedEventArgs e)
@@ -65,6 +64,11 @@ namespace MyerSplash.Common
 
         }
 
+        protected virtual void SetUpTitleBar()
+        {
+
+        }
+
         protected virtual void SetNavigationBackBtn()
         {
             if(this.Frame.CanGoBack)
@@ -96,9 +100,10 @@ namespace MyerSplash.Common
                 }
             }
 
-            SetNavigationBackBtn();
+            CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
 
-            Window.Current.SetTitleBar(null);
+            SetNavigationBackBtn();
+            SetUpTitleBar();
 
             //resolve global keydown
             if (GlobalPageKeyDown != null)

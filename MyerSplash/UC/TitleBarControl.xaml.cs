@@ -32,18 +32,16 @@ namespace MyerSplash.UC
         public TitleBarControl()
         {
             this.InitializeComponent();
-            if (DeviceHelper.IsDesktop)
-            {
-                if (DeviceHelper.IsDesktop)
-                {
-                    Window.Current.SetTitleBar(backGrdRect);
-                }
-            }
         }
 
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
             OnClickBackBtn?.Invoke();
+        }
+
+        public void Setup()
+        {
+            Window.Current.SetTitleBar(backGrdRect);
         }
     }
 }
