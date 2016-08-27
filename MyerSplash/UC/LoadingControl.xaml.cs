@@ -35,6 +35,8 @@ namespace MyerSplash.UC
             _rootVisual = RootGrid.GetVisual();
             _e1Visual = E1.GetVisual();
             _e2Visual = E2.GetVisual();
+
+            Start();
         }
 
         private void LoadingControl_SizeChanged(object sender, SizeChangedEventArgs e)

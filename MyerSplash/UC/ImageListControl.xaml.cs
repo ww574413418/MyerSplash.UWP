@@ -38,6 +38,7 @@ namespace MyerSplash.UC
         public int TargetOffsetX;
         public int TargetOffsetY;
 
+        private ScrollViewer _scrollViewer;
 
         public bool Refreshing
         {
@@ -192,9 +193,10 @@ namespace MyerSplash.UC
 
         private void ImageGridView_Loaded(object sender, RoutedEventArgs e)
         {
-            var scrollViewer = ImageGridView.GetScrollViewer();
-            scrollViewer.ViewChanging -= ScrollViewer_ViewChanging;
-            scrollViewer.ViewChanging += ScrollViewer_ViewChanging;
+            _scrollViewer = ImageGridView.GetScrollViewer();
+            _scrollViewer.ViewChanging -= ScrollViewer_ViewChanging;
+            _scrollViewer.ViewChanging += ScrollViewer_ViewChanging;
+
         }
 
         private void ScrollViewer_ViewChanging(object sender, ScrollViewerViewChangingEventArgs e)
@@ -294,18 +296,16 @@ namespace MyerSplash.UC
 
         private void ShowRefreshing()
         {
-            var sv = ImageGridView.GetScrollViewer();
-            if (sv != null)
+            if (_scrollViewer != null)
             {
-                sv.ChangeView(null, 0, null);
-
-                var offsetAnimation = _compositor.CreateScalarKeyFrameAnimation();
-                offsetAnimation.InsertKeyFrame(1f, 70f);
-                offsetAnimation.Duration = TimeSpan.FromMilliseconds(300);
-
-                _listVisual.StartAnimation("Offset.y", offsetAnimation);
-                LoadingControl.Start();
+                _scrollViewer.ChangeView(null, 0, null);
             }
+            var offsetAnimation = _compositor.CreateScalarKeyFrameAnimation();
+            offsetAnimation.InsertKeyFrame(1f, 70f);
+            offsetAnimation.Duration = TimeSpan.FromMilliseconds(300);
+
+            _listVisual.StartAnimation("Offset.y", offsetAnimation);
+            LoadingControl.Start();
         }
 
         private void HideRefreshing()
