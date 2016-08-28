@@ -43,7 +43,7 @@
                     <Image x:Name="Img"
                            Source="{x:Bind ListImageBitmap.Bitmap, Mode=OneWay}"
                            Stretch="UniformToFill" />
-                    <Border x:Name="MaskBorder" Background="#9C000000">
+                    <Border x:Name="MaskBorder" Background="#53000000">
                         <Grid>
                             <StackPanel Margin="16,0,0,16"
                                         HorizontalAlignment="Left"
