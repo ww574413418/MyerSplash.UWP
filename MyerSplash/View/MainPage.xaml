@@ -117,5 +117,6 @@
                           ManipulationCompleted="DrawerControl_ManipulationCompleted"
                           ManipulationDelta="DrawerControl_ManipulationDelta"
                           ManipulationMode="TranslateX" />
+        <uc:SearchBarControl Grid.RowSpan="2"/>
     </Grid>
 </common:CustomizedTitleBarPage>

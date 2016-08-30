@@ -1,30 +1,97 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+﻿using MyerSplash.ViewModel;
+using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Composition;
+using CompositionHelper;
+using System.Numerics;
 using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace MyerSplash.UC
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    public sealed partial class SearchBarControl : Page
+    public sealed partial class SearchBarControl : UserControl
     {
+        private MainViewModel MainVM
+        {
+            get
+            {
+                return this.DataContext as MainViewModel;
+            }
+        }
+
+        public bool Shown
+        {
+            get { return (bool)GetValue(ShownProperty); }
+            set { SetValue(ShownProperty, value); }
+        }
+
+        public static readonly DependencyProperty ShownProperty =
+            DependencyProperty.Register("Shown", typeof(bool), typeof(SearchBarControl),
+                new PropertyMetadata(false, OnShownPropertyChanged));
+
+        private static void OnShownPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var control = d as SearchBarControl;
+            control.ToggleAnimation();
+        }
+
+        private Compositor _compositor;
+        private Visual _maskVisual;
+        private Visual _barVisual;
+
         public SearchBarControl()
         {
             this.InitializeComponent();
+            InitComposition();
+            InitBinding();
+        }
+
+        private void InitBinding()
+        {
+            var b = new Binding()
+            {
+                Source = MainVM,
+                Path = new PropertyPath("ShowSearchBar"),
+                Mode = BindingMode.TwoWay,
+            };
+            SetBinding(ShownProperty, b);
+        }
+
+        private void InitComposition()
+        {
+            this.Visibility = Visibility.Collapsed;
+
+            _compositor = this.GetVisual().Compositor;
+            _maskVisual = MaskBorder.GetVisual();
+            _barVisual = SearchBorder.GetVisual();
+
+            _maskVisual.Opacity = 0f;
+            _barVisual.Offset = new Vector3(0f, -150f, 0f);
+        }
+
+        private void ToggleAnimation()
+        {
+            this.Visibility = Visibility.Visible;
+
+            var maskAnimation = _compositor.CreateScalarKeyFrameAnimation();
+            maskAnimation.InsertKeyFrame(1f, Shown ? 1f : 0f);
+            maskAnimation.Duration = TimeSpan.FromMilliseconds(600);
+
+            var offsetAnimation = _compositor.CreateScalarKeyFrameAnimation();
+            offsetAnimation.InsertKeyFrame(1f, Shown ? 0f : -150f);
+            offsetAnimation.Duration = TimeSpan.FromMilliseconds(600);
+
+            var batch = _compositor.CreateScopedBatch(CompositionBatchTypes.Animation);
+            _maskVisual.StartAnimation("Opacity", maskAnimation);
+            _barVisual.StartAnimation("Offset.y", offsetAnimation);
+            batch.Completed += (sender, e) =>
+              {
+                  if (!Shown)
+                  {
+                      this.Visibility = Visibility.Collapsed;
+                  }
+              };
+            batch.End();
         }
     }
 }

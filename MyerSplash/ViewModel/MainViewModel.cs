@@ -75,6 +75,41 @@ namespace MyerSplash.ViewModel
 
         public bool IsFirstActived { get; set; } = true;
 
+        #region Search
+        private bool _showSearchBar;
+        public bool ShowSearchBar
+        {
+            get
+            {
+                return _showSearchBar;
+            }
+            set
+            {
+                if (_showSearchBar != value)
+                {
+                    _showSearchBar = value;
+                    RaisePropertyChanged(() => ShowSearchBar);
+                }
+            }
+        }
+
+        private string _searchKeyword;
+        public string SearchKeyword
+        {
+            get
+            {
+                return _searchKeyword;
+            }
+            set
+            {
+                if (_searchKeyword != value)
+                {
+                    _searchKeyword = value;
+                    RaisePropertyChanged(() => SearchKeyword);
+                }
+            }
+        }
+
         private RelayCommand _searchCommand;
         public RelayCommand SearchCommand
         {
@@ -83,11 +118,38 @@ namespace MyerSplash.ViewModel
                 if (_searchCommand != null) return _searchCommand;
                 return _searchCommand = new RelayCommand(() =>
                   {
-                      ToastService.SendToast("Still working on this.");
+                      DrawerOpened = false;
+                      ShowSearchBar = true;
                   });
             }
         }
 
+        private RelayCommand _hideSearchCommand;
+        public RelayCommand HideSearchCommand
+        {
+            get
+            {
+                if (_hideSearchCommand != null) return _hideSearchCommand;
+                return _hideSearchCommand = new RelayCommand(() =>
+                  {
+                      ShowSearchBar = false;
+                  });
+            }
+        }
+
+        private RelayCommand _beginSearchCommand;
+        public RelayCommand BeginSearchCommand
+        {
+            get
+            {
+                if (_beginSearchCommand != null) return _beginSearchCommand;
+                return _beginSearchCommand = new RelayCommand(() =>
+                  {
+
+                  });
+            }
+        }
+        #endregion
 
         private RelayCommand _refreshCommand;
         public RelayCommand RefreshCommand
