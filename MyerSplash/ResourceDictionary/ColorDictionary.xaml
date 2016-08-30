@@ -15,4 +15,5 @@
     <SolidColorBrush x:Key="ImageBackBrush2">#FF383838</SolidColorBrush>
     <SolidColorBrush x:Key="PhotoDetailBackgroundBrush">#DB000000</SolidColorBrush>
     <SolidColorBrush x:Key="TitleBarDarkBrush">#FF151515</SolidColorBrush>
+    <SolidColorBrush x:Key="RootBackgrdBrush">#FF0C0C0C</SolidColorBrush>
 </ResourceDictionary>

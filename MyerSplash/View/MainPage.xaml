@@ -11,7 +11,7 @@
                      xmlns:uc="using:MyerSplash.UC"
                      Background="{StaticResource TitleBarDarkBrush}"
                      mc:Ignorable="d">
-    <Grid Background="#FF0C0C0C" x:Name="RootGrid">
+    <Grid Background="{StaticResource RootBackgrdBrush}" x:Name="RootGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="70" />
             <RowDefinition />
@@ -91,15 +91,7 @@
                            Foreground="White"
                            Text="{x:Bind MainVM.SelectedTitle, Mode=OneWay, FallbackValue=FEATURED}" />
             </StackPanel>
-            <!--<Button Command="{x:Bind MainVM.SearchCommand,Mode=OneWay}" Width="70" Style="{StaticResource ListButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0">
-                <Grid>
-                    <FontIcon Margin="5" FontFamily="Segoe MDL2 Assets" Glyph="&#xE094;" RenderTransformOrigin="0.5,0.5" >
-                        <FontIcon.RenderTransform>
-                            <CompositeTransform ScaleX="-1"/>
-                        </FontIcon.RenderTransform>
-                    </FontIcon>
-                </Grid>
-            </Button>-->
+            
             <uc:HamburgerButton Width="70"
                                 HorizontalAlignment="Left"
                                 Background="White"
