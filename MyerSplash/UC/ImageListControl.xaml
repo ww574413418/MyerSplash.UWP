@@ -30,7 +30,7 @@
                               ShowsScrollingPlaceholders="False">
         <control:AdaptiveGridView.Header>
             <Grid Height="70">
-                <uc:LoadingControl x:Name="LoadingControl"/>
+                <uc:LoadingControl x:Name="LoadingControl" />
             </Grid>
         </control:AdaptiveGridView.Header>
         <control:AdaptiveGridView.ItemTemplate>
@@ -82,10 +82,10 @@
                 <Setter Property="Margin" Value="0" />
             </Style>
         </control:AdaptiveGridView.ItemContainerStyle>
-       
+
         <control:AdaptiveGridView.Footer>
             <Grid Height="100">
-                <Grid Height="50" Visibility="{x:Bind MainVM.ShowFooterLoading, Mode=OneWay}">
+                <Grid Height="50" Visibility="{x:Bind MainVM.FooterLoadingVisibility, Mode=OneWay}">
                     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                         <ProgressRing Foreground="{StaticResource MyerSplashThemeDarkColor}" IsActive="True" />
                         <TextBlock Margin="10,0,0,0"
@@ -97,8 +97,7 @@
                 </Grid>
                 <Grid HorizontalAlignment="Center"
                       VerticalAlignment="Center"
-                      Background="{StaticResource MyerSplashDarkColor}"
-                      Visibility="{x:Bind MainVM.ShowFooterReloadGrid, Mode=OneWay}">
+                      Visibility="{x:Bind MainVM.FooterReloadVisibility, Mode=OneWay}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="10"
                                    VerticalAlignment="Center"
@@ -119,6 +118,13 @@
                             </Border>
                         </Button>
                     </StackPanel>
+                </Grid>
+                <Grid Height="50" Visibility="{x:Bind MainVM.EndVisibility, Mode=OneWay}">
+                    <TextBlock HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               FontSize="20"
+                               Foreground="{StaticResource HintTextForegroundBrush}"
+                               Text="——— END ———" />
                 </Grid>
             </Grid>
         </control:AdaptiveGridView.Footer>

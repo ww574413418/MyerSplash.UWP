@@ -132,48 +132,46 @@ namespace MyerSplash.View
         private void ShowLoading()
         {
             ListControl.Refreshing = true;
-            return;
 
-            var showAnimation = _compositor.CreateScalarKeyFrameAnimation();
-            showAnimation.InsertKeyFrame(1, 80f);
-            showAnimation.Duration = TimeSpan.FromMilliseconds(500);
+            //var showAnimation = _compositor.CreateScalarKeyFrameAnimation();
+            //showAnimation.InsertKeyFrame(1, 80f);
+            //showAnimation.Duration = TimeSpan.FromMilliseconds(500);
 
-            var linearEasingFunc = _compositor.CreateLinearEasingFunction();
+            //var linearEasingFunc = _compositor.CreateLinearEasingFunction();
 
-            var rotateAnimation = _compositor.CreateScalarKeyFrameAnimation();
-            rotateAnimation.InsertKeyFrame(1, 3600f, linearEasingFunc);
-            rotateAnimation.Duration = TimeSpan.FromMilliseconds(10000);
-            rotateAnimation.IterationBehavior = AnimationIterationBehavior.Forever;
+            //var rotateAnimation = _compositor.CreateScalarKeyFrameAnimation();
+            //rotateAnimation.InsertKeyFrame(1, 3600f, linearEasingFunc);
+            //rotateAnimation.Duration = TimeSpan.FromMilliseconds(10000);
+            //rotateAnimation.IterationBehavior = AnimationIterationBehavior.Forever;
 
-            _loadingVisual.IsVisible = true;
-            if (_refreshVisual.CenterPoint.X == 0)
-            {
-                _refreshVisual.CenterPoint = new Vector3(25f, 25f, 0f);
-            }
-            _refreshVisual.RotationAngleInDegrees = 0;
+            //_loadingVisual.IsVisible = true;
+            //if (_refreshVisual.CenterPoint.X == 0)
+            //{
+            //    _refreshVisual.CenterPoint = new Vector3(25f, 25f, 0f);
+            //}
+            //_refreshVisual.RotationAngleInDegrees = 0;
 
-            _refreshVisual.StopAnimation("RotationAngleInDegrees");
-            _refreshVisual.StartAnimation("RotationAngleInDegrees", rotateAnimation);
-            _loadingVisual.StartAnimation("Offset.y", showAnimation);
+            //_refreshVisual.StopAnimation("RotationAngleInDegrees");
+            //_refreshVisual.StartAnimation("RotationAngleInDegrees", rotateAnimation);
+            //_loadingVisual.StartAnimation("Offset.y", showAnimation);
         }
 
         private void HideLoading()
         {
             ListControl.Refreshing = false;
-            return;
 
-            var hideAnimation = _compositor.CreateScalarKeyFrameAnimation();
-            hideAnimation.InsertKeyFrame(1, -60f);
-            hideAnimation.Duration = TimeSpan.FromMilliseconds(500);
-            hideAnimation.DelayTime = TimeSpan.FromMilliseconds(500);
+            //var hideAnimation = _compositor.CreateScalarKeyFrameAnimation();
+            //hideAnimation.InsertKeyFrame(1, -60f);
+            //hideAnimation.Duration = TimeSpan.FromMilliseconds(500);
+            //hideAnimation.DelayTime = TimeSpan.FromMilliseconds(500);
 
-            var batch = _compositor.CreateScopedBatch(CompositionBatchTypes.Animation);
-            _loadingVisual.StartAnimation("Offset.y", hideAnimation);
-            batch.Completed += (sender, e) =>
-              {
-                  _loadingVisual.IsVisible = false;
-              };
-            batch.End();
+            //var batch = _compositor.CreateScopedBatch(CompositionBatchTypes.Animation);
+            //_loadingVisual.StartAnimation("Offset.y", hideAnimation);
+            //batch.Completed += (sender, e) =>
+            //  {
+            //      _loadingVisual.IsVisible = false;
+            //  };
+            //batch.End();
         }
         #endregion
 
@@ -192,7 +190,7 @@ namespace MyerSplash.View
             if (show) DrawerMaskBorder.Visibility = Visibility.Visible;
 
             var fadeAnimation = _compositor.CreateScalarKeyFrameAnimation();
-            fadeAnimation.InsertKeyFrame(1f, show ? 0.8f : 0f);
+            fadeAnimation.InsertKeyFrame(1f, show ? 1f : 0f);
             fadeAnimation.Duration = TimeSpan.FromMilliseconds(500);
 
             var batch = _compositor.CreateScopedBatch(CompositionBatchTypes.Animation);

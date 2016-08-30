@@ -117,6 +117,12 @@
     <Compile Include="Model\UnsplashCategory.cs" />
     <Compile Include="Model\UnsplashFeaturedImage.cs" />
     <Compile Include="Model\UnsplashImageBase.cs" />
+    <Compile Include="UC\NoItemControl.xaml.cs">
+      <DependentUpon>NoItemControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UC\NoNetworkControl.xaml.cs">
+      <DependentUpon>NoNetworkControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UC\SearchBarControl.xaml.cs">
       <DependentUpon>SearchBarControl.xaml</DependentUpon>
     </Compile>
@@ -150,6 +156,7 @@
       <DependentUpon>HamburgerButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\DataViewModel\ImageDataViewModel.cs" />
+    <Compile Include="ViewModel\DataViewModel\SearchResultViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\SettingsViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
@@ -248,6 +255,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="UC\DrawerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\NoItemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\NoNetworkControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

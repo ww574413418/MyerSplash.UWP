@@ -11,7 +11,6 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using MyerSplashShared.API;
 using System.Linq;
-using MyerSplashCustomControl;
 
 namespace MyerSplash.ViewModel
 {
@@ -143,9 +142,14 @@ namespace MyerSplash.ViewModel
             get
             {
                 if (_beginSearchCommand != null) return _beginSearchCommand;
-                return _beginSearchCommand = new RelayCommand(() =>
+                return _beginSearchCommand = new RelayCommand(async () =>
                   {
-
+                      if (ShowSearchBar)
+                      {
+                          SelectedIndex = -1;
+                          ShowSearchBar = false;
+                          await SearchByKeywordAsync();
+                      }
                   });
             }
         }
@@ -172,8 +176,8 @@ namespace MyerSplash.ViewModel
                 if (_retryCommand != null) return _retryCommand;
                 return _retryCommand = new RelayCommand(async () =>
                   {
-                      ShowFooterLoading = Visibility.Visible;
-                      ShowFooterReloadGrid = Visibility.Collapsed;
+                      FooterLoadingVisibility = Visibility.Visible;
+                      FooterReloadVisibility = Visibility.Collapsed;
                       await MainDataVM.RetryAsync();
                   });
             }
@@ -238,53 +242,87 @@ namespace MyerSplash.ViewModel
             }
         }
 
-        private Visibility _showFooterLoading;
-        public Visibility ShowFooterLoading
+        private Visibility _footerLoadingVisibility;
+        public Visibility FooterLoadingVisibility
         {
             get
             {
-                return _showFooterLoading;
+                return _footerLoadingVisibility;
             }
             set
             {
-                if (_showFooterLoading != value)
+                if (_footerLoadingVisibility != value)
                 {
-                    _showFooterLoading = value;
-                    RaisePropertyChanged(() => ShowFooterLoading);
+                    _footerLoadingVisibility = value;
+                    RaisePropertyChanged(() => FooterLoadingVisibility);
                 }
             }
         }
 
-        private Visibility _showNoItemHint;
-        public Visibility ShowNoItemHint
+        private Visibility _endVisiblity;
+        public Visibility EndVisibility
         {
             get
             {
-                return _showNoItemHint;
+                return _endVisiblity;
             }
             set
             {
-                if (_showNoItemHint != value)
+                if (_endVisiblity != value)
                 {
-                    _showNoItemHint = value;
-                    RaisePropertyChanged(() => ShowNoItemHint);
+                    _endVisiblity = value;
+                    RaisePropertyChanged(() => EndVisibility);
                 }
             }
         }
 
-        private Visibility _showFooterReloadGrid;
-        public Visibility ShowFooterReloadGrid
+        private Visibility _noItemHintVisibility;
+        public Visibility NoItemHintVisibility
         {
             get
             {
-                return _showFooterReloadGrid;
+                return _noItemHintVisibility;
             }
             set
             {
-                if (_showFooterReloadGrid != value)
+                if (_noItemHintVisibility != value)
                 {
-                    _showFooterReloadGrid = value;
-                    RaisePropertyChanged(() => ShowFooterReloadGrid);
+                    _noItemHintVisibility = value;
+                    RaisePropertyChanged(() => NoItemHintVisibility);
+                }
+            }
+        }
+
+        private Visibility _noNetworkHintVisibility;
+        public Visibility NoNetworkHintVisibility
+        {
+            get
+            {
+                return _noNetworkHintVisibility;
+            }
+            set
+            {
+                if (_noNetworkHintVisibility != value)
+                {
+                    _noNetworkHintVisibility = value;
+                    RaisePropertyChanged(() => NoNetworkHintVisibility);
+                }
+            }
+        }
+
+        private Visibility _footerReloadVisibility;
+        public Visibility FooterReloadVisibility
+        {
+            get
+            {
+                return _footerReloadVisibility;
+            }
+            set
+            {
+                if (_footerReloadVisibility != value)
+                {
+                    _footerReloadVisibility = value;
+                    RaisePropertyChanged(() => FooterReloadVisibility);
                 }
             }
         }
@@ -332,6 +370,10 @@ namespace MyerSplash.ViewModel
                     RaisePropertyChanged(() => SelectedIndex);
                     RaisePropertyChanged(() => SelectedTitle);
                     DrawerOpened = false;
+                    if (value == -1)
+                    {
+                        return;
+                    }
                     if (value == 1)
                     {
                         MainDataVM = new ImageDataViewModel(this, UrlHelper.GetNewImages, false);
@@ -340,7 +382,7 @@ namespace MyerSplash.ViewModel
                     {
                         MainDataVM = new ImageDataViewModel(this, UrlHelper.GetFeaturedImages, true);
                     }
-                    else if (Categories?.Count > 0)
+                    else if (value > 1)
                     {
                         MainDataVM = new ImageDataViewModel(this, Categories[value].RequestUrl, false);
                     }
@@ -356,6 +398,14 @@ namespace MyerSplash.ViewModel
         {
             get
             {
+                if (SelectedIndex == -1)
+                {
+                    if (SearchKeyword == null)
+                    {
+                        return NEW_CATEGORY_NAME;
+                    }
+                    else return SearchKeyword.ToUpper();
+                }
                 if (Categories?.Count > 0)
                 {
                     return Categories[SelectedIndex].Title.ToUpper();
@@ -368,14 +418,23 @@ namespace MyerSplash.ViewModel
         {
             MainList = new ObservableCollection<UnsplashImageBase>();
 
-            ShowFooterLoading = Visibility.Collapsed;
-            ShowNoItemHint = Visibility.Collapsed;
-            ShowFooterReloadGrid = Visibility.Collapsed;
+            FooterLoadingVisibility = Visibility.Collapsed;
+            NoItemHintVisibility = Visibility.Collapsed;
+            NoNetworkHintVisibility = Visibility.Collapsed;
+            FooterReloadVisibility = Visibility.Collapsed;
+            EndVisibility = Visibility.Collapsed;
             IsRefreshing = true;
 
             App.MainVM = this;
 
             SelectedIndex = -1;
+        }
+
+        private async Task SearchByKeywordAsync()
+        {
+            MainDataVM = new SearchResultViewModel(this, UrlHelper.SearchImages, SearchKeyword);
+            RaisePropertyChanged(() => SelectedTitle);
+            await RefreshListAsync();
         }
 
         private async Task RestoreMainListDataAsync()
@@ -416,12 +475,6 @@ namespace MyerSplash.ViewModel
             await MainDataVM.RefreshAsync();
             IsRefreshing = false;
             MainList = MainDataVM.DataList;
-        }
-
-        private void UpdateNoItemHint()
-        {
-            if (MainList?.Count > 0) ShowNoItemHint = Visibility.Collapsed;
-            else ShowNoItemHint = Visibility.Visible;
         }
 
         private async Task GetCategoriesAsync()

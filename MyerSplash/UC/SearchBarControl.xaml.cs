@@ -6,6 +6,7 @@ using Windows.UI.Composition;
 using CompositionHelper;
 using System.Numerics;
 using Windows.UI.Xaml.Data;
+using Windows.ApplicationModel;
 
 namespace MyerSplash.UC
 {
@@ -42,8 +43,11 @@ namespace MyerSplash.UC
         public SearchBarControl()
         {
             this.InitializeComponent();
-            InitComposition();
-            InitBinding();
+            if (!DesignMode.DesignModeEnabled)
+            {
+                InitComposition();
+                InitBinding();
+            }
         }
 
         private void InitBinding()
@@ -73,13 +77,18 @@ namespace MyerSplash.UC
         {
             this.Visibility = Visibility.Visible;
 
+            if(Shown)
+            {
+                InputTB.Focus(FocusState.Programmatic);
+            }
+
             var maskAnimation = _compositor.CreateScalarKeyFrameAnimation();
             maskAnimation.InsertKeyFrame(1f, Shown ? 1f : 0f);
-            maskAnimation.Duration = TimeSpan.FromMilliseconds(600);
+            maskAnimation.Duration = TimeSpan.FromMilliseconds(400);
 
             var offsetAnimation = _compositor.CreateScalarKeyFrameAnimation();
             offsetAnimation.InsertKeyFrame(1f, Shown ? 0f : -150f);
-            offsetAnimation.Duration = TimeSpan.FromMilliseconds(600);
+            offsetAnimation.Duration = TimeSpan.FromMilliseconds(400);
 
             var batch = _compositor.CreateScopedBatch(CompositionBatchTypes.Animation);
             _maskVisual.StartAnimation("Opacity", maskAnimation);
@@ -89,6 +98,10 @@ namespace MyerSplash.UC
                   if (!Shown)
                   {
                       this.Visibility = Visibility.Collapsed;
+                  }
+                  else
+                  {
+                      
                   }
               };
             batch.End();

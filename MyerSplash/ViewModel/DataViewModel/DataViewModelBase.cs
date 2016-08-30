@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using JP.API;
 using JP.Utils.Debug;
 using JP.Utils.Helper;
 using MyerSplash.Common;

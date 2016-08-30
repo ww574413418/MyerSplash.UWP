@@ -33,15 +33,28 @@ namespace MyerSplash.ViewModel
             this.Featured = featured;
         }
 
-        public ImageDataViewModel(string url, bool featured)
-        {
-            this.RequestUrl = url;
-            this.Featured = featured;
-        }
-
         protected override void ClickItem(UnsplashImageBase item)
         {
 
+        }
+
+        protected void UpdateHintVisibility(IEnumerable<UnsplashImageBase> list)
+        {
+            if (list.Count() == 0)
+            {
+                MainVM.FooterLoadingVisibility = Visibility.Collapsed;
+                MainVM.EndVisibility = Visibility.Visible;
+                MainVM.FooterReloadVisibility = Visibility.Collapsed;
+            }
+            if (DataList.Count + list.Count() == 0)
+            {
+                MainVM.NoItemHintVisibility = Visibility.Visible;
+                MainVM.FooterLoadingVisibility = Visibility.Collapsed;
+            }
+            else
+            {
+                MainVM.NoItemHintVisibility = Visibility.Collapsed;
+            }
         }
 
         protected async override Task<IEnumerable<UnsplashImageBase>> GetList(int pageIndex)
@@ -50,39 +63,22 @@ namespace MyerSplash.ViewModel
             {
                 if (pageIndex >= 2)
                 {
-                    MainVM.ShowFooterLoading = Visibility.Visible;
+                    MainVM.FooterLoadingVisibility = Visibility.Visible;
                 }
 
-                var result = await CloudService.GetImages(pageIndex, (int)DEFAULT_PER_PAGE, CTSFactory.MakeCTS(10000).Token, RequestUrl);
-                if (result.IsRequestSuccessful)
-                {
-                    if (Featured)
-                    {
-                        var list = UnsplashFeaturedImage.ParseListFromJson(result.JsonSrc);
-                        return list;
-                    }
-                    else
-                    {
-                        var list = UnsplashImage.ParseListFromJson(result.JsonSrc);
-                        return list;
-                    }
-                }
-                else
-                {
-                    throw new APIException();
-                }
+                return await RequestAsync(pageIndex);
             }
             catch (APIException)
             {
                 await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    MainVM.ShowFooterLoading = Visibility.Collapsed;
-                    MainVM.ShowFooterReloadGrid = Visibility.Visible;
+                    MainVM.FooterLoadingVisibility = Visibility.Collapsed;
+                    MainVM.FooterReloadVisibility = Visibility.Visible;
                     MainVM.IsRefreshing = false;
 
                     if (MainVM.MainList?.Count == 0)
-                        MainVM.ShowNoItemHint = Visibility.Visible;
-                    else MainVM.ShowNoItemHint = Visibility.Collapsed;
+                        MainVM.NoItemHintVisibility = Visibility.Visible;
+                    else MainVM.NoItemHintVisibility = Visibility.Collapsed;
 
                     ToastService.SendToast("Request failed.");
                 });
@@ -92,13 +88,13 @@ namespace MyerSplash.ViewModel
             {
                 await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    MainVM.ShowFooterLoading = Visibility.Collapsed;
-                    MainVM.ShowFooterReloadGrid = Visibility.Visible;
+                    MainVM.FooterLoadingVisibility = Visibility.Collapsed;
+                    MainVM.FooterReloadVisibility = Visibility.Visible;
                     MainVM.IsRefreshing = false;
 
                     if (MainVM.MainList.Count == 0)
-                        MainVM.ShowNoItemHint = Visibility.Visible;
-                    else MainVM.ShowNoItemHint = Visibility.Collapsed;
+                        MainVM.NoItemHintVisibility = Visibility.Visible;
+                    else MainVM.NoItemHintVisibility = Visibility.Collapsed;
 
                     ToastService.SendToast("Request timeout.");
                 });
@@ -126,7 +122,7 @@ namespace MyerSplash.ViewModel
             }
             await Task.WhenAll(tasks);
 
-            if(index==1)
+            if (index == 1)
             {
                 await UpdateLiveTileAsync();
             }
@@ -146,6 +142,30 @@ namespace MyerSplash.ViewModel
             {
                 Debug.WriteLine("About to update tile.");
                 await LiveTileUpdater.UpdateImagesTileAsync(list);
+            }
+        }
+
+        protected async virtual Task<IEnumerable<UnsplashImageBase>> RequestAsync(int pageIndex)
+        {
+            var result = await CloudService.GetImages(pageIndex, (int)DEFAULT_PER_PAGE, CTSFactory.MakeCTS(10000).Token, RequestUrl);
+            if (result.IsRequestSuccessful)
+            {
+                if (Featured)
+                {
+                    var list = UnsplashFeaturedImage.ParseListFromJson(result.JsonSrc);
+                    UpdateHintVisibility(list);
+                    return list;
+                }
+                else
+                {
+                    var list = UnsplashImage.ParseListFromJson(result.JsonSrc);
+                    UpdateHintVisibility(list);
+                    return list;
+                }
+            }
+            else
+            {
+                throw new APIException();
             }
         }
     }

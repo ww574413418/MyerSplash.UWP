@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="MyerSplash.UC.NoItemControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="using:MyerSplash.UC"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="300"
+             d:DesignWidth="400"
+             mc:Ignorable="d">
+
+    <StackPanel HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+        <TextBlock HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="40"
+                   FontWeight="Light"
+                   Foreground="{StaticResource HintTextForegroundBrush}"
+                   Text="No items" />
+        <TextBlock HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="20"
+                   FontWeight="Light"
+                   Foreground="{StaticResource HintTextForegroundBrush}"
+                   Text="Please browse other photos." />
+        <Button Height="28"
+                Margin="0,12,0,0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Background="{x:Null}"
+                BorderThickness="0"
+                Command="{x:Bind MainVM.SearchCommand,Mode=OneWay}"
+                Style="{StaticResource ButtonCommonStyle}">
+            <Border Background="{StaticResource MyerSplashThemeColor}">
+                <TextBlock HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Text="SEARCH" />
+            </Border>
+        </Button>
+    </StackPanel>
+</UserControl>

@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="using:MyerSplash.UC"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             d:DesignHeight="300"
-             d:DesignWidth="800"
+             d:DesignHeight="800"
+             d:DesignWidth="500"
              mc:Ignorable="d">
     <UserControl.Resources>
         <Style x:Key="TextBoxStyle1" TargetType="TextBox">
@@ -230,64 +230,69 @@
             </Setter>
         </Style>
     </UserControl.Resources>
+
     <Grid>
         <Border x:Name="MaskBorder"
                 attach:UIElementTapCommand.ItemTapCommand="{x:Bind MainVM.HideSearchCommand, Mode=OneWay}"
                 Background="Black"
-                Opacity="0.7" />
+                Opacity="0.8" />
         <Border x:Name="SearchBorder"
                 VerticalAlignment="Top"
                 Background="{StaticResource RootBackgrdBrush}">
             <Grid Height="120"
-                  MaxWidth="400"
+                  MaxWidth="600"
+                  Margin="12,0"
                   VerticalAlignment="Top">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="70" />
-                </Grid.ColumnDefinitions>
-                <Border Height="40"
-                        Margin="12"
-                        VerticalAlignment="Bottom"
-                        BorderBrush="#FF434343"
-                        BorderThickness="1">
-                    <TextBox Height="40"
-                             MinHeight="10"
-                             Margin="0"
-                             VerticalAlignment="Center"
-                             HorizontalContentAlignment="Center"
-                             VerticalContentAlignment="Center"
-                             Background="#FF5F5F5F"
-                             BorderBrush="{x:Null}"
-                             BorderThickness="0"
-                             PlaceholderText="Search anything you are interested."
-                             Style="{StaticResource TextBoxStyle1}"
-                             Text="{Binding SearchKeyword,
-                                            Mode=TwoWay,
-                                            UpdateSourceTrigger=PropertyChanged}" />
-                </Border>
-                <Button Grid.Column="1"
-                        Width="40"
-                        Height="40"
-                        Margin="0,0,0,12"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Bottom"
-                        Command="{x:Bind MainVM.BeginSearchCommand, Mode=OneWay}"
-                        Padding="0"
-                        Style="{StaticResource ButtonCommonStyle}">
-                    <Grid Background="{StaticResource MyerSplashThemeColor}">
-                        <FontIcon Margin="0"
-                                  HorizontalAlignment="Center"
-                                  VerticalAlignment="Center"
-                                  FontFamily="Segoe MDL2 Assets"
-                                  Foreground="Black"
-                                  Glyph="&#xE094;"
-                                  RenderTransformOrigin="0.5,0.5">
-                            <FontIcon.RenderTransform>
-                                <CompositeTransform ScaleX="-1" />
-                            </FontIcon.RenderTransform>
-                        </FontIcon>
-                    </Grid>
-                </Button>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="40" />
+                    </Grid.ColumnDefinitions>
+                    <Border Height="40"
+                            Margin="12,12,0,12"
+                            VerticalAlignment="Bottom"
+                            BorderThickness="0">
+                        <TextBox Height="40" x:Name="InputTB"
+                                 MinHeight="10"
+                                 Margin="0"
+                                 VerticalAlignment="Center"
+                                 HorizontalContentAlignment="Center"
+                                 VerticalContentAlignment="Center"
+                                 Background="#FF5F5F5F"
+                                 BorderBrush="{x:Null}"
+                                 BorderThickness="0"
+                                 PlaceholderText="Search in English."
+                                 Style="{StaticResource TextBoxStyle1}"
+                                 Text="{Binding SearchKeyword,
+                                                Mode=TwoWay,
+                                                UpdateSourceTrigger=PropertyChanged}" />
+                    </Border>
+                    <Button Grid.Column="1"
+                            Width="40"
+                            Height="40"
+                            Margin="0,0,0,12"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Bottom"
+                            BorderThickness="0"
+                            Command="{x:Bind MainVM.BeginSearchCommand, Mode=OneWay}"
+                            Padding="0"
+                            Style="{StaticResource ButtonCommonStyle}">
+                        <Grid Background="{StaticResource MyerSplashThemeColor}">
+                            <FontIcon Margin="0"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      FontFamily="Segoe MDL2 Assets"
+                                      Foreground="Black"
+                                      Glyph="&#xE094;"
+                                      RenderTransformOrigin="0.5,0.5">
+                                <FontIcon.RenderTransform>
+                                    <CompositeTransform ScaleX="-1" />
+                                </FontIcon.RenderTransform>
+                            </FontIcon>
+                        </Grid>
+                    </Button>
+                </Grid>
+
                 <TextBlock Margin="12,24,0,0"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Top"

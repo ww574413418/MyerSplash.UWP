@@ -305,6 +305,7 @@ namespace MyerSplash.UC
             offsetAnimation.Duration = TimeSpan.FromMilliseconds(300);
 
             _listVisual.StartAnimation("Offset.y", offsetAnimation);
+            LoadingControl.Visibility = Visibility.Visible;
             LoadingControl.Start();
         }
 
@@ -315,6 +316,7 @@ namespace MyerSplash.UC
             offsetAnimation.Duration = TimeSpan.FromMilliseconds(300);
 
             _listVisual.StartAnimation("Offset.y", offsetAnimation);
+            LoadingControl.Visibility = Visibility.Collapsed;
             LoadingControl.Stop();
         }
     }
