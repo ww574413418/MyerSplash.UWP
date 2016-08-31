@@ -119,6 +119,19 @@ namespace MyerSplash.ViewModel
                   {
                       DrawerOpened = false;
                       ShowSearchBar = true;
+                      NavigationService.HistoryOperationsBeyondFrame.Push(() =>
+                          {
+                              if (ShowSearchBar)
+                              {
+                                  ShowSearchBar = false;
+                                  return true;
+                              }
+                              else
+                              {
+                                  NavigationService.HistoryOperationsBeyondFrame.Pop();
+                                  return false;
+                              }
+                          });
                   });
             }
         }
