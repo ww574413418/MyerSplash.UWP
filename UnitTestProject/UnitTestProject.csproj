@@ -128,10 +128,6 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\JP.Utils.UWP\JP.Utils.UWP\JP.Utils.UWP.csproj">
-      <Project>{357c51db-765e-4a88-950f-cda24f7184c3}</Project>
-      <Name>JP.Utils.UWP</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MyerSplashShared\MyerSplashShared.csproj">
       <Project>{56f19610-c6e1-412f-9048-74293d893021}</Project>
       <Name>MyerSplashShared</Name>
