@@ -1,7 +1,7 @@
 ﻿{
   "dependencies": {
     "CompositionHelper": "1.0.5",
-    "JP.Utils.UWP": "1.1.22",
+    "JP.Utils.UWP": "1.1.26",
     "Microsoft.ApplicationInsights": "2.1.0",
     "Microsoft.ApplicationInsights.PersistenceChannel": "1.2.3",
     "Microsoft.ApplicationInsights.WindowsApps": "1.1.1",

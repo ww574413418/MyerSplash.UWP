@@ -75,7 +75,7 @@ namespace MyerSplash.ViewModel
             }
             else
             {
-                SavingPositionPath = "\\Pictures\\MyerSplash";
+                SavingPositionPath = DEFAULT_SAVING_POSITION;
             }
         }
 
@@ -91,7 +91,7 @@ namespace MyerSplash.ViewModel
             {
                 await file.DeleteAsync(StorageDeleteOption.PermanentDelete);
             }
-            
+
             ToastService.SendToast("All clear.", TimeSpan.FromMilliseconds(1000));
         }
     }

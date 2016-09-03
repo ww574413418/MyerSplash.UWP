@@ -22,14 +22,14 @@ namespace MyerSplash.ViewModel
                       EmailRecipient rec = new EmailRecipient("dengweichao@hotmail.com");
                       EmailMessage mes = new EmailMessage();
                       mes.To.Add(rec);
-                      var attach = await ExceptionHelper.GetLogFileAttachementAsync();
+                      var attach = await Logger.GetLogFileAttachementAsync();
                       if (attach != null)
                       {
                           mes.Attachments.Add(attach);
                       }
                       var platform = DeviceHelper.IsDesktop ? "PC" : "Mobile";
 
-                      mes.Subject = $"MyerSplash for Windows 10 {platform}, {ResourcesHelper.GetDicString("AppVersion")} feedback, {DeviceHelper.OSVersion}, {DeviceHelper.DeviceModel}";
+                      mes.Subject = $"MyerSplash for Windows 10 {platform}, {ResourcesHelper.GetDicString("AppVersion")} feedback, {DeviceHelper.OSVersion}";
                       await EmailManager.ShowComposeNewEmailAsync(mes);
                   });
             }
@@ -47,10 +47,6 @@ namespace MyerSplash.ViewModel
                   });
             }
         }
-
-
-
-
 
         public AboutViewModel()
         {

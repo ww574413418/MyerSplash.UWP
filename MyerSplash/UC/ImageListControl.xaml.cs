@@ -1,10 +1,9 @@
-﻿using CompositionHelper.Animation.Fluent;
-using JP.Utils.UI;
+﻿using JP.Utils.UI;
+using MyerSplash.Common;
 using MyerSplash.Model;
 using MyerSplash.ViewModel;
 using System;
 using System.Numerics;
-using System.Threading.Tasks;
 using Windows.Devices.Input;
 using Windows.Foundation;
 using Windows.UI.Composition;
@@ -281,8 +280,11 @@ namespace MyerSplash.UC
             }
 
             maskVisual.StartAnimation("Opacity", fadeAnimation);
-            imgVisual.StartAnimation("Scale.x", scaleAnimation);
-            imgVisual.StartAnimation("Scale.y", scaleAnimation);
+            if(AppSettings.Instance.EnableScaleAnimation)
+            {
+                imgVisual.StartAnimation("Scale.x", scaleAnimation);
+                imgVisual.StartAnimation("Scale.y", scaleAnimation);
+            }
         }
 
         private void RootGrid_SizeChanged(object sender, SizeChangedEventArgs e)

@@ -306,7 +306,7 @@ namespace MyerSplash.View
 
         private Vector2 GetTargetSize()
         {
-            var width = Math.Min(600, this.ActualWidth);
+            var width = Math.Min(640, this.ActualWidth);
             var height = width / 1.5 + 100;
 
             return new Vector2((float)width, (float)height);

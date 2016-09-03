@@ -19,7 +19,7 @@
                 ManipulationMode="TranslateY"
                 Tapped="MaskBorder_Tapped" />
         <Grid x:Name="DetailContentGrid"
-              MaxWidth="600"
+              MaxWidth="640"
               Background="Transparent" Margin="0,-5,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition />

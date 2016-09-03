@@ -17,6 +17,7 @@
         <Core:EventTriggerBehavior EventName="GlobalPageKeyDown">
             <attach:InvokeCommandByKeyDown Command="{x:Bind MainVM.BeginSearchCommand}" PressedKey="Enter" />
             <attach:InvokeCommandByKeyDown Command="{x:Bind MainVM.RefreshCommand}" PressedKey="F5" />
+            <attach:InvokeCommandByKeyDown Command="{x:Bind MainVM.SearchCommand}" PressedKey="F6" />
         </Core:EventTriggerBehavior>
     </Interactivity:Interaction.Behaviors>
     <Grid x:Name="RootGrid" Background="{StaticResource RootBackgrdBrush}">
@@ -93,8 +94,12 @@
                                 Background="White"
                                 Command="{x:Bind MainVM.OpenDrawerCommand, Mode=OneWay}" />
         </Grid>
-        <uc:NoNetworkControl x:Name="NoNetworkControl" Visibility="{x:Bind MainVM.NoNetworkHintVisibility, Mode=OneWay, FallbackValue=Collapsed}" Grid.Row="1" />
-        <uc:NoItemControl x:Name="NoItemControl" Visibility="{x:Bind MainVM.NoItemHintVisibility, Mode=OneWay, FallbackValue=Collapsed}" Grid.Row="1" />
+        <uc:NoNetworkControl x:Name="NoNetworkControl"
+                             Grid.Row="1"
+                             Visibility="{x:Bind MainVM.NoNetworkHintVisibility, Mode=OneWay, FallbackValue=Collapsed}" />
+        <uc:NoItemControl x:Name="NoItemControl"
+                          Grid.Row="1"
+                          Visibility="{x:Bind MainVM.NoItemHintVisibility, Mode=OneWay, FallbackValue=Collapsed}" />
 
         <uc:PhotoDetailControl x:Name="DetailControl"
                                Grid.RowSpan="2"

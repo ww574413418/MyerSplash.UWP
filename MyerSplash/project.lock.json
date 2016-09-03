@@ -19,7 +19,7 @@
           "lib/uap10.0/CompositionHelper.dll": {}
         }
       },
-      "JP.Utils.UWP/1.1.22": {
+      "JP.Utils.UWP/1.1.26": {
         "compile": {
           "lib/uap10.0/JP.Utils.UWP.dll": {}
         },
@@ -1932,7 +1932,7 @@
           "lib/uap10.0/CompositionHelper.dll": {}
         }
       },
-      "JP.Utils.UWP/1.1.22": {
+      "JP.Utils.UWP/1.1.26": {
         "compile": {
           "lib/uap10.0/JP.Utils.UWP.dll": {}
         },
@@ -3695,7 +3695,7 @@
           "lib/uap10.0/CompositionHelper.dll": {}
         }
       },
-      "JP.Utils.UWP/1.1.22": {
+      "JP.Utils.UWP/1.1.26": {
         "compile": {
           "lib/uap10.0/JP.Utils.UWP.dll": {}
         },
@@ -5416,7 +5416,7 @@
           "lib/uap10.0/CompositionHelper.dll": {}
         }
       },
-      "JP.Utils.UWP/1.1.22": {
+      "JP.Utils.UWP/1.1.26": {
         "compile": {
           "lib/uap10.0/JP.Utils.UWP.dll": {}
         },
@@ -7187,7 +7187,7 @@
           "lib/uap10.0/CompositionHelper.dll": {}
         }
       },
-      "JP.Utils.UWP/1.1.22": {
+      "JP.Utils.UWP/1.1.26": {
         "compile": {
           "lib/uap10.0/JP.Utils.UWP.dll": {}
         },
@@ -8908,7 +8908,7 @@
           "lib/uap10.0/CompositionHelper.dll": {}
         }
       },
-      "JP.Utils.UWP/1.1.22": {
+      "JP.Utils.UWP/1.1.26": {
         "compile": {
           "lib/uap10.0/JP.Utils.UWP.dll": {}
         },
@@ -10679,7 +10679,7 @@
           "lib/uap10.0/CompositionHelper.dll": {}
         }
       },
-      "JP.Utils.UWP/1.1.22": {
+      "JP.Utils.UWP/1.1.26": {
         "compile": {
           "lib/uap10.0/JP.Utils.UWP.dll": {}
         },
@@ -12408,11 +12408,11 @@
         "lib/uap10.0/CompositionHelper/Properties/CompositionHelper.rd.xml"
       ]
     },
-    "JP.Utils.UWP/1.1.22": {
-      "sha512": "H/375NwN64dB3ihGMFo32y3I6qK6R80eQcfSduVg8Po8ojL7OA4N9c4fg7pOsuMcXhpU2t0+SsSNj+o0ImBDsA==",
+    "JP.Utils.UWP/1.1.26": {
+      "sha512": "VhYnSvvNntHcSCV4YWwX0tJocPliTwwgRbJM8ofC77zH5n+JQbJAntKdGpbrMGFZnnJQlxg7qpF/RmrTQrhT8A==",
       "type": "package",
       "files": [
-        "JP.Utils.UWP.1.1.22.nupkg.sha512",
+        "JP.Utils.UWP.1.1.26.nupkg.sha512",
         "JP.Utils.UWP.nuspec",
         "lib/uap10.0/JP.Utils.UWP.dll"
       ]
@@ -15907,7 +15907,7 @@
   "projectFileDependencyGroups": {
     "": [
       "CompositionHelper >= 1.0.5",
-      "JP.Utils.UWP >= 1.1.22",
+      "JP.Utils.UWP >= 1.1.26",
       "Microsoft.ApplicationInsights >= 2.1.0",
       "Microsoft.ApplicationInsights.PersistenceChannel >= 1.2.3",
       "Microsoft.ApplicationInsights.WindowsApps >= 1.1.1",

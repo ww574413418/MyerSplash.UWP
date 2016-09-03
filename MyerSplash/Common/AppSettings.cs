@@ -28,6 +28,19 @@ namespace MyerSplash.Common
             }
         }
 
+        public bool EnableScaleAnimation
+        {
+            get
+            {
+                return ReadSettings(nameof(EnableScaleAnimation), true);
+            }
+            set
+            {
+                SaveSettings(nameof(EnableScaleAnimation), value);
+                RaisePropertyChanged(() => EnableScaleAnimation);
+            }
+        }
+
         public string SaveFolderPath
         {
             get
