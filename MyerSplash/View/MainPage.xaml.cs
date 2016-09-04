@@ -32,6 +32,7 @@ namespace MyerSplash.View
         private Visual _hamBtnVisual;
         private Visual _loadingVisual;
         private Visual _refreshVisual;
+        private Visual _rootVisual;
 
         private double _lastVerticalOffset = 0;
         private bool _isHideTitleGrid = false;
@@ -81,6 +82,26 @@ namespace MyerSplash.View
             page.ToggleDrawerMaskAnimation((bool)e.NewValue);
         }
 
+        public bool ShowSecondLayer
+        {
+            get { return (bool)GetValue(ShowSecondLayerProperty); }
+            set { SetValue(ShowSecondLayerProperty, value); }
+        }
+
+        public static readonly DependencyProperty ShowSecondLayerProperty =
+            DependencyProperty.Register("ShowSecondLayer", typeof(bool), typeof(MainPage),
+                new PropertyMetadata(false, OnShowSecondLayerPropertyChanged));
+
+        public static void OnShowSecondLayerPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var page = d as MainPage;
+            if ((bool)e.NewValue)
+            {
+                page.RaiseTitleBarToTop();
+            }
+            else page.ResetZindex();
+        }
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -115,6 +136,14 @@ namespace MyerSplash.View
                 Mode = BindingMode.TwoWay,
             };
             this.SetBinding(DrawerOpendedProperty, b2);
+
+            var b3 = new Binding()
+            {
+                Source = MainVM,
+                Path = new PropertyPath("ShowSecondLayer"),
+                Mode = BindingMode.TwoWay,
+            };
+            this.SetBinding(ShowSecondLayerProperty, b3);
         }
 
         private void InitComposition()
@@ -134,46 +163,11 @@ namespace MyerSplash.View
         private void ShowLoading()
         {
             ListControl.Refreshing = true;
-
-            //var showAnimation = _compositor.CreateScalarKeyFrameAnimation();
-            //showAnimation.InsertKeyFrame(1, 80f);
-            //showAnimation.Duration = TimeSpan.FromMilliseconds(500);
-
-            //var linearEasingFunc = _compositor.CreateLinearEasingFunction();
-
-            //var rotateAnimation = _compositor.CreateScalarKeyFrameAnimation();
-            //rotateAnimation.InsertKeyFrame(1, 3600f, linearEasingFunc);
-            //rotateAnimation.Duration = TimeSpan.FromMilliseconds(10000);
-            //rotateAnimation.IterationBehavior = AnimationIterationBehavior.Forever;
-
-            //_loadingVisual.IsVisible = true;
-            //if (_refreshVisual.CenterPoint.X == 0)
-            //{
-            //    _refreshVisual.CenterPoint = new Vector3(25f, 25f, 0f);
-            //}
-            //_refreshVisual.RotationAngleInDegrees = 0;
-
-            //_refreshVisual.StopAnimation("RotationAngleInDegrees");
-            //_refreshVisual.StartAnimation("RotationAngleInDegrees", rotateAnimation);
-            //_loadingVisual.StartAnimation("Offset.y", showAnimation);
         }
 
         private void HideLoading()
         {
             ListControl.Refreshing = false;
-
-            //var hideAnimation = _compositor.CreateScalarKeyFrameAnimation();
-            //hideAnimation.InsertKeyFrame(1, -60f);
-            //hideAnimation.Duration = TimeSpan.FromMilliseconds(500);
-            //hideAnimation.DelayTime = TimeSpan.FromMilliseconds(500);
-
-            //var batch = _compositor.CreateScopedBatch(CompositionBatchTypes.Animation);
-            //_loadingVisual.StartAnimation("Offset.y", hideAnimation);
-            //batch.Completed += (sender, e) =>
-            //  {
-            //      _loadingVisual.IsVisible = false;
-            //  };
-            //batch.End();
         }
         #endregion
 
@@ -450,7 +444,6 @@ namespace MyerSplash.View
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-
         }
 
         protected override void SetUpTitleBar()
@@ -466,11 +459,27 @@ namespace MyerSplash.View
                 (this.Content as Grid).Children.Add(_titleBar);
                 Grid.SetColumnSpan(_titleBar, 5);
                 Grid.SetRowSpan(_titleBar, 5);
-                Canvas.SetZIndex(_titleBar, 100);
-                Canvas.SetZIndex(HamBtn, 101);
-                Canvas.SetZIndex(DrawerControl, 102);
+                ResetZindex();
             }
             _titleBar.Setup();
+        }
+
+        private void RaiseTitleBarToTop()
+        {
+            Canvas.SetZIndex(_titleBar, 103);
+            Canvas.SetZIndex(HamBtn, 101);
+            Canvas.SetZIndex(DrawerControl, 102);
+            Canvas.SetZIndex(SettingsUC, 102);
+            Canvas.SetZIndex(AboutUC, 102);
+        }
+
+        private void ResetZindex()
+        {
+            Canvas.SetZIndex(_titleBar, 100);
+            Canvas.SetZIndex(HamBtn, 101);
+            Canvas.SetZIndex(DrawerControl, 102);
+            Canvas.SetZIndex(SettingsUC, 102);
+            Canvas.SetZIndex(AboutUC, 102);
         }
     }
 }

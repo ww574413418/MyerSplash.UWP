@@ -349,10 +349,63 @@ namespace MyerSplash.ViewModel
                 return _goToSettingsCommand = new RelayCommand(() =>
                   {
                       DrawerOpened = false;
-                      NavigationService.NaivgateToPageAsync(typeof(SettingsPage));
+                      ShowSettingsUC = true;
+                      ShowSecondLayer = true;
                   });
             }
         }
+
+        private bool _showAboutUC;
+        public bool ShowAboutUC
+        {
+            get
+            {
+                return _showAboutUC;
+            }
+            set
+            {
+                if (_showAboutUC != value)
+                {
+                    _showAboutUC = value;
+                    RaisePropertyChanged(() => ShowAboutUC);
+                }
+            }
+        }
+
+        private bool _showSettingsUC;
+        public bool ShowSettingsUC
+        {
+            get
+            {
+                return _showSettingsUC;
+            }
+            set
+            {
+                if (_showSettingsUC != value)
+                {
+                    _showSettingsUC = value;
+                    RaisePropertyChanged(() => ShowSettingsUC);
+                }
+            }
+        }
+
+        private bool _showSecondLayer;
+        public bool ShowSecondLayer
+        {
+            get
+            {
+                return _showSecondLayer;
+            }
+            set
+            {
+                if (_showSecondLayer != value)
+                {
+                    _showSecondLayer = value;
+                    RaisePropertyChanged(() => ShowSecondLayer);
+                }
+            }
+        }
+
 
         private RelayCommand _goToAboutCommand;
         public RelayCommand GoToAboutCommand
@@ -363,7 +416,8 @@ namespace MyerSplash.ViewModel
                 return _goToAboutCommand = new RelayCommand(() =>
                   {
                       DrawerOpened = false;
-                      NavigationService.NaivgateToPageAsync(typeof(AboutPage));
+                      ShowAboutUC = true;
+                      ShowSecondLayer = true;
                   });
             }
         }

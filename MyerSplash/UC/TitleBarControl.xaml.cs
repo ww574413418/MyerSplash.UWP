@@ -9,7 +9,6 @@ namespace MyerSplash.UC
     public sealed partial class TitleBarControl : UserControl
     {
         public event Action OnClickBackBtn;
-        public event Action OnTapClickBackPlaceHolder;
 
         public bool ShowBackBtn
         {
