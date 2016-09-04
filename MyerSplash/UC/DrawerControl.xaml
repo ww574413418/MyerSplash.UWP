@@ -15,7 +15,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid>
-            <Image Source="ms-appx:///Assets/Image/The Watchtower.png" Stretch="UniformToFill" />
+            <Image Source="ms-appx:///Assets/Image/The Watchtower.jpg" Stretch="UniformToFill" />
             <TextBlock Margin="24,0,0,20"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Bottom"

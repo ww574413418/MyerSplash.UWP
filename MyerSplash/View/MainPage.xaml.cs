@@ -29,6 +29,7 @@ namespace MyerSplash.View
         private Visual _drawerMaskVisual;
         private Visual _titleGridVisual;
         private Visual _refreshBtnVisual;
+        private Visual _hamBtnVisual;
         private Visual _loadingVisual;
         private Visual _refreshVisual;
 
@@ -125,6 +126,7 @@ namespace MyerSplash.View
             _drawerMaskVisual = ElementCompositionPreview.GetElementVisual(DrawerMaskBorder);
             _titleGridVisual = ElementCompositionPreview.GetElementVisual(TitleGrid);
             _refreshBtnVisual = ElementCompositionPreview.GetElementVisual(RefreshBtn);
+            _hamBtnVisual = ElementCompositionPreview.GetElementVisual(HamBtn);
             _loadingVisual.Offset = new Vector3(0f, -60f, 0f);
         }
 
@@ -338,18 +340,29 @@ namespace MyerSplash.View
             _refreshBtnVisual.StartAnimation("Offset.Y", offsetAnimation);
         }
 
+        private void ToggleHamBtnAnimation(bool show)
+        {
+            var offsetAnimation = _compositor.CreateScalarKeyFrameAnimation();
+            offsetAnimation.InsertKeyFrame(1f, show ? 0f : -100f);
+            offsetAnimation.Duration = TimeSpan.FromMilliseconds(500);
+
+            _hamBtnVisual.StartAnimation("Offset.Y", offsetAnimation);
+        }
+
         private void ListControl_OnScrollViewerViewChanged(ScrollViewer scrollViewer)
         {
             if ((scrollViewer.VerticalOffset - _lastVerticalOffset) > 5 && !_isHideTitleGrid)
             {
                 _isHideTitleGrid = true;
                 ToggleRefreshBtnAnimation(false);
+                ToggleHamBtnAnimation(false);
                 ToggleTitleBarAnimation(false);
             }
             else if (scrollViewer.VerticalOffset < _lastVerticalOffset && _isHideTitleGrid)
             {
                 _isHideTitleGrid = false;
                 ToggleRefreshBtnAnimation(true);
+                ToggleHamBtnAnimation(true);
                 ToggleTitleBarAnimation(true);
             }
             _lastVerticalOffset = scrollViewer.VerticalOffset;
@@ -437,7 +450,7 @@ namespace MyerSplash.View
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            
+
         }
 
         protected override void SetUpTitleBar()

@@ -469,9 +469,9 @@ namespace MyerSplash.ViewModel
                         var task = item.RestoreDataAsync();
                     }
                 }
-                else MainDataVM = new ImageDataViewModel(this, UrlHelper.GetNewImages, true);
+                else MainDataVM = new ImageDataViewModel(this, UrlHelper.GetNewImages, false);
             }
-            else MainDataVM = new ImageDataViewModel(this, UrlHelper.GetNewImages, true);
+            else MainDataVM = new ImageDataViewModel(this, UrlHelper.GetNewImages, false);
         }
 
         private async Task RefreshAllAsync()
@@ -515,6 +515,7 @@ namespace MyerSplash.ViewModel
         private async Task RestoreCategoriyListAsync()
         {
             this.Categories = await SerializerHelper.DeserializeFromJsonByFile<ObservableCollection<UnsplashCategory>>(CachedFileNames.CateListFileName);
+            SelectedIndex = 1;
         }
 
         private async Task SaveMainListDataAsync()

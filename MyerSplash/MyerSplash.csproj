@@ -182,9 +182,7 @@
     <Content Include="Assets\Icon\Logo_trans.png" />
     <Content Include="Assets\Icon\Logo_trans_narrow.png" />
     <Content Include="Assets\Icon\Logo_white.png" />
-    <Content Include="Assets\Image\Image_mask.png" />
-    <Content Include="Assets\Image\placeholder.jpg" />
-    <Content Include="Assets\Image\The Watchtower.png" />
+    <Content Include="Assets\Image\The Watchtower.jpg" />
     <Content Include="Assets\Logo-500.png" />
     <Content Include="Assets\NewStoreLogo.scale-100.png" />
     <Content Include="Assets\NewStoreLogo.scale-125.png" />

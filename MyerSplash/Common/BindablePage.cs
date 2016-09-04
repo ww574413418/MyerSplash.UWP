@@ -1,6 +1,7 @@
 ﻿using JP.Utils.Framework;
 using JP.Utils.Helper;
 using System;
+using Windows.ApplicationModel;
 using Windows.ApplicationModel.Core;
 using Windows.UI;
 using Windows.UI.Core;
@@ -12,16 +13,25 @@ using Windows.UI.Xaml.Navigation;
 
 namespace MyerSplash.Common
 {
-    public class BindablePage : Page
+    public abstract class BindablePage : Page
     {
         public event EventHandler<KeyEventArgs> GlobalPageKeyDown;
 
         public BindablePage()
         {
-            SetUpPageAnimation();
-            SetUpNavigationCache();
-            IsTextScaleFactorEnabled = false;
-            this.Loaded += BindablePage_Loaded;
+            if (!DesignMode.DesignModeEnabled)
+            {
+                ConstructingInNotDesignMode();
+                SetUpPageAnimation();
+                SetUpNavigationCache();
+                IsTextScaleFactorEnabled = false;
+                this.Loaded += BindablePage_Loaded;
+            }
+        }
+
+        protected virtual void ConstructingInNotDesignMode()
+        {
+
         }
 
         private void BindablePage_Loaded(object sender, RoutedEventArgs e)

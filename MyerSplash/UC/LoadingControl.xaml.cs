@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Composition;
@@ -29,14 +30,18 @@ namespace MyerSplash.UC
         public LoadingControl()
         {
             this.InitializeComponent();
-            this.SizeChanged += LoadingControl_SizeChanged;
+           
+            if(!DesignMode.DesignModeEnabled)
+            {
+                this.SizeChanged += LoadingControl_SizeChanged;
 
-            _compositor = RootGrid.GetVisual().Compositor;
-            _rootVisual = RootGrid.GetVisual();
-            _e1Visual = E1.GetVisual();
-            _e2Visual = E2.GetVisual();
+                _compositor = RootGrid.GetVisual().Compositor;
+                _rootVisual = RootGrid.GetVisual();
+                _e1Visual = E1.GetVisual();
+                _e2Visual = E2.GetVisual();
 
-            Start();
+                Start();
+            }
         }
 
         private void LoadingControl_SizeChanged(object sender, SizeChangedEventArgs e)
