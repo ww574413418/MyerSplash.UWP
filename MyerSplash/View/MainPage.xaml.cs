@@ -454,6 +454,8 @@ namespace MyerSplash.View
                 Grid.SetColumnSpan(_titleBar, 5);
                 Grid.SetRowSpan(_titleBar, 5);
                 Canvas.SetZIndex(_titleBar, 100);
+                Canvas.SetZIndex(HamBtn, 101);
+                Canvas.SetZIndex(DrawerControl, 102);
             }
             _titleBar.Setup();
         }

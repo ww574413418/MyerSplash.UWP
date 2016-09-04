@@ -89,11 +89,11 @@
                            Text="{x:Bind MainVM.SelectedTitle, Mode=OneWay, FallbackValue=FEATURED}" />
             </StackPanel>
 
-            <uc:HamburgerButton Width="70"
-                                HorizontalAlignment="Left"
-                                Background="White"
-                                Command="{x:Bind MainVM.OpenDrawerCommand, Mode=OneWay}" />
         </Grid>
+        <uc:HamburgerButton Width="70" x:Name="HamBtn"
+                            HorizontalAlignment="Left"
+                            Command="{x:Bind MainVM.OpenDrawerCommand, Mode=OneWay}" />
+
         <uc:NoNetworkControl x:Name="NoNetworkControl"
                              Grid.Row="1"
                              Visibility="{x:Bind MainVM.NoNetworkHintVisibility, Mode=OneWay, FallbackValue=Collapsed}" />
