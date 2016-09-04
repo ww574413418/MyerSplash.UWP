@@ -9,26 +9,25 @@
                              d:DesignWidth="400"
                              mc:Ignorable="d">
 
-    <Grid x:Name="RootGrid" Background="{StaticResource MyerSplashDarkColor}">
+    <Grid x:Name="RootGrid" Background="{StaticResource TitleBarDarkBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Grid Background="{StaticResource MyerSplashThemeColor}">
+        <Grid Background="{StaticResource MyerSplashDarkColor}">
             <Button x:Name="CloseBtn"
-                    Width="50"
-                    Height="50"
+                    Width="70"
                     HorizontalAlignment="Left"
                     Click="CloseBtn_Click"
-                    Style="{StaticResource ListButtonStyle}">
-                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE0D5;" />
+                    Style="{StaticResource ListButtonStyle}" VerticalAlignment="Stretch">
+                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE0D5;" Foreground="White" />
             </Button>
             <TextBlock Margin="0"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        FontSize="20"
                        FontWeight="Bold"
-                       Foreground="Black"
+                       Foreground="White"
                        Text="ABOUT" />
         </Grid>
         <Grid Grid.Row="1">

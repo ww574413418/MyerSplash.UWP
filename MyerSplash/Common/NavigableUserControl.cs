@@ -62,13 +62,11 @@ namespace MyerSplash.Common
 
         public void OnHide()
         {
-            TitleBarHelper.SetUpLightTitleBar();
             App.MainVM.ShowSecondLayer = false;
         }
 
         public void OnShow()
         {
-            TitleBarHelper.SetUpDarkTitleBar();
         }
 
         public void ToggleAnimation()
