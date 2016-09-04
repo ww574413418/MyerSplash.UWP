@@ -508,7 +508,13 @@ namespace MyerSplash.ViewModel
                     Title = "Featured",
                 });
                 SelectedIndex = 1;
+                await SerializerHelper.SerializerToJson<ObservableCollection<UnsplashCategory>>(list, CachedFileNames.CateListFileName, CacheUtil.GetCachedFileFolder());
             }
+        }
+
+        private async Task RestoreCategoriyListAsync()
+        {
+            this.Categories = await SerializerHelper.DeserializeFromJsonByFile<ObservableCollection<UnsplashCategory>>(CachedFileNames.CateListFileName);
         }
 
         private async Task SaveMainListDataAsync()
@@ -534,6 +540,7 @@ namespace MyerSplash.ViewModel
             if (IsFirstActived)
             {
                 IsFirstActived = false;
+                await RestoreCategoriyListAsync();
                 await RestoreMainListDataAsync();
                 await RefreshAllAsync();
             }
