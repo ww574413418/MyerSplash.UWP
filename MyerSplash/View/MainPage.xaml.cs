@@ -32,7 +32,6 @@ namespace MyerSplash.View
         private Visual _hamBtnVisual;
         private Visual _loadingVisual;
         private Visual _refreshVisual;
-        private Visual _rootVisual;
 
         private double _lastVerticalOffset = 0;
         private bool _isHideTitleGrid = false;
@@ -466,7 +465,10 @@ namespace MyerSplash.View
 
         private void RaiseTitleBarToTop()
         {
-            Canvas.SetZIndex(_titleBar, 103);
+            if (_titleBar != null)
+            {
+                Canvas.SetZIndex(_titleBar, 103);
+            }
             Canvas.SetZIndex(HamBtn, 101);
             Canvas.SetZIndex(DrawerControl, 102);
             Canvas.SetZIndex(SettingsUC, 102);
@@ -475,7 +477,10 @@ namespace MyerSplash.View
 
         private void ResetZindex()
         {
-            Canvas.SetZIndex(_titleBar, 100);
+            if (_titleBar != null)
+            {
+                Canvas.SetZIndex(_titleBar, 100);
+            }
             Canvas.SetZIndex(HamBtn, 101);
             Canvas.SetZIndex(DrawerControl, 102);
             Canvas.SetZIndex(SettingsUC, 102);
