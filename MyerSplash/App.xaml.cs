@@ -65,7 +65,7 @@ namespace MyerSplash
             if (e.PrelaunchActivated) return;
 
             Frame rootFrame = Window.Current.Content as Frame;
-            
+
             if (rootFrame == null)
             {
                 rootFrame = new Frame();
@@ -86,9 +86,11 @@ namespace MyerSplash
             }
 
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
+            SystemNavigationManager.GetForCurrentView().BackRequested -= App_BackRequested;
             SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
             if (APIInfoHelper.HasHardwareButton)
             {
+                HardwareButtons.BackPressed -= HardwareButtons_BackPressed;
                 HardwareButtons.BackPressed += HardwareButtons_BackPressed;
             }
         }

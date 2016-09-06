@@ -374,7 +374,7 @@ namespace MyerSplash.View
                         MainVM.DrawerOpened = false;
                         return true;
                     }
-                    else return false;
+                    return false;
                 });
             }
             else
