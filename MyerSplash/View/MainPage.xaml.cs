@@ -30,8 +30,6 @@ namespace MyerSplash.View
         private Visual _titleGridVisual;
         private Visual _refreshBtnVisual;
         private Visual _hamBtnVisual;
-        private Visual _loadingVisual;
-        private Visual _refreshVisual;
 
         private double _lastVerticalOffset = 0;
         private bool _isHideTitleGrid = false;
@@ -148,14 +146,11 @@ namespace MyerSplash.View
         private void InitComposition()
         {
             _compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
-            _loadingVisual = ElementCompositionPreview.GetElementVisual(LoadingGrid);
-            _refreshVisual = ElementCompositionPreview.GetElementVisual(RefreshIcon);
             _drawerVisual = ElementCompositionPreview.GetElementVisual(DrawerControl);
             _drawerMaskVisual = ElementCompositionPreview.GetElementVisual(DrawerMaskBorder);
             _titleGridVisual = ElementCompositionPreview.GetElementVisual(TitleGrid);
             _refreshBtnVisual = ElementCompositionPreview.GetElementVisual(RefreshBtn);
             _hamBtnVisual = ElementCompositionPreview.GetElementVisual(HamBtn);
-            _loadingVisual.Offset = new Vector3(0f, -60f, 0f);
         }
 
         #region Loading animation
@@ -209,10 +204,10 @@ namespace MyerSplash.View
             {
                 _hideTitleBarForDetail = false;
                 ToggleTitleBarAnimation(true);
+                ToggleHamBtnAnimation(true);
             }
             Canvas.SetZIndex(TitleGrid, 0);
             Canvas.SetZIndex(ContentGrid, 0);
-            Canvas.SetZIndex(LoadingGrid, 0);
             Canvas.SetZIndex(DetailControl, 0);
             ListControl.HideItemDetailAnimation();
         }
@@ -258,11 +253,11 @@ namespace MyerSplash.View
                 {
                     _hideTitleBarForDetail = true;
                     ToggleTitleBarAnimation(false);
+                    ToggleHamBtnAnimation(false);
                 }
                 else
                 {
                     Canvas.SetZIndex(TitleGrid, 1);
-                    Canvas.SetZIndex(LoadingGrid, 0);
                     Canvas.SetZIndex(ContentGrid, 2);
                     Canvas.SetZIndex(DetailControl, 3);
                 }
@@ -272,15 +267,10 @@ namespace MyerSplash.View
             DetailControl.CurrentImage = _clickedImg;
             DetailControl.ToggleDetailGridAnimation(true);
 
-            NavigationService.HistoryOperationsBeyondFrame.Push(() =>
+            NavigationService.AddOperation(() =>
             {
-                var content = Frame.Content;
-                if (content.GetType() == typeof(MainPage))
-                {
-                    DetailControl.HideDetailControl();
-                    return true;
-                }
-                else return false;
+                DetailControl.HideDetailControl();
+                return true;
             });
         }
 
@@ -377,10 +367,9 @@ namespace MyerSplash.View
                     ToggleDrawerMaskAnimation(true);
                 }
 
-                NavigationService.HistoryOperationsBeyondFrame.Push(() =>
+                NavigationService.AddOperation(() =>
                 {
-                    var content = Frame.Content;
-                    if (content.GetType() == typeof(MainPage))
+                    if (MainVM.DrawerOpened)
                     {
                         MainVM.DrawerOpened = false;
                         return true;
@@ -471,6 +460,7 @@ namespace MyerSplash.View
             }
             Canvas.SetZIndex(HamBtn, 101);
             Canvas.SetZIndex(DrawerControl, 102);
+            Canvas.SetZIndex(SearchControl, 102);
             Canvas.SetZIndex(SettingsUC, 102);
             Canvas.SetZIndex(AboutUC, 102);
         }
@@ -482,6 +472,7 @@ namespace MyerSplash.View
                 Canvas.SetZIndex(_titleBar, 100);
             }
             Canvas.SetZIndex(HamBtn, 101);
+            Canvas.SetZIndex(SearchControl, 102);
             Canvas.SetZIndex(DrawerControl, 102);
             Canvas.SetZIndex(SettingsUC, 102);
             Canvas.SetZIndex(AboutUC, 102);

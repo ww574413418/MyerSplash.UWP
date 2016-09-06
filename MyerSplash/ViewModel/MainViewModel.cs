@@ -119,18 +119,14 @@ namespace MyerSplash.ViewModel
                   {
                       DrawerOpened = false;
                       ShowSearchBar = true;
-                      NavigationService.HistoryOperationsBeyondFrame.Push(() =>
+                      NavigationService.AddOperation(() =>
                           {
                               if (ShowSearchBar)
                               {
                                   ShowSearchBar = false;
                                   return true;
                               }
-                              else
-                              {
-                                  NavigationService.HistoryOperationsBeyondFrame.Pop();
-                                  return false;
-                              }
+                              else return false;
                           });
                   });
             }
@@ -207,7 +203,7 @@ namespace MyerSplash.ViewModel
                       DrawerOpened = !DrawerOpened;
                       if (DrawerOpened)
                       {
-                          NavigationService.HistoryOperationsBeyondFrame.Push(() =>
+                          NavigationService.AddOperation(() =>
                           {
                               if (DrawerOpened)
                               {
@@ -351,18 +347,14 @@ namespace MyerSplash.ViewModel
                       DrawerOpened = false;
                       ShowSettingsUC = true;
                       ShowSecondLayer = true;
-                      NavigationService.HistoryOperationsBeyondFrame.Push(() =>
+                      NavigationService.AddOperation(() =>
                           {
                               if (ShowSettingsUC)
                               {
                                   ShowSettingsUC = false;
                                   return true;
                               }
-                              else
-                              {
-                                  NavigationService.HistoryOperationsBeyondFrame.Pop();
-                                  return false;
-                              }
+                              return false;
                           });
                   });
             }
@@ -431,18 +423,14 @@ namespace MyerSplash.ViewModel
                       DrawerOpened = false;
                       ShowAboutUC = true;
                       ShowSecondLayer = true;
-                      NavigationService.HistoryOperationsBeyondFrame.Push(() =>
+                      NavigationService.AddOperation(() =>
                           {
                               if (ShowAboutUC)
                               {
                                   ShowAboutUC = false;
                                   return true;
                               }
-                              else
-                              {
-                                  NavigationService.HistoryOperationsBeyondFrame.Pop();
-                                  return false;
-                              }
+                              return false;
                           });
                   });
             }

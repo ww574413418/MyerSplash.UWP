@@ -15,6 +15,14 @@ namespace MyerSplash.Common
 {
     public class NavigableUserControl : UserControl, INavigableUserControl
     {
+        private bool IsWide
+        {
+            get
+            {
+                return Window.Current.Bounds.Width >= 650 ? true : false;
+            }
+        }
+
         public bool Shown
         {
             get { return (bool)GetValue(ShownProperty); }
@@ -47,17 +55,29 @@ namespace MyerSplash.Common
 
         private void UserControlBase_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if (!Shown)
-            {
-                _rootVisual.Offset = new Vector3(0f, (float)e.NewSize.Height, 0f);
-            }
+            ResetOffset();
         }
 
         private void InitComposition()
         {
             _compositor = this.GetVisual().Compositor;
             _rootVisual = this.GetVisual();
-            _rootVisual.Offset = new Vector3(0f, (float)this.ActualHeight, 0f);
+            ResetOffset();
+        }
+
+        private void ResetOffset()
+        {
+            if (!Shown)
+            {
+                if (IsWide)
+                {
+                    _rootVisual.Offset = new Vector3(0f, (float)this.ActualHeight, 0f);
+                }
+                else
+                {
+                    _rootVisual.Offset = new Vector3((float)this.ActualWidth, 0f, 0f);
+                }
+            }
         }
 
         public void OnHide()
@@ -72,21 +92,11 @@ namespace MyerSplash.Common
         public void ToggleAnimation()
         {
             var offsetAnimation = _compositor.CreateScalarKeyFrameAnimation();
-            offsetAnimation.InsertKeyFrame(1f, Shown ? 0f : (float)this.ActualHeight);
+            offsetAnimation.InsertKeyFrame(1f, Shown ? 0f :
+                (IsWide ? (float)this.ActualHeight : (float)this.ActualWidth));
             offsetAnimation.Duration = TimeSpan.FromMilliseconds(800);
 
-            var batch = _compositor.CreateScopedBatch(CompositionBatchTypes.Animation);
-            _rootVisual.StartAnimation("Offset.y", offsetAnimation);
-            batch.Completed += Batch_Completed;
-            batch.End();
-        }
-
-        private void Batch_Completed(object sender, CompositionBatchCompletedEventArgs args)
-        {
-            if (!Shown)
-            {
-                //this.Visibility = Visibility.Collapsed;
-            }
+            _rootVisual.StartAnimation(IsWide ? "Offset.y" : "Offset.x", offsetAnimation);
         }
     }
 }

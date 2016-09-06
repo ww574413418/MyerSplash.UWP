@@ -18,33 +18,28 @@ namespace MyerSplash.Common
             }
         }
 
-        public static Stack<Func<bool>> HistoryOperationsBeyondFrame { get; set; } = new Stack<Func<bool>>();
+        private static Stack<Func<bool>> HistoryOperations { get; set; } = new Stack<Func<bool>>();
 
-        public static void NaivgateToPageAsync(Type pagetype, object param = null)
+        public static void AddOperation(Func<bool> func)
         {
-            RootFrame.Navigate(pagetype, param);
+            HistoryOperations.Push(func);
         }
 
         public static bool GoBack()
         {
-            try
+            var handled = false;
+
+            while (!handled)
             {
-                var op = HistoryOperationsBeyondFrame.Pop();
-                if (!op.Invoke())
+                if (HistoryOperations.Count > 0)
                 {
-                    throw new InvalidOperationException();
+                    var op = HistoryOperations.Pop();
+                    handled = op.Invoke();
                 }
-                else return true;
+                else break;
             }
-            catch (InvalidOperationException)
-            {
-                if (RootFrame.CanGoBack)
-                {
-                    RootFrame.GoBack();
-                    return true;
-                }
-                else return false;
-            }
+
+            return handled;
         }
     }
 }
