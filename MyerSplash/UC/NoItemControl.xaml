@@ -22,20 +22,6 @@
                    FontSize="20"
                    FontWeight="Light"
                    Foreground="{StaticResource HintTextForegroundBrush}"
-                   Text="Please browse other photos." />
-        <Button Height="28"
-                Margin="0,12,0,0"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                Background="{x:Null}"
-                BorderThickness="0"
-                Command="{x:Bind MainVM.SearchCommand,Mode=OneWay}"
-                Style="{StaticResource ButtonCommonStyle}">
-            <Border Background="{StaticResource MyerSplashThemeColor}">
-                <TextBlock HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           Text="SEARCH" />
-            </Border>
-        </Button>
+                   Text="Please check your network or keywords." />
     </StackPanel>
 </UserControl>

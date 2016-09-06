@@ -73,12 +73,17 @@ namespace MyerSplash.ViewModel
                 await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     MainVM.FooterLoadingVisibility = Visibility.Collapsed;
-                    MainVM.FooterReloadVisibility = Visibility.Visible;
                     MainVM.IsRefreshing = false;
 
                     if (MainVM.MainList?.Count == 0)
+                    {
                         MainVM.NoItemHintVisibility = Visibility.Visible;
-                    else MainVM.NoItemHintVisibility = Visibility.Collapsed;
+                    }
+                    else
+                    {
+                        MainVM.NoItemHintVisibility = Visibility.Collapsed;
+                        MainVM.FooterReloadVisibility = Visibility.Visible;
+                    }
 
                     ToastService.SendToast("Request failed.");
                 });
@@ -89,12 +94,17 @@ namespace MyerSplash.ViewModel
                 await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     MainVM.FooterLoadingVisibility = Visibility.Collapsed;
-                    MainVM.FooterReloadVisibility = Visibility.Visible;
                     MainVM.IsRefreshing = false;
 
-                    if (MainVM.MainList.Count == 0)
+                    if (MainVM.MainList?.Count == 0)
+                    {
                         MainVM.NoItemHintVisibility = Visibility.Visible;
-                    else MainVM.NoItemHintVisibility = Visibility.Collapsed;
+                    }
+                    else
+                    {
+                        MainVM.NoItemHintVisibility = Visibility.Collapsed;
+                        MainVM.FooterReloadVisibility = Visibility.Visible;
+                    }
 
                     ToastService.SendToast("Request timeout.");
                 });
