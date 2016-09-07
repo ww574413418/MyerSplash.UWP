@@ -609,7 +609,7 @@ namespace MyerSplash.ViewModel
             if (IsFirstActived)
             {
                 IsFirstActived = false;
-                await RestoreCategoriyListAsync();
+                //await RestoreCategoriyListAsync();
                 await RestoreMainListDataAsync();
                 await RefreshAllAsync();
             }
