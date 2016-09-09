@@ -8,6 +8,9 @@
     <Filter Include="ImageEx">
       <UniqueIdentifier>{42b5770a-3059-4ac2-9ba4-d97a7a82b2c3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Themes">
+      <UniqueIdentifier>{b6b004aa-da2e-4669-98f7-1d0ef69c8c5f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -23,5 +26,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Themes\Generic.xaml">
+      <Filter>Themes</Filter>
+    </Page>
   </ItemGroup>
 </Project>
