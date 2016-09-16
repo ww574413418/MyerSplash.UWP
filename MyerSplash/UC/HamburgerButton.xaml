@@ -15,7 +15,7 @@
               Height="30"
               HorizontalAlignment="Center"
               VerticalAlignment="Center"
-              Background="#02FFFFFF">
+              >
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition />

@@ -10,11 +10,9 @@ namespace MyerSplash.Common
 {
     public class CustomizedTitleBarPage : BindablePage
     {
-        protected TitleBarControl TitleBarUC;
-
         public CustomizedTitleBarPage()
         {
-
+            
         }
 
         protected override void SetNavigationBackBtn()
@@ -25,31 +23,11 @@ namespace MyerSplash.Common
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            if (DeviceHelper.IsDesktop)
-            {
-                CustomTitleBar();
-            }
         }
 
         protected virtual void CustomTitleBar()
         {
-            var currentContent = this.Content as Grid;
-            if (currentContent == null)
-            {
-                throw new ArgumentNullException("The root element of the page should be Grid.");
-            }
-            if (TitleBarUC == null)
-            {
-                TitleBarUC = new TitleBarControl();
-                TitleBarUC.OnClickBackBtn += () =>
-                  {
-                      if (Frame.CanGoBack) Frame.GoBack();
-                  };
-                (currentContent as Grid).Children.Add(TitleBarUC);
-                Grid.SetColumnSpan(TitleBarUC, 5);
-                Grid.SetRowSpan(TitleBarUC, 5);
-            }
-            TitleBarUC.Setup();
+            
         }
     }
 }

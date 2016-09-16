@@ -379,22 +379,26 @@
             <RowDefinition Height="60" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Grid Background="{StaticResource MyerSplashDarkColor}">
-            <Button x:Name="CloseBtn"
-                    Width="70"
-                    HorizontalAlignment="Left"
-                    Click="CloseBtn_Click"
-                    Style="{StaticResource ListButtonStyle}" VerticalAlignment="Stretch">
-               <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE0D5;" Foreground="White" />
-            </Button>
+        <Grid x:Name="TitleBar" Background="{StaticResource TitleBarDarkBrush}">
+
             <TextBlock Margin="0,0,0,0"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
-                       FontSize="20"
+                       FontSize="25"
                        FontWeight="Bold"
                        Foreground="White"
                        Text="SETTINGS" />
         </Grid>
+        <Button x:Name="CloseBtn"
+                Width="70"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Stretch"
+                Click="CloseBtn_Click"
+                Style="{StaticResource ListButtonStyle}">
+            <FontIcon FontFamily="Segoe MDL2 Assets"
+                      Foreground="White"
+                      Glyph="&#xE0D5;" />
+        </Button>
         <Grid Grid.Row="1" MaxWidth="600">
             <StackPanel Margin="0,20,0,0">
                 <TextBlock Margin="10,10,0,0"
@@ -455,6 +459,7 @@
                             VerticalAlignment="Stretch"
                             Background="{x:Null}"
                             Command="{x:Bind SettingsVM.ChooseSavingPositionCommand, Mode=OneWay}"
+                            IsEnabled="False"
                             Style="{StaticResource ButtonCommonStyle}">
                         <Border Background="#66000000"
                                 BorderBrush="{StaticResource MyerSplashThemeColor}"
@@ -469,7 +474,7 @@
                            VerticalAlignment="Center"
                            Foreground="White"
                            Text="Loading quality" />
-                <ComboBox Margin="10,10,18,0"
+                <ComboBox Margin="10,10,10,0"
                           HorizontalAlignment="Stretch"
                           BorderThickness="1"
                           RequestedTheme="Dark"
@@ -484,7 +489,7 @@
                            VerticalAlignment="Center"
                            Foreground="White"
                            Text="Saving quality" />
-                <ComboBox Margin="10,10,18,0"
+                <ComboBox Margin="10,10,10,0"
                           HorizontalAlignment="Stretch"
                           BorderThickness="1"
                           RequestedTheme="Dark"
@@ -501,15 +506,15 @@
                            FontSize="20"
                            FontWeight="Bold"
                            Foreground="{StaticResource MyerSplashThemeColor}"
-                           Text="OTHERS" />
+                           Text="CACHE" />
                 <Button Margin="10,10,10,0"
                         HorizontalAlignment="Stretch"
                         Command="{x:Bind SettingsVM.ClearCacheCommand, Mode=OneWay}"
-                        Style="{StaticResource ButtonCommonStyle}">
-                    <Border Background="{StaticResource MyerSplashThemeColor}">
+                        Style="{StaticResource ListButtonStyle}">
+                    <Border Background="#66000000">
                         <TextBlock Margin="10"
                                    HorizontalAlignment="Center"
-                                   Text="Clean up cache" />
+                                   Text="{x:Bind SettingsVM.CacheHint, Mode=OneWay}" Foreground="White" />
                     </Border>
                 </Button>
             </StackPanel>

@@ -111,10 +111,12 @@
         <uc:AboutControl x:Name="AboutUC"
                          Grid.RowSpan="2"
                          d:IsHidden="True"
+                         OnShownChanged="OnShownChanged"
                          Shown="{x:Bind MainVM.ShowAboutUC, Mode=TwoWay}" />
         <uc:SettingsControl x:Name="SettingsUC"
                             Grid.RowSpan="2"
                             d:IsHidden="True"
+                            OnShownChanged="OnShownChanged"
                             Shown="{x:Bind MainVM.ShowSettingsUC, Mode=TwoWay}" />
     </Grid>
 </common:CustomizedTitleBarPage>

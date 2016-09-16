@@ -346,7 +346,6 @@ namespace MyerSplash.ViewModel
                   {
                       DrawerOpened = false;
                       ShowSettingsUC = true;
-                      ShowSecondLayer = true;
                       NavigationService.AddOperation(() =>
                           {
                               if (ShowSettingsUC)
@@ -394,24 +393,6 @@ namespace MyerSplash.ViewModel
             }
         }
 
-        private bool _showSecondLayer;
-        public bool ShowSecondLayer
-        {
-            get
-            {
-                return _showSecondLayer;
-            }
-            set
-            {
-                if (_showSecondLayer != value)
-                {
-                    _showSecondLayer = value;
-                    RaisePropertyChanged(() => ShowSecondLayer);
-                }
-            }
-        }
-
-
         private RelayCommand _goToAboutCommand;
         public RelayCommand GoToAboutCommand
         {
@@ -422,7 +403,6 @@ namespace MyerSplash.ViewModel
                   {
                       DrawerOpened = false;
                       ShowAboutUC = true;
-                      ShowSecondLayer = true;
                       NavigationService.AddOperation(() =>
                           {
                               if (ShowAboutUC)

@@ -1,24 +1,6 @@
-﻿using CompositionHelper;
-using MyerSplash.Common;
-using MyerSplash.Interface;
+﻿using MyerSplash.Common;
 using MyerSplash.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Numerics;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.ApplicationModel;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Composition;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 namespace MyerSplash.UC
 {
@@ -30,6 +12,12 @@ namespace MyerSplash.UC
         {
             this.InitializeComponent();
             this.DataContext = AboutVM = new AboutViewModel();
+        }
+
+        public override void OnShow()
+        {
+            base.OnShow();
+            Window.Current.SetTitleBar(TitleBar);
         }
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)

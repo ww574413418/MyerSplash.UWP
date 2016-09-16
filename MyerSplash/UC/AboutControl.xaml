@@ -14,22 +14,26 @@
             <RowDefinition Height="60" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Grid Background="{StaticResource MyerSplashDarkColor}">
-            <Button x:Name="CloseBtn"
-                    Width="70"
-                    HorizontalAlignment="Left"
-                    Click="CloseBtn_Click"
-                    Style="{StaticResource ListButtonStyle}" VerticalAlignment="Stretch">
-                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE0D5;" Foreground="White" />
-            </Button>
+        <Grid x:Name="TitleBar" Background="{StaticResource TitleBarDarkBrush}">
+
             <TextBlock Margin="0"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
-                       FontSize="20"
+                       FontSize="25"
                        FontWeight="Bold"
                        Foreground="White"
                        Text="ABOUT" />
         </Grid>
+        <Button x:Name="CloseBtn"
+                Width="70"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Stretch"
+                Click="CloseBtn_Click"
+                Style="{StaticResource ListButtonStyle}">
+            <FontIcon FontFamily="Segoe MDL2 Assets"
+                      Foreground="White"
+                      Glyph="&#xE0D5;" />
+        </Button>
         <Grid Grid.Row="1">
             <ScrollViewer Style="{StaticResource ScrollViewerCommonStyle}">
                 <StackPanel MaxWidth="300"
@@ -53,6 +57,13 @@
                                    Foreground="White"
                                    Text="Splash" />
                     </StackPanel>
+                    <TextBlock Margin="8,0"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   FontSize="13"
+                                   FontWeight="Light"
+                                   Foreground="#3FFFFFFF"
+                                   Text="for Windows &amp; Android" />
                     <Border Margin="0,10,0,0"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"

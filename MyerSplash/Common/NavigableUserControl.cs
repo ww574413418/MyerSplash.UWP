@@ -13,6 +13,11 @@ using Windows.UI.Xaml.Controls;
 
 namespace MyerSplash.Common
 {
+    public class ShownArgs
+    {
+        public bool Shown { get; set; }
+    }
+
     public class NavigableUserControl : UserControl, INavigableUserControl
     {
         private bool IsWide
@@ -32,6 +37,8 @@ namespace MyerSplash.Common
         public static readonly DependencyProperty ShownProperty =
             DependencyProperty.Register("Shown", typeof(bool), typeof(NavigableUserControl),
                 new PropertyMetadata(false, OnShownPropertyChanged));
+
+        public event EventHandler<ShownArgs> OnShownChanged;
 
         private static void OnShownPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -80,13 +87,14 @@ namespace MyerSplash.Common
             }
         }
 
-        public void OnHide()
+        public virtual void OnHide()
         {
-            App.MainVM.ShowSecondLayer = false;
+            OnShownChanged?.Invoke(this, new ShownArgs() { Shown = false });
         }
 
-        public void OnShow()
+        public virtual void OnShow()
         {
+            OnShownChanged?.Invoke(this, new ShownArgs() { Shown = true });
         }
 
         public void ToggleAnimation()

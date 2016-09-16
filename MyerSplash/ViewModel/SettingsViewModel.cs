@@ -5,15 +5,13 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using MyerSplashShared.API;
 using MyerSplashCustomControl;
-using Windows.Storage.Pickers;
-using JP.Utils.Data;
 
 namespace MyerSplash.ViewModel
 {
     public class SettingsViewModel : ViewModelBase
     {
         public static string SAVING_POSITION = "SAVING_POSITION";
-        public static string DEFAULT_SAVING_POSITION = "\\Pictures\\MyerSplash";
+        public static string DEFAULT_SAVING_POSITION = "\\Pictures\\MyerSplash (Can'be modified)";
 
         private RelayCommand _clearCacheCommand;
         public RelayCommand ClearCacheCommand
@@ -34,17 +32,17 @@ namespace MyerSplash.ViewModel
             get
             {
                 if (_chooseSavingPositionCommand != null) return _chooseSavingPositionCommand;
-                return _chooseSavingPositionCommand = new RelayCommand(async () =>
+                return _chooseSavingPositionCommand = new RelayCommand(() =>
                   {
-                      FolderPicker savePicker = new FolderPicker();
-                      savePicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
-                      savePicker.FileTypeFilter.Add(".jpg");
-                      var folder = await savePicker.PickSingleFolderAsync();
-                      if (folder != null)
-                      {
-                          SavingPositionPath = folder.Path;
-                          LocalSettingHelper.AddValue(SAVING_POSITION, SavingPositionPath);
-                      }
+                      //FolderPicker savePicker = new FolderPicker();
+                      //savePicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+                      //savePicker.FileTypeFilter.Add(".jpg");
+                      //var folder = await savePicker.PickSingleFolderAsync();
+                      //if (folder != null)
+                      //{
+                      //    SavingPositionPath = folder.Path;
+                      //    LocalSettingHelper.AddValue(SAVING_POSITION, SavingPositionPath);
+                      //}
                   });
             }
         }
@@ -66,28 +64,52 @@ namespace MyerSplash.ViewModel
             }
         }
 
+        private string _cacheHint;
+        public string CacheHint
+        {
+            get
+            {
+                return _cacheHint;
+            }
+            set
+            {
+                if (_cacheHint != value)
+                {
+                    _cacheHint = value;
+                    RaisePropertyChanged(() => CacheHint);
+                }
+            }
+        }
+
+
         public SettingsViewModel()
         {
-            if (LocalSettingHelper.HasValue(SAVING_POSITION))
+            SavingPositionPath = DEFAULT_SAVING_POSITION;
+            CacheHint = "Clean up cache";
+        }
+
+        public async Task CalculateCacheAsync()
+        {
+            ulong size = 0;
+            var tempFiles = await CacheUtil.GetTempFolder().GetItemsAsync();
+            foreach (var file in tempFiles)
             {
-                var position = LocalSettingHelper.GetValue(SAVING_POSITION);
-                SavingPositionPath = position;
-            }
-            else
-            {
-                SavingPositionPath = DEFAULT_SAVING_POSITION;
+                var properties = await file.GetBasicPropertiesAsync();
+                size += properties.Size;
+                CacheHint = $"Clean up cache ({(size / (1024 * 1024)).ToString("f0")} MB)";
             }
         }
 
         private async Task ClearCacheAsync()
         {
-            var files1 = await CacheUtil.GetCachedFileFolder().GetItemsAsync();
-            foreach (var file in files1)
+            var localFiles = await CacheUtil.GetCachedFileFolder().GetItemsAsync();
+            foreach (var file in localFiles)
             {
                 await file.DeleteAsync(StorageDeleteOption.PermanentDelete);
             }
-            var files2 = await CacheUtil.GetTempFolder().GetItemsAsync();
-            foreach (var file in files2)
+
+            var tempFiles = await CacheUtil.GetTempFolder().GetItemsAsync();
+            foreach (var file in tempFiles)
             {
                 await file.DeleteAsync(StorageDeleteOption.PermanentDelete);
             }

@@ -819,15 +819,16 @@
                                 </VisualState>
                                 <VisualState x:Name="PointerOver">
                                     <Storyboard>
-                                        <ColorAnimation Duration="0:0:0.2"
+                                        <ColorAnimation Duration="0:0:0.1"
                                                         Storyboard.TargetName="ContentPresenter"
                                                         Storyboard.TargetProperty="(ContentPresenter.Background).(SolidColorBrush.Color)"
                                                         To="{StaticResource ListButtonPointOver}" />
+
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Pressed">
                                     <Storyboard>
-                                        <ColorAnimation Duration="0:0:0.1"
+                                        <ColorAnimation Duration="0:0:0.2"
                                                         Storyboard.TargetName="ContentPresenter"
                                                         Storyboard.TargetProperty="(ContentPresenter.Background).(SolidColorBrush.Color)"
                                                         To="{StaticResource ListButtonPressed}" />
