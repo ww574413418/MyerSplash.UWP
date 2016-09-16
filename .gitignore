@@ -219,3 +219,4 @@ MyerSplash/BundleArtifacts/
 *.psd
 CustomControlNative/Generated Files/
 *.opendb
+*.appx
