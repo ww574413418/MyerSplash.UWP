@@ -228,7 +228,7 @@ namespace MyerSplash.Model
             requestData.Properties.ContentSourceWebLink = new Uri(FullImageUrl);
             requestData.Properties.ContentSourceApplicationLink = new Uri(FullImageUrl);
 
-            var shareText = $"Share {this.Owner.Name}'s amazing photo from MyerSplash UWP app. {FullImageUrl}";
+            var shareText = $"Share {this.Owner.Name}'s amazing photo from MyerSplash app. {FullImageUrl}";
 
             requestData.SetText(shareText);
 
