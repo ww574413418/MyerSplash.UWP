@@ -9,12 +9,16 @@
                              d:DesignWidth="400"
                              mc:Ignorable="d">
 
-    <Grid x:Name="RootGrid" Background="{StaticResource TitleBarDarkBrush}">
+    <Grid x:Name="RootGrid">
+        <Grid.Background>
+            <ImageBrush Stretch="UniformToFill" ImageSource="ms-appx:///Assets/Image/Banner.jpg"/>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Grid x:Name="TitleBar" Background="{StaticResource TitleBarDarkBrush}">
+        <Border Grid.RowSpan="2" Background="#E5000000"/>
+        <Grid x:Name="TitleBar" Background="Transparent">
 
             <TextBlock Margin="0"
                        HorizontalAlignment="Center"
@@ -60,7 +64,7 @@
                     <TextBlock Margin="8,0"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
-                                   FontSize="13"
+                                   FontSize="15"
                                    FontWeight="Light"
                                    Foreground="#3FFFFFFF"
                                    Text="for Windows &amp; Android" />

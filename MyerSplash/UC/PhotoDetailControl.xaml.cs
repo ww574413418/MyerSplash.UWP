@@ -148,7 +148,7 @@ namespace MyerSplash.UC
 
             var fadeAnimation = _compositor.CreateScalarKeyFrameAnimation();
             fadeAnimation.InsertKeyFrame(1f, show ? 1f : 0f);
-            fadeAnimation.Duration = TimeSpan.FromMilliseconds(show ? 500 : 300);
+            fadeAnimation.Duration = TimeSpan.FromMilliseconds(show ? 700 : 300);
             fadeAnimation.DelayTime = TimeSpan.FromMilliseconds(show ? 400 : 0);
 
             var batch = _compositor.CreateScopedBatch(CompositionBatchTypes.Animation);
