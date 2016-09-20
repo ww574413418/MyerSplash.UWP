@@ -102,6 +102,9 @@ namespace MyerSplash.ViewModel
 
         private async Task ClearCacheAsync()
         {
+            CacheHint = $"Clean up cache (0 MB)";
+            ToastService.SendToast("All clear.", TimeSpan.FromMilliseconds(1000));
+
             var localFiles = await CacheUtil.GetCachedFileFolder().GetItemsAsync();
             foreach (var file in localFiles)
             {
@@ -114,7 +117,6 @@ namespace MyerSplash.ViewModel
                 await file.DeleteAsync(StorageDeleteOption.PermanentDelete);
             }
 
-            ToastService.SendToast("All clear.", TimeSpan.FromMilliseconds(1000));
         }
     }
 }
