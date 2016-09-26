@@ -227,6 +227,13 @@ body{
     background: #abdb71;
 }
 
+#btn4 {
+    background: #13b5b1;
+}
+#btn4:hover{
+    background: #3edad6;
+}
+
 #a1 {
     background: #4a83c9;
 }
@@ -294,14 +301,6 @@ body{
 
 .logo {
     width:140px;
-}
-
-#btn4 {
-    background: Black;
-}
-
-#btn4:hover{
-    background: #3b3b3b;
 }
 
 .btnp2 {
