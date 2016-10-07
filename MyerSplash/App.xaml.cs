@@ -91,11 +91,10 @@ namespace MyerSplash
 
         protected async override void OnActivated(IActivatedEventArgs args)
         {
-            var folder = KnownFolders.PicturesLibrary;
-            var myerSplashFolder = await folder.GetFolderAsync("MyerSplash");
-            if (myerSplashFolder != null)
+            var folder = await AppSettings.Instance.GetSavingFolderAsync();
+            if (folder != null)
             {
-                await Launcher.LaunchFolderAsync(myerSplashFolder);
+                await Launcher.LaunchFolderAsync(folder);
             }
 
             CreateFrame();

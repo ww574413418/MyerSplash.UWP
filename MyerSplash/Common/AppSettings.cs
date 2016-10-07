@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight.Messaging;
 using JP.Utils.Data;
 using MyerSplash.LiveTile;
 using System;
+using System.Threading.Tasks;
 using Windows.Storage;
 
 namespace MyerSplash.Common
@@ -83,6 +84,12 @@ namespace MyerSplash.Common
         public AppSettings()
         {
             LocalSettings = ApplicationData.Current.LocalSettings;
+        }
+
+        public async Task<StorageFolder> GetSavingFolderAsync()
+        {
+            StorageFolder folder = await KnownFolders.PicturesLibrary.CreateFolderAsync("MyerSplash", CreationCollisionOption.OpenIfExists);
+            return folder;
         }
 
         private void SaveSettings(string key, object value)

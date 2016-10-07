@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using MyerSplashShared.API;
 using MyerSplashCustomControl;
+using MyerSplash.Common;
 
 namespace MyerSplash.ViewModel
 {
@@ -23,6 +24,19 @@ namespace MyerSplash.ViewModel
                 {
                     await ClearCacheAsync();
                 });
+            }
+        }
+
+        private RelayCommand _clearTempCommand;
+        public RelayCommand ClearTempCommand
+        {
+            get
+            {
+                if (_clearTempCommand != null) return _clearTempCommand;
+                return _clearTempCommand = new RelayCommand(async () =>
+                  {
+                      await ClearTempFileAsync();
+                  });
             }
         }
 
@@ -86,6 +100,24 @@ namespace MyerSplash.ViewModel
         {
             SavingPositionPath = DEFAULT_SAVING_POSITION;
             CacheHint = "Clean up cache";
+        }
+
+        private async Task ClearTempFileAsync()
+        {
+            var folder = await AppSettings.Instance.GetSavingFolderAsync();
+            var files = await folder.GetFilesAsync();
+            if (files != null)
+            {
+                foreach (var file in files)
+                {
+                    if (file.Name.EndsWith(".tmp"))
+                    {
+                        await file.DeleteAsync();
+                    }
+                }
+            }
+
+            ToastService.SendToast("Temp files have been cleaned.");
         }
 
         public async Task CalculateCacheAsync()

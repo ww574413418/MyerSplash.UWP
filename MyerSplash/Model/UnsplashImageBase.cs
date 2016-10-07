@@ -302,23 +302,8 @@ namespace MyerSplash.Model
 
             ToastService.SendToast("Downloading in background...", 2000);
 
-            StorageFolder folder = null;
-            if (LocalSettingHelper.HasValue(SettingsViewModel.SAVING_POSITION))
-            {
-                var path = LocalSettingHelper.GetValue(SettingsViewModel.SAVING_POSITION);
-                if (path == SettingsViewModel.DEFAULT_SAVING_POSITION)
-                {
-                    folder = await KnownFolders.PicturesLibrary.CreateFolderAsync("MyerSplash", CreationCollisionOption.OpenIfExists);
-                }
-                else
-                {
-                    folder = await StorageFolder.GetFolderFromPathAsync(path);
-                }
-            }
-            if (folder == null)
-            {
-                folder = await KnownFolders.PicturesLibrary.CreateFolderAsync("MyerSplash", CreationCollisionOption.OpenIfExists);
-            }
+            StorageFolder folder = await AppSettings.Instance.GetSavingFolderAsync();
+
             var fileName = $"{Owner.Name}  {CreateTimeString}";
             var newFile = await folder.CreateFileAsync($"{fileName}.jpg", CreationCollisionOption.GenerateUniqueName);
 

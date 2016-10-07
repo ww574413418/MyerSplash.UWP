@@ -400,124 +400,150 @@
                       Glyph="&#xE0D5;" />
         </Button>
         <Grid Grid.Row="1" MaxWidth="600">
-            <StackPanel Margin="0,20,0,0">
-                <TextBlock Margin="10,10,0,0"
-                           HorizontalAlignment="Left"
-                           VerticalAlignment="Center"
-                           FontSize="20"
-                           FontWeight="Bold"
-                           Foreground="{StaticResource MyerSplashThemeColor}"
-                           Text="PERSONALIZATION" />
-                <Grid Height="50">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Margin="10,0,0,0"
-                               VerticalAlignment="Center"
-                               Foreground="White"
-                               Text="Enable Live Tile" />
-                    <ToggleSwitch Grid.Column="1"
-                                  HorizontalAlignment="Right"
-                                  Foreground="White"
-                                  IsOn="{Binding Source={StaticResource AppSettings},
-                                                 Path=EnableTile,
-                                                 Mode=TwoWay}"
-                                  OffContent="Off"
-                                  OnContent="On"
-                                  RequestedTheme="Dark"
-                                  Style="{StaticResource ToggleSwitchStyle1}" />
-                </Grid>
-                <Grid Height="50">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Margin="10,0,0,0"
-                               VerticalAlignment="Center"
-                               Foreground="White"
-                               Text="Enable scale animation" />
-                    <ToggleSwitch Grid.Column="1"
-                                  HorizontalAlignment="Right"
-                                  Foreground="White"
-                                  IsOn="{Binding Source={StaticResource AppSettings},
-                                                 Path=EnableScaleAnimation,
-                                                 Mode=TwoWay}"
-                                  OffContent="Off"
-                                  OnContent="On"
-                                  RequestedTheme="Dark"
-                                  Style="{StaticResource ToggleSwitchStyle1}" />
-                </Grid>
-
-                <StackPanel>
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                          HorizontalScrollMode="Disabled"
+                          Style="{StaticResource ScrollViewerCommonStyle}"
+                          VerticalScrollBarVisibility="Auto"
+                          VerticalScrollMode="Auto">
+                <StackPanel Margin="0,20,0,0">
                     <TextBlock Margin="10,10,0,0"
-                               VerticalAlignment="Top"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               FontSize="20"
+                               FontWeight="Bold"
+                               Foreground="{StaticResource MyerSplashThemeColor}"
+                               Text="PERSONALIZATION" />
+                    <Grid Height="50">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Margin="10,0,0,0"
+                                   VerticalAlignment="Center"
+                                   Foreground="White"
+                                   Text="Enable Live Tile" />
+                        <ToggleSwitch Grid.Column="1"
+                                      HorizontalAlignment="Right"
+                                      Foreground="White"
+                                      IsOn="{Binding Source={StaticResource AppSettings},
+                                                     Path=EnableTile,
+                                                     Mode=TwoWay}"
+                                      OffContent="Off"
+                                      OnContent="On"
+                                      RequestedTheme="Dark"
+                                      Style="{StaticResource ToggleSwitchStyle1}" />
+                    </Grid>
+                    <Grid Height="50">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Margin="10,0,0,0"
+                                   VerticalAlignment="Center"
+                                   Foreground="White"
+                                   Text="Enable scale animation" />
+                        <ToggleSwitch Grid.Column="1"
+                                      HorizontalAlignment="Right"
+                                      Foreground="White"
+                                      IsOn="{Binding Source={StaticResource AppSettings},
+                                                     Path=EnableScaleAnimation,
+                                                     Mode=TwoWay}"
+                                      OffContent="Off"
+                                      OnContent="On"
+                                      RequestedTheme="Dark"
+                                      Style="{StaticResource ToggleSwitchStyle1}" />
+                    </Grid>
+
+                    <StackPanel>
+                        <TextBlock Margin="10,10,0,0"
+                                   VerticalAlignment="Top"
+                                   Foreground="White"
+                                   Text="Saving position" />
+                        <Button Margin="10"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Background="{x:Null}"
+                                Command="{x:Bind SettingsVM.ChooseSavingPositionCommand, Mode=OneWay}"
+                                IsEnabled="False"
+                                Style="{StaticResource ButtonCommonStyle}">
+                            <Border Background="#66000000"
+                                    BorderBrush="{StaticResource MyerSplashThemeColor}"
+                                    BorderThickness="1">
+                                <TextBlock Margin="5"
+                                           Foreground="White"
+                                           Text="{x:Bind SettingsVM.SavingPositionPath, Mode=OneWay}" />
+                            </Border>
+                        </Button>
+                    </StackPanel>
+                    <TextBlock Margin="10,10,0,0"
+                               VerticalAlignment="Center"
                                Foreground="White"
-                               Text="Saving position" />
-                    <Button Margin="10"
+                               Text="Loading quality" />
+                    <ComboBox Margin="10,10,10,0"
+                              HorizontalAlignment="Stretch"
+                              BorderThickness="1"
+                              RequestedTheme="Dark"
+                              SelectedIndex="{Binding Source={StaticResource AppSettings},
+                                                      Path=LoadQuality,
+                                                      Mode=TwoWay}">
+                        <ComboBoxItem Content="Large" Style="{StaticResource ComboBoxItemStyle}" />
+                        <ComboBoxItem Content="Small" Style="{StaticResource ComboBoxItemStyle}" />
+                        <ComboBoxItem Content="Thumbnail" Style="{StaticResource ComboBoxItemStyle}" />
+                    </ComboBox>
+                    <TextBlock Margin="10,10,0,0"
+                               VerticalAlignment="Center"
+                               Foreground="White"
+                               Text="Saving quality" />
+                    <ComboBox Margin="10,10,10,0"
+                              HorizontalAlignment="Stretch"
+                              BorderThickness="1"
+                              RequestedTheme="Dark"
+                              SelectedIndex="{Binding Source={StaticResource AppSettings},
+                                                      Path=SaveQuality,
+                                                      Mode=TwoWay}">
+                        <ComboBoxItem Content="Highest (Up to 8MB)" Style="{StaticResource ComboBoxItemStyle}" />
+                        <ComboBoxItem Content="High (Up to 3MB)" Style="{StaticResource ComboBoxItemStyle}" />
+                        <ComboBoxItem Content="Medium (500 KB)" Style="{StaticResource ComboBoxItemStyle}" />
+                    </ComboBox>
+                    <TextBlock Margin="10,20,0,0"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               FontSize="20"
+                               FontWeight="Bold"
+                               Foreground="{StaticResource MyerSplashThemeColor}"
+                               Text="CLEAN UP" />
+                    <Button Margin="10,10,10,0"
                             HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            Background="{x:Null}"
-                            Command="{x:Bind SettingsVM.ChooseSavingPositionCommand, Mode=OneWay}"
-                            IsEnabled="False"
-                            Style="{StaticResource ButtonCommonStyle}">
-                        <Border Background="#66000000"
-                                BorderBrush="{StaticResource MyerSplashThemeColor}"
-                                BorderThickness="1">
-                            <TextBlock Margin="5"
+                            Command="{x:Bind SettingsVM.ClearCacheCommand, Mode=OneWay}"
+                            Style="{StaticResource ListButtonStyle}">
+                        <Border Background="#66000000">
+                            <TextBlock Margin="10"
+                                       HorizontalAlignment="Left"
                                        Foreground="White"
-                                       Text="{x:Bind SettingsVM.SavingPositionPath, Mode=OneWay}" />
+                                       Text="{x:Bind SettingsVM.CacheHint, Mode=OneWay}" />
+                        </Border>
+                    </Button>
+                    <TextBlock Margin="10,10,10,0"
+                               HorizontalAlignment="Left"
+                               FontSize="12"
+                               Foreground="#99FFFFFF"
+                               Text="If you find that there are files ends with .tmp in saved folder, please execute this."
+                               TextWrapping="Wrap" />
+                    <Button Margin="10,10,10,0"
+                            HorizontalAlignment="Stretch"
+                            Command="{x:Bind SettingsVM.ClearTempCommand, Mode=OneWay}"
+                            Style="{StaticResource ListButtonStyle}">
+                        <Border Background="#66000000">
+                            <TextBlock Margin="10"
+                                       HorizontalAlignment="Left"
+                                       Foreground="White"
+                                       Text="Clean up temp files" />
+
                         </Border>
                     </Button>
                 </StackPanel>
-                <TextBlock Margin="10,10,0,0"
-                           VerticalAlignment="Center"
-                           Foreground="White"
-                           Text="Loading quality" />
-                <ComboBox Margin="10,10,10,0"
-                          HorizontalAlignment="Stretch"
-                          BorderThickness="1"
-                          RequestedTheme="Dark"
-                          SelectedIndex="{Binding Source={StaticResource AppSettings},
-                                                  Path=LoadQuality,
-                                                  Mode=TwoWay}">
-                    <ComboBoxItem Content="Large" Style="{StaticResource ComboBoxItemStyle}" />
-                    <ComboBoxItem Content="Small" Style="{StaticResource ComboBoxItemStyle}" />
-                    <ComboBoxItem Content="Thumbnail" Style="{StaticResource ComboBoxItemStyle}" />
-                </ComboBox>
-                <TextBlock Margin="10,10,0,0"
-                           VerticalAlignment="Center"
-                           Foreground="White"
-                           Text="Saving quality" />
-                <ComboBox Margin="10,10,10,0"
-                          HorizontalAlignment="Stretch"
-                          BorderThickness="1"
-                          RequestedTheme="Dark"
-                          SelectedIndex="{Binding Source={StaticResource AppSettings},
-                                                  Path=SaveQuality,
-                                                  Mode=TwoWay}">
-                    <ComboBoxItem Content="Highest (Up to 8MB)" Style="{StaticResource ComboBoxItemStyle}" />
-                    <ComboBoxItem Content="High (Up to 3MB)" Style="{StaticResource ComboBoxItemStyle}" />
-                    <ComboBoxItem Content="Medium (500 KB)" Style="{StaticResource ComboBoxItemStyle}" />
-                </ComboBox>
-                <TextBlock Margin="10,20,0,0"
-                           HorizontalAlignment="Left"
-                           VerticalAlignment="Center"
-                           FontSize="20"
-                           FontWeight="Bold"
-                           Foreground="{StaticResource MyerSplashThemeColor}"
-                           Text="CACHE" />
-                <Button Margin="10,10,10,0"
-                        HorizontalAlignment="Stretch"
-                        Command="{x:Bind SettingsVM.ClearCacheCommand, Mode=OneWay}"
-                        Style="{StaticResource ListButtonStyle}">
-                    <Border Background="#66000000">
-                        <TextBlock Margin="10"
-                                   HorizontalAlignment="Center"
-                                   Text="{x:Bind SettingsVM.CacheHint, Mode=OneWay}" Foreground="White" />
-                    </Border>
-                </Button>
-            </StackPanel>
+            </ScrollViewer>
+
         </Grid>
     </Grid>
 </common:NavigableUserControl>
