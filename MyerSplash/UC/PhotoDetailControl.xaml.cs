@@ -3,6 +3,7 @@ using JP.Utils.UI;
 using MyerSplash.Model;
 using MyerSplashCustomControl;
 using System;
+using System.ComponentModel;
 using System.Numerics;
 using System.Threading;
 using Windows.ApplicationModel.DataTransfer;
@@ -17,9 +18,10 @@ using Windows.UI.Xaml.Media;
 
 namespace MyerSplash.UC
 {
-    public sealed partial class PhotoDetailControl : UserControl
+    public sealed partial class PhotoDetailControl : UserControl, INotifyPropertyChanged
     {
         public event Action OnHideControl;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         private Compositor _compositor;
         private Visual _detailGridVisual;
@@ -33,48 +35,37 @@ namespace MyerSplash.UC
 
         private CancellationTokenSource _cts;
 
+        private UnsplashImageBase _currentImage;
         public UnsplashImageBase CurrentImage
         {
-            get { return (UnsplashImageBase)GetValue(UnsplashImageProperty); }
-            set { SetValue(UnsplashImageProperty, value); }
+            get
+            {
+                return _currentImage;
+            }
+            set
+            {
+                if (_currentImage != value)
+                {
+                    _currentImage = value;
+                    RaisePropertyChanged(nameof(CurrentImage));
+                }
+            }
         }
-
-        public static readonly DependencyProperty UnsplashImageProperty =
-            DependencyProperty.Register("CurrentImage", typeof(UnsplashImageBase), typeof(PhotoDetailControl), 
-                new PropertyMetadata(null, OnCurrentImagePropertyChanged));
 
         private DataTransferManager _dataTransferManager;
 
         public bool IsShown { get; set; }
 
-        private static void OnCurrentImagePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private void RaisePropertyChanged(string name)
         {
-            var control = d as PhotoDetailControl;
-            var currentImage = e.NewValue as UnsplashImageBase;
-            control.LargeImage.Source = currentImage.ListImageBitmap.Bitmap;
-            control.InfoGrid.Background = currentImage.MajorColor;
-            control.NameTB.Text = currentImage.Owner.Name;
-            if (ColorConverter.IsLight(currentImage.MajorColor.Color))
-            {
-                control.NameTB.Foreground = new SolidColorBrush(Colors.Black);
-                control.ByTB.Foreground = new SolidColorBrush(Colors.Black);
-                control.CopyUrlBorder.Background = new SolidColorBrush(Colors.Black);
-                control.CopyUrlTB.Foreground = new SolidColorBrush(Colors.White);
-            }
-            else
-            {
-                control.NameTB.Foreground = new SolidColorBrush(Colors.White);
-                control.ByTB.Foreground = new SolidColorBrush(Colors.White);
-                control.CopyUrlBorder.Background = new SolidColorBrush(Colors.White);
-                control.CopyUrlTB.Foreground = new SolidColorBrush(Colors.Black);
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
         public PhotoDetailControl()
         {
             InitializeComponent();
             InitComposition();
-
+            this.DataContext = this;
             _dataTransferManager = DataTransferManager.GetForCurrentView();
             _dataTransferManager.DataRequested += _dataTransferManager_DataRequested;
         }
@@ -284,19 +275,6 @@ namespace MyerSplash.UC
             _cts?.Cancel();
         }
         #endregion
-
-        private void ShareBtn_Click(object sender, RoutedEventArgs e)
-        {
-            DataTransferManager.ShowShareUI();
-        }
-
-        private void CopyURLBtn_Click(object sender, RoutedEventArgs e)
-        {
-            DataPackage dataPackage = new DataPackage();
-            dataPackage.SetText(CurrentImage.GetSaveImageUrlFromSettings());
-            Clipboard.SetContent(dataPackage);
-            ToastService.SendToast("Copied.");
-        }
 
         private void DetailGrid_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
         {

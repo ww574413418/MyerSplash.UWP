@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using JP.Utils.UI;
 using MyerSplash.Common;
 using MyerSplash.Interface;
@@ -14,6 +15,8 @@ using Windows.Data.Json;
 using Windows.Networking.BackgroundTransfer;
 using Windows.Storage;
 using Windows.Storage.Streams;
+using Windows.System;
+using Windows.UI;
 using Windows.UI.Xaml.Media;
 
 namespace MyerSplash.Model
@@ -101,6 +104,54 @@ namespace MyerSplash.Model
                 {
                     _majorColor = value;
                     RaisePropertyChanged(() => MajorColor);
+                    if (ColorConverter.IsLight(value.Color))
+                    {
+                        InfoForeColor = new SolidColorBrush(Colors.Black);
+                        InfoForeColor = new SolidColorBrush(Colors.Black);
+                        InfoForeColor = new SolidColorBrush(Colors.Black);
+                        BtnForeColor = new SolidColorBrush(Colors.White);
+                    }
+                    else
+                    {
+                        InfoForeColor = new SolidColorBrush(Colors.White);
+                        InfoForeColor = new SolidColorBrush(Colors.White);
+                        InfoForeColor = new SolidColorBrush(Colors.White);
+                        BtnForeColor = new SolidColorBrush(Colors.Black);
+                    }
+                }
+            }
+        }
+
+        private SolidColorBrush _infoForeColor;
+        public SolidColorBrush InfoForeColor
+        {
+            get
+            {
+                return _infoForeColor;
+            }
+            set
+            {
+                if (_infoForeColor != value)
+                {
+                    _infoForeColor = value;
+                    RaisePropertyChanged(() => InfoForeColor);
+                }
+            }
+        }
+
+        private SolidColorBrush _btnForeColor;
+        public SolidColorBrush BtnForeColor
+        {
+            get
+            {
+                return _btnForeColor;
+            }
+            set
+            {
+                if (_btnForeColor != value)
+                {
+                    _btnForeColor = value;
+                    RaisePropertyChanged(() => BtnForeColor);
                 }
             }
         }
@@ -214,6 +265,52 @@ namespace MyerSplash.Model
             }
         }
 
+        private RelayCommand _shareCommand;
+        public RelayCommand ShareCommand
+        {
+            get
+            {
+                if (_shareCommand != null) return _shareCommand;
+                return _shareCommand = new RelayCommand(() =>
+                  {
+                      DataTransferManager.ShowShareUI();
+                  });
+            }
+        }
+
+        private RelayCommand _copyUrlCommand;
+        public RelayCommand CopyUrlCommand
+        {
+            get
+            {
+                if (_copyUrlCommand != null) return _copyUrlCommand;
+                return _copyUrlCommand = new RelayCommand(() =>
+                  {
+                      DataPackage dataPackage = new DataPackage();
+                      dataPackage.SetText(GetSaveImageUrlFromSettings());
+                      Clipboard.SetContent(dataPackage);
+                      ToastService.SendToast("Copied.");
+                  });
+            }
+        }
+
+        private RelayCommand _navigateHomeCommand;
+        public RelayCommand NavigateHomeCommand
+        {
+            get
+            {
+                if (_navigateHomeCommand != null) return _navigateHomeCommand;
+                return _navigateHomeCommand = new RelayCommand(async () =>
+                  {
+                      if (!string.IsNullOrEmpty(Owner.HomePageUrl))
+                      {
+                          await Launcher.LaunchUriAsync(new Uri(Owner.HomePageUrl));
+                      }
+                  });
+            }
+        }
+
+
         public UnsplashImageBase()
         {
             ListImageBitmap = new CachedBitmapSource();
@@ -307,7 +404,7 @@ namespace MyerSplash.Model
             var newFile = await folder.CreateFileAsync($"{fileName}.jpg", CreationCollisionOption.GenerateUniqueName);
 
             _backgroundDownloader.SuccessToastNotification = ToastHelper.CreateToastNotification("Saved:D",
-                $"You can find it in {folder.Path}.");
+                $"Tap to open {folder.Path}.");
 
             var downloadOperation = _backgroundDownloader.CreateDownload(new Uri(url), newFile);
 

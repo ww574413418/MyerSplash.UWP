@@ -87,7 +87,7 @@ namespace MyerSplash.Model
         public void ParseObjectFromJsonObject(JsonObject obj)
         {
             var id = JsonParser.GetStringFromJsonObj(obj, "id");
-            var name = JsonParser.GetStringFromJsonObj(obj, "username");
+            var name = JsonParser.GetStringFromJsonObj(obj, "name");
             var bio = JsonParser.GetStringFromJsonObj(obj, "bio");
             var profile_image = JsonParser.GetJsonObjFromJsonObj(obj, "profile_image");
             var image = JsonParser.GetStringFromJsonObj(profile_image, "medium");

@@ -14,13 +14,14 @@
         <Border x:Name="MaskBorder"
                 Margin="0,-30,0,0"
                 Background="Black"
-                Opacity="0.8"
                 ManipulationDelta="DetailGrid_ManipulationDelta"
                 ManipulationMode="TranslateY"
+                Opacity="0.8"
                 Tapped="MaskBorder_Tapped" />
         <Grid x:Name="DetailContentGrid"
               MaxWidth="640"
-              Background="Transparent" Margin="0,-5,0,0">
+              Margin="0,-5,0,0"
+              Background="Transparent">
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition Height="100" />
@@ -28,20 +29,29 @@
             <Grid x:Name="InfoPlaceHolderGrid"
                   Grid.Row="1"
                   SizeChanged="InfoPlaceHolderGrid_SizeChanged">
-                <Grid x:Name="InfoGrid" Grid.Row="1">
+                <Grid x:Name="InfoGrid"
+                      Grid.Row="1"
+                      Background="{x:Bind CurrentImage.MajorColor, Mode=OneWay}">
                     <StackPanel Margin="20,20,150,20"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center">
                         <TextBlock x:Name="ByTB"
                                    FontSize="12"
-                                   Foreground="#CCFFFFFF"
+                                   Foreground="{x:Bind CurrentImage.InfoForeColor, Mode=OneWay, FallbackValue=White}"
                                    Text="photo by" />
-                        <TextBlock x:Name="NameTB"
-                                   FontSize="20"
-                                   FontWeight="Bold"
-                                   Foreground="#CCFFFFFF"
-                                   Text="JuniperPhoton"
-                                   TextTrimming="CharacterEllipsis" />
+                        <Button VerticalAlignment="Center"
+                                Background="{x:Null}"
+                                BorderBrush="{x:Bind CurrentImage.InfoForeColor, FallbackValue=White, Mode=OneWay}"
+                                BorderThickness="0,0,0,2"
+                                Command="{x:Bind CurrentImage.NavigateHomeCommand, Mode=OneWay}"
+                                Style="{StaticResource ButtonCommonStyle}">
+                            <TextBlock x:Name="NameTB"
+                                       FontSize="20"
+                                       FontWeight="Bold"
+                                       Foreground="{x:Bind CurrentImage.InfoForeColor, FallbackValue=White, Mode=OneWay}"
+                                       Text="{x:Bind CurrentImage.Owner.Name, Mode=OneWay}"
+                                       TextTrimming="CharacterEllipsis" />
+                        </Button>
                     </StackPanel>
                     <Button x:Name="CopyUlrBtn"
                             Grid.RowSpan="2"
@@ -49,31 +59,35 @@
                             HorizontalAlignment="Right"
                             VerticalAlignment="Bottom"
                             Background="{x:Null}"
-                            Click="CopyURLBtn_Click"
+                            Command="{x:Bind CurrentImage.CopyUrlCommand, Mode=OneWay}"
                             Style="{StaticResource ButtonCommonStyle}">
                         <Grid>
                             <Border x:Name="CopyUrlBorder"
-                                    Background="White"
+                                    Background="{x:Bind CurrentImage.InfoForeColor, FallbackValue=White, Mode=OneWay}"
                                     CornerRadius="2"
                                     Opacity="0.6" />
                             <TextBlock x:Uid="CopyUrlTB"
                                        x:Name="CopyUrlTB"
                                        Margin="15,5"
                                        FontWeight="Bold"
-                                       Foreground="Black"
+                                       Foreground="{x:Bind CurrentImage.BtnForeColor, Mode=OneWay}"
                                        Text="COPY URL" />
                         </Grid>
                     </Button>
                 </Grid>
             </Grid>
             <Grid>
-                <Border Background="#FF1B1B1B" Margin="0" />
+                <Border Margin="0" Background="#FF1B1B1B" />
                 <ScrollViewer x:Name="PhotoSV"
+                              Background="{x:Null}"
+                              BorderBrush="{x:Null}"
                               HorizontalScrollMode="Disabled"
                               Style="{StaticResource ScrollViewerCommonStyle}"
                               VerticalScrollBarVisibility="Auto"
-                              VerticalScrollMode="Auto" Background="{x:Null}" BorderBrush="{x:Null}">
-                    <Image x:Name="LargeImage" Stretch="UniformToFill" />
+                              VerticalScrollMode="Auto">
+                    <Image x:Name="LargeImage"
+                           Source="{x:Bind CurrentImage.ListImageBitmap.Bitmap, Mode=OneWay}"
+                           Stretch="UniformToFill" />
                 </ScrollViewer>
             </Grid>
             <StackPanel Margin="0,0,0,-25"
@@ -86,7 +100,7 @@
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
                         Background="{x:Null}"
-                        Click="ShareBtn_Click"
+                        Command="{x:Bind CurrentImage.ShareCommand, Mode=OneWay}"
                         Style="{StaticResource ButtonCommonStyle}">
                     <Grid>
                         <Ellipse x:Name="ShareBtnEll"

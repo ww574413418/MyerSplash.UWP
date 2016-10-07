@@ -89,15 +89,15 @@ namespace MyerSplash.UC
         {
             var offsetAnimation = _compositor.CreateVector3KeyFrameAnimation();
             offsetAnimation.InsertKeyFrame(1f, targetOffset);
-            offsetAnimation.Duration = TimeSpan.FromMilliseconds(500);
+            offsetAnimation.Duration = TimeSpan.FromMilliseconds(400);
 
             var scaleAnimation = _compositor.CreateScalarKeyFrameAnimation();
             scaleAnimation.InsertKeyFrame(1f, widthRatio);
-            scaleAnimation.Duration = TimeSpan.FromMilliseconds(500);
+            scaleAnimation.Duration = TimeSpan.FromMilliseconds(400);
 
             var fadeAnimation = _compositor.CreateScalarKeyFrameAnimation();
             fadeAnimation.InsertKeyFrame(1f, 0.5f);
-            fadeAnimation.Duration = TimeSpan.FromMilliseconds(500);
+            fadeAnimation.Duration = TimeSpan.FromMilliseconds(400);
 
             _containerVisual.StartAnimation("Offset", offsetAnimation);
             _containerVisual.StartAnimation("Scale.x", scaleAnimation);

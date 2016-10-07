@@ -18,8 +18,8 @@ namespace MyerSplash.ViewModel
     {
         private const string DEFAULT_TITLE_NAME = "NEW";
         private const int RANDOM_INDEX = 0;
-        private const int FEATURED_INDEX = 1;
-        private const int NEW_INDEX = 2;
+        private const int FEATURED_INDEX = 2;
+        private const int NEW_INDEX = 1;
 
         #region icon
         private bool _showDiceIcon;
@@ -578,11 +578,11 @@ namespace MyerSplash.ViewModel
                 this.Categories = list;
                 this.Categories.Insert(0, new UnsplashCategory()
                 {
-                    Title = "New",
+                    Title = "Featured",
                 });
                 this.Categories.Insert(0, new UnsplashCategory()
                 {
-                    Title = "Featured",
+                    Title = "New",
                 });
                 this.Categories.Insert(0, new UnsplashCategory()
                 {
