@@ -1,27 +1,19 @@
-﻿using JP.Utils.Data;
-using JP.Utils.Debug;
-using JP.Utils.Helper;
+﻿using JP.Utils.Helper;
 using MyerSplash.Common;
 using MyerSplash.View;
-using MyerSplashShared.API;
 using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.ApplicationModel.Core;
 using Windows.Phone.UI.Input;
 using Windows.Storage;
-using Windows.UI;
+using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 namespace MyerSplash
 {
-    /// <summary>
-    /// Provides application-specific behavior to supplement the default Application class.
-    /// </summary>
     sealed partial class App : Application
     {
         public static ViewModel.MainViewModel MainVM { get; set; }
@@ -34,10 +26,6 @@ namespace MyerSplash
             }
         }
 
-        /// <summary>
-        /// Initializes the singleton application object.  This is the first line of authored code
-        /// executed, and as such is the logical equivalent of main() or WinMain().
-        /// </summary>
         public App()
         {
             Microsoft.ApplicationInsights.WindowsAppInitializer.InitializeAsync(
@@ -64,6 +52,12 @@ namespace MyerSplash
 #endif
             if (e.PrelaunchActivated) return;
 
+            CreateFrame();
+        }
+#pragma warning restore    
+
+        private void CreateFrame()
+        {
             Frame rootFrame = Window.Current.Content as Frame;
 
             if (rootFrame == null)
@@ -75,7 +69,7 @@ namespace MyerSplash
 
             if (rootFrame.Content == null)
             {
-                rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                rootFrame.Navigate(typeof(MainPage), null);
             }
             Window.Current.Activate();
 
@@ -94,7 +88,18 @@ namespace MyerSplash
                 HardwareButtons.BackPressed += HardwareButtons_BackPressed;
             }
         }
-#pragma warning restore    
+
+        protected async override void OnActivated(IActivatedEventArgs args)
+        {
+            var folder = KnownFolders.PicturesLibrary;
+            var myerSplashFolder = await folder.GetFolderAsync("MyerSplash");
+            if (myerSplashFolder != null)
+            {
+                await Launcher.LaunchFolderAsync(myerSplashFolder);
+            }
+
+            CreateFrame();
+        }
 
         private void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)
         {

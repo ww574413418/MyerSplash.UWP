@@ -1,13 +1,9 @@
 ﻿using JP.API;
-using JP.Utils.Data;
-using JP.Utils.Data.Json;
 using JP.Utils.Network;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Windows.Data.Json;
-using Windows.Web.Http;
 
 namespace MyerSplashShared.API
 {
@@ -33,6 +29,15 @@ namespace MyerSplashShared.API
             param.Add(new KeyValuePair<string, string>("per_page", pageCount.ToString()));
 
             var result = await HttpRequestSender.SendGetRequestAsync(UrlHelper.MakeFullUrlForGetReq(url, param), token);
+            return result;
+        }
+
+        public static async Task<CommonRespMsg> GetRandomImages(int count, CancellationToken token)
+        {
+            var param = GetDefaultParam();
+            param.Add(new KeyValuePair<string, string>("count", count.ToString()));
+
+            var result = await HttpRequestSender.SendGetRequestAsync(UrlHelper.MakeFullUrlForGetReq(UrlHelper.GetRandomImages, param), token);
             return result;
         }
 

@@ -4,20 +4,42 @@ using JP.Utils.Data;
 using JP.Utils.Framework;
 using MyerSplash.Common;
 using MyerSplash.Model;
-using MyerSplash.View;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using MyerSplashShared.API;
 using System.Linq;
+using MyerSplash.ViewModel.DataViewModel;
 
 namespace MyerSplash.ViewModel
 {
     public class MainViewModel : ViewModelBase, INavigable
     {
-        private const string FEATURED_CATEGORY_NAME = "FEATURED";
-        private const string NEW_CATEGORY_NAME = "NEW";
+        private const string DEFAULT_TITLE_NAME = "NEW";
+        private const int RANDOM_INDEX = 0;
+        private const int FEATURED_INDEX = 1;
+        private const int NEW_INDEX = 2;
+
+        #region icon
+        private bool _showDiceIcon;
+        public bool ShowDiceIcon
+        {
+            get
+            {
+                return _showDiceIcon;
+            }
+            set
+            {
+                if (_showDiceIcon != value)
+                {
+                    _showDiceIcon = value;
+                    RaisePropertyChanged(() => ShowDiceIcon);
+                }
+            }
+        }
+
+        #endregion
 
         private ImageDataViewModel _mainDataVM;
         public ImageDataViewModel MainDataVM
@@ -435,15 +457,21 @@ namespace MyerSplash.ViewModel
                     {
                         return;
                     }
-                    if (value == 1)
+                    ShowDiceIcon = false;
+                    if (value == NEW_INDEX)
                     {
                         MainDataVM = new ImageDataViewModel(this, UrlHelper.GetNewImages, false);
                     }
-                    else if (value == 0)
+                    else if (value == FEATURED_INDEX)
                     {
                         MainDataVM = new ImageDataViewModel(this, UrlHelper.GetFeaturedImages, true);
                     }
-                    else if (value > 1)
+                    else if (value == RANDOM_INDEX)
+                    {
+                        MainDataVM = new RandomImagesDataViewModel(this, UrlHelper.GetRandomImages, false);
+                        ShowDiceIcon = true;
+                    }
+                    else if (value > NEW_INDEX)
                     {
                         MainDataVM = new ImageDataViewModel(this, Categories[value].RequestUrl, false);
                     }
@@ -463,7 +491,7 @@ namespace MyerSplash.ViewModel
                 {
                     if (SearchKeyword == null)
                     {
-                        return NEW_CATEGORY_NAME;
+                        return DEFAULT_TITLE_NAME;
                     }
                     else return SearchKeyword.ToUpper();
                 }
@@ -471,7 +499,7 @@ namespace MyerSplash.ViewModel
                 {
                     return Categories[SelectedIndex].Title.ToUpper();
                 }
-                else return NEW_CATEGORY_NAME;
+                else return DEFAULT_TITLE_NAME;
             }
         }
 
@@ -485,6 +513,7 @@ namespace MyerSplash.ViewModel
             FooterReloadVisibility = Visibility.Collapsed;
             EndVisibility = Visibility.Collapsed;
             IsRefreshing = true;
+            ShowDiceIcon = false;
 
             App.MainVM = this;
 
@@ -555,7 +584,11 @@ namespace MyerSplash.ViewModel
                 {
                     Title = "Featured",
                 });
-                SelectedIndex = 1;
+                this.Categories.Insert(0, new UnsplashCategory()
+                {
+                    Title = "Random",
+                });
+                SelectedIndex = NEW_INDEX;
                 await SerializerHelper.SerializerToJson<ObservableCollection<UnsplashCategory>>(list, CachedFileNames.CateListFileName, CacheUtil.GetCachedFileFolder());
             }
         }

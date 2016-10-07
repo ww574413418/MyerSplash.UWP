@@ -161,6 +161,7 @@
       <DependentUpon>HamburgerButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\DataViewModel\ImageDataViewModel.cs" />
+    <Compile Include="ViewModel\DataViewModel\RandomImagesDataViewModel.cs" />
     <Compile Include="ViewModel\DataViewModel\SearchResultViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\SettingsViewModel.cs" />
@@ -177,6 +178,7 @@
     <None Include="MyerSplash_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Icon\dice.png" />
     <Content Include="Assets\Icon\Logo_black.png" />
     <Content Include="Assets\Icon\Logo_trans.png" />
     <Content Include="Assets\Icon\Logo_trans_narrow.png" />

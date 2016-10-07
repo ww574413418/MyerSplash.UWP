@@ -48,7 +48,10 @@
                     <Ellipse Width="50"
                              Height="50"
                              Fill="{StaticResource MyerSplashThemeColor}" />
-                    <SymbolIcon Foreground="White" Symbol="Refresh" />
+                    <Grid>
+                        <SymbolIcon x:Name="RefreshIcon" Foreground="White" Symbol="Refresh" />
+                        <Image Visibility="Collapsed" x:Name="DiceIcon" Width="30" Source="ms-appx:///Assets/Icon/dice.png"/>
+                    </Grid>
                 </Grid>
             </Button>
             <Border x:Name="TouchGrid"

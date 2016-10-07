@@ -1,26 +1,7 @@
-﻿using GalaSoft.MvvmLight;
-using JP.Utils.Data.Json;
+﻿using JP.Utils.Data.Json;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 using Windows.Data.Json;
-using Windows.UI.Xaml.Media.Imaging;
 using System;
-using Windows.Storage;
-using Windows.UI.Xaml.Media;
-using System.Runtime.Serialization;
-using JP.Utils.UI;
-using System.Threading;
-using Windows.Networking.BackgroundTransfer;
-using MyerSplash.Common;
-using GalaSoft.MvvmLight.Command;
-using MyerSplashCustomControl;
-using JP.Utils.Data;
-using MyerSplash.ViewModel;
-using Windows.ApplicationModel.DataTransfer;
-using Windows.Storage.Streams;
-using System.Collections.Generic;
-using MyerSplashShared.Shared;
-using MyerSplash.Interface;
 
 namespace MyerSplash.Model
 {

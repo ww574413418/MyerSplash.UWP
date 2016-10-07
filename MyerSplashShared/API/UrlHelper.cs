@@ -17,6 +17,8 @@ namespace MyerSplashShared.API
 
         public static string SearchImages => $"https://{HOST}/search/photos?";
 
+        public static string GetRandomImages => $"https://{HOST}/photos/random?";
+
         public static string GetCategories=> $"https://{HOST}/categories?";
 
         public static string GetFeaturedImages => $"https://{HOST}/collections/featured?";

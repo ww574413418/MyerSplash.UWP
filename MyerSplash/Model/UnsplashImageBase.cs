@@ -322,7 +322,6 @@ namespace MyerSplash.Model
             var fileName = $"{Owner.Name}  {CreateTimeString}";
             var newFile = await folder.CreateFileAsync($"{fileName}.jpg", CreationCollisionOption.GenerateUniqueName);
 
-            //backgroundDownloader.FailureToastNotification = ToastHelper.CreateToastNotification("Failed to download :-(", "You may cancel it. Otherwise please check your network.");
             _backgroundDownloader.SuccessToastNotification = ToastHelper.CreateToastNotification("Saved:D",
                 $"You can find it in {folder.Path}.");
 
