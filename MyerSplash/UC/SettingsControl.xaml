@@ -527,7 +527,7 @@
                                HorizontalAlignment="Left"
                                FontSize="12"
                                Foreground="#99FFFFFF"
-                               Text="If you find that there are files ends with .tmp in saved folder, please execute this."
+                               Text="{StaticResource TempFilesHint}"
                                TextWrapping="Wrap" />
                     <Button Margin="10,10,10,0"
                             HorizontalAlignment="Stretch"

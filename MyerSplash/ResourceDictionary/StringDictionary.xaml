@@ -3,4 +3,5 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   >
     <x:String x:Key="AppVersion">2.0.0</x:String>
+    <x:String x:Key="TempFilesHint">If you find that there are files end with \".tmp\" in saved folder, please execute this.</x:String>
 </ResourceDictionary>
