@@ -1,10 +1,6 @@
 ﻿using JP.Utils.Data.Json;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.Data.Json;
 
 namespace MyerSplash.Model
@@ -23,16 +19,20 @@ namespace MyerSplash.Model
             foreach (var item in array)
             {
                 var image = new UnsplashFeaturedImage();
-                image.ParseObjectFromJson(item.ToString());
+                image.ParseObjectFromJsonString(item.ToString());
                 list.Add(image);
             }
             return list;
         }
 
-        protected override void ParseObjectFromJson(string json)
+        public override void ParseObjectFromJsonString(string json)
         {
             var obj = JsonObject.Parse(json);
+            ParseObjectFromJsonObject(obj);
+        }
 
+        public override void ParseObjectFromJsonObject(JsonObject obj)
+        {
             var isFeatured = JsonParser.GetBooleanFromJsonObj(obj, "featured", false);
 
             var coverPhoto = JsonParser.GetJsonObjFromJsonObj(obj, "cover_photo");
@@ -47,7 +47,6 @@ namespace MyerSplash.Model
             var width = JsonParser.GetNumberFromJsonObj(coverPhoto, "width");
             var height = JsonParser.GetNumberFromJsonObj(coverPhoto, "height");
             var userObj = JsonParser.GetJsonObjFromJsonObj(coverPhoto, "user");
-            var userName = JsonParser.GetStringFromJsonObj(userObj, "name");
             var id = JsonParser.GetStringFromJsonObj(coverPhoto, "id");
             var likes = JsonParser.GetNumberFromJsonObj(coverPhoto, "likes");
             var time = JsonParser.GetStringFromJsonObj(coverPhoto, "created_at");
@@ -62,7 +61,8 @@ namespace MyerSplash.Model
             this.ColorValue = color;
             this.Width = width;
             this.Height = height;
-            this.Owner = new UnsplashUser() { Name = userName };
+            this.Owner = new UnsplashUser();
+            this.Owner.ParseObjectFromJsonObject(userObj);
             this.ID = id;
             this.Likes = (int)likes;
             this.CreateTime = DateTime.Parse(time);

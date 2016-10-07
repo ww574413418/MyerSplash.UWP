@@ -18,18 +18,16 @@ namespace MyerSplash.Model
             foreach (var item in array)
             {
                 var image = new UnsplashImage();
-                image.ParseObjectFromJson(item.ToString());
+                image.ParseObjectFromJsonString(item.ToString());
                 list.Add(image);
             }
             return list;
         }
 
-        protected override void ParseObjectFromJson(string json)
+        public override void ParseObjectFromJsonObject(JsonObject obj)
         {
-            var obj = JsonObject.Parse(json);
-
             var isFeatured = JsonParser.GetBooleanFromJsonObj(obj, "featured", false);
-            
+
             var urls = JsonParser.GetJsonObjFromJsonObj(obj, "urls");
             var smallImageUrl = JsonParser.GetStringFromJsonObj(urls, "small");
             var fullImageUrl = JsonParser.GetStringFromJsonObj(urls, "full");
@@ -40,7 +38,6 @@ namespace MyerSplash.Model
             var width = JsonParser.GetNumberFromJsonObj(obj, "width");
             var height = JsonParser.GetNumberFromJsonObj(obj, "height");
             var userObj = JsonParser.GetJsonObjFromJsonObj(obj, "user");
-            var userName = JsonParser.GetStringFromJsonObj(userObj, "name");
             var id = JsonParser.GetStringFromJsonObj(obj, "id");
             var likes = JsonParser.GetNumberFromJsonObj(obj, "likes");
             var time = JsonParser.GetStringFromJsonObj(obj, "created_at");
@@ -53,10 +50,17 @@ namespace MyerSplash.Model
             this.ColorValue = color;
             this.Width = width;
             this.Height = height;
-            this.Owner = new UnsplashUser() { Name = userName };
+            this.Owner = new UnsplashUser();
+            this.Owner.ParseObjectFromJsonObject(userObj);
             this.ID = id;
             this.Likes = (int)likes;
             this.CreateTime = DateTime.Parse(time);
+        }
+
+        public override void ParseObjectFromJsonString(string json)
+        {
+            var obj = JsonObject.Parse(json);
+            ParseObjectFromJsonObject(obj);
         }
     }
 }

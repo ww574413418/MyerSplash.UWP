@@ -116,6 +116,7 @@
     <Compile Include="Interface\IUnsplashImage.cs" />
     <Compile Include="Interface\IUnsplashImageFeatured.cs" />
     <Compile Include="LiveTile\LiveTileUpdater.cs" />
+    <Compile Include="Model\IGenerateFromJson.cs" />
     <Compile Include="Model\UnsplashCategory.cs" />
     <Compile Include="Model\UnsplashFeaturedImage.cs" />
     <Compile Include="Model\UnsplashImageBase.cs" />

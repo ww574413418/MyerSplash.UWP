@@ -1,9 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
-using JP.Utils.Data;
 using JP.Utils.UI;
 using MyerSplash.Common;
 using MyerSplash.Interface;
-using MyerSplash.ViewModel;
 using MyerSplashCustomControl;
 using MyerSplashShared.Shared;
 using System;
@@ -12,6 +10,7 @@ using System.Runtime.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
+using Windows.Data.Json;
 using Windows.Networking.BackgroundTransfer;
 using Windows.Storage;
 using Windows.Storage.Streams;
@@ -19,7 +18,7 @@ using Windows.UI.Xaml.Media;
 
 namespace MyerSplash.Model
 {
-    public abstract class UnsplashImageBase : ViewModelBase, IUnsplashImage, IUnsplashImageFeatured
+    public abstract class UnsplashImageBase : ViewModelBase, IUnsplashImage, IUnsplashImageFeatured, IParseFromJson
     {
         private BackgroundDownloader _backgroundDownloader = new BackgroundDownloader();
 
@@ -325,6 +324,8 @@ namespace MyerSplash.Model
             }
         }
 
-        protected abstract void ParseObjectFromJson(string json);
+        public abstract void ParseObjectFromJsonString(string json);
+
+        public abstract void ParseObjectFromJsonObject(JsonObject json);
     }
 }
