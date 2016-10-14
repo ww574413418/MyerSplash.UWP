@@ -15,7 +15,7 @@
              mc:Ignorable="d">
 
     <control:AdaptiveGridView x:Name="ImageGridView"
-                              Margin="0"
+                              Margin="0,-70,0,0"
                               attach:ScrollViewerStyleChanger.Style="{StaticResource ScrollViewerCommonStyle}"
                               ContainerContentChanging="AdaptiveGridView_ContainerContentChanging"
                               IncrementalLoadingTrigger="Edge"

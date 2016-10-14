@@ -3,55 +3,56 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             d:DesignHeight="300"
-             d:DesignWidth="400"
+             d:DesignHeight="{StaticResource PosterHeight}"
+             d:DesignWidth="{StaticResource PosterHeight}"
              mc:Ignorable="d">
     <Button x:Name="HamburgerBtn"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
             Background="Transparent"
-            Style="{StaticResource ListButtonStyle}">
-        <Grid Width="40"
-              Height="30"
-              HorizontalAlignment="Center"
-              VerticalAlignment="Center"
-              >
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <Border Width="20"
-                    Height="2"
-                    VerticalAlignment="Bottom"
-                    Background="White"
-                    RenderTransformOrigin="0,0.5">
-                <Border.RenderTransform>
-                    <CompositeTransform />
-                </Border.RenderTransform>
-            </Border>
-            <Border Grid.Row="1"
-                    Width="20"
-                    Height="2"
-                    Margin="0"
-                    VerticalAlignment="Center"
-                    Background="White"
-                    RenderTransformOrigin="0,0.5">
-                <Border.RenderTransform>
-                    <CompositeTransform />
-                </Border.RenderTransform>
-            </Border>
-            <Border Grid.Row="2"
-                    Width="20"
-                    Height="2"
-                    Margin="0"
-                    VerticalAlignment="Top"
-                    Background="White"
-                    RenderTransformOrigin="0,0.5">
-                <Border.RenderTransform>
-                    <CompositeTransform />
-                </Border.RenderTransform>
-            </Border>
-        </Grid>
+            BorderThickness="0"
+            Style="{StaticResource ButtonCommonStyle}">
+        <Border Width="{StaticResource PosterHeight}"
+                Height="{StaticResource PosterHeight}"
+                Background="Black">
+            <Grid Width="40" Height="30">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Border Width="20"
+                        Height="2"
+                        VerticalAlignment="Bottom"
+                        Background="White"
+                        RenderTransformOrigin="0,0.5">
+                    <Border.RenderTransform>
+                        <CompositeTransform />
+                    </Border.RenderTransform>
+                </Border>
+                <Border Grid.Row="1"
+                        Width="20"
+                        Height="2"
+                        Margin="0"
+                        VerticalAlignment="Center"
+                        Background="White"
+                        RenderTransformOrigin="0,0.5">
+                    <Border.RenderTransform>
+                        <CompositeTransform />
+                    </Border.RenderTransform>
+                </Border>
+                <Border Grid.Row="2"
+                        Width="20"
+                        Height="2"
+                        Margin="0"
+                        VerticalAlignment="Top"
+                        Background="White"
+                        RenderTransformOrigin="0,0.5">
+                    <Border.RenderTransform>
+                        <CompositeTransform />
+                    </Border.RenderTransform>
+                </Border>
+            </Grid>
+        </Border>
     </Button>
 </UserControl>
