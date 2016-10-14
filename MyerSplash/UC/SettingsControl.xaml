@@ -553,7 +553,7 @@
                                Foreground="#99FFFFFF"
                                Text="{StaticResource TempFilesHint}"
                                TextWrapping="Wrap" />
-                    <Button Margin="10,10,10,0"
+                    <Button Margin="10"
                             HorizontalAlignment="Stretch"
                             Command="{x:Bind SettingsVM.ClearTempCommand, Mode=OneWay}"
                             Style="{StaticResource ListButtonStyle}">

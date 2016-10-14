@@ -11,10 +11,10 @@
             VerticalAlignment="Stretch"
             Background="Transparent"
             BorderThickness="0"
-            Style="{StaticResource ButtonCommonStyle}">
+            Style="{StaticResource ListButtonStyle}">
         <Border Width="{StaticResource PosterHeight}"
                 Height="{StaticResource PosterHeight}"
-                Background="Black">
+                >
             <Grid Width="40" Height="30">
                 <Grid.RowDefinitions>
                     <RowDefinition />

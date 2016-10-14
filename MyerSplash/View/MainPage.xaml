@@ -67,29 +67,45 @@
                     ManipulationMode="TranslateX" />
         </Grid>
         <Grid x:Name="TitleGrid" Background="Transparent" />
-        <StackPanel x:Name="TitleStack"
-                    Margin="72,12,0,0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Orientation="Horizontal" Grid.RowSpan="2">
-            <Border Height="{StaticResource PosterHeight}"
+        <Grid x:Name="TitleStack"
+              Grid.RowSpan="2"
+              Margin="12"
+              HorizontalAlignment="Left"
+              VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="60" />
+            </Grid.ColumnDefinitions>
+            <Border x:Name="HamBtnBorder" Background="Black">
+                <uc:HamburgerButton x:Name="HamBtn"
+                                    Width="{StaticResource PosterHeight}"
+                                    Height="{StaticResource PosterHeight}"
+                                    Margin="0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Command="{x:Bind MainVM.OpenDrawerCommand, Mode=OneWay}" />
+
+            </Border>
+
+            <Border Grid.Column="1"
+                    Height="{StaticResource PosterHeight}"
                     MinWidth="130"
                     Background="{StaticResource TitleBarDarkBrush}">
-                <StackPanel HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            CacheMode="BitmapCache"
-                            Orientation="Horizontal"
-                            Tapped="StackPanel_Tapped">
-                    <TextBlock Margin="8,4"
-                               VerticalAlignment="Center"
-                               FontSize="25"
-                               FontWeight="Bold"
-                               Foreground="White"
-                               Text="{x:Bind MainVM.SelectedTitle, Mode=OneWay, FallbackValue=NEW}" />
-                </StackPanel>
+                <TextBlock x:Name="TitleTB"
+                           Margin="8,4"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           CacheMode="BitmapCache"
+                           FontSize="25"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           Tapped="StackPanel_Tapped"
+                           Text="{x:Bind MainVM.SelectedTitle, Mode=OneWay, FallbackValue=NEW}"
+                           TextTrimming="CharacterEllipsis" />
             </Border>
             <Button x:Name="SearchBtn"
-                    Grid.RowSpan="2"
+                    Grid.Column="2"
                     Width="{StaticResource PosterHeight}"
                     Height="{StaticResource PosterHeight}"
                     Margin="0"
@@ -109,18 +125,7 @@
                     </FontIcon>
                 </Grid>
             </Button>
-        </StackPanel>
-
-
-
-        <uc:HamburgerButton x:Name="HamBtn"
-                            Grid.RowSpan="2"
-                            Width="{StaticResource PosterHeight}"
-                            Height="{StaticResource PosterHeight}"
-                            Margin="12,12,0,0"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            Command="{x:Bind MainVM.OpenDrawerCommand, Mode=OneWay}" />
+        </Grid>
 
         <uc:NoNetworkControl x:Name="NoNetworkControl"
                              Grid.Row="1"

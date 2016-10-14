@@ -32,7 +32,7 @@
                               SelectionMode="None"
                               ShowsScrollingPlaceholders="False">
         <control:AdaptiveGridView.Header>
-            <Grid Height="70">
+            <Grid Height="{StaticResource PosterHeight}">
                 <uc:LoadingControl x:Name="LoadingControl" />
             </Grid>
         </control:AdaptiveGridView.Header>

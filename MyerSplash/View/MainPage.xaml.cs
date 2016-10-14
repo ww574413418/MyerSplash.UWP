@@ -1,16 +1,19 @@
-﻿using JP.Utils.UI;
+﻿using JP.Utils.Helper;
+using JP.Utils.UI;
 using MyerSplash.Common;
 using MyerSplash.Model;
 using MyerSplash.ViewModel;
 using System;
 using System.Numerics;
 using Windows.Foundation;
+using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace MyerSplash.View
@@ -27,11 +30,11 @@ namespace MyerSplash.View
         private Visual _drawerMaskVisual;
         private Visual _titleGridVisual;
         private Visual _refreshBtnVisual;
-        private Visual _hamBtnVisual;
         private Visual _titleStackVisual;
 
         private double _lastVerticalOffset = 0;
         private bool _isHideTitleGrid = false;
+        private bool _restoreTitleStackStatus = false;
 
         private UnsplashImageBase _clickedImg;
         private FrameworkElement _clickedContainer;
@@ -106,6 +109,19 @@ namespace MyerSplash.View
             this.Loaded += MainPage_Loaded;
             InitComposition();
             InitBinding();
+
+            InitDeviceDependencyUI();
+        }
+
+        private void InitDeviceDependencyUI()
+        {
+            if (DeviceHelper.IsMobile)
+            {
+                TitleStack.Margin = new Thickness(0);
+                TitleStack.HorizontalAlignment = HorizontalAlignment.Stretch;
+                TitleTB.HorizontalAlignment = HorizontalAlignment.Center;
+                HamBtnBorder.Background = App.Current.Resources["TitleBarDarkBrush"] as SolidColorBrush;
+            }
         }
 
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
@@ -150,7 +166,6 @@ namespace MyerSplash.View
             _drawerMaskVisual = ElementCompositionPreview.GetElementVisual(DrawerMaskBorder);
             _titleGridVisual = ElementCompositionPreview.GetElementVisual(TitleGrid);
             _refreshBtnVisual = ElementCompositionPreview.GetElementVisual(RefreshBtn);
-            _hamBtnVisual = ElementCompositionPreview.GetElementVisual(HamBtn);
             _titleStackVisual = ElementCompositionPreview.GetElementVisual(TitleStack);
         }
 
@@ -199,13 +214,6 @@ namespace MyerSplash.View
             ListControl.ScrollToTop();
         }
 
-        private void DetailControl_OnHideControl()
-        {
-            ToggleTitleStackAnimation(true);
-            ToggleRefreshBtnAnimation(true);
-            ListControl.HideItemDetailAnimation();
-        }
-
         private void ListControl_OnClickItemStarted(UnsplashImageBase img, FrameworkElement container)
         {
             _clickedContainer = container;
@@ -233,6 +241,17 @@ namespace MyerSplash.View
             }
         }
 
+        private void DetailControl_OnHideControl()
+        {
+            if (_restoreTitleStackStatus)
+            {
+                ToggleTitleStackAnimation(true);
+                ToggleRefreshBtnAnimation(true);
+                _restoreTitleStackStatus = false;
+            }
+            ListControl.HideItemDetailAnimation();
+        }
+
         private void ToggleDetailControlAnimation()
         {
             var currentPos = _clickedContainer.TransformToVisual(ListControl).TransformPoint(new Point(0, 0));
@@ -241,6 +260,10 @@ namespace MyerSplash.View
             var targetOffsetX = targetPos.X - currentPos.X;
             var targetOffsetY = targetPos.Y - currentPos.Y;
 
+            if (_titleStackVisual.Offset.Y == 0)
+            {
+                _restoreTitleStackStatus = true;
+            }
             ToggleTitleStackAnimation(false);
             ToggleRefreshBtnAnimation(false);
 
@@ -310,7 +333,6 @@ namespace MyerSplash.View
             offsetAnimation.InsertKeyFrame(1f, show ? 0f : -100f);
             offsetAnimation.Duration = TimeSpan.FromMilliseconds(500);
 
-            _hamBtnVisual.StartAnimation("Offset.Y", offsetAnimation);
             _titleStackVisual.StartAnimation("Offset.Y", offsetAnimation);
         }
 

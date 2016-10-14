@@ -33,7 +33,7 @@ namespace MyerSplash.Common
         {
             get
             {
-                return ReadSettings(nameof(EnableQuickDownload), true);
+                return ReadSettings(nameof(EnableQuickDownload), false);
             }
             set
             {

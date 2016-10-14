@@ -1,4 +1,5 @@
-﻿using JP.Utils.UI;
+﻿using JP.Utils.Helper;
+using JP.Utils.UI;
 using MyerSplash.Common;
 using MyerSplash.Model;
 using MyerSplash.ViewModel;
@@ -64,6 +65,15 @@ namespace MyerSplash.UC
             this.InitializeComponent();
             this._compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
             this._listVisual = ElementCompositionPreview.GetElementVisual(ImageGridView);
+            InitDeviceDependencyUI();
+        }
+
+        private void InitDeviceDependencyUI()
+        {
+            if(DeviceHelper.IsMobile)
+            {
+                this.ImageGridView.Margin = new Thickness(0);
+            }
         }
 
         private void ImageGridView_ItemClick(object sender, ItemClickEventArgs e)
