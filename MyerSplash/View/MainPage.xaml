@@ -22,7 +22,7 @@
     </Interactivity:Interaction.Behaviors>
     <Grid x:Name="RootGrid" Background="{StaticResource RootBackgrdBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="90" />
+            <RowDefinition Height="70" />
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid x:Name="ContentGrid"
@@ -66,54 +66,60 @@
                     ManipulationDelta="TouchGrid_ManipulationDelta"
                     ManipulationMode="TranslateX" />
         </Grid>
-        <Grid x:Name="TitleGrid" Background="Transparent">
-            <StackPanel Margin="72,12,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Orientation="Horizontal">
-                <Border Height="{StaticResource PosterHeight}"
-                        MinWidth="140"
-                        Background="{StaticResource TitleBarDarkBrush}">
-                    <StackPanel HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                CacheMode="BitmapCache"
-                                Orientation="Horizontal"
-                                Tapped="StackPanel_Tapped">
-                        <TextBlock Margin="8,4"
-                                   VerticalAlignment="Center"
-                                   FontSize="25"
-                                   FontWeight="Bold"
-                                   Foreground="White"
-                                   Text="{x:Bind MainVM.SelectedTitle, Mode=OneWay, FallbackValue=NEW}" />
-                    </StackPanel>
-                </Border>
-                <Button Width="{StaticResource PosterHeight}"
-                        Height="{StaticResource PosterHeight}"
-                        Margin="0"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom"
-                        BorderThickness="0"
-                        Command="{x:Bind MainVM.SearchCommand, Mode=OneWay}"
-                        Style="{StaticResource ButtonCommonStyle}">
-                    <Grid Background="{StaticResource TitleBarDarkBrush}">
-                        <FontIcon FontFamily="Segoe MDL2 Assets"
-                                  Foreground="White"
-                                  Glyph="&#xE094;"
-                                  RenderTransformOrigin="0.5,0.5">
-                            <FontIcon.RenderTransform>
-                                <CompositeTransform ScaleX="-1" />
-                            </FontIcon.RenderTransform>
-                        </FontIcon>
-                    </Grid>
-                </Button>
-            </StackPanel>
+        <Grid x:Name="TitleGrid" Background="Transparent" />
+        <StackPanel x:Name="TitleStack"
+                    Margin="72,12,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Orientation="Horizontal" Grid.RowSpan="2">
+            <Border Height="{StaticResource PosterHeight}"
+                    MinWidth="130"
+                    Background="{StaticResource TitleBarDarkBrush}">
+                <StackPanel HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            CacheMode="BitmapCache"
+                            Orientation="Horizontal"
+                            Tapped="StackPanel_Tapped">
+                    <TextBlock Margin="8,4"
+                               VerticalAlignment="Center"
+                               FontSize="25"
+                               FontWeight="Bold"
+                               Foreground="White"
+                               Text="{x:Bind MainVM.SelectedTitle, Mode=OneWay, FallbackValue=NEW}" />
+                </StackPanel>
+            </Border>
+            <Button x:Name="SearchBtn"
+                    Grid.RowSpan="2"
+                    Width="{StaticResource PosterHeight}"
+                    Height="{StaticResource PosterHeight}"
+                    Margin="0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    BorderThickness="0"
+                    Command="{x:Bind MainVM.SearchCommand, Mode=OneWay}"
+                    Style="{StaticResource ButtonCommonStyle}">
+                <Grid Background="{StaticResource TitleBarDarkBrush}">
+                    <FontIcon FontFamily="Segoe MDL2 Assets"
+                              Foreground="White"
+                              Glyph="&#xE094;"
+                              RenderTransformOrigin="0.5,0.5">
+                        <FontIcon.RenderTransform>
+                            <CompositeTransform ScaleX="-1" />
+                        </FontIcon.RenderTransform>
+                    </FontIcon>
+                </Grid>
+            </Button>
+        </StackPanel>
 
-        </Grid>
+
+
         <uc:HamburgerButton x:Name="HamBtn"
+                            Grid.RowSpan="2"
                             Width="{StaticResource PosterHeight}"
                             Height="{StaticResource PosterHeight}"
                             Margin="12,12,0,0"
                             HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
                             Command="{x:Bind MainVM.OpenDrawerCommand, Mode=OneWay}" />
 
         <uc:NoNetworkControl x:Name="NoNetworkControl"

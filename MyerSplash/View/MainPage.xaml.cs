@@ -28,6 +28,7 @@ namespace MyerSplash.View
         private Visual _titleGridVisual;
         private Visual _refreshBtnVisual;
         private Visual _hamBtnVisual;
+        private Visual _titleStackVisual;
 
         private double _lastVerticalOffset = 0;
         private bool _isHideTitleGrid = false;
@@ -35,8 +36,6 @@ namespace MyerSplash.View
         private UnsplashImageBase _clickedImg;
         private FrameworkElement _clickedContainer;
         private bool _waitForToggleDetailAnimation;
-
-        private bool _hideTitleBarForDetail = false;
 
         public bool IsLoading
         {
@@ -152,6 +151,7 @@ namespace MyerSplash.View
             _titleGridVisual = ElementCompositionPreview.GetElementVisual(TitleGrid);
             _refreshBtnVisual = ElementCompositionPreview.GetElementVisual(RefreshBtn);
             _hamBtnVisual = ElementCompositionPreview.GetElementVisual(HamBtn);
+            _titleStackVisual = ElementCompositionPreview.GetElementVisual(TitleStack);
         }
 
         #region Loading animation
@@ -201,16 +201,8 @@ namespace MyerSplash.View
 
         private void DetailControl_OnHideControl()
         {
-            if (_hideTitleBarForDetail)
-            {
-                _hideTitleBarForDetail = false;
-                ToggleTitleBarAnimation(true);
-                ToggleHamBtnAnimation(true);
-            }
-            Canvas.SetZIndex(TitleGrid, 0);
-            Canvas.SetZIndex(HamBtn, 0);
-            Canvas.SetZIndex(ContentGrid, 0);
-            Canvas.SetZIndex(DetailControl, 0);
+            ToggleTitleStackAnimation(true);
+            ToggleRefreshBtnAnimation(true);
             ListControl.HideItemDetailAnimation();
         }
 
@@ -249,22 +241,8 @@ namespace MyerSplash.View
             var targetOffsetX = targetPos.X - currentPos.X;
             var targetOffsetY = targetPos.Y - currentPos.Y;
 
-            if (targetPos.Y <= TITLE_GRID_HEIGHT)
-            {
-                if (ListControl.GetScrollViewer().VerticalOffset > 70 && !_hideTitleBarForDetail)
-                {
-                    _hideTitleBarForDetail = true;
-                    ToggleTitleBarAnimation(false);
-                    ToggleHamBtnAnimation(false);
-                }
-                else
-                {
-                    Canvas.SetZIndex(TitleGrid, 1);
-                    Canvas.SetZIndex(HamBtn, 1);
-                    Canvas.SetZIndex(ContentGrid, 2);
-                    Canvas.SetZIndex(DetailControl, 3);
-                }
-            }
+            ToggleTitleStackAnimation(false);
+            ToggleRefreshBtnAnimation(false);
 
             ListControl.MoveItemAnimation(new Vector3((float)targetOffsetX, (float)targetOffsetY, 0f), (float)targetRatio);
             DetailControl.CurrentImage = _clickedImg;
@@ -326,13 +304,14 @@ namespace MyerSplash.View
             _refreshBtnVisual.StartAnimation("Offset.Y", offsetAnimation);
         }
 
-        private void ToggleHamBtnAnimation(bool show)
+        private void ToggleTitleStackAnimation(bool show)
         {
             var offsetAnimation = _compositor.CreateScalarKeyFrameAnimation();
             offsetAnimation.InsertKeyFrame(1f, show ? 0f : -100f);
             offsetAnimation.Duration = TimeSpan.FromMilliseconds(500);
 
             _hamBtnVisual.StartAnimation("Offset.Y", offsetAnimation);
+            _titleStackVisual.StartAnimation("Offset.Y", offsetAnimation);
         }
 
         private void ListControl_OnScrollViewerViewChanged(ScrollViewer scrollViewer)
@@ -341,15 +320,15 @@ namespace MyerSplash.View
             {
                 _isHideTitleGrid = true;
                 ToggleRefreshBtnAnimation(false);
-                ToggleHamBtnAnimation(false);
-                ToggleTitleBarAnimation(false);
+                ToggleTitleStackAnimation(false);
+                //ToggleTitleBarAnimation(false);
             }
             else if (scrollViewer.VerticalOffset < _lastVerticalOffset && _isHideTitleGrid)
             {
                 _isHideTitleGrid = false;
                 ToggleRefreshBtnAnimation(true);
-                ToggleHamBtnAnimation(true);
-                ToggleTitleBarAnimation(true);
+                ToggleTitleStackAnimation(true);
+                //ToggleTitleBarAnimation(true);
             }
             _lastVerticalOffset = scrollViewer.VerticalOffset;
         }

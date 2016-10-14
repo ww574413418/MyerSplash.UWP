@@ -124,26 +124,6 @@ namespace MyerSplash.UC
             ImageGridView.GetScrollViewer().ChangeView(null, 0, null);
         }
 
-        public void ShowLoadingAnimation()
-        {
-            ScrollToTop();
-            ToggleLoadingAnimation(true);
-        }
-
-        public void HideLoadingAnimation()
-        {
-            ToggleLoadingAnimation(false);
-        }
-
-        private void ToggleLoadingAnimation(bool show)
-        {
-            var offsetAnimation = _compositor.CreateVector3KeyFrameAnimation();
-            offsetAnimation.InsertKeyFrame(1, new Vector3(0f, show ? 70f : 0f, 0f));
-            offsetAnimation.Duration = TimeSpan.FromMilliseconds(500);
-
-            _listVisual.StartAnimation("Offset", offsetAnimation);
-        }
-
         #region List Animation
         private void AdaptiveGridView_ContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs args)
         {
@@ -303,7 +283,7 @@ namespace MyerSplash.UC
                 _scrollViewer.ChangeView(null, 0, null);
             }
             var offsetAnimation = _compositor.CreateScalarKeyFrameAnimation();
-            offsetAnimation.InsertKeyFrame(1f, 70f);
+            offsetAnimation.InsertKeyFrame(1f, 80f);
             offsetAnimation.Duration = TimeSpan.FromMilliseconds(300);
 
             _listVisual.StartAnimation("Offset.y", offsetAnimation);

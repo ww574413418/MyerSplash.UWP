@@ -477,12 +477,6 @@
                                 <VisualState x:Name="Normal" />
                                 <VisualState x:Name="PointerOver">
                                     <Storyboard>
-                                        <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="ContentPresenter">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Null}"/>
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightBaseHighBrush}"/>
-                                        </ObjectAnimationUsingKeyFrames>-->
                                         <DoubleAnimation Duration="0"
                                                          Storyboard.TargetName="ContentPresenter"
                                                          Storyboard.TargetProperty="(UIElement.Opacity)"
@@ -491,23 +485,12 @@
                                 </VisualState>
                                 <VisualState x:Name="Pressed">
                                     <Storyboard>
-                                        <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="RootGrid">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Null}"/>
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="ContentPresenter">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Null}"/>
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightBaseHighBrush}"/>
-                                        </ObjectAnimationUsingKeyFrames>-->
-                                        <PointerDownThemeAnimation Storyboard.TargetName="RootGrid" />
                                         <DoubleAnimation Duration="0"
                                                          Storyboard.TargetName="ContentPresenter"
                                                          Storyboard.TargetProperty="(UIElement.Opacity)"
                                                          To="0.6" />
                                     </Storyboard>
                                 </VisualState>
-
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                     </Grid>

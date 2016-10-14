@@ -23,15 +23,6 @@
                        FontWeight="Bold"
                        Foreground="White"
                        Text="MyerSplash" />
-            <Button Margin="0" Command="{x:Bind MainVM.SearchCommand,Mode=OneWay}" Style="{StaticResource ListButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                <Grid>
-                    <FontIcon Margin="21" FontFamily="Segoe MDL2 Assets" Glyph="&#xE094;" RenderTransformOrigin="0.5,0.5" Foreground="White" >
-                        <FontIcon.RenderTransform>
-                            <CompositeTransform ScaleX="-1"/>
-                        </FontIcon.RenderTransform>
-                    </FontIcon>
-                </Grid>
-            </Button>
         </Grid>
         <Grid Grid.Row="1">
             <ScrollViewer Margin="0,0,0,0"
