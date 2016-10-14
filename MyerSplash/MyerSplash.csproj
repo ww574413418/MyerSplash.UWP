@@ -112,6 +112,7 @@
     <Compile Include="Common\NavigationService.cs" />
     <Compile Include="Common\ToastHelper.cs" />
     <Compile Include="Common\NavigableUserControl.cs" />
+    <Compile Include="Converter\BoolToVisibilityConverter.cs" />
     <Compile Include="Interface\INavigableUserControl.cs" />
     <Compile Include="Interface\IUnsplashImage.cs" />
     <Compile Include="Interface\IUnsplashImageFeatured.cs" />

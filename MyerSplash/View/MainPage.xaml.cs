@@ -1,8 +1,6 @@
-﻿using JP.Utils.Helper;
-using JP.Utils.UI;
+﻿using JP.Utils.UI;
 using MyerSplash.Common;
 using MyerSplash.Model;
-using MyerSplash.UC;
 using MyerSplash.ViewModel;
 using System;
 using System.Numerics;

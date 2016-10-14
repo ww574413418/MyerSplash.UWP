@@ -29,6 +29,19 @@ namespace MyerSplash.Common
             }
         }
 
+        public bool EnableQuickDownload
+        {
+            get
+            {
+                return ReadSettings(nameof(EnableQuickDownload), true);
+            }
+            set
+            {
+                SaveSettings(nameof(EnableQuickDownload), value);
+                RaisePropertyChanged(() => EnableQuickDownload);
+            }
+        }
+
         public bool EnableScaleAnimation
         {
             get

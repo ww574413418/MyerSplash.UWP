@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using JP.Utils.Network;
 using JP.Utils.UI;
 using MyerSplash.Common;
 using MyerSplash.Interface;
@@ -310,6 +311,18 @@ namespace MyerSplash.Model
             }
         }
 
+        private RelayCommand _downloadCommand;
+        public RelayCommand DownloadCommand
+        {
+            get
+            {
+                if (_downloadCommand != null) return _downloadCommand;
+                return _downloadCommand = new RelayCommand(async () =>
+                  {
+                      await DownloadFullImageAsync(CTSFactory.MakeCTS().Token);
+                  });
+            }
+        }
 
         public UnsplashImageBase()
         {

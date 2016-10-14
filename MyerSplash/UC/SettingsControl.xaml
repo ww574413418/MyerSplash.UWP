@@ -453,6 +453,30 @@
                                       RequestedTheme="Dark"
                                       Style="{StaticResource ToggleSwitchStyle1}" />
                     </Grid>
+                    <Grid Height="50">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="150"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Margin="10,0,0,0"
+                                   VerticalAlignment="Center"
+                                   Foreground="White"
+                                   >
+                            <Run Text="Show download button in list"/>
+                            <LineBreak/>
+                            <Run Text="for mobile devices" Foreground="#4CFFFFFF"/>
+                        </TextBlock>
+                        <ToggleSwitch Grid.Column="1"
+                                      HorizontalAlignment="Right"
+                                      Foreground="White"
+                                      IsOn="{Binding Source={StaticResource AppSettings},
+                                                     Path=EnableQuickDownload,
+                                                     Mode=TwoWay}"
+                                      OffContent="Off"
+                                      OnContent="On"
+                                      RequestedTheme="Dark"
+                                      Style="{StaticResource ToggleSwitchStyle1}" />
+                    </Grid>
 
                     <StackPanel>
                         <TextBlock Margin="10,10,0,0"
@@ -478,7 +502,7 @@
                     <TextBlock Margin="10,10,0,0"
                                VerticalAlignment="Center"
                                Foreground="White"
-                               Text="Loading quality" />
+                               Text="Loading quality in list" />
                     <ComboBox Margin="10,10,10,0"
                               HorizontalAlignment="Stretch"
                               BorderThickness="1"
@@ -493,7 +517,7 @@
                     <TextBlock Margin="10,10,0,0"
                                VerticalAlignment="Center"
                                Foreground="White"
-                               Text="Saving quality" />
+                               Text="Image quality for downloading" />
                     <ComboBox Margin="10,10,10,0"
                               HorizontalAlignment="Stretch"
                               BorderThickness="1"

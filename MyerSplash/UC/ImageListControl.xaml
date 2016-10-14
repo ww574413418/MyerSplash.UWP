@@ -5,6 +5,7 @@
              xmlns:cc="using:JP.Utils.Control"
              xmlns:common="using:MyerSplash.Common"
              xmlns:control="using:MyerSplashCustomControl"
+             xmlns:converter="using:MyerSplash.Converter"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="using:MyerSplash.UC"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -13,7 +14,9 @@
              d:DesignHeight="300"
              d:DesignWidth="400"
              mc:Ignorable="d">
-
+    <UserControl.Resources>
+        <converter:BoolToVisibilityConverter x:Key="Converter" />
+    </UserControl.Resources>
     <control:AdaptiveGridView x:Name="ImageGridView"
                               Margin="0"
                               attach:ScrollViewerStyleChanger.Style="{StaticResource ScrollViewerCommonStyle}"
@@ -43,6 +46,7 @@
                     <Image x:Name="Img"
                            Source="{x:Bind ListImageBitmap.Bitmap, Mode=OneWay}"
                            Stretch="UniformToFill" />
+                    
                     <Border x:Name="MaskBorder" Background="#53000000">
                         <Grid>
                             <StackPanel Margin="16,0,0,16"
@@ -61,15 +65,37 @@
                                            Foreground="White"
                                            Text="{x:Bind LikesString, Mode=OneWay}" />
                             </StackPanel>
-                            <TextBlock Margin="0,0,16,16"
-                                       HorizontalAlignment="Right"
-                                       VerticalAlignment="Bottom"
-                                       FontWeight="Bold"
-                                       Foreground="White"
-                                       Text="{Binding Title,
-                                                      Mode=OneWay}" />
+                            <Button x:Name="DownloadBtn"
+                                    Width="50"
+                                    Height="50"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Bottom"
+                                    Command="{x:Bind DownloadCommand}"
+                                    Style="{StaticResource ListButtonStyle}">
+                                <FontIcon HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          FontFamily="Segoe MDL2 Assets"
+                                          Foreground="White"
+                                          Glyph="&#xE118;" />
+                            </Button>
                         </Grid>
                     </Border>
+                    <Button Width="50"
+                            Height="50"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Command="{x:Bind DownloadCommand}"
+                            Style="{StaticResource ListButtonStyle}"
+                            Visibility="{Binding Path=EnableQuickDownload,
+                                                 Converter={StaticResource Converter},
+                                                 Source={StaticResource AppSettings},
+                                                 Mode=OneWay}">
+                        <FontIcon HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  FontFamily="Segoe MDL2 Assets"
+                                  Foreground="White"
+                                  Glyph="&#xE118;" />
+                    </Button>
                 </Grid>
             </DataTemplate>
         </control:AdaptiveGridView.ItemTemplate>
