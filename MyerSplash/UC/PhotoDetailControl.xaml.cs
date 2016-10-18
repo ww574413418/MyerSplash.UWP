@@ -3,11 +3,13 @@ using JP.Utils.UI;
 using MyerSplash.Model;
 using MyerSplashCustomControl;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Numerics;
 using System.Threading;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
+using Windows.Storage;
 using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
@@ -288,6 +290,19 @@ namespace MyerSplash.UC
         {
             var grid = sender as Grid;
             grid.Clip = new RectangleGeometry() { Rect = new Rect(0, 0, e.NewSize.Width, e.NewSize.Height) };
+        }
+
+        private async void LargeImage_DragStarting(UIElement sender, DragStartingEventArgs args)
+        {
+            var image = (sender as FrameworkElement).DataContext as UnsplashImageBase;
+            var file = await StorageFile.GetFileFromPathAsync(image.ListImageBitmap.LocalPath);
+            if (file != null)
+            {
+                args.Data.SetStorageItems(new List<StorageFile>() { file });
+            }
+            args.Data.RequestedOperation = DataPackageOperation.Copy;
+            args.Data.SetText(image.ShareText);
+            args.Data.SetWebLink(new Uri(image.GetSaveImageUrlFromSettings()));
         }
     }
 }

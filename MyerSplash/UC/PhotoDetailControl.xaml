@@ -86,6 +86,8 @@
                               VerticalScrollBarVisibility="Auto"
                               VerticalScrollMode="Auto">
                     <Image x:Name="LargeImage"
+                           CanDrag="True"
+                           DragStarting="LargeImage_DragStarting"
                            Source="{x:Bind CurrentImage.ListImageBitmap.Bitmap, Mode=OneWay}"
                            Stretch="UniformToFill" />
                 </ScrollViewer>

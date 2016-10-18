@@ -4,15 +4,21 @@ using MyerSplash.Common;
 using MyerSplash.Model;
 using MyerSplash.ViewModel;
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Numerics;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Devices.Input;
 using Windows.Foundation;
+using Windows.Storage;
+using Windows.Storage.Streams;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace MyerSplash.UC
 {
@@ -70,7 +76,7 @@ namespace MyerSplash.UC
 
         private void InitDeviceDependencyUI()
         {
-            if(DeviceHelper.IsMobile)
+            if (DeviceHelper.IsMobile)
             {
                 this.ImageGridView.Margin = new Thickness(0);
             }
@@ -78,21 +84,29 @@ namespace MyerSplash.UC
 
         private void ImageGridView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var item = e.ClickedItem;
-            var container = ImageGridView.ContainerFromItem(item) as FrameworkElement;
+            var item = e.ClickedItem as UnsplashImageBase;
+            TapItem(item);
+        }
+
+        private void TapItem(UnsplashImageBase image)
+        {
+            if (string.IsNullOrEmpty(image.ListImageBitmap.LocalPath))
+            {
+                return;
+            }
+
+            var container = ImageGridView.ContainerFromItem(image) as FrameworkElement;
             var rootGrid = (container as GridViewItem).ContentTemplateRoot as Grid;
             Canvas.SetZIndex(container, ++_zindex);
 
             _containerVisual = ElementCompositionPreview.GetElementVisual(container);
-
-            var unsplashImg = item as UnsplashImageBase;
 
             var maskBorder = rootGrid.Children[2] as FrameworkElement;
             var img = rootGrid.Children[1] as FrameworkElement;
 
             ToggleItemPointAnimation(maskBorder, img, false);
 
-            OnClickItemStarted?.Invoke(unsplashImg, container);
+            OnClickItemStarted?.Invoke(image, container);
         }
 
         public void MoveItemAnimation(Vector3 targetOffset, float widthRatio)
@@ -270,7 +284,7 @@ namespace MyerSplash.UC
             }
 
             maskVisual.StartAnimation("Opacity", fadeAnimation);
-            if(AppSettings.Instance.EnableScaleAnimation)
+            if (AppSettings.Instance.EnableScaleAnimation)
             {
                 imgVisual.StartAnimation("Scale.x", scaleAnimation);
                 imgVisual.StartAnimation("Scale.y", scaleAnimation);
@@ -310,6 +324,26 @@ namespace MyerSplash.UC
             _listVisual.StartAnimation("Offset.y", offsetAnimation);
             LoadingControl.Visibility = Visibility.Collapsed;
             LoadingControl.Stop();
+        }
+
+        private async void RootGrid_DragStarting(UIElement sender, DragStartingEventArgs args)
+        {
+            var image = (sender as FrameworkElement).DataContext as UnsplashImageBase;
+            var file = await StorageFile.GetFileFromPathAsync(image.ListImageBitmap.LocalPath);
+            if (file == null)
+            {
+                args.Cancel = true;
+                return;
+            }
+            args.Data.SetStorageItems(new List<StorageFile>() { file });
+            args.Data.RequestedOperation = DataPackageOperation.Copy;
+            args.Data.SetText(image.ShareText);
+        }
+
+        private void RootGrid_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            var image = (sender as FrameworkElement).DataContext as UnsplashImageBase;
+            TapItem(image);
         }
     }
 }

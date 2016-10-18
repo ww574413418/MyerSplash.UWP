@@ -324,6 +324,8 @@ namespace MyerSplash.Model
             }
         }
 
+        public string ShareText => $"Share {this.Owner.Name}'s amazing photo from MyerSplash app. {FullImageUrl}";
+
         public UnsplashImageBase()
         {
             ListImageBitmap = new CachedBitmapSource();
@@ -337,12 +339,10 @@ namespace MyerSplash.Model
             requestData.Properties.ContentSourceWebLink = new Uri(FullImageUrl);
             requestData.Properties.ContentSourceApplicationLink = new Uri(FullImageUrl);
 
-            var shareText = $"Share {this.Owner.Name}'s amazing photo from MyerSplash app. {FullImageUrl}";
-
-            requestData.SetText(shareText);
+            requestData.SetText(ShareText);
 
             DataPackage dataPackage = new DataPackage();
-            dataPackage.SetText(shareText);
+            dataPackage.SetText(ShareText);
             Clipboard.SetContent(dataPackage);
 
             DataRequestDeferral deferral = request.GetDeferral();

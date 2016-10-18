@@ -39,14 +39,16 @@
         <control:AdaptiveGridView.ItemTemplate>
             <DataTemplate x:DataType="model:UnsplashImageBase">
                 <Grid x:Name="RootGrid"
+                      CanDrag="True"
+                      DragStarting="RootGrid_DragStarting"
                       Loaded="RootGrid_Loaded"
                       SizeChanged="RootGrid_SizeChanged"
+                      Tapped="RootGrid_Tapped"
                       Unloaded="RootGrid_Unloaded">
                     <Border Background="{x:Bind BackColor, Mode=OneWay}" />
                     <Image x:Name="Img"
                            Source="{x:Bind ListImageBitmap.Bitmap, Mode=OneWay}"
                            Stretch="UniformToFill" />
-                    
                     <Border x:Name="MaskBorder" Background="#53000000">
                         <Grid>
                             <StackPanel Margin="16,0,0,16"
