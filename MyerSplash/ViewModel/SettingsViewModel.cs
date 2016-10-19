@@ -110,7 +110,8 @@ namespace MyerSplash.ViewModel
             {
                 foreach (var file in files)
                 {
-                    if (file.Name.EndsWith(".tmp"))
+                    var prop = await file.GetBasicPropertiesAsync();
+                    if (file.Name.EndsWith(".tmp") || prop.Size == 0)
                     {
                         await file.DeleteAsync();
                     }
