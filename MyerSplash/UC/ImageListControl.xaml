@@ -73,7 +73,8 @@
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Bottom"
                                     Command="{x:Bind DownloadCommand}"
-                                    Style="{StaticResource ListButtonStyle}">
+                                    Style="{StaticResource ListButtonStyle}"
+                                    Tapped="DownloadBtn_Tapped">
                                 <FontIcon HorizontalAlignment="Center"
                                           VerticalAlignment="Center"
                                           FontFamily="Segoe MDL2 Assets"
@@ -88,6 +89,7 @@
                             VerticalAlignment="Bottom"
                             Command="{x:Bind DownloadCommand}"
                             Style="{StaticResource ListButtonStyle}"
+                            Tapped="DownloadBtn_Tapped"
                             Visibility="{Binding Path=EnableQuickDownload,
                                                  Converter={StaticResource Converter},
                                                  Source={StaticResource AppSettings},
