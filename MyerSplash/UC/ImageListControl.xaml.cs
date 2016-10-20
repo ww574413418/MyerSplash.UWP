@@ -345,5 +345,10 @@ namespace MyerSplash.UC
             var image = (sender as FrameworkElement).DataContext as UnsplashImageBase;
             TapItem(image);
         }
+
+        private void DownloadBtn_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            e.Handled = true;
+        }
     }
 }
