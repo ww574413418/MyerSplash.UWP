@@ -38,7 +38,7 @@
                          SelectedIndex="{x:Bind MainVM.SelectedIndex, Mode=TwoWay}">
                     <ListBox.ItemTemplate>
                         <DataTemplate x:DataType="model:UnsplashCategory">
-                            <Grid Height="50">
+                            <Grid Height="48">
                                 <TextBlock Grid.Column="2"
                                            Margin="24 0 0 0"
                                            VerticalAlignment="Center"
@@ -56,7 +56,7 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <Button Height="50"
+                <Button Height="48"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
                         Background="{x:Null}"
@@ -81,7 +81,7 @@
                     </Grid>
                 </Button>
                 <Button Grid.Column="1"
-                        Height="50"
+                        Height="48"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
                         Background="{x:Null}"

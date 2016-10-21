@@ -280,7 +280,7 @@ namespace MyerSplash.UC
 
             if (imgVisual.CenterPoint.X == 0 && imgVisual.CenterPoint.Y == 0)
             {
-                imgVisual.CenterPoint = new Vector3((float)img.ActualHeight / 2, (float)img.ActualHeight / 2, 0f);
+                imgVisual.CenterPoint = new Vector3((float)mask.ActualWidth / 2, (float)mask.ActualHeight / 2, 0f);
             }
 
             maskVisual.StartAnimation("Opacity", fadeAnimation);
