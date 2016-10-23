@@ -10,13 +10,26 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
+using Windows.UI.Xaml;
 
 namespace MyerSplash.ViewModel
 {
     public abstract class DataViewModelBase<T> : ViewModelBase
     {
         public static int DEFAULT_PAGE_INDEX => 1;
-        public static uint DEFAULT_PER_PAGE { get; set; } = 20u;
+
+        public static uint DEFAULT_PER_PAGE
+        {
+            get
+            {
+                if (DeviceHelper.IsMobile) return 10u;
+                else if (Window.Current.CoreWindow.Bounds.Width >= 1500)
+                {
+                    return 40u;
+                }
+                else return 20u;
+            }
+        }
 
         private int PageIndex { get; set; } = DEFAULT_PAGE_INDEX;
 
@@ -76,7 +89,6 @@ namespace MyerSplash.ViewModel
             {
                 return Task.Run(() => GetIncrementalListData(PageIndex++));
             });
-            DEFAULT_PER_PAGE = DeviceHelper.IsDesktop ? 20u : 10u;
         }
 
         public async Task<bool> RefreshAsync()
@@ -117,9 +129,7 @@ namespace MyerSplash.ViewModel
             bool HasMoreItems = false;
             try
             {
-                var respList = await GetList(pageIndex);
-
-                newList = respList;
+                newList = await GetList(pageIndex);
 
                 if (newList == null || newList.Count() == 0)
                 {

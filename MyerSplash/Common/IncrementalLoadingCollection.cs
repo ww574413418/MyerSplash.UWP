@@ -21,7 +21,6 @@ namespace MyerSplash.Common
 
     public class IncrementalLoadingCollection<T> : ObservableCollection<T>, ISupportIncrementalLoading
     {
-        // 这里为了简单使用了Tuple<IList<T>, bool>作为返回值，第一项是新项目集合，第二项是否还有更多，也可以自定义实体类
         Func<uint, Task<ResultData<T>>> _dataFetchDelegate = null;
 
         public IncrementalLoadingCollection()
@@ -60,7 +59,6 @@ namespace MyerSplash.Common
 
                 IsBusy = true;
 
-                // 我们忽略了CancellationToken，因为我们暂时不需要取消，需要的可以加上
                 var result = await this._dataFetchDelegate(count);
 
                 var items = result.Data;
