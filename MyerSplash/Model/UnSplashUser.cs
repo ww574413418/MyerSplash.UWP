@@ -11,7 +11,6 @@ namespace MyerSplash.Model
     public class UnsplashUser : ViewModelBase, IParseFromJson
     {
         private CachedBitmapSource _avatarBitmap;
-        [IgnoreDataMember]
         public CachedBitmapSource AvatarBitmap
         {
             get

@@ -117,6 +117,7 @@
     <Compile Include="Interface\IUnsplashImage.cs" />
     <Compile Include="Interface\IUnsplashImageFeatured.cs" />
     <Compile Include="LiveTile\LiveTileUpdater.cs" />
+    <Compile Include="Model\DownloadItem.cs" />
     <Compile Include="Model\IGenerateFromJson.cs" />
     <Compile Include="Model\UnsplashCategory.cs" />
     <Compile Include="Model\UnsplashFeaturedImage.cs" />
@@ -165,6 +166,7 @@
     <Compile Include="ViewModel\DataViewModel\ImageDataViewModel.cs" />
     <Compile Include="ViewModel\DataViewModel\RandomImagesDataViewModel.cs" />
     <Compile Include="ViewModel\DataViewModel\SearchResultViewModel.cs" />
+    <Compile Include="ViewModel\DownloadsViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\SettingsViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />

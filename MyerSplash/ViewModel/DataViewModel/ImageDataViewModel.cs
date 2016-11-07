@@ -19,16 +19,12 @@ namespace MyerSplash.ViewModel
 {
     public class ImageDataViewModel : DataViewModelBase<UnsplashImageBase>
     {
-        [IgnoreDataMember]
-        public MainViewModel MainVM { get; set; }
-
         public string RequestUrl { get; set; }
 
         public bool Featured { get; set; } = false;
 
-        public ImageDataViewModel(MainViewModel mainVM, string url, bool featured)
+        public ImageDataViewModel(string url, bool featured)
         {
-            this.MainVM = mainVM;
             this.RequestUrl = url;
             this.Featured = featured;
         }
@@ -42,18 +38,19 @@ namespace MyerSplash.ViewModel
         {
             if (list.Count() == 0)
             {
-                MainVM.FooterLoadingVisibility = Visibility.Collapsed;
-                MainVM.EndVisibility = Visibility.Visible;
-                MainVM.FooterReloadVisibility = Visibility.Collapsed;
+                App.MainVM.FooterLoadingVisibility = Visibility.Collapsed;
+                App.MainVM.EndVisibility = Visibility.Visible;
+                App.MainVM.FooterReloadVisibility = Visibility.Collapsed;
             }
             if (DataList.Count + list.Count() == 0)
             {
-                MainVM.NoItemHintVisibility = Visibility.Visible;
-                MainVM.FooterLoadingVisibility = Visibility.Collapsed;
+                App.MainVM.NoItemHintVisibility = Visibility.Visible;
+                App.MainVM.FooterLoadingVisibility = Visibility.Collapsed;
             }
             else
             {
-                MainVM.NoItemHintVisibility = Visibility.Collapsed;
+                App.MainVM.NoItemHintVisibility = Visibility.Collapsed;
+                App.MainVM.FooterLoadingVisibility = Visibility.Visible;
             }
         }
 
@@ -63,7 +60,7 @@ namespace MyerSplash.ViewModel
             {
                 if (pageIndex >= 2)
                 {
-                    MainVM.FooterLoadingVisibility = Visibility.Visible;
+                    App.MainVM.FooterLoadingVisibility = Visibility.Visible;
                 }
 
                 return await RequestAsync(pageIndex);
@@ -72,17 +69,17 @@ namespace MyerSplash.ViewModel
             {
                 await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    MainVM.FooterLoadingVisibility = Visibility.Collapsed;
-                    MainVM.IsRefreshing = false;
+                    App.MainVM.FooterLoadingVisibility = Visibility.Collapsed;
+                    App.MainVM.IsRefreshing = false;
 
-                    if (MainVM.MainList?.Count == 0)
+                    if (App.MainVM.DataVM.DataList?.Count == 0)
                     {
-                        MainVM.NoItemHintVisibility = Visibility.Visible;
+                        App.MainVM.NoItemHintVisibility = Visibility.Visible;
                     }
                     else
                     {
-                        MainVM.NoItemHintVisibility = Visibility.Collapsed;
-                        MainVM.FooterReloadVisibility = Visibility.Visible;
+                        App.MainVM.NoItemHintVisibility = Visibility.Collapsed;
+                        App.MainVM.FooterReloadVisibility = Visibility.Visible;
                     }
 
                     ToastService.SendToast("Request failed.");
@@ -93,17 +90,17 @@ namespace MyerSplash.ViewModel
             {
                 await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    MainVM.FooterLoadingVisibility = Visibility.Collapsed;
-                    MainVM.IsRefreshing = false;
+                    App.MainVM.FooterLoadingVisibility = Visibility.Collapsed;
+                    App.MainVM.IsRefreshing = false;
 
-                    if (MainVM.MainList?.Count == 0)
+                    if (App.MainVM.DataVM.DataList?.Count == 0)
                     {
-                        MainVM.NoItemHintVisibility = Visibility.Visible;
+                        App.MainVM.NoItemHintVisibility = Visibility.Visible;
                     }
                     else
                     {
-                        MainVM.NoItemHintVisibility = Visibility.Collapsed;
-                        MainVM.FooterReloadVisibility = Visibility.Visible;
+                        App.MainVM.NoItemHintVisibility = Visibility.Collapsed;
+                        App.MainVM.FooterReloadVisibility = Visibility.Visible;
                     }
 
                     ToastService.SendToast("Request timeout.");
@@ -157,7 +154,7 @@ namespace MyerSplash.ViewModel
 
         protected async virtual Task<IEnumerable<UnsplashImageBase>> RequestAsync(int pageIndex)
         {
-            var result = await CloudService.GetImages(pageIndex, (int)DEFAULT_PER_PAGE, CTSFactory.MakeCTS(10000).Token, RequestUrl);
+            var result = await CloudService.GetImages(pageIndex, (int)20u, CTSFactory.MakeCTS(10000).Token, RequestUrl);
             if (result.IsRequestSuccessful)
             {
                 if (Featured)

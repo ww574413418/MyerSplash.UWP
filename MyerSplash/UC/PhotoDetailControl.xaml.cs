@@ -231,7 +231,8 @@ namespace MyerSplash.UC
             try
             {
                 _cts = new CancellationTokenSource();
-                await this.CurrentImage.DownloadFullImageAsync(_cts.Token);
+                var item = new DownloadItem(CurrentImage);
+                await item.DownloadFullImageAsync(_cts.Token);
                 ToggleDownloadingBtnAnimation(false);
 
                 //Still in this page

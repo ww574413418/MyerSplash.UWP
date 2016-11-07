@@ -55,8 +55,7 @@ namespace MyerSplashShared.Shared
         {
             if (!string.IsNullOrEmpty(LocalPath))
             {
-                var cachedFolder = ApplicationData.Current.TemporaryFolder;
-                var file = await cachedFolder.TryGetItemAsync(LocalPath);
+                var file = await StorageFile.GetFileFromPathAsync(LocalPath);
                 if (file != null)
                 {
                     await SetImageSourceAsync(file as StorageFile);

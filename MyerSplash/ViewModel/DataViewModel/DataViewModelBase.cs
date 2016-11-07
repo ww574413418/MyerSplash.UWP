@@ -18,18 +18,18 @@ namespace MyerSplash.ViewModel
     {
         public static int DEFAULT_PAGE_INDEX => 1;
 
-        public static uint DEFAULT_PER_PAGE
-        {
-            get
-            {
-                if (DeviceHelper.IsMobile) return 10u;
-                else if (Window.Current.CoreWindow.Bounds.Width >= 1500)
-                {
-                    return 40u;
-                }
-                else return 20u;
-            }
-        }
+        //public static uint DEFAULT_PER_PAGE
+        //{
+        //    get
+        //    {
+        //        if (DeviceHelper.IsMobile) return 10u;
+        //        else if (Window.Current.CoreWindow.Bounds.Width >= 1500)
+        //        {
+        //            return 40u;
+        //        }
+        //        else return 20u;
+        //    }
+        //}
 
         private int PageIndex { get; set; } = DEFAULT_PAGE_INDEX;
 
@@ -102,12 +102,15 @@ namespace MyerSplash.ViewModel
 
                 PageIndex = DEFAULT_PAGE_INDEX;
 
-                DataList = new IncrementalLoadingCollection<T>(count =>
+                if (DataList == null)
                 {
-                    return GetIncrementalListData(PageIndex++);
-                });
+                    DataList = new IncrementalLoadingCollection<T>(count =>
+                    {
+                        return GetIncrementalListData(PageIndex++);
+                    });
+                }
 
-                await DataList.LoadMoreItemsAsync(DEFAULT_PER_PAGE);
+                await DataList.LoadMoreItemsAsync(20u);
 
                 return true;
             }
@@ -120,7 +123,7 @@ namespace MyerSplash.ViewModel
 
         public async Task RetryAsync()
         {
-            await DataList.LoadMoreItemsAsync(DEFAULT_PER_PAGE);
+            await DataList.LoadMoreItemsAsync(20u);
         }
 
         private async Task<ResultData<T>> GetIncrementalListData(int pageIndex)

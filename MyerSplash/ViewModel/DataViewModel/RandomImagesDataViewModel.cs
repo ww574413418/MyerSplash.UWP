@@ -7,15 +7,15 @@ namespace MyerSplash.ViewModel.DataViewModel
 {
     public class RandomImagesDataViewModel : ImageDataViewModel
     {
-        public RandomImagesDataViewModel(MainViewModel mainVM, string url, bool featured)
-            : base(mainVM, url, featured)
+        public RandomImagesDataViewModel(string url, bool featured)
+            : base(url, featured)
         {
 
         }
 
         protected async override Task<IEnumerable<UnsplashImageBase>> RequestAsync(int pageIndex)
         {
-            var result = await CloudService.GetRandomImages((int)DEFAULT_PER_PAGE, CTSFactory.MakeCTS(5000).Token);
+            var result = await CloudService.GetRandomImages((int)20, CTSFactory.MakeCTS(5000).Token);
             if (result.IsRequestSuccessful)
             {
                 var list = UnsplashImage.ParseListFromJson(result.JsonSrc);

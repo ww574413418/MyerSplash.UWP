@@ -24,8 +24,6 @@ namespace MyerSplash.Model
 {
     public abstract class UnsplashImageBase : ViewModelBase, IUnsplashImage, IUnsplashImageFeatured, IParseFromJson
     {
-        private BackgroundDownloader _backgroundDownloader = new BackgroundDownloader();
-
         public string ID { get; set; }
 
         public string RawImageUrl { get; set; }
@@ -56,7 +54,6 @@ namespace MyerSplash.Model
         }
 
         private CachedBitmapSource _listImageBitmap;
-        [IgnoreDataMember]
         public CachedBitmapSource ListImageBitmap
         {
             get
@@ -74,7 +71,6 @@ namespace MyerSplash.Model
         }
 
         private CachedBitmapSource _largeBitmap;
-        [IgnoreDataMember]
         public CachedBitmapSource LargeBitmap
         {
             get
@@ -124,6 +120,7 @@ namespace MyerSplash.Model
         }
 
         private SolidColorBrush _infoForeColor;
+        [IgnoreDataMember]
         public SolidColorBrush InfoForeColor
         {
             get
@@ -141,6 +138,7 @@ namespace MyerSplash.Model
         }
 
         private SolidColorBrush _btnForeColor;
+        [IgnoreDataMember]
         public SolidColorBrush BtnForeColor
         {
             get
@@ -319,7 +317,8 @@ namespace MyerSplash.Model
                 if (_downloadCommand != null) return _downloadCommand;
                 return _downloadCommand = new RelayCommand(async () =>
                   {
-                      await DownloadFullImageAsync(CTSFactory.MakeCTS().Token);
+                      var downloaditem = new DownloadItem(this);
+                      await downloaditem.DownloadFullImageAsync(CTSFactory.MakeCTS().Token);
                   });
             }
         }
@@ -400,37 +399,6 @@ namespace MyerSplash.Model
                 case 1: return FullImageUrl;
                 case 2: return RegularImageUrl;
                 default: return "";
-            }
-        }
-
-        public async Task DownloadFullImageAsync(CancellationToken token)
-        {
-            var url = GetSaveImageUrlFromSettings();
-
-            if (string.IsNullOrEmpty(url)) return;
-
-            ToastService.SendToast("Downloading in background...", 2000);
-
-            StorageFolder folder = await AppSettings.Instance.GetSavingFolderAsync();
-
-            var fileName = $"{Owner.Name}  {CreateTimeString}";
-            var newFile = await folder.CreateFileAsync($"{fileName}.jpg", CreationCollisionOption.GenerateUniqueName);
-
-            _backgroundDownloader.SuccessToastNotification = ToastHelper.CreateToastNotification("Saved:D",
-                $"Tap to open {folder.Path}.");
-
-            var downloadOperation = _backgroundDownloader.CreateDownload(new Uri(url), newFile);
-
-            var progress = new Progress<DownloadOperation>();
-            try
-            {
-                await downloadOperation.StartAsync().AsTask(token, progress);
-            }
-            catch (TaskCanceledException)
-            {
-                await downloadOperation.ResultFile.DeleteAsync();
-                downloadOperation = null;
-                throw;
             }
         }
 
