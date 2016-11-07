@@ -154,7 +154,12 @@ namespace MyerSplash.ViewModel
 
         protected async virtual Task<IEnumerable<UnsplashImageBase>> RequestAsync(int pageIndex)
         {
-            var result = await CloudService.GetImages(pageIndex, (int)20u, CTSFactory.MakeCTS(10000).Token, RequestUrl);
+#if DEBUG
+            var cts = CTSFactory.MakeCTS();
+#else
+            var cts = CTSFactory.MakeCTS(15000);
+#endif
+            var result = await CloudService.GetImages(pageIndex, (int)20u, cts.Token, RequestUrl);
             if (result.IsRequestSuccessful)
             {
                 if (Featured)

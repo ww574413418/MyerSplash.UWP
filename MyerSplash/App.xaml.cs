@@ -1,6 +1,7 @@
 ﻿using JP.Utils.Helper;
 using MyerSplash.Common;
 using MyerSplash.View;
+using MyerSplash.ViewModel;
 using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -16,13 +17,21 @@ namespace MyerSplash
 {
     sealed partial class App : Application
     {
-        public static ViewModel.MainViewModel MainVM { get; set; }
+        public static MainViewModel MainVM { get; set; }
+
+        public static ViewModelLocator VMLocator
+        {
+            get
+            {
+                return Current.Resources["Locator"] as ViewModelLocator;
+            }
+        }
 
         public static AppSettings AppSettings
         {
             get
             {
-                return App.Current.Resources["AppSettings"] as AppSettings;
+                return Current.Resources["AppSettings"] as AppSettings;
             }
         }
 

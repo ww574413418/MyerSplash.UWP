@@ -112,7 +112,6 @@
                 <Setter Property="Margin" Value="0" />
             </Style>
         </control:AdaptiveGridView.ItemContainerStyle>
-
         <control:AdaptiveGridView.Footer>
             <Grid Height="100">
                 <Grid Height="50" Visibility="{x:Bind MainVM.FooterLoadingVisibility, Mode=OneWay}">

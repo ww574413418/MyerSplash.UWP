@@ -22,7 +22,7 @@ namespace MyerSplash.Common
             {
                 SaveSettings(nameof(EnableTile), value);
                 RaisePropertyChanged(() => EnableTile);
-                if(!value)
+                if (!value)
                 {
                     LiveTileUpdater.CleanUpTile();
                 }
@@ -101,7 +101,13 @@ namespace MyerSplash.Common
 
         public async Task<StorageFolder> GetSavingFolderAsync()
         {
-            StorageFolder folder = await KnownFolders.PicturesLibrary.CreateFolderAsync("MyerSplash", CreationCollisionOption.OpenIfExists);
+            var folder = await KnownFolders.PicturesLibrary.CreateFolderAsync("MyerSplash", CreationCollisionOption.OpenIfExists);
+            return folder;
+        }
+
+        public async Task<StorageFolder> GetWallpaperFolderAsync()
+        {
+            var folder = await ApplicationData.Current.TemporaryFolder.CreateFolderAsync("WallpapersTemp", CreationCollisionOption.OpenIfExists);
             return folder;
         }
 

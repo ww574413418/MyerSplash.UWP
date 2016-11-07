@@ -157,6 +157,10 @@
         <uc:SearchBarControl x:Name="SearchControl"
                              Grid.RowSpan="2"
                              d:IsHidden="True" />
+        <uc:ManageDownloadControl x:Name="DownloadsControl"
+                                  Grid.RowSpan="2"
+                                  d:IsHidden="True"
+                                  Shown="{x:Bind MainVM.ShowDownloadsUC, Mode=OneWay}" />
         <uc:AboutControl x:Name="AboutUC"
                          Grid.RowSpan="2"
                          d:IsHidden="True"

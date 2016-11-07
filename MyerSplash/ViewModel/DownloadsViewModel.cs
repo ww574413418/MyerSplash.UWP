@@ -45,8 +45,9 @@ namespace MyerSplash.ViewModel
 
         public DownloadsViewModel()
         {
-
+            DownloadingImages = new ObservableCollection<DownloadItem>();
         }
+
         private void Value_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             NoItemVisibility = DownloadingImages.Count > 0 ? Visibility.Collapsed : Visibility.Visible;
@@ -54,7 +55,6 @@ namespace MyerSplash.ViewModel
 
         public void AddDownloadingImage(DownloadItem item)
         {
-            if (DownloadingImages == null) DownloadingImages = new ObservableCollection<DownloadItem>();
             DownloadingImages.Add(item);
         }
     }

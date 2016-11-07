@@ -1,0 +1,138 @@
+﻿<common:NavigableUserControl x:Class="MyerSplash.UC.ManageDownloadControl"
+                             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                             xmlns:attach="using:JP.Utils.Framework"
+                             xmlns:common="using:MyerSplash.Common"
+                             xmlns:control="using:MyerSplashCustomControl"
+                             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                             xmlns:local="using:MyerSplash.UC"
+                             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                             xmlns:model="using:MyerSplash.Model"
+                             xmlns:uc="using:MyerSplash.UC"
+                             d:DesignHeight="600"
+                             d:DesignWidth="1400"
+                             mc:Ignorable="d">
+    <UserControl.Background>
+        <StaticResource ResourceKey="MyerSplashThemeColor" />
+    </UserControl.Background>
+    <Grid Background="{StaticResource TitleBarDarkBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid x:Name="TitleBar" Background="{StaticResource TitleBarDarkBrush}">
+            <TextBlock Margin="0,0,0,0"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="25"
+                       FontWeight="Bold"
+                       Foreground="White"
+                       Text="DOWNLOADS" />
+        </Grid>
+        <Button x:Name="CloseBtn"
+                Width="70"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Stretch"
+                Click="CloseBtn_Click"
+                Style="{StaticResource ListButtonStyle}">
+            <FontIcon FontFamily="Segoe MDL2 Assets"
+                      Foreground="White"
+                      Glyph="&#xE0D5;" />
+        </Button>
+        <control:AdaptiveGridView x:Name="ImageGridView"
+                                  Grid.Row="1"
+                                  Margin="2"
+                                  attach:ScrollViewerStyleChanger.Style="{StaticResource ScrollViewerCommonStyle}"
+                                  IncrementalLoadingTrigger="Edge"
+                                  ItemsSource="{x:Bind DownloadsVM.DownloadingImages, Mode=OneWay}"
+                                  MinItemHeight="240"
+                                  MinItemWidth="240"
+                                  SelectionMode="None"
+                                  ShowsScrollingPlaceholders="False">
+            <control:AdaptiveGridView.ItemTemplate>
+                <DataTemplate x:DataType="model:DownloadItem">
+                    <Grid x:Name="RootGrid" Margin="4">
+                        <Image x:Name="Img"
+                               Source="{x:Bind Image.ListImageBitmap.Bitmap, Mode=OneWay}"
+                               Stretch="UniformToFill" />
+                        <Grid Height="{StaticResource DownloadProgressBarHeight}" VerticalAlignment="Bottom">
+                            <Border Background="{x:Bind Image.MajorColor, Mode=OneWay}" Opacity="0.8" />
+                            <Border Background="#7F000000" />
+                            <ProgressBar VerticalAlignment="Stretch"
+                                         Foreground="{x:Bind Image.MajorColor, Mode=OneWay}"
+                                         IsIndeterminate="False"
+                                         Opacity="0.8"
+                                         Value="{x:Bind Progress, Mode=OneWay}" />
+                            <TextBlock Margin="12,0,0,0"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       FontWeight="Bold"
+                                       Foreground="{x:Bind Image.InfoForeColor, Mode=OneWay}"
+                                       Text="{x:Bind ProgressString, Mode=OneWay}" />
+                            <Button Width="{StaticResource DownloadProgressBarHeight}"
+                                    Height="{StaticResource DownloadProgressBarHeight}"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Stretch"
+                                    Style="{StaticResource ListButtonStyle}">
+                                <FontIcon FontFamily="Segoe MDL2 Assets"
+                                          FontSize="15"
+                                          Foreground="{x:Bind Image.InfoForeColor, Mode=OneWay}"
+                                          Glyph="&#xE106;" />
+                            </Button>
+                        </Grid>
+                        <Grid Height="{StaticResource DownloadProgressBarHeight}"
+                              VerticalAlignment="Bottom"
+                              Visibility="{x:Bind SetWallpaperVisibility, Mode=OneWay}">
+                            <Border Background="{x:Bind Image.MajorColor, Mode=OneWay}" />
+                            <Button Margin="0"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    Command="{x:Bind SetWallpaperCommand, Mode=OneWay}"
+                                    Style="{StaticResource ListButtonStyle}">
+                                <TextBlock Margin="12,0,0,0"
+                                           FontWeight="Bold"
+                                           Foreground="{x:Bind Image.InfoForeColor, Mode=OneWay, FallbackValue=White}"
+                                           Text="SET AS WALLPAPER" />
+                            </Button>
+                            <Button Width="{StaticResource DownloadProgressBarHeight}"
+                                    Height="{StaticResource DownloadProgressBarHeight}"
+                                    HorizontalAlignment="Right"
+                                    Command="{x:Bind OpenCommand, Mode=OneWay}"
+                                    Style="{StaticResource ListButtonStyle}">
+                                <FontIcon FontFamily="Segoe MDL2 Assets"
+                                          Foreground="{x:Bind Image.InfoForeColor, Mode=OneWay, FallbackValue=White}"
+                                          Glyph="&#xEC50;" />
+                            </Button>
+                        </Grid>
+                        <TextBlock Margin="12,0,0,60"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Bottom"
+                                   FontWeight="Bold"
+                                   Foreground="White"
+                                   Text="{x:Bind DownloadStatus, Mode=OneWay}" />
+                    </Grid>
+                </DataTemplate>
+            </control:AdaptiveGridView.ItemTemplate>
+            <control:AdaptiveGridView.ItemContainerStyle>
+                <Style TargetType="GridViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    <Setter Property="HorizontalAlignment" Value="Stretch" />
+                    <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                    <Setter Property="VerticalAlignment" Value="Stretch" />
+                    <Setter Property="Margin" Value="0" />
+                </Style>
+            </control:AdaptiveGridView.ItemContainerStyle>
+        </control:AdaptiveGridView>
+        <StackPanel Grid.Row="1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Visibility="{x:Bind DownloadsVM.NoItemVisibility, Mode=OneWay}">
+            <TextBlock HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="20"
+                       FontWeight="Light"
+                       Foreground="#7FFFFFFF"
+                       Text="NO DOWNLOADS" />
+        </StackPanel>
+    </Grid>
+</common:NavigableUserControl>

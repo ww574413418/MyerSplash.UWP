@@ -315,10 +315,11 @@ namespace MyerSplash.Model
             get
             {
                 if (_downloadCommand != null) return _downloadCommand;
-                return _downloadCommand = new RelayCommand(async () =>
+                return _downloadCommand = new RelayCommand(() =>
                   {
                       var downloaditem = new DownloadItem(this);
-                      await downloaditem.DownloadFullImageAsync(CTSFactory.MakeCTS().Token);
+                      var task = downloaditem.DownloadFullImageAsync(CTSFactory.MakeCTS().Token);
+                      App.VMLocator.DownloadsVM.AddDownloadingImage(downloaditem);
                   });
             }
         }
