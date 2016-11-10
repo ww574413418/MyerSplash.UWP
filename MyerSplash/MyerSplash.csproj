@@ -125,6 +125,9 @@
     <Compile Include="UC\AboutControl.xaml.cs">
       <DependentUpon>AboutControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UC\DownloadItemTemplate.xaml.cs">
+      <DependentUpon>DownloadItemTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UC\ManageDownloadControl.xaml.cs">
       <DependentUpon>ManageDownloadControl.xaml</DependentUpon>
     </Compile>
@@ -263,6 +266,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="UC\AboutControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\DownloadItemTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

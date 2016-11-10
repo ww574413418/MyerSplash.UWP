@@ -21,6 +21,7 @@ namespace MyerSplash.Model
         private BackgroundDownloader _backgroundDownloader = new BackgroundDownloader();
 
         private IStorageFile _resultFile;
+        private CancellationTokenSource _cts;
 
         private UnsplashImageBase _image;
         public UnsplashImageBase Image
@@ -50,9 +51,9 @@ namespace MyerSplash.Model
             {
                 if (_progress != value)
                 {
-                    _progress = value;
+                    _progress = double.Parse(value.ToString("f0"));
                     RaisePropertyChanged(() => Progress);
-                    ProgressString = $"{value.ToString("f0")} %";
+                    ProgressString = $"{_progress} %";
                 }
             }
         }
@@ -116,12 +117,17 @@ namespace MyerSplash.Model
                 if (_setWallpaperCommand != null) return _setWallpaperCommand;
                 return _setWallpaperCommand = new RelayCommand(async () =>
                   {
+                      if (!UserProfilePersonalizationSettings.IsSupported())
+                      {
+                          ToastService.SendToast("Your device can set wallpaper.");
+                          return;
+                      }
                       if (_resultFile != null)
                       {
                           StorageFile file = null;
 
                           //WTF, the file should be copy to LocalFolder to make the setting wallpaer api work.
-                          var folder = await ApplicationData.Current.LocalFolder.CreateFolderAsync("WallpaperTemp", CreationCollisionOption.OpenIfExists);
+                          var folder = ApplicationData.Current.LocalFolder;
                           var oldFile = await folder.TryGetItemAsync(_resultFile.Name) as StorageFile;
                           if (oldFile != null)
                           {
@@ -140,6 +146,23 @@ namespace MyerSplash.Model
                           {
                               ToastService.SendToast("Fail to set as wallpaper.");
                           }
+                      }
+                  });
+            }
+        }
+
+        private RelayCommand _cancelCommand;
+        public RelayCommand CancelCommand
+        {
+            get
+            {
+                if (_cancelCommand != null) return _cancelCommand;
+                return _cancelCommand = new RelayCommand(() =>
+                  {
+                      if (_cts != null)
+                      {
+                          _cts.Cancel();
+                          App.VMLocator.DownloadsVM.CancelDownload(this);
                       }
                   });
             }
@@ -169,8 +192,10 @@ namespace MyerSplash.Model
             SetWallpaperVisibility = Visibility.Collapsed;
         }
 
-        public async Task DownloadFullImageAsync(CancellationToken token)
+        public async Task DownloadFullImageAsync(CancellationTokenSource cts)
         {
+            _cts = cts;
+
             var url = Image.GetSaveImageUrlFromSettings();
 
             if (string.IsNullOrEmpty(url)) return;
@@ -185,9 +210,8 @@ namespace MyerSplash.Model
             _backgroundDownloader.SuccessToastNotification = ToastHelper.CreateToastNotification("Saved:D",
                 $"Tap to open {folder.Path}.");
 
-            _backgroundDownloader.CostPolicy = BackgroundTransferCostPolicy.Always;
-
             var downloadOperation = _backgroundDownloader.CreateDownload(new Uri(url), newFile);
+            downloadOperation.Priority = BackgroundTransferPriority.High;
 
             var progress = new Progress<DownloadOperation>();
             progress.ProgressChanged += Progress_ProgressChanged;
@@ -195,7 +219,7 @@ namespace MyerSplash.Model
             {
                 DownloadStatus = "DOWNLOADING";
                 Progress = 0;
-                await downloadOperation.StartAsync().AsTask(token, progress);
+                await downloadOperation.StartAsync().AsTask(_cts.Token, progress);
             }
             catch (TaskCanceledException)
             {

@@ -1,8 +1,11 @@
 ﻿using GalaSoft.MvvmLight;
 using MyerSplash.Model;
+using MyerSplashCustomControl;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using Windows.Networking.BackgroundTransfer;
 using Windows.UI.Xaml;
+using System;
 
 namespace MyerSplash.ViewModel
 {
@@ -53,9 +56,16 @@ namespace MyerSplash.ViewModel
             NoItemVisibility = DownloadingImages.Count > 0 ? Visibility.Collapsed : Visibility.Visible;
         }
 
-        public void AddDownloadingImage(DownloadItem item)
+        public async void AddDownloadingImage(DownloadItem item)
         {
-            DownloadingImages.Add(item);
+            DownloadingImages.Insert(0, item);
+            var list = await BackgroundDownloader.GetCurrentDownloadsAsync();
+            ToastService.SendToast(list.Count.ToString());
+        }
+
+        public void CancelDownload(DownloadItem item)
+        {
+            DownloadingImages.Remove(item);
         }
     }
 }

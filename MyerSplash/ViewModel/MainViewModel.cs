@@ -561,29 +561,29 @@ namespace MyerSplash.ViewModel
 
         private async Task RestoreMainListDataAsync()
         {
-            //var file = await CacheUtil.GetCachedFileFolder().TryGetFileAsync(CachedFileNames.MainListFileName);
-            //if (file != null)
-            //{
-            //    var str = await FileIO.ReadTextAsync(file);
-            //    var list = JsonConvert.DeserializeObject<List<UnsplashImage>>(str);
-            //    if (list != null)
-            //    {
-            //        this.DataVM = new ImageDataViewModel(UrlHelper.GetNewImages, false);
-            //        list.ForEach(s => DataVM.DataList.Add(s));
+            var file = await CacheUtil.GetCachedFileFolder().TryGetFileAsync(CachedFileNames.MainListFileName);
+            if (file != null)
+            {
+                var str = await FileIO.ReadTextAsync(file);
+                var list = JsonConvert.DeserializeObject<List<UnsplashImage>>(str);
+                if (list != null)
+                {
+                    this.DataVM = new ImageDataViewModel(UrlHelper.GetNewImages, false);
+                    list.ForEach(s => DataVM.DataList.Add(s));
 
-            //        for (int i = 0; i < DataVM.DataList.Count; i++)
-            //        {
-            //            var item = DataVM.DataList[i];
-            //            if (i % 2 == 0) item.BackColor = Application.Current.Resources["ImageBackBrush1"] as SolidColorBrush;
-            //            else item.BackColor = Application.Current.Resources["ImageBackBrush2"] as SolidColorBrush;
-            //            var task = item.RestoreDataAsync();
-            //        }
-            //    }
-            //    else DataVM = new ImageDataViewModel(UrlHelper.GetNewImages, false);
-            //}
-            //else DataVM = new ImageDataViewModel(UrlHelper.GetNewImages, false);
+                    for (int i = 0; i < DataVM.DataList.Count; i++)
+                    {
+                        var item = DataVM.DataList[i];
+                        if (i % 2 == 0) item.BackColor = Application.Current.Resources["ImageBackBrush1"] as SolidColorBrush;
+                        else item.BackColor = Application.Current.Resources["ImageBackBrush2"] as SolidColorBrush;
+                        var task = item.RestoreDataAsync();
+                    }
+                }
+                else DataVM = new ImageDataViewModel(UrlHelper.GetNewImages, false);
+            }
+            else DataVM = new ImageDataViewModel(UrlHelper.GetNewImages, false);
 
-            DataVM = new ImageDataViewModel(UrlHelper.GetNewImages, false);
+            //DataVM = new ImageDataViewModel(UrlHelper.GetNewImages, false);
         }
 
         private async Task RefreshAllAsync()

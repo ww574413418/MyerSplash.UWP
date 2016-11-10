@@ -15,6 +15,11 @@
     <UserControl.Background>
         <StaticResource ResourceKey="MyerSplashThemeColor" />
     </UserControl.Background>
+    <UserControl.Resources>
+        <CollectionViewSource x:Name="CVS"
+                              IsSourceGrouped="True"
+                              Source="{x:Bind DownloadsVM.DownloadingImages}" />
+    </UserControl.Resources>
     <Grid Background="{StaticResource TitleBarDarkBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
@@ -44,73 +49,23 @@
                                   Margin="2"
                                   attach:ScrollViewerStyleChanger.Style="{StaticResource ScrollViewerCommonStyle}"
                                   IncrementalLoadingTrigger="Edge"
-                                  ItemsSource="{x:Bind DownloadsVM.DownloadingImages, Mode=OneWay}"
+                                  ItemsSource="{x:Bind CVS.View}"
                                   MinItemHeight="240"
                                   MinItemWidth="240"
                                   SelectionMode="None"
                                   ShowsScrollingPlaceholders="False">
+            <GridView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Category}" />
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                </GroupStyle>
+            </GridView.GroupStyle>
             <control:AdaptiveGridView.ItemTemplate>
                 <DataTemplate x:DataType="model:DownloadItem">
-                    <Grid x:Name="RootGrid" Margin="4">
-                        <Image x:Name="Img"
-                               Source="{x:Bind Image.ListImageBitmap.Bitmap, Mode=OneWay}"
-                               Stretch="UniformToFill" />
-                        <Grid Height="{StaticResource DownloadProgressBarHeight}" VerticalAlignment="Bottom">
-                            <Border Background="{x:Bind Image.MajorColor, Mode=OneWay}" Opacity="0.8" />
-                            <Border Background="#7F000000" />
-                            <ProgressBar VerticalAlignment="Stretch"
-                                         Foreground="{x:Bind Image.MajorColor, Mode=OneWay}"
-                                         IsIndeterminate="False"
-                                         Opacity="0.8"
-                                         Value="{x:Bind Progress, Mode=OneWay}" />
-                            <TextBlock Margin="12,0,0,0"
-                                       HorizontalAlignment="Left"
-                                       VerticalAlignment="Center"
-                                       FontWeight="Bold"
-                                       Foreground="{x:Bind Image.InfoForeColor, Mode=OneWay}"
-                                       Text="{x:Bind ProgressString, Mode=OneWay}" />
-                            <Button Width="{StaticResource DownloadProgressBarHeight}"
-                                    Height="{StaticResource DownloadProgressBarHeight}"
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Stretch"
-                                    Style="{StaticResource ListButtonStyle}">
-                                <FontIcon FontFamily="Segoe MDL2 Assets"
-                                          FontSize="15"
-                                          Foreground="{x:Bind Image.InfoForeColor, Mode=OneWay}"
-                                          Glyph="&#xE106;" />
-                            </Button>
-                        </Grid>
-                        <Grid Height="{StaticResource DownloadProgressBarHeight}"
-                              VerticalAlignment="Bottom"
-                              Visibility="{x:Bind SetWallpaperVisibility, Mode=OneWay}">
-                            <Border Background="{x:Bind Image.MajorColor, Mode=OneWay}" />
-                            <Button Margin="0"
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Stretch"
-                                    Command="{x:Bind SetWallpaperCommand, Mode=OneWay}"
-                                    Style="{StaticResource ListButtonStyle}">
-                                <TextBlock Margin="12,0,0,0"
-                                           FontWeight="Bold"
-                                           Foreground="{x:Bind Image.InfoForeColor, Mode=OneWay, FallbackValue=White}"
-                                           Text="SET AS WALLPAPER" />
-                            </Button>
-                            <Button Width="{StaticResource DownloadProgressBarHeight}"
-                                    Height="{StaticResource DownloadProgressBarHeight}"
-                                    HorizontalAlignment="Right"
-                                    Command="{x:Bind OpenCommand, Mode=OneWay}"
-                                    Style="{StaticResource ListButtonStyle}">
-                                <FontIcon FontFamily="Segoe MDL2 Assets"
-                                          Foreground="{x:Bind Image.InfoForeColor, Mode=OneWay, FallbackValue=White}"
-                                          Glyph="&#xEC50;" />
-                            </Button>
-                        </Grid>
-                        <TextBlock Margin="12,0,0,60"
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Bottom"
-                                   FontWeight="Bold"
-                                   Foreground="White"
-                                   Text="{x:Bind DownloadStatus, Mode=OneWay}" />
-                    </Grid>
+                    <uc:DownloadItemTemplate />
                 </DataTemplate>
             </control:AdaptiveGridView.ItemTemplate>
             <control:AdaptiveGridView.ItemContainerStyle>
