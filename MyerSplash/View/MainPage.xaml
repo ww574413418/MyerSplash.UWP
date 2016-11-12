@@ -71,11 +71,13 @@
               Grid.RowSpan="2"
               Margin="12"
               HorizontalAlignment="Left"
-              VerticalAlignment="Top">
+              VerticalAlignment="Top"
+              Background="{StaticResource TitleBarDarkBrush}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="60" />
                 <ColumnDefinition />
                 <ColumnDefinition Width="60" />
+                <ColumnDefinition x:Name="C3" Width="60" />
             </Grid.ColumnDefinitions>
             <Border x:Name="HamBtnBorder" Background="Black">
                 <uc:HamburgerButton x:Name="HamBtn"
@@ -87,7 +89,6 @@
                                     Command="{x:Bind MainVM.OpenDrawerCommand, Mode=OneWay}" />
 
             </Border>
-
             <Border Grid.Column="1"
                     Height="{StaticResource PosterHeight}"
                     MinWidth="130"
@@ -113,17 +114,29 @@
                     VerticalAlignment="Top"
                     BorderThickness="0"
                     Command="{x:Bind MainVM.SearchCommand, Mode=OneWay}"
-                    Style="{StaticResource ButtonCommonStyle}">
-                <Grid Background="{StaticResource TitleBarDarkBrush}">
-                    <FontIcon FontFamily="Segoe MDL2 Assets"
-                              Foreground="White"
-                              Glyph="&#xE094;"
-                              RenderTransformOrigin="0.5,0.5">
-                        <FontIcon.RenderTransform>
-                            <CompositeTransform ScaleX="-1" />
-                        </FontIcon.RenderTransform>
-                    </FontIcon>
-                </Grid>
+                    Style="{StaticResource ListButtonStyle}">
+                <FontIcon FontFamily="Segoe MDL2 Assets"
+                          Foreground="White"
+                          Glyph="&#xE094;"
+                          RenderTransformOrigin="0.5,0.5">
+                    <FontIcon.RenderTransform>
+                        <CompositeTransform ScaleX="-1" />
+                    </FontIcon.RenderTransform>
+                </FontIcon>
+            </Button>
+            <Button x:Name="DownloadEntryBtn"
+                    Grid.Column="3"
+                    Width="{StaticResource PosterHeight}"
+                    Height="{StaticResource PosterHeight}"
+                    Margin="0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    BorderThickness="0"
+                    Command="{x:Bind MainVM.ShowDownloadsCommand, Mode=OneWay}"
+                    Style="{StaticResource ListButtonStyle}">
+                <FontIcon FontFamily="Segoe MDL2 Assets"
+                          Foreground="White"
+                          Glyph="&#xE118;" />
             </Button>
         </Grid>
 

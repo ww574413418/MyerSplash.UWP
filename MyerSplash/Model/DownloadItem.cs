@@ -156,6 +156,49 @@ namespace MyerSplash.Model
             }
         }
 
+        private RelayCommand _setLockWallpaperCommand;
+        [IgnoreDataMember]
+        public RelayCommand SetLockWallpaperCommand
+        {
+            get
+            {
+                if (_setLockWallpaperCommand != null) return _setLockWallpaperCommand;
+                return _setLockWallpaperCommand = new RelayCommand(async () =>
+                {
+                    if (!UserProfilePersonalizationSettings.IsSupported())
+                    {
+                        ToastService.SendToast("Your device can set wallpaper.");
+                        return;
+                    }
+                    if (_resultFile != null)
+                    {
+                        StorageFile file = null;
+
+                        //WTF, the file should be copy to LocalFolder to make the setting wallpaer api work.
+                        var folder = ApplicationData.Current.LocalFolder;
+                        var oldFile = await folder.TryGetItemAsync(_resultFile.Name) as StorageFile;
+                        if (oldFile != null)
+                        {
+                            await _resultFile.CopyAndReplaceAsync(oldFile);
+                        }
+                        else
+                        {
+                            file = await _resultFile.CopyAsync(folder);
+                        }
+                        var ok = await UserProfilePersonalizationSettings.Current.TrySetLockScreenImageAsync(file);
+                        if (ok)
+                        {
+                            ToastService.SendToast("Set as lock screen successfully.");
+                        }
+                        else
+                        {
+                            ToastService.SendToast("Fail to set as lock screen.");
+                        }
+                    }
+                });
+            }
+        }
+
         private RelayCommand _cancelCommand;
         [IgnoreDataMember]
         public RelayCommand CancelCommand

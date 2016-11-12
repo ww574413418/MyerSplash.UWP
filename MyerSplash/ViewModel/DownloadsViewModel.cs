@@ -74,6 +74,7 @@ namespace MyerSplash.ViewModel
             await FileIO.WriteTextAsync(file, str);
         }
 
+#pragma warning disable 4014
         public async Task RestoreListAsync()
         {
             var file = await ApplicationData.Current.LocalFolder.CreateFileAsync(CachedFileNames.DownloadListFileName, CreationCollisionOption.OpenIfExists);
@@ -106,6 +107,7 @@ namespace MyerSplash.ViewModel
                 }
             }
         }
+#pragma warning restore
 
         public async void AddDownloadingImage(DownloadItem item)
         {

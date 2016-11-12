@@ -8,7 +8,9 @@
              d:DesignWidth="400"
              mc:Ignorable="d">
 
-    <Grid x:Name="RootGrid" Margin="4">
+    <Grid x:Name="RootGrid"
+          Margin="4"
+          SizeChanged="RootGrid_SizeChanged">
         <Image x:Name="Img"
                Source="{Binding Image.ListImageBitmap.Bitmap,
                                 Mode=OneWay}"
@@ -48,23 +50,30 @@
               VerticalAlignment="Bottom"
               Visibility="{Binding SetWallpaperVisibility,
                                    Mode=OneWay}">
-            <Border Background="{Binding Image.MajorColor, Mode=OneWay}" />
-            <Button Margin="0"
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="52" />
+            </Grid.ColumnDefinitions>
+            <Border x:Name="BackgrdBorder"
+                    Grid.ColumnSpan="2"
+                    Background="{Binding Image.MajorColor,
+                                         Mode=OneWay}" />
+            <Button x:Name="SetAsBtn"
+                    Margin="0"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
-                    Command="{Binding SetWallpaperCommand,
-                                      Mode=OneWay}"
+                    Click="SetAsBtn_Click"
                     Style="{StaticResource ListButtonStyle}">
                 <TextBlock Margin="12,0,0,0"
                            FontWeight="Bold"
                            Foreground="{Binding Image.InfoForeColor,
                                                 Mode=OneWay,
                                                 FallbackValue=White}"
-                           Text="SET AS WALLPAPER" />
+                           Text="SET AS" />
             </Button>
-            <Button Width="{StaticResource DownloadProgressBarHeight}"
-                    Height="{StaticResource DownloadProgressBarHeight}"
-                    HorizontalAlignment="Right"
+            <Button Grid.Column="1"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
                     Command="{Binding OpenCommand,
                                       Mode=OneWay}"
                     Style="{StaticResource ListButtonStyle}">

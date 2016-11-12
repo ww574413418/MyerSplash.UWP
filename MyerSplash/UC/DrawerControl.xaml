@@ -25,6 +25,8 @@
                        Text="MyerSplash" />
             <Button Width="64"
                     Height="64.4"
+                    x:Name="DownloadEntryBtn"
+                    Visibility="Collapsed"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
                     Command="{x:Bind MainVM.ShowDownloadsCommand, Mode=OneWay}"

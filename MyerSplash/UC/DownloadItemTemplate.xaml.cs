@@ -21,9 +21,26 @@ namespace MyerSplash.UC
 {
     public sealed partial class DownloadItemTemplate : UserControl
     {
+        private Compositor _compositor;
+
         public DownloadItemTemplate()
         {
             this.InitializeComponent();
+
+            _compositor = this.GetVisual().Compositor;
+        }
+
+        private void SetAsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void RootGrid_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            RootGrid.Clip = new RectangleGeometry()
+            {
+                Rect = new Rect(0, 0, e.NewSize.Width, e.NewSize.Height)
+            };
         }
     }
 }

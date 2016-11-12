@@ -1,5 +1,7 @@
-﻿using MyerSplash.ViewModel;
+﻿using JP.Utils.Helper;
+using MyerSplash.ViewModel;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml;
 
 namespace MyerSplash.UC
 {
@@ -16,6 +18,10 @@ namespace MyerSplash.UC
         public DrawerControl()
         {
             this.InitializeComponent();
+            if (DeviceHelper.IsMobile)
+            {
+                DownloadEntryBtn.Visibility = Visibility.Visible;
+            }
         }
     }
 }
