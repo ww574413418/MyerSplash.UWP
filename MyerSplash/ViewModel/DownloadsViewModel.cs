@@ -6,6 +6,12 @@ using System.Collections.Specialized;
 using Windows.Networking.BackgroundTransfer;
 using Windows.UI.Xaml;
 using System;
+using MyerSplash.Common;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Windows.Storage;
+using System.Threading.Tasks;
+using Newtonsoft.Json.Converters;
 
 namespace MyerSplash.ViewModel
 {
@@ -24,7 +30,8 @@ namespace MyerSplash.ViewModel
                 {
                     _downloadingImages = value;
                     RaisePropertyChanged(() => DownloadingImages);
-                    value.CollectionChanged += Value_CollectionChanged;
+                    _downloadingImages.CollectionChanged += Value_CollectionChanged;
+                    NoItemVisibility = value.Count > 0 ? Visibility.Collapsed : Visibility.Visible;
                 }
             }
         }
@@ -48,12 +55,56 @@ namespace MyerSplash.ViewModel
 
         public DownloadsViewModel()
         {
-            DownloadingImages = new ObservableCollection<DownloadItem>();
+            var task = RestoreListAsync();
         }
 
-        private void Value_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private async void Value_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             NoItemVisibility = DownloadingImages.Count > 0 ? Visibility.Collapsed : Visibility.Visible;
+            await SaveListAsync();
+        }
+
+        public async Task SaveListAsync()
+        {
+            var str = JsonConvert.SerializeObject(DownloadingImages, new JsonSerializerSettings()
+            {
+                TypeNameHandling = TypeNameHandling.All
+            });
+            var file = await ApplicationData.Current.LocalFolder.CreateFileAsync(CachedFileNames.DownloadListFileName, CreationCollisionOption.OpenIfExists);
+            await FileIO.WriteTextAsync(file, str);
+        }
+
+        public async Task RestoreListAsync()
+        {
+            var file = await ApplicationData.Current.LocalFolder.CreateFileAsync(CachedFileNames.DownloadListFileName, CreationCollisionOption.OpenIfExists);
+            if (file != null)
+            {
+                var str = await FileIO.ReadTextAsync(file);
+                if (!string.IsNullOrEmpty(str))
+                {
+                    var list = JsonConvert.DeserializeObject<ObservableCollection<DownloadItem>>(str, new JsonSerializerSettings()
+                    {
+                        Error = (s, e) =>
+                          {
+                              var msg = e.ErrorContext.Error.Message;
+                              ToastService.SendToast(msg);
+                          },
+                        TypeNameHandling = TypeNameHandling.All
+                    });
+                    if (list != null)
+                    {
+                        DownloadingImages = list;
+                        foreach (var item in DownloadingImages)
+                        {
+                            item.CheckDownloadStatusAsync();
+                        }
+                    }
+                    else
+                    {
+                        DownloadingImages = new ObservableCollection<DownloadItem>();
+                    }
+                }
+            }
         }
 
         public async void AddDownloadingImage(DownloadItem item)

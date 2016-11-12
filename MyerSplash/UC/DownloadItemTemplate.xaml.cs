@@ -21,20 +21,9 @@ namespace MyerSplash.UC
 {
     public sealed partial class DownloadItemTemplate : UserControl
     {
-        private Compositor _compositor;
-
-        private DownloadItem DownloadItem
-        {
-            get
-            {
-                return this.DataContext as DownloadItem;
-            }
-        }
-
         public DownloadItemTemplate()
         {
             this.InitializeComponent();
-            _compositor = this.GetVisual().Compositor;
         }
     }
 }

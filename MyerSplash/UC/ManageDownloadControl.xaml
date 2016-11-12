@@ -15,11 +15,6 @@
     <UserControl.Background>
         <StaticResource ResourceKey="MyerSplashThemeColor" />
     </UserControl.Background>
-    <UserControl.Resources>
-        <CollectionViewSource x:Name="CVS"
-                              IsSourceGrouped="True"
-                              Source="{x:Bind DownloadsVM.DownloadingImages}" />
-    </UserControl.Resources>
     <Grid Background="{StaticResource TitleBarDarkBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
@@ -49,20 +44,11 @@
                                   Margin="2"
                                   attach:ScrollViewerStyleChanger.Style="{StaticResource ScrollViewerCommonStyle}"
                                   IncrementalLoadingTrigger="Edge"
-                                  ItemsSource="{x:Bind CVS.View}"
+                                  ItemsSource="{x:Bind DownloadsVM.DownloadingImages, Mode=OneWay}"
                                   MinItemHeight="240"
                                   MinItemWidth="240"
                                   SelectionMode="None"
                                   ShowsScrollingPlaceholders="False">
-            <GridView.GroupStyle>
-                <GroupStyle>
-                    <GroupStyle.HeaderTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Category}" />
-                        </DataTemplate>
-                    </GroupStyle.HeaderTemplate>
-                </GroupStyle>
-            </GridView.GroupStyle>
             <control:AdaptiveGridView.ItemTemplate>
                 <DataTemplate x:DataType="model:DownloadItem">
                     <uc:DownloadItemTemplate />

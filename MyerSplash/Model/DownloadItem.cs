@@ -1,11 +1,10 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using MyerSplash.Common;
+using MyerSplash.ViewModel;
 using MyerSplashCustomControl;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Runtime.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.Networking.BackgroundTransfer;
@@ -54,6 +53,11 @@ namespace MyerSplash.Model
                     _progress = double.Parse(value.ToString("f0"));
                     RaisePropertyChanged(() => Progress);
                     ProgressString = $"{_progress} %";
+                    if (value >= 100)
+                    {
+                        DownloadStatus = "";
+                        SetWallpaperVisibility = Visibility.Visible;
+                    }
                 }
             }
         }
@@ -110,6 +114,7 @@ namespace MyerSplash.Model
         }
 
         private RelayCommand _setWallpaperCommand;
+        [IgnoreDataMember]
         public RelayCommand SetWallpaperCommand
         {
             get
@@ -152,6 +157,7 @@ namespace MyerSplash.Model
         }
 
         private RelayCommand _cancelCommand;
+        [IgnoreDataMember]
         public RelayCommand CancelCommand
         {
             get
@@ -169,6 +175,7 @@ namespace MyerSplash.Model
         }
 
         private RelayCommand _openCommand;
+        [IgnoreDataMember]
         public RelayCommand OpenCommand
         {
             get
@@ -192,6 +199,31 @@ namespace MyerSplash.Model
             SetWallpaperVisibility = Visibility.Collapsed;
         }
 
+        public async Task CheckDownloadStatusAsync()
+        {
+            var folder = await AppSettings.Instance.GetSavingFolderAsync();
+            var item = await folder.TryGetItemAsync(GetFileNameForDownloading());
+            if (item != null)
+            {
+                var file = item as StorageFile;
+                if (file != null)
+                {
+                    var prop = await file.GetBasicPropertiesAsync();
+                    if (prop.Size > 0)
+                    {
+                        Progress = 100;
+                    }
+                }
+            }
+            var task = Image.RestoreDataAsync();
+        }
+
+        private string GetFileNameForDownloading()
+        {
+            var fileName = $"{Image.Owner.Name}  {Image.CreateTimeString}.jpg";
+            return fileName;
+        }
+
         public async Task DownloadFullImageAsync(CancellationTokenSource cts)
         {
             _cts = cts;
@@ -204,8 +236,7 @@ namespace MyerSplash.Model
 
             var folder = await AppSettings.Instance.GetSavingFolderAsync();
 
-            var fileName = $"{Image.Owner.Name}  {Image.CreateTimeString}";
-            var newFile = await folder.CreateFileAsync($"{fileName}.jpg", CreationCollisionOption.OpenIfExists);
+            var newFile = await folder.CreateFileAsync(GetFileNameForDownloading(), CreationCollisionOption.OpenIfExists);
 
             _backgroundDownloader.SuccessToastNotification = ToastHelper.CreateToastNotification("Saved:D",
                 $"Tap to open {folder.Path}.");
@@ -238,9 +269,7 @@ namespace MyerSplash.Model
             Progress = ((double)e.Progress.BytesReceived / e.Progress.TotalBytesToReceive) * 100;
             if (Progress >= 100)
             {
-                DownloadStatus = "";
                 _resultFile = e.ResultFile;
-                SetWallpaperVisibility = Visibility.Visible;
             }
         }
     }
