@@ -8,15 +8,15 @@ using Windows.UI.Xaml;
 using System;
 using MyerSplash.Common;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Windows.Storage;
 using System.Threading.Tasks;
-using Newtonsoft.Json.Converters;
 
 namespace MyerSplash.ViewModel
 {
     public class DownloadsViewModel : ViewModelBase
     {
+        private DownloadItem _menuOpenedItem;
+
         private ObservableCollection<DownloadItem> _downloadingImages;
         public ObservableCollection<DownloadItem> DownloadingImages
         {
@@ -98,6 +98,7 @@ namespace MyerSplash.ViewModel
                         foreach (var item in DownloadingImages)
                         {
                             item.CheckDownloadStatusAsync();
+                            item.OnMenuStatusChanged += Item_OnMenuStatusChanged;
                         }
                     }
                     else
@@ -112,8 +113,21 @@ namespace MyerSplash.ViewModel
         public async void AddDownloadingImage(DownloadItem item)
         {
             DownloadingImages.Insert(0, item);
+            item.OnMenuStatusChanged += Item_OnMenuStatusChanged;
             var list = await BackgroundDownloader.GetCurrentDownloadsAsync();
             ToastService.SendToast(list.Count.ToString());
+        }
+
+        private void Item_OnMenuStatusChanged(DownloadItem item, bool menuOpened)
+        {
+            if (_menuOpenedItem != null && menuOpened && _menuOpenedItem != item)
+            {
+                _menuOpenedItem.IsMenuOn = false;
+            }
+            if (menuOpened)
+            {
+                _menuOpenedItem = item;
+            }
         }
 
         public void CancelDownload(DownloadItem item)

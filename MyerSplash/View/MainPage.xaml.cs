@@ -445,16 +445,11 @@ namespace MyerSplash.View
             TitleBarHelper.SetUpLightTitleBar();
         }
 
-        protected override void CustomTitleBar()
-        {
-            Window.Current.SetTitleBar(TitleGrid);
-        }
-
         private void OnShownChanged(object sender, ShownArgs e)
         {
             if (!e.Shown)
             {
-                CustomTitleBar();
+                Window.Current.SetTitleBar(TitleGrid);
             }
         }
     }

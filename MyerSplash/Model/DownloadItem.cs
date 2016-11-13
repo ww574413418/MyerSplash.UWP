@@ -1,7 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using MyerSplash.Common;
-using MyerSplash.ViewModel;
 using MyerSplashCustomControl;
 using System;
 using System.Runtime.Serialization;
@@ -17,6 +16,8 @@ namespace MyerSplash.Model
 {
     public class DownloadItem : ViewModelBase
     {
+        public event Action<DownloadItem, bool> OnMenuStatusChanged;
+
         private BackgroundDownloader _backgroundDownloader = new BackgroundDownloader();
 
         private IStorageFile _resultFile;
@@ -113,6 +114,24 @@ namespace MyerSplash.Model
             }
         }
 
+        private bool _isMenuOn;
+        public bool IsMenuOn
+        {
+            get
+            {
+                return _isMenuOn;
+            }
+            set
+            {
+                if (_isMenuOn != value)
+                {
+                    _isMenuOn = value;
+                    RaisePropertyChanged(() => IsMenuOn);
+                    OnMenuStatusChanged?.Invoke(this, value);
+                }
+            }
+        }
+
         private RelayCommand _setWallpaperCommand;
         [IgnoreDataMember]
         public RelayCommand SetWallpaperCommand
@@ -121,38 +140,27 @@ namespace MyerSplash.Model
             {
                 if (_setWallpaperCommand != null) return _setWallpaperCommand;
                 return _setWallpaperCommand = new RelayCommand(async () =>
-                  {
-                      if (!UserProfilePersonalizationSettings.IsSupported())
-                      {
-                          ToastService.SendToast("Your device can set wallpaper.");
-                          return;
-                      }
-                      if (_resultFile != null)
-                      {
-                          StorageFile file = null;
-
-                          //WTF, the file should be copy to LocalFolder to make the setting wallpaer api work.
-                          var folder = ApplicationData.Current.LocalFolder;
-                          var oldFile = await folder.TryGetItemAsync(_resultFile.Name) as StorageFile;
-                          if (oldFile != null)
-                          {
-                              await _resultFile.CopyAndReplaceAsync(oldFile);
-                          }
-                          else
-                          {
-                              file = await _resultFile.CopyAsync(folder);
-                          }
-                          var ok = await UserProfilePersonalizationSettings.Current.TrySetWallpaperImageAsync(file);
-                          if (ok)
-                          {
-                              ToastService.SendToast("Set as wallpaper successfully.");
-                          }
-                          else
-                          {
-                              ToastService.SendToast("Fail to set as wallpaper.");
-                          }
-                      }
-                  });
+                {
+                    IsMenuOn = false;
+                    var file = await PrepareImageFileAsync();
+                    if (file != null)
+                    {
+                        var ok = await UserProfilePersonalizationSettings.Current.TrySetWallpaperImageAsync(file);
+                        if (ok)
+                        {
+                            ToastService.SendToast("Set as wallpaper successfully.");
+                        }
+                        else
+                        {
+                            ToastService.SendToast("Fail to set as lock screen.");
+                        }
+                        await file.DeleteAsync(StorageDeleteOption.PermanentDelete);
+                    }
+                    else
+                    {
+                        ToastService.SendToast("Fail to set as wallpaper and lock screen.");
+                    }
+                });
             }
         }
 
@@ -165,26 +173,10 @@ namespace MyerSplash.Model
                 if (_setLockWallpaperCommand != null) return _setLockWallpaperCommand;
                 return _setLockWallpaperCommand = new RelayCommand(async () =>
                 {
-                    if (!UserProfilePersonalizationSettings.IsSupported())
+                    IsMenuOn = false;
+                    var file = await PrepareImageFileAsync();
+                    if (file != null)
                     {
-                        ToastService.SendToast("Your device can set wallpaper.");
-                        return;
-                    }
-                    if (_resultFile != null)
-                    {
-                        StorageFile file = null;
-
-                        //WTF, the file should be copy to LocalFolder to make the setting wallpaer api work.
-                        var folder = ApplicationData.Current.LocalFolder;
-                        var oldFile = await folder.TryGetItemAsync(_resultFile.Name) as StorageFile;
-                        if (oldFile != null)
-                        {
-                            await _resultFile.CopyAndReplaceAsync(oldFile);
-                        }
-                        else
-                        {
-                            file = await _resultFile.CopyAsync(folder);
-                        }
                         var ok = await UserProfilePersonalizationSettings.Current.TrySetLockScreenImageAsync(file);
                         if (ok)
                         {
@@ -194,8 +186,59 @@ namespace MyerSplash.Model
                         {
                             ToastService.SendToast("Fail to set as lock screen.");
                         }
+                        await file.DeleteAsync(StorageDeleteOption.PermanentDelete);
+                    }
+                    else
+                    {
+                        ToastService.SendToast("Fail to set as wallpaper and lock screen.");
                     }
                 });
+            }
+        }
+
+        private RelayCommand _setBothCommand;
+        public RelayCommand SetBothCommand
+        {
+            get
+            {
+                if (_setBothCommand != null) return _setBothCommand;
+                return _setBothCommand = new RelayCommand(async () =>
+                {
+                    IsMenuOn = false;
+
+                    var file = await PrepareImageFileAsync();
+                    if (file != null)
+                    {
+                        var result1 = await UserProfilePersonalizationSettings.Current.TrySetWallpaperImageAsync(file);
+                        var result2 = await UserProfilePersonalizationSettings.Current.TrySetLockScreenImageAsync(file);
+                        if (result1 && result2)
+                        {
+                            ToastService.SendToast("Successfully.");
+                        }
+                        else
+                        {
+                            ToastService.SendToast("Fail to set as wallpaper and lock screen.");
+                        }
+                        await file.DeleteAsync(StorageDeleteOption.PermanentDelete);
+                    }
+                    else
+                    {
+                        ToastService.SendToast("Fail to set as wallpaper and lock screen.");
+                    }
+                });
+            }
+        }
+
+        private RelayCommand _setAsCommand;
+        public RelayCommand SetAsCommand
+        {
+            get
+            {
+                if (_setAsCommand != null) return _setAsCommand;
+                return _setAsCommand = new RelayCommand(() =>
+                  {
+                      IsMenuOn = !IsMenuOn;
+                  });
             }
         }
 
@@ -240,6 +283,36 @@ namespace MyerSplash.Model
             this.Image = image;
             Progress = -1;
             SetWallpaperVisibility = Visibility.Collapsed;
+            IsMenuOn = false;
+        }
+
+        private async Task<StorageFile> PrepareImageFileAsync()
+        {
+            if (!UserProfilePersonalizationSettings.IsSupported())
+            {
+                ToastService.SendToast("Your device can set wallpaper.");
+                return null;
+            }
+            if (_resultFile != null)
+            {
+                StorageFile file = null;
+
+                //WTF, the file should be copy to LocalFolder to make the setting wallpaer api work.
+                var folder = ApplicationData.Current.LocalFolder;
+                var oldFile = await folder.TryGetItemAsync(_resultFile.Name) as StorageFile;
+                if (oldFile != null)
+                {
+                    await _resultFile.CopyAndReplaceAsync(oldFile);
+                }
+                else
+                {
+                    file = await _resultFile.CopyAsync(folder);
+                }
+
+                return file;
+            }
+
+            return null;
         }
 
         public async Task CheckDownloadStatusAsync()
@@ -251,7 +324,8 @@ namespace MyerSplash.Model
                 var file = item as StorageFile;
                 if (file != null)
                 {
-                    var prop = await file.GetBasicPropertiesAsync();
+                    _resultFile = file;
+                    var prop = await _resultFile.GetBasicPropertiesAsync();
                     if (prop.Size > 0)
                     {
                         Progress = 100;

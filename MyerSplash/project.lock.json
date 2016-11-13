@@ -11,7 +11,7 @@
           "lib/portable-net4+sl5+netcore45+wpa81+wp8/Microsoft.Practices.ServiceLocation.dll": {}
         }
       },
-      "CompositionHelper/1.0.5": {
+      "CompositionHelper/1.0.4": {
         "compile": {
           "lib/uap10.0/CompositionHelper.dll": {}
         },
@@ -1932,7 +1932,7 @@
           "lib/portable-net4+sl5+netcore45+wpa81+wp8/Microsoft.Practices.ServiceLocation.dll": {}
         }
       },
-      "CompositionHelper/1.0.5": {
+      "CompositionHelper/1.0.4": {
         "compile": {
           "lib/uap10.0/CompositionHelper.dll": {}
         },
@@ -3703,7 +3703,7 @@
           "lib/portable-net4+sl5+netcore45+wpa81+wp8/Microsoft.Practices.ServiceLocation.dll": {}
         }
       },
-      "CompositionHelper/1.0.5": {
+      "CompositionHelper/1.0.4": {
         "compile": {
           "lib/uap10.0/CompositionHelper.dll": {}
         },
@@ -5432,7 +5432,7 @@
           "lib/portable-net4+sl5+netcore45+wpa81+wp8/Microsoft.Practices.ServiceLocation.dll": {}
         }
       },
-      "CompositionHelper/1.0.5": {
+      "CompositionHelper/1.0.4": {
         "compile": {
           "lib/uap10.0/CompositionHelper.dll": {}
         },
@@ -7211,7 +7211,7 @@
           "lib/portable-net4+sl5+netcore45+wpa81+wp8/Microsoft.Practices.ServiceLocation.dll": {}
         }
       },
-      "CompositionHelper/1.0.5": {
+      "CompositionHelper/1.0.4": {
         "compile": {
           "lib/uap10.0/CompositionHelper.dll": {}
         },
@@ -8940,7 +8940,7 @@
           "lib/portable-net4+sl5+netcore45+wpa81+wp8/Microsoft.Practices.ServiceLocation.dll": {}
         }
       },
-      "CompositionHelper/1.0.5": {
+      "CompositionHelper/1.0.4": {
         "compile": {
           "lib/uap10.0/CompositionHelper.dll": {}
         },
@@ -10719,7 +10719,7 @@
           "lib/portable-net4+sl5+netcore45+wpa81+wp8/Microsoft.Practices.ServiceLocation.dll": {}
         }
       },
-      "CompositionHelper/1.0.5": {
+      "CompositionHelper/1.0.4": {
         "compile": {
           "lib/uap10.0/CompositionHelper.dll": {}
         },
@@ -12452,11 +12452,11 @@
         "lib/portable-net4+sl5+netcore45+wpa81+wp8/Microsoft.Practices.ServiceLocation.pdb"
       ]
     },
-    "CompositionHelper/1.0.5": {
-      "sha512": "zZI5JtQVi3w1naSYo646Kc5uZKz1nQWD+xIHifN/+xOaAH+3UAIwxRaAsxOEvidZ9yKuJYQUG5mkVmaL1vmMGQ==",
+    "CompositionHelper/1.0.4": {
+      "sha512": "M1oeXyg6iXg6SUV5ngjQpABR9vYWMdZi7b9vzErUAQNOI9GY5QG981shELofbHoWty7dTIPGTdinAM2u7K4J/Q==",
       "type": "package",
       "files": [
-        "CompositionHelper.1.0.5.nupkg.sha512",
+        "CompositionHelper.1.0.4.nupkg.sha512",
         "CompositionHelper.nuspec",
         "lib/uap10.0/CompositionHelper.XML",
         "lib/uap10.0/CompositionHelper.dll",
@@ -15985,7 +15985,7 @@
   },
   "projectFileDependencyGroups": {
     "": [
-      "CompositionHelper >= 1.0.5",
+      "CompositionHelper >= 1.0.4",
       "JP.Utils.UWP >= 1.1.29",
       "Microsoft.ApplicationInsights >= 2.1.0",
       "Microsoft.ApplicationInsights.PersistenceChannel >= 1.2.3",
