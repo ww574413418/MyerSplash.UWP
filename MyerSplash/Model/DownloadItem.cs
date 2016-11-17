@@ -3,6 +3,9 @@ using GalaSoft.MvvmLight.Command;
 using MyerSplash.Common;
 using MyerSplashCustomControl;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,11 +17,21 @@ using Windows.UI.Xaml;
 
 namespace MyerSplash.Model
 {
+    public enum DisplayMenu
+    {
+        Downloading = 0,
+        Retry = 1,
+        SetAs = 2
+    }
+
     public class DownloadItem : ViewModelBase
     {
         public event Action<DownloadItem, bool> OnMenuStatusChanged;
 
         private BackgroundDownloader _backgroundDownloader = new BackgroundDownloader();
+        private TaskCompletionSource<int> _tcs;
+
+        public Guid DownloadOperationGUID { get; set; }
 
         private IStorageFile _resultFile;
         private CancellationTokenSource _cts;
@@ -54,11 +67,7 @@ namespace MyerSplash.Model
                     _progress = double.Parse(value.ToString("f0"));
                     RaisePropertyChanged(() => Progress);
                     ProgressString = $"{_progress} %";
-                    if (value >= 100)
-                    {
-                        DownloadStatus = "";
-                        SetWallpaperVisibility = Visibility.Visible;
-                    }
+                    if (value >= 100) UpateUIWhenCompleted();
                 }
             }
         }
@@ -97,19 +106,36 @@ namespace MyerSplash.Model
             }
         }
 
-        private Visibility _setWallpaperVisibility;
-        public Visibility SetWallpaperVisibility
+        private string _resolution;
+        public string Resolution
         {
             get
             {
-                return _setWallpaperVisibility;
+                return _resolution;
             }
             set
             {
-                if (_setWallpaperVisibility != value)
+                if (_resolution != value)
                 {
-                    _setWallpaperVisibility = value;
-                    RaisePropertyChanged(() => SetWallpaperVisibility);
+                    _resolution = value;
+                    RaisePropertyChanged(() => Resolution);
+                }
+            }
+        }
+
+        private int _displayIndex;
+        public int DisplayIndex
+        {
+            get
+            {
+                return _displayIndex;
+            }
+            set
+            {
+                if (_displayIndex != value)
+                {
+                    _displayIndex = value;
+                    RaisePropertyChanged(() => DisplayIndex);
                 }
             }
         }
@@ -152,13 +178,13 @@ namespace MyerSplash.Model
                         }
                         else
                         {
-                            ToastService.SendToast("Fail to set as lock screen.");
+                            ToastService.SendToast("Fail to set as background. #API ERROR.");
                         }
                         await file.DeleteAsync(StorageDeleteOption.PermanentDelete);
                     }
                     else
                     {
-                        ToastService.SendToast("Fail to set as wallpaper and lock screen.");
+                        ToastService.SendToast("Can't find the image file.");
                     }
                 });
             }
@@ -184,19 +210,20 @@ namespace MyerSplash.Model
                         }
                         else
                         {
-                            ToastService.SendToast("Fail to set as lock screen.");
+                            ToastService.SendToast("Fail to set as lock screen. #API ERROR.");
                         }
                         await file.DeleteAsync(StorageDeleteOption.PermanentDelete);
                     }
                     else
                     {
-                        ToastService.SendToast("Fail to set as wallpaper and lock screen.");
+                        ToastService.SendToast("Can't find the image file.");
                     }
                 });
             }
         }
 
         private RelayCommand _setBothCommand;
+        [IgnoreDataMember]
         public RelayCommand SetBothCommand
         {
             get
@@ -217,19 +244,20 @@ namespace MyerSplash.Model
                         }
                         else
                         {
-                            ToastService.SendToast("Fail to set as wallpaper and lock screen.");
+                            ToastService.SendToast("Fail to set as wallpaper and lock screen. #API ERROR.");
                         }
                         await file.DeleteAsync(StorageDeleteOption.PermanentDelete);
                     }
                     else
                     {
-                        ToastService.SendToast("Fail to set as wallpaper and lock screen.");
+                        ToastService.SendToast("Can't find the image file.");
                     }
                 });
             }
         }
 
         private RelayCommand _setAsCommand;
+        [IgnoreDataMember]
         public RelayCommand SetAsCommand
         {
             get
@@ -254,8 +282,8 @@ namespace MyerSplash.Model
                       if (_cts != null)
                       {
                           _cts.Cancel();
-                          App.VMLocator.DownloadsVM.CancelDownload(this);
                       }
+                      App.VMLocator.DownloadsVM.CancelDownload(this);
                   });
             }
         }
@@ -278,12 +306,37 @@ namespace MyerSplash.Model
             }
         }
 
+        private RelayCommand _retryDownloadCommand;
+        [IgnoreDataMember]
+        public RelayCommand RetryDownloadCommand
+        {
+            get
+            {
+                if (_retryDownloadCommand != null) return _retryDownloadCommand;
+                return _retryDownloadCommand = new RelayCommand(async () =>
+                  {
+                      DisplayIndex = (int)DisplayMenu.Downloading;
+                      await DownloadFullImageAsync(_cts = new CancellationTokenSource());
+                  });
+            }
+        }
+
         public DownloadItem(UnsplashImageBase image)
         {
             this.Image = image;
-            Progress = -1;
-            SetWallpaperVisibility = Visibility.Collapsed;
+            Progress = 0;
+            ProgressString = "0 %";
             IsMenuOn = false;
+            DisplayIndex = (int)DisplayMenu.Downloading;
+        }
+
+        public async void UpateUIWhenCompleted()
+        {
+            await Task.Delay(500);
+            DownloadStatus = "";
+            DisplayIndex = (int)DisplayMenu.SetAs;
+            await Task.Delay(400);
+            IsMenuOn = true;
         }
 
         private async Task<StorageFile> PrepareImageFileAsync()
@@ -315,8 +368,10 @@ namespace MyerSplash.Model
             return null;
         }
 
-        public async Task CheckDownloadStatusAsync()
+        public async Task CheckDownloadStatusAsync(IReadOnlyList<DownloadOperation> operations)
         {
+            var task = Image.RestoreDataAsync();
+
             var folder = await AppSettings.Instance.GetSavingFolderAsync();
             var item = await folder.TryGetItemAsync(GetFileNameForDownloading());
             if (item != null)
@@ -332,7 +387,21 @@ namespace MyerSplash.Model
                     }
                 }
             }
-            var task = Image.RestoreDataAsync();
+            if (Progress != 100)
+            {
+                var downloadOperation = operations.Where(s => s.Guid == DownloadOperationGUID).FirstOrDefault();
+                if (downloadOperation != null)
+                {
+                    var progress = new Progress<DownloadOperation>();
+                    progress.ProgressChanged += Progress_ProgressChanged;
+                    _cts = new CancellationTokenSource();
+                    await downloadOperation.StartAsync().AsTask(_cts.Token, progress);
+                }
+                else
+                {
+                    DisplayIndex = (int)DisplayMenu.Retry;
+                }
+            }
         }
 
         private string GetFileNameForDownloading()
@@ -341,9 +410,16 @@ namespace MyerSplash.Model
             return fileName;
         }
 
+        public async Task AwaitGuidCreatedAsync()
+        {
+            await _tcs.Task;
+        }
+
         public async Task DownloadFullImageAsync(CancellationTokenSource cts)
         {
             _cts = cts;
+
+            _tcs = new TaskCompletionSource<int>();
 
             var url = Image.GetSaveImageUrlFromSettings();
 
@@ -361,29 +437,36 @@ namespace MyerSplash.Model
             var downloadOperation = _backgroundDownloader.CreateDownload(new Uri(url), newFile);
             downloadOperation.Priority = BackgroundTransferPriority.High;
 
-            var progress = new Progress<DownloadOperation>();
-            progress.ProgressChanged += Progress_ProgressChanged;
+            DownloadOperationGUID = downloadOperation.Guid;
+            _tcs.TrySetResult(0);
+
             try
             {
                 DownloadStatus = "DOWNLOADING";
                 Progress = 0;
+
+                var progress = new Progress<DownloadOperation>();
+                progress.ProgressChanged += Progress_ProgressChanged;
                 await downloadOperation.StartAsync().AsTask(_cts.Token, progress);
             }
             catch (TaskCanceledException)
             {
                 await downloadOperation.ResultFile.DeleteAsync();
                 downloadOperation = null;
-                ToastService.SendToast("CANCEL");
+                ToastService.SendToast("Download has been cancelled.");
+                DownloadStatus = "";
+                DisplayIndex = (int)DisplayMenu.Retry;
             }
             catch (Exception e)
             {
-                ToastService.SendToast(e.Message, 2000);
+                ToastService.SendToast("ERROR" + e.Message, 2000);
             }
         }
 
         private void Progress_ProgressChanged(object sender, DownloadOperation e)
         {
             Progress = ((double)e.Progress.BytesReceived / e.Progress.TotalBytesToReceive) * 100;
+            Debug.WriteLine(Progress);
             if (Progress >= 100)
             {
                 _resultFile = e.ResultFile;

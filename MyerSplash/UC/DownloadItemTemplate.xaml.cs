@@ -7,6 +7,7 @@ using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 
 namespace MyerSplash.UC
@@ -18,6 +19,9 @@ namespace MyerSplash.UC
         private Visual _setAsLockVisual;
         private Visual _setBothVisual;
         private Visual _setAsTBVisual;
+        private Visual _backFIVisual;
+        private Visual _openBtnVisual;
+        private Visual _copyBtnVisual;
         private bool _showMenu = false;
 
         public bool IsMenuOn
@@ -59,33 +63,49 @@ namespace MyerSplash.UC
             _setAsLockVisual = SetAsLockBtn.GetVisual();
             _setBothVisual = SetBothBtn.GetVisual();
             _setAsTBVisual = SetAsTB.GetVisual();
+            _backFIVisual = BackFI.GetVisual();
+            _openBtnVisual = OpenBtn.GetVisual();
+            _copyBtnVisual = CopyUrlBtn.GetVisual();
 
             _setAsWallpaperVisual.Offset = new Vector3(0, 52 * 3, 0);
             _setAsLockVisual.Offset = new Vector3(0, 52 * 2, 0);
             _setBothVisual.Offset = new Vector3(0, 52 * 1, 0);
 
-            _setAsWallpaperVisual.Opacity = 0;
-            _setAsLockVisual.Opacity = 0;
-            _setBothVisual.Opacity = 0;
+            _setAsWallpaperVisual.Opacity = 0f;
+            _setAsLockVisual.Opacity = 0f;
+            _setBothVisual.Opacity = 0f;
+            _backFIVisual.Opacity = 0f;
+            _copyBtnVisual.Opacity = 0f;
         }
+
         private void ShowMenu()
         {
             _showMenu = !_showMenu;
             _setAsTBVisual.StartBuildAnimation().Animate(AnimateProperties.Opacity)
-                .To(0f)
+                .To(_showMenu ? 0f : 1f)
                 .Spend(300)
+                .BeginAfter(TimeSpan.FromMilliseconds(_showMenu ? 0f : 300f))
+                .Over()
+                .Start();
+
+            OpenBtn.Visibility = Visibility.Visible;
+            _openBtnVisual.StartBuildAnimation().Animate(AnimateProperties.Opacity)
+                .To(_showMenu ? 0f : 1f)
+                .Spend(300)
+                .BeginAfter(TimeSpan.FromMilliseconds(_showMenu ? 0f : 500f))
                 .Over()
                 .Start()
-                .Completed += (s, arg) =>
-                {
-                    SetAsTB.Text = _showMenu ? "CANCEL" : "SET AS";
+                .Completed += (s, e) =>
+                  {
+                      OpenBtn.Visibility = _showMenu ? Visibility.Collapsed : Visibility.Visible;
+                  };
 
-                    _setAsTBVisual.StartBuildAnimation().Animate(AnimateProperties.Opacity)
-                        .To(1f)
-                        .Spend(300)
-                        .Over()
-                        .Start();
-                };
+            _backFIVisual.StartBuildAnimation().Animate(AnimateProperties.Opacity)
+                .To(_showMenu ? 1f : 0f)
+                .BeginAfter(TimeSpan.FromMilliseconds(_showMenu ? 300f : 0f))
+                .Spend(300)
+                .Over()
+                .Start();
 
             ToggleAnimation(_setAsWallpaperVisual, 3, _showMenu);
             ToggleAnimation(_setAsLockVisual, 2, _showMenu);
@@ -112,6 +132,24 @@ namespace MyerSplash.UC
             {
                 Rect = new Rect(0, 0, e.NewSize.Width, e.NewSize.Height)
             };
+        }
+
+        private void Img_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            _copyBtnVisual.StartBuildAnimation().Animate(AnimateProperties.Opacity)
+                .To(1f)
+                .Spend(300)
+                .Over()
+                .Start();
+        }
+
+        private void Img_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            _copyBtnVisual.StartBuildAnimation().Animate(AnimateProperties.Opacity)
+                .To(0f)
+                .Spend(300)
+                .Over()
+                .Start();
         }
     }
 }

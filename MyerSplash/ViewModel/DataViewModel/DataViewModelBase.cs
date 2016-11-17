@@ -102,12 +102,20 @@ namespace MyerSplash.ViewModel
 
                 PageIndex = DEFAULT_PAGE_INDEX;
 
-
-                DataList = new IncrementalLoadingCollection<T>(count =>
+                if (DataList == null)
                 {
-                    return GetIncrementalListData(PageIndex++);
-                });
-
+                    DataList = new IncrementalLoadingCollection<T>(count =>
+                    {
+                        return GetIncrementalListData(PageIndex++);
+                    });
+                }
+                else
+                {
+                    //DataList.DataFetchDelegate = (c =>
+                    //  {
+                    //      return GetIncrementalListData(PageIndex++);
+                    //  });
+                }
 
                 await DataList.LoadMoreItemsAsync(20u);
 
@@ -144,6 +152,11 @@ namespace MyerSplash.ViewModel
 
                 await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
+                    if (pageIndex == DEFAULT_PAGE_INDEX)
+                    {
+                        DataList.Clear();
+                    }
+
                     OnHasMoreItemChanged?.Invoke(HasMoreItems);
                     LoadMoreItemCompleted(newList, pageIndex);
                 });

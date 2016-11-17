@@ -10,6 +10,8 @@ using MyerSplash.Common;
 using Newtonsoft.Json;
 using Windows.Storage;
 using System.Threading.Tasks;
+using JP.Utils.Debug;
+using GalaSoft.MvvmLight.Command;
 
 namespace MyerSplash.ViewModel
 {
@@ -53,6 +55,20 @@ namespace MyerSplash.ViewModel
             }
         }
 
+        private RelayCommand _clearCommand;
+        public RelayCommand ClearCommand
+        {
+            get
+            {
+                if (_clearCommand != null) return _clearCommand;
+                return _clearCommand = new RelayCommand(async () =>
+                  {
+                      DownloadingImages?.Clear();
+                      await SaveListAsync();
+                  });
+            }
+        }
+
         public DownloadsViewModel()
         {
             var task = RestoreListAsync();
@@ -61,6 +77,10 @@ namespace MyerSplash.ViewModel
         private async void Value_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             NoItemVisibility = DownloadingImages.Count > 0 ? Visibility.Collapsed : Visibility.Visible;
+            foreach (var item in e.NewItems)
+            {
+                await (item as DownloadItem).AwaitGuidCreatedAsync();
+            }
             await SaveListAsync();
         }
 
@@ -68,13 +88,17 @@ namespace MyerSplash.ViewModel
         {
             var str = JsonConvert.SerializeObject(DownloadingImages, new JsonSerializerSettings()
             {
-                TypeNameHandling = TypeNameHandling.All
+                TypeNameHandling = TypeNameHandling.All,
+                Error = async (s, e) =>
+                  {
+                      await Logger.LogAsync(e.ErrorContext.Error);
+                  }
             });
             var file = await ApplicationData.Current.LocalFolder.CreateFileAsync(CachedFileNames.DownloadListFileName, CreationCollisionOption.OpenIfExists);
             await FileIO.WriteTextAsync(file, str);
         }
 
-#pragma warning disable 4014
+#pragma warning disable
         public async Task RestoreListAsync()
         {
             var file = await ApplicationData.Current.LocalFolder.CreateFileAsync(CachedFileNames.DownloadListFileName, CreationCollisionOption.OpenIfExists);
@@ -95,9 +119,10 @@ namespace MyerSplash.ViewModel
                     if (list != null)
                     {
                         DownloadingImages = list;
+                        var downloadOpeations = await BackgroundDownloader.GetCurrentDownloadsAsync();
                         foreach (var item in DownloadingImages)
                         {
-                            item.CheckDownloadStatusAsync();
+                            item.CheckDownloadStatusAsync(downloadOpeations);
                             item.OnMenuStatusChanged += Item_OnMenuStatusChanged;
                         }
                     }
@@ -105,8 +130,10 @@ namespace MyerSplash.ViewModel
                     {
                         DownloadingImages = new ObservableCollection<DownloadItem>();
                     }
+                    return;
                 }
             }
+            DownloadingImages = new ObservableCollection<DownloadItem>();
         }
 #pragma warning restore
 
@@ -115,7 +142,6 @@ namespace MyerSplash.ViewModel
             DownloadingImages.Insert(0, item);
             item.OnMenuStatusChanged += Item_OnMenuStatusChanged;
             var list = await BackgroundDownloader.GetCurrentDownloadsAsync();
-            ToastService.SendToast(list.Count.ToString());
         }
 
         private void Item_OnMenuStatusChanged(DownloadItem item, bool menuOpened)

@@ -582,8 +582,6 @@ namespace MyerSplash.ViewModel
                 else DataVM = new ImageDataViewModel(UrlHelper.GetNewImages, false);
             }
             else DataVM = new ImageDataViewModel(UrlHelper.GetNewImages, false);
-
-            //DataVM = new ImageDataViewModel(UrlHelper.GetNewImages, false);
         }
 
         private async Task RefreshAllAsync()
@@ -648,7 +646,10 @@ namespace MyerSplash.ViewModel
                 {
                     ToastService.SendToast("Fetched :D");
 
-                    var str = JsonConvert.SerializeObject(list);
+                    var str = JsonConvert.SerializeObject(list, new JsonSerializerSettings()
+                    {
+                        TypeNameHandling = TypeNameHandling.All
+                    });
                     var file = await ApplicationData.Current.LocalFolder.CreateFileAsync(CachedFileNames.MainListFileName, CreationCollisionOption.OpenIfExists);
                     await FileIO.WriteTextAsync(file, str);
                 }

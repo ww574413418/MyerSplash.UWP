@@ -49,6 +49,13 @@
                                   MinItemWidth="240"
                                   SelectionMode="None"
                                   ShowsScrollingPlaceholders="False">
+            <!--<control:AdaptiveGridView.Header>
+                <Button Margin="12" Command="{x:Bind DownloadsVM.ClearCommand, Mode=OneWay}" Style="{StaticResource ButtonCommonStyle}" VerticalAlignment="Center">
+                    <TextBlock Margin="12"
+                               Foreground="{StaticResource MyerSplashThemeColor}"
+                               Text="CLEAR ALL" FontWeight="Bold" />
+                </Button>
+            </control:AdaptiveGridView.Header>-->
             <control:AdaptiveGridView.ItemTemplate>
                 <DataTemplate x:DataType="model:DownloadItem">
                     <uc:DownloadItemTemplate />

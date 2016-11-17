@@ -288,7 +288,7 @@ namespace MyerSplash.Model
                       DataPackage dataPackage = new DataPackage();
                       dataPackage.SetText(GetSaveImageUrlFromSettings());
                       Clipboard.SetContent(dataPackage);
-                      ToastService.SendToast("Copied.");
+                      ToastService.SendToast("Download address is copied", 2000);
                   });
             }
         }

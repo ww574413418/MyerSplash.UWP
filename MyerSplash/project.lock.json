@@ -19,6 +19,14 @@
           "lib/uap10.0/CompositionHelper.dll": {}
         }
       },
+      "FlipperControl/1.0.4": {
+        "compile": {
+          "lib/uap10.0/FlipperControl.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/FlipperControl.dll": {}
+        }
+      },
       "JP.Utils.UWP/1.1.29": {
         "compile": {
           "lib/uap10.0/JP.Utils.UWP.dll": {}
@@ -1940,6 +1948,14 @@
           "lib/uap10.0/CompositionHelper.dll": {}
         }
       },
+      "FlipperControl/1.0.4": {
+        "compile": {
+          "lib/uap10.0/FlipperControl.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/FlipperControl.dll": {}
+        }
+      },
       "JP.Utils.UWP/1.1.29": {
         "compile": {
           "lib/uap10.0/JP.Utils.UWP.dll": {}
@@ -3711,6 +3727,14 @@
           "lib/uap10.0/CompositionHelper.dll": {}
         }
       },
+      "FlipperControl/1.0.4": {
+        "compile": {
+          "lib/uap10.0/FlipperControl.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/FlipperControl.dll": {}
+        }
+      },
       "JP.Utils.UWP/1.1.29": {
         "compile": {
           "lib/uap10.0/JP.Utils.UWP.dll": {}
@@ -5438,6 +5462,14 @@
         },
         "runtime": {
           "lib/uap10.0/CompositionHelper.dll": {}
+        }
+      },
+      "FlipperControl/1.0.4": {
+        "compile": {
+          "lib/uap10.0/FlipperControl.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/FlipperControl.dll": {}
         }
       },
       "JP.Utils.UWP/1.1.29": {
@@ -7219,6 +7251,14 @@
           "lib/uap10.0/CompositionHelper.dll": {}
         }
       },
+      "FlipperControl/1.0.4": {
+        "compile": {
+          "lib/uap10.0/FlipperControl.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/FlipperControl.dll": {}
+        }
+      },
       "JP.Utils.UWP/1.1.29": {
         "compile": {
           "lib/uap10.0/JP.Utils.UWP.dll": {}
@@ -8946,6 +8986,14 @@
         },
         "runtime": {
           "lib/uap10.0/CompositionHelper.dll": {}
+        }
+      },
+      "FlipperControl/1.0.4": {
+        "compile": {
+          "lib/uap10.0/FlipperControl.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/FlipperControl.dll": {}
         }
       },
       "JP.Utils.UWP/1.1.29": {
@@ -10727,6 +10775,14 @@
           "lib/uap10.0/CompositionHelper.dll": {}
         }
       },
+      "FlipperControl/1.0.4": {
+        "compile": {
+          "lib/uap10.0/FlipperControl.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/FlipperControl.dll": {}
+        }
+      },
       "JP.Utils.UWP/1.1.29": {
         "compile": {
           "lib/uap10.0/JP.Utils.UWP.dll": {}
@@ -12462,6 +12518,19 @@
         "lib/uap10.0/CompositionHelper.dll",
         "lib/uap10.0/CompositionHelper.pri",
         "lib/uap10.0/CompositionHelper/Properties/CompositionHelper.rd.xml"
+      ]
+    },
+    "FlipperControl/1.0.4": {
+      "sha512": "7ki3ihrx3nKUNG8S+7+/fV6ZJI2ObnlC8u+n+TvhnKUjUeM2GxXN8ZZchduHQ6nYfRb8SGmM4+NDYY9GI3yocQ==",
+      "type": "package",
+      "files": [
+        "FlipperControl.1.0.4.nupkg.sha512",
+        "FlipperControl.nuspec",
+        "lib/uap10.0/FlipperControl.dll",
+        "lib/uap10.0/FlipperControl.pdb",
+        "lib/uap10.0/FlipperControl.pri",
+        "lib/uap10.0/FlipperControl/FlipperControl.xr.xml",
+        "lib/uap10.0/FlipperControl/Themes/Generic.xaml"
       ]
     },
     "JP.Utils.UWP/1.1.29": {
@@ -15986,6 +16055,7 @@
   "projectFileDependencyGroups": {
     "": [
       "CompositionHelper >= 1.0.4",
+      "FlipperControl >= 1.0.4",
       "JP.Utils.UWP >= 1.1.29",
       "Microsoft.ApplicationInsights >= 2.1.0",
       "Microsoft.ApplicationInsights.PersistenceChannel >= 1.2.3",

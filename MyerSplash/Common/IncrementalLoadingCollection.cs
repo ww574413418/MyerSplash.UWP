@@ -21,7 +21,7 @@ namespace MyerSplash.Common
 
     public class IncrementalLoadingCollection<T> : ObservableCollection<T>, ISupportIncrementalLoading
     {
-        Func<uint, Task<ResultData<T>>> _dataFetchDelegate = null;
+        public Func<uint, Task<ResultData<T>>> DataFetchDelegate = null;
 
         public IncrementalLoadingCollection()
         {
@@ -32,7 +32,7 @@ namespace MyerSplash.Common
         {
             if (dataFetchDelegate == null) throw new ArgumentNullException("dataFetchDelegate should not be null");
 
-            this._dataFetchDelegate = dataFetchDelegate;
+            this.DataFetchDelegate = dataFetchDelegate;
         }
 
         public bool HasMoreItems
@@ -59,7 +59,7 @@ namespace MyerSplash.Common
 
                 IsBusy = true;
 
-                var result = await this._dataFetchDelegate(count);
+                var result = await DataFetchDelegate(count);
 
                 var items = result.Data;
 

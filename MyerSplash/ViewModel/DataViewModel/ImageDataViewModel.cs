@@ -159,25 +159,32 @@ namespace MyerSplash.ViewModel
 #else
             var cts = CTSFactory.MakeCTS(15000);
 #endif
-            var result = await CloudService.GetImages(pageIndex, (int)20u, cts.Token, RequestUrl);
-            if (result.IsRequestSuccessful)
+            try
             {
-                if (Featured)
+                var result = await CloudService.GetImages(pageIndex, (int)20u, cts.Token, RequestUrl);
+                if (result.IsRequestSuccessful)
                 {
-                    var list = UnsplashFeaturedImage.ParseListFromJson(result.JsonSrc);
-                    UpdateHintVisibility(list);
+                    IEnumerable<UnsplashImageBase> list = null;
+                    if (Featured)
+                    {
+                        list = UnsplashFeaturedImage.ParseListFromJson(result.JsonSrc);
+                    }
+                    else
+                    {
+                        list = UnsplashImage.ParseListFromJson(result.JsonSrc);
+                    }
+                    await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                    {
+                        UpdateHintVisibility(list);
+                    });
                     return list;
                 }
-                else
-                {
-                    var list = UnsplashImage.ParseListFromJson(result.JsonSrc);
-                    UpdateHintVisibility(list);
-                    return list;
-                }
+                else throw new ArgumentNullException();
             }
-            else
+            catch(Exception e)
             {
-                throw new APIException();
+                Logger.LogAsync(e);
+                return new List<UnsplashImage>();
             }
         }
     }
