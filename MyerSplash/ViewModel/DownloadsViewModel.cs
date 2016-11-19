@@ -122,6 +122,7 @@ namespace MyerSplash.ViewModel
                         var downloadOpeations = await BackgroundDownloader.GetCurrentDownloadsAsync();
                         foreach (var item in DownloadingImages)
                         {
+                            item.IsMenuOn = false;
                             item.CheckDownloadStatusAsync(downloadOpeations);
                             item.OnMenuStatusChanged += Item_OnMenuStatusChanged;
                         }
