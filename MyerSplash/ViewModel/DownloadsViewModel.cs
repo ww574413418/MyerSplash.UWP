@@ -112,7 +112,7 @@ namespace MyerSplash.ViewModel
                         Error = (s, e) =>
                           {
                               var msg = e.ErrorContext.Error.Message;
-                              ToastService.SendToast(msg);
+                              ToastService.SendToast(msg, 5000);
                           },
                         TypeNameHandling = TypeNameHandling.All
                     });
@@ -131,15 +131,18 @@ namespace MyerSplash.ViewModel
                     {
                         DownloadingImages = new ObservableCollection<DownloadItem>();
                     }
-                    return;
                 }
             }
-            DownloadingImages = new ObservableCollection<DownloadItem>();
         }
 #pragma warning restore
 
         public async void AddDownloadingImage(DownloadItem item)
         {
+            if (DownloadingImages == null)
+            {
+                DownloadingImages = new ObservableCollection<DownloadItem>();
+            }
+
             DownloadingImages.Insert(0, item);
             item.OnMenuStatusChanged += Item_OnMenuStatusChanged;
             var list = await BackgroundDownloader.GetCurrentDownloadsAsync();
@@ -157,7 +160,7 @@ namespace MyerSplash.ViewModel
             }
         }
 
-        public void CancelDownload(DownloadItem item)
+        public void DeleteDownload(DownloadItem item)
         {
             DownloadingImages.Remove(item);
         }

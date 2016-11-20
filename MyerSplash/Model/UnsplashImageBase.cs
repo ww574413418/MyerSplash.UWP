@@ -318,7 +318,7 @@ namespace MyerSplash.Model
                 return _downloadCommand = new RelayCommand(() =>
                   {
                       var downloaditem = new DownloadItem(this);
-                      var task = downloaditem.DownloadFullImageAsync(CTSFactory.MakeCTS());
+                      var task = downloaditem.DownloadFullImageAsync(CTSFactory.MakeCTS(200));
                       App.VMLocator.DownloadsVM.AddDownloadingImage(downloaditem);
                   });
             }

@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using JP.Utils.Debug;
 using MyerSplash.Common;
 using MyerSplashCustomControl;
 using System;
@@ -13,7 +14,6 @@ using Windows.Networking.BackgroundTransfer;
 using Windows.Storage;
 using Windows.System;
 using Windows.System.UserProfile;
-using Windows.UI.Xaml;
 
 namespace MyerSplash.Model
 {
@@ -28,7 +28,6 @@ namespace MyerSplash.Model
     {
         public event Action<DownloadItem, bool> OnMenuStatusChanged;
 
-        private BackgroundDownloader _backgroundDownloader = new BackgroundDownloader();
         private TaskCompletionSource<int> _tcs;
 
         public Guid DownloadOperationGUID { get; set; }
@@ -283,7 +282,22 @@ namespace MyerSplash.Model
                       {
                           _cts.Cancel();
                       }
-                      App.VMLocator.DownloadsVM.CancelDownload(this);
+
+                      DisplayIndex = (int)DisplayMenu.Retry;
+                  });
+            }
+        }
+
+        private RelayCommand _deleteCommand;
+        [IgnoreDataMember]
+        public RelayCommand DeleteCommand
+        {
+            get
+            {
+                if (_deleteCommand != null) return _deleteCommand;
+                return _deleteCommand = new RelayCommand(() =>
+                  {
+                      App.VMLocator.DownloadsVM.DeleteDownload(this);
                   });
             }
         }
@@ -412,7 +426,10 @@ namespace MyerSplash.Model
 
         public async Task AwaitGuidCreatedAsync()
         {
-            await _tcs.Task;
+            if (_tcs != null)
+            {
+                await _tcs.Task;
+            }
         }
 
         public async Task DownloadFullImageAsync(CancellationTokenSource cts)
@@ -431,10 +448,11 @@ namespace MyerSplash.Model
 
             var newFile = await folder.CreateFileAsync(GetFileNameForDownloading(), CreationCollisionOption.OpenIfExists);
 
-            _backgroundDownloader.SuccessToastNotification = ToastHelper.CreateToastNotification("Saved:D",
-                $"Tap to open {folder.Path}.");
+            var backgroundDownloader = new BackgroundDownloader();
+            backgroundDownloader.SuccessToastNotification = ToastHelper.CreateToastNotification("Saved:D",
+                                $"Tap to open {folder.Path}.");
 
-            var downloadOperation = _backgroundDownloader.CreateDownload(new Uri(url), newFile);
+            var downloadOperation = backgroundDownloader.CreateDownload(new Uri(url), newFile);
             downloadOperation.Priority = BackgroundTransferPriority.High;
 
             DownloadOperationGUID = downloadOperation.Guid;
@@ -447,18 +465,19 @@ namespace MyerSplash.Model
 
                 var progress = new Progress<DownloadOperation>();
                 progress.ProgressChanged += Progress_ProgressChanged;
+
                 await downloadOperation.StartAsync().AsTask(_cts.Token, progress);
             }
             catch (TaskCanceledException)
             {
                 await downloadOperation.ResultFile.DeleteAsync();
-                downloadOperation = null;
                 ToastService.SendToast("Download has been cancelled.");
                 DownloadStatus = "";
                 DisplayIndex = (int)DisplayMenu.Retry;
             }
             catch (Exception e)
             {
+                await Logger.LogAsync(e);
                 ToastService.SendToast("ERROR" + e.Message, 2000);
             }
         }

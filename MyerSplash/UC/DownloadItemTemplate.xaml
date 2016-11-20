@@ -186,6 +186,7 @@
                                               Mode=OneWay}"
                             Style="{StaticResource ListButtonStyle}">
                         <FontIcon FontFamily="Segoe MDL2 Assets"
+                                  FontSize="20"
                                   Foreground="{Binding Image.InfoForeColor,
                                                        Mode=OneWay,
                                                        FallbackValue=White}"
@@ -197,7 +198,7 @@
                 </Grid>
                 <Grid x:Name="RetryGrid"
                       Grid.Row="1"
-                      d:IsHidden="True"
+                      d:IsHidden="False"
                       Background="{Binding Image.MajorColor,
                                            FallbackValue=Black,
                                            Mode=OneWay}">
@@ -226,19 +227,20 @@
                             Height="{StaticResource DownloadProgressBarHeight}"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Stretch"
-                            Command="{Binding CancelCommand,
+                            Command="{Binding DeleteCommand,
                                               Mode=OneWay}"
                             Style="{StaticResource ListButtonStyle}">
                         <FontIcon FontFamily="Segoe MDL2 Assets"
-                                  FontSize="15"
                                   Foreground="{Binding Image.InfoForeColor,
                                                        FallbackValue=White,
                                                        Mode=OneWay}"
-                                  Glyph="&#xE106;" />
+                                  Glyph="&#xE107;" />
                     </Button>
                 </Grid>
-                <Grid x:Name="ProgressGrid" Grid.Row="1">
-                    <Border Background="{Binding Image.MajorColor, Mode=OneWay}" Opacity="0.8" />
+                <Grid x:Name="ProgressGrid"
+                      Grid.Row="1"
+                      d:IsHidden="True">
+                    <Border Background="{Binding Image.MajorColor, Mode=OneWay}" />
                     <Border Background="#B2000000" />
                     <ProgressBar VerticalAlignment="Stretch"
                                  Foreground="{Binding Image.MajorColor,
