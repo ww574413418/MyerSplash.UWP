@@ -1,19 +1,10 @@
-﻿using MyerSplashCustomControl;
+﻿using JP.Utils.Debug;
+using MyerSplashCustomControl;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel.DataTransfer;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using Windows.ApplicationModel.Store;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 namespace MyerSplash.UC
 {
@@ -34,9 +25,31 @@ namespace MyerSplash.UC
             ToastService.SendToast("Alipay account is copied in Clipboard", 2000);
         }
 
-        private void InAppClick_Click(object sender, RoutedEventArgs e)
+        private async void InAppClick_Click(object sender, RoutedEventArgs e)
         {
+            PopupService.Instance.TryToHide();
 
+            try
+            {
+                var licenseInformation = CurrentApp.LicenseInformation;
+                var license = licenseInformation.ProductLicenses["MyerSplashIAP"];
+                if (license.IsActive)
+                {
+                    // the customer can access this feature
+                    ToastService.SendToast("Thanks :D", 2000);
+                }
+                else
+                {
+                    // the customer can' t access this feature
+                    var result = await CurrentApp.RequestProductPurchaseAsync("MyerSplashIAP");
+                    ToastService.SendToast(result.Status.ToString(), 3000);
+                }
+            }
+            catch (Exception ex)
+            {
+                await Logger.LogAsync(ex);
+                ToastService.SendToast(ex.Message.ToString(), 3000);
+            }
         }
 
         private void CancelBtn_Click(object sender, RoutedEventArgs e)

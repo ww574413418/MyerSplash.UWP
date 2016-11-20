@@ -191,6 +191,7 @@ namespace MyerSplash.ViewModel
                 if (canDownload(item))
                 {
                     DownloadingImages.Remove(item);
+                    i--;
                 }
             }
         }

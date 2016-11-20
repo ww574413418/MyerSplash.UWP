@@ -423,7 +423,7 @@ namespace MyerSplash.View
         {
             //DrawerMaskBorder.Visibility = Visibility.Collapsed;
 
-            if (e.Cumulative.Translation.X <= -30)
+            if (e.Cumulative.Translation.X < 0)
             {
                 DrawerOpended = false;
             }

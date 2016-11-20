@@ -24,7 +24,8 @@ namespace MyerSplash.Common
         {
             get
             {
-                return Window.Current.Bounds.Width >= 650 ? true : false;
+                var ratio = Window.Current.Bounds.Width / Window.Current.Bounds.Height;
+                return ratio > 1;
             }
         }
 
