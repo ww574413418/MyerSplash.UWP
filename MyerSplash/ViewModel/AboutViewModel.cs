@@ -2,6 +2,8 @@
 using JP.Utils.Debug;
 using JP.Utils.Helper;
 using MyerSplash.Common;
+using MyerSplash.UC;
+using MyerSplashCustomControl;
 using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Email;
@@ -11,6 +13,20 @@ namespace MyerSplash.ViewModel
 {
     public class AboutViewModel
     {
+        private RelayCommand _donateCommand;
+        public RelayCommand DonateCommand
+        {
+            get
+            {
+                if (_donateCommand != null) return _donateCommand;
+                return _donateCommand = new RelayCommand(async () =>
+                  {
+                      var uc = new DonateDialogControl();
+                      await PopupService.Instance.ShowAsync(uc);
+                  });
+            }
+        }
+
         private RelayCommand _feedbackCommand;
         public RelayCommand FeedbackCommand
         {

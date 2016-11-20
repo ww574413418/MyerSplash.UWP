@@ -11,22 +11,21 @@
 
     <Grid x:Name="RootGrid">
         <Grid.Background>
-            <ImageBrush Stretch="UniformToFill" ImageSource="ms-appx:///Assets/Image/Banner.jpg"/>
+            <ImageBrush ImageSource="ms-appx:///Assets/Image/Banner.jpg" Stretch="UniformToFill" />
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Border Grid.RowSpan="2" Background="#E5000000"/>
+        <Border Grid.RowSpan="2" Background="#E5000000" />
         <Grid x:Name="TitleBar" Background="Transparent">
-
-            <TextBlock Margin="0"
+            <!--<TextBlock Margin="0"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        FontSize="25"
                        FontWeight="Bold"
                        Foreground="White"
-                       Text="ABOUT" />
+                       Text="ABOUT" />-->
         </Grid>
         <Button x:Name="CloseBtn"
                 Width="70"
@@ -44,43 +43,52 @@
                             Margin="0"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center">
-                    <Image Width="200"
-                           Margin="0,0,0,20"
-                           Source="ms-appx:///Assets/Icon/Logo_trans_narrow.png" />
                     <StackPanel Margin="0"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 Orientation="Horizontal">
+                        <Image Width="50" Source="ms-appx:///Assets/Icon/Logo_trans_narrow.png" />
                         <TextBlock VerticalAlignment="Bottom"
                                    FontFamily="Segoe UI Light"
-                                   FontSize="25"
+                                   FontSize="35"
+                                   FontWeight="ExtraLight"
                                    Foreground="White"
                                    Text="Myer" />
-                        <TextBlock FontSize="25"
+                        <TextBlock FontSize="35"
                                    FontWeight="Bold"
                                    Foreground="White"
                                    Text="Splash" />
                     </StackPanel>
-                    <TextBlock Margin="8,0"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   FontSize="15"
-                                   FontWeight="Light"
-                                   Foreground="#3FFFFFFF"
-                                   Text="for Windows &amp; Android" />
+                    <TextBlock Margin="8,4"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               FontSize="16"
+                               FontWeight="Light"
+                               Foreground="#3FFFFFFF"
+                               Text="for Windows &amp; Android &amp; iOS later" />
                     <Border Margin="0,10,0,0"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Background="{StaticResource MyerSplashThemeColor}">
-                        <TextBlock Margin="8,0"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   FontSize="13"
-                                   FontWeight="Bold"
-                                   Foreground="Black"
-                                   Text="{StaticResource AppVersion}" />
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="8,0,2,0"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontSize="13"
+                                       FontWeight="Bold"
+                                       Foreground="Black"
+                                       Text="Version" />
+                            <TextBlock Margin="2,0,8,0"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontSize="13"
+                                       FontWeight="Bold"
+                                       Foreground="Black"
+                                       Text="{StaticResource AppVersion}" />
+                        </StackPanel>
+
                     </Border>
-                    <TextBlock Margin="0,10,0,0"
+                    <TextBlock Margin="0,50,0,0"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"
                                FontSize="20"
@@ -90,7 +98,7 @@
                     <TextBlock Margin="5,5,5,0"
                                HorizontalAlignment="Center"
                                FontSize="15"
-                               Foreground="#70FFFFFF"
+                               Foreground="#99FFFFFF"
                                Text="Photos are from Unsplash, a website providing free (do whatever you want) high-resolution photos."
                                TextAlignment="Center"
                                TextWrapping="Wrap" />
@@ -110,8 +118,8 @@
                             <TextBlock Margin="8"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
-                                       Foreground="White"
-                                       Text="TELL ME YOUR IDEAS" />
+                                       Foreground="#99FFFFFF"
+                                       Text="Tell me your ideas" />
                         </Border>
                     </Button>
                     <TextBlock Margin="0,10,0,0"
@@ -120,9 +128,22 @@
                                FontSize="20"
                                FontWeight="Bold"
                                Foreground="{StaticResource MyerSplashThemeColor}"
-                               Text="I LIKE IT" />
+                               Text="I LOVE THIS" />
                     <Button Margin="0,5,0,0"
                             HorizontalAlignment="Center"
+                            Background="{x:Null}"
+                            Command="{x:Bind AboutVM.DonateCommand, Mode=OneWay}"
+                            Style="{StaticResource ListButtonStyle}">
+                        <Border>
+                            <TextBlock x:Name="DonateBtn"
+                                       Margin="8"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Foreground="#99FFFFFF"
+                                       Text="Buy me a drink" />
+                        </Border>
+                    </Button>
+                    <Button HorizontalAlignment="Center"
                             Background="{x:Null}"
                             Command="{x:Bind AboutVM.RateCommand, Mode=OneWay}"
                             Style="{StaticResource ListButtonStyle}">
@@ -130,8 +151,8 @@
                             <TextBlock Margin="8"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
-                                       Foreground="White"
-                                       Text="RATE THIS APP :D" />
+                                       Foreground="#99FFFFFF"
+                                       Text="Rate this app" />
                         </Border>
                     </Button>
                 </StackPanel>
