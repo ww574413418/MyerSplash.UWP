@@ -107,6 +107,8 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContentPopupEx\ContentPopupEx.cs" />
+    <Compile Include="ContentPopupEx\PopupService.cs" />
     <Compile Include="Control\AdaptiveGridView.cs" />
     <Compile Include="DialogService\DialogService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -114,6 +116,10 @@
     <EmbeddedResource Include="Properties\MyerSplashCustomControl.rd.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="ContentPopupEx\ContentPopupEx.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

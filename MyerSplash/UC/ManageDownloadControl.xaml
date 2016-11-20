@@ -10,7 +10,7 @@
                              xmlns:model="using:MyerSplash.Model"
                              xmlns:uc="using:MyerSplash.UC"
                              d:DesignHeight="600"
-                             d:DesignWidth="1400"
+                             d:DesignWidth="1000"
                              mc:Ignorable="d">
     <UserControl.Background>
         <StaticResource ResourceKey="MyerSplashThemeColor" />
@@ -82,5 +82,27 @@
                        Foreground="#7FFFFFFF"
                        Text="NO DOWNLOADS" />
         </StackPanel>
+        <Button x:Name="RefreshBtn"
+                Grid.RowSpan="2"
+                Margin="20"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Background="{x:Null}"
+                Command="{x:Bind DownloadsVM.DeleteFABCommand, Mode=OneWay}"
+                Foreground="White"
+                Style="{StaticResource ButtonCommonStyle}">
+            <Grid Width="50" Height="50">
+                <Ellipse Width="50"
+                         Height="50"
+                         Fill="{StaticResource MyerSplashThemeColor}" />
+                <Grid>
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE10C;" />
+                    <Image x:Name="DiceIcon"
+                           Width="25"
+                           Source="ms-appx:///Assets/Icon/dice.png"
+                           Visibility="Collapsed" />
+                </Grid>
+            </Grid>
+        </Button>
     </Grid>
 </common:NavigableUserControl>

@@ -12,6 +12,7 @@ using Windows.Storage;
 using System.Threading.Tasks;
 using JP.Utils.Debug;
 using GalaSoft.MvvmLight.Command;
+using MyerSplash.UC;
 
 namespace MyerSplash.ViewModel
 {
@@ -69,6 +70,20 @@ namespace MyerSplash.ViewModel
             }
         }
 
+        private RelayCommand _deleteFABCommand;
+        public RelayCommand DeleteFABCommand
+        {
+            get
+            {
+                if (_deleteFABCommand != null) return _deleteFABCommand;
+                return _deleteFABCommand = new RelayCommand(async () =>
+                  {
+                      var dd = new DeleteDialogControl();
+                      await PopupService.Instance.ShowAsync(dd);
+                  });
+            }
+        }
+
         public DownloadsViewModel()
         {
             var task = RestoreListAsync();
@@ -77,9 +92,12 @@ namespace MyerSplash.ViewModel
         private async void Value_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             NoItemVisibility = DownloadingImages.Count > 0 ? Visibility.Collapsed : Visibility.Visible;
-            foreach (var item in e.NewItems)
+            if (e.NewItems != null)
             {
-                await (item as DownloadItem).AwaitGuidCreatedAsync();
+                foreach (var item in e.NewItems)
+                {
+                    await (item as DownloadItem).AwaitGuidCreatedAsync();
+                }
             }
             await SaveListAsync();
         }
@@ -163,6 +181,36 @@ namespace MyerSplash.ViewModel
         public void DeleteDownload(DownloadItem item)
         {
             DownloadingImages.Remove(item);
+        }
+
+        private void DownloadItemsInternal(Func<DownloadItem, bool> canDownload)
+        {
+            for (int i = 0; i < DownloadingImages.Count; i++)
+            {
+                var item = DownloadingImages[i];
+                if (canDownload(item))
+                {
+                    DownloadingImages.Remove(item);
+                }
+            }
+        }
+
+        public void DeleteFailed()
+        {
+            PopupService.Instance.TryToHide();
+            DownloadItemsInternal(item => item.DisplayIndex == (int)DisplayMenu.Retry);
+        }
+
+        public void DeleteDownloading()
+        {
+            PopupService.Instance.TryToHide();
+            DownloadItemsInternal(item => item.DisplayIndex == (int)DisplayMenu.Downloading);
+        }
+
+        public void DeleteDownloaded()
+        {
+            PopupService.Instance.TryToHide();
+            DownloadItemsInternal(item => item.DisplayIndex == (int)DisplayMenu.SetAs);
         }
     }
 }
