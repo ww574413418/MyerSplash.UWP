@@ -320,10 +320,11 @@ namespace MyerSplash.Model
                   {
                       if (DeviceHelper.IsMobile && AppSettings.Instance.EnableQuickDownload)
                       {
-                          var downloaditem = new DownloadItem(this);
-                          var task = downloaditem.DownloadFullImageAsync(CTSFactory.MakeCTS());
-                          App.VMLocator.DownloadsVM.AddDownloadingImage(downloaditem);
+                          return;
                       }
+                      var downloaditem = new DownloadItem(this);
+                      var task = downloaditem.DownloadFullImageAsync(CTSFactory.MakeCTS());
+                      App.VMLocator.DownloadsVM.AddDownloadingImage(downloaditem);
                   });
             }
         }
