@@ -46,7 +46,7 @@ namespace MyerSplash.UC
                     // the customer can' t access this feature
                     var result = await CurrentApp.RequestProductPurchaseAsync("MyerSplashIAP");
 
-                    PopupService.Instance.TryHide(1000);
+                    PopupService.Instance.TryHide(500);
 
                     switch (result.Status)
                     {
