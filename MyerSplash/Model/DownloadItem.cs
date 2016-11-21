@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight.Command;
 using JP.Utils.Debug;
 using MyerSplash.Common;
+using MyerSplash.UC;
 using MyerSplashCustomControl;
 using System;
 using System.Collections.Generic;
@@ -167,6 +168,10 @@ namespace MyerSplash.Model
                 return _setWallpaperCommand = new RelayCommand(async () =>
                 {
                     IsMenuOn = false;
+
+                    var uc = new LoadingTextControl() { LoadingText = "Setting background..." };
+                    await PopupService.Instance.ShowAsync(uc);
+
                     var file = await PrepareImageFileAsync();
                     if (file != null)
                     {
@@ -185,6 +190,8 @@ namespace MyerSplash.Model
                     {
                         ToastService.SendToast("Can't find the image file.");
                     }
+
+                    PopupService.Instance.TryHide(1000);
                 });
             }
         }
@@ -199,6 +206,10 @@ namespace MyerSplash.Model
                 return _setLockWallpaperCommand = new RelayCommand(async () =>
                 {
                     IsMenuOn = false;
+
+                    var uc = new LoadingTextControl() { LoadingText = "Setting lockscreen..." };
+                    await PopupService.Instance.ShowAsync(uc);
+
                     var file = await PrepareImageFileAsync();
                     if (file != null)
                     {
@@ -217,6 +228,7 @@ namespace MyerSplash.Model
                     {
                         ToastService.SendToast("Can't find the image file.");
                     }
+                    PopupService.Instance.TryHide(1000);
                 });
             }
         }
@@ -231,6 +243,9 @@ namespace MyerSplash.Model
                 return _setBothCommand = new RelayCommand(async () =>
                 {
                     IsMenuOn = false;
+
+                    var uc = new LoadingTextControl() { LoadingText = "Setting background and lockscreen..." };
+                    await PopupService.Instance.ShowAsync(uc);
 
                     var file = await PrepareImageFileAsync();
                     if (file != null)
@@ -251,6 +266,7 @@ namespace MyerSplash.Model
                     {
                         ToastService.SendToast("Can't find the image file.");
                     }
+                    PopupService.Instance.TryHide(1000);
                 });
             }
         }
@@ -349,8 +365,6 @@ namespace MyerSplash.Model
             await Task.Delay(500);
             DownloadStatus = "";
             DisplayIndex = (int)DisplayMenu.SetAs;
-            await Task.Delay(400);
-            IsMenuOn = true;
         }
 
         private async Task<StorageFile> PrepareImageFileAsync()

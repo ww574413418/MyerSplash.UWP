@@ -17,7 +17,7 @@ namespace MyerSplash.UC
 
         private void AlipayBtn_Click(object sender, RoutedEventArgs e)
         {
-            PopupService.Instance.TryToHide();
+            PopupService.Instance.TryHide();
 
             DataPackage dataPackage = new DataPackage();
             dataPackage.SetText("18520944923");
@@ -27,7 +27,7 @@ namespace MyerSplash.UC
 
         private async void InAppClick_Click(object sender, RoutedEventArgs e)
         {
-            PopupService.Instance.TryToHide();
+            PopupService.Instance.TryHide();
 
             try
             {
@@ -36,25 +36,49 @@ namespace MyerSplash.UC
                 if (license.IsActive)
                 {
                     // the customer can access this feature
-                    ToastService.SendToast("Thanks :D", 2000);
+                    ToastService.SendToast("Thanks for your drink. I will do better. :P", 2000);
                 }
                 else
                 {
+                    var uc = new LoadingTextControl() { LoadingText = "Grabing infomation..." };
+                    await PopupService.Instance.ShowAsync(uc);
+
                     // the customer can' t access this feature
                     var result = await CurrentApp.RequestProductPurchaseAsync("MyerSplashIAP");
-                    ToastService.SendToast(result.Status.ToString(), 3000);
+
+                    PopupService.Instance.TryHide(1000);
+
+                    switch (result.Status)
+                    {
+                        case ProductPurchaseStatus.AlreadyPurchased:
+                            {
+                                ToastService.SendToast("Thanks. I will do better :P", 4000);
+                            }; break;
+                        case ProductPurchaseStatus.NotPurchased:
+                            {
+
+                            }; break;
+                        case ProductPurchaseStatus.Succeeded:
+                            {
+                                ToastService.SendToast("Thanks. I will do better. :P", 2000);
+                            }; break;
+                    }
                 }
             }
             catch (Exception ex)
             {
                 await Logger.LogAsync(ex);
-                ToastService.SendToast(ex.Message.ToString(), 3000);
+                //ToastService.SendToast(ex.Message.ToString(), 3000);
+            }
+            finally
+            {
+                PopupService.Instance.TryHide();
             }
         }
 
         private void CancelBtn_Click(object sender, RoutedEventArgs e)
         {
-            PopupService.Instance.TryToHide();
+            PopupService.Instance.TryHide();
         }
     }
 }

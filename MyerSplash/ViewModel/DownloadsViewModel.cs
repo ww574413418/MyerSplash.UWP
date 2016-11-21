@@ -198,19 +198,19 @@ namespace MyerSplash.ViewModel
 
         public void DeleteFailed()
         {
-            PopupService.Instance.TryToHide();
+            PopupService.Instance.TryHide();
             DownloadItemsInternal(item => item.DisplayIndex == (int)DisplayMenu.Retry);
         }
 
         public void DeleteDownloading()
         {
-            PopupService.Instance.TryToHide();
+            PopupService.Instance.TryHide();
             DownloadItemsInternal(item => item.DisplayIndex == (int)DisplayMenu.Downloading);
         }
 
         public void DeleteDownloaded()
         {
-            PopupService.Instance.TryToHide();
+            PopupService.Instance.TryHide();
             DownloadItemsInternal(item => item.DisplayIndex == (int)DisplayMenu.SetAs);
         }
     }

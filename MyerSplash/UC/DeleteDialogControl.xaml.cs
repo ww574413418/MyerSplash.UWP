@@ -13,7 +13,7 @@ namespace MyerSplash.UC
 
         private void CancelBtn_Click(object sender, RoutedEventArgs e)
         {
-            PopupService.Instance.TryToHide();
+            PopupService.Instance.TryHide();
         }
 
         private void DeleteAllBtn_Click(object sender, RoutedEventArgs e)

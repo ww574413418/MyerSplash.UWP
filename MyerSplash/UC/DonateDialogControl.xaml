@@ -24,6 +24,7 @@
                     Style="{StaticResource ListButtonStyle}">
                 <Border>
                     <TextBlock Margin="12"
+                               x:Name="IAPTB"
                                FontWeight="SemiBold"
                                Foreground="#B2FFFFFF"
                                Text="Via in-app purchase" />

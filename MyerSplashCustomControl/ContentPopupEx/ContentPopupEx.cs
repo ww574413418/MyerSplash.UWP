@@ -98,7 +98,7 @@ namespace MyerSplashCustomControl
                 {
                     return;
                 }
-                PopupService.Instance.TryToHide();
+                PopupService.Instance.TryHide();
             });
             _tcs.TrySetResult(0);
         }
