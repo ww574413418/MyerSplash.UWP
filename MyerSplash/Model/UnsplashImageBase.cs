@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using JP.Utils.Helper;
 using JP.Utils.Network;
 using JP.Utils.UI;
 using MyerSplash.Common;
@@ -317,9 +318,12 @@ namespace MyerSplash.Model
                 if (_downloadCommand != null) return _downloadCommand;
                 return _downloadCommand = new RelayCommand(() =>
                   {
-                      var downloaditem = new DownloadItem(this);
-                      var task = downloaditem.DownloadFullImageAsync(CTSFactory.MakeCTS());
-                      App.VMLocator.DownloadsVM.AddDownloadingImage(downloaditem);
+                      if (DeviceHelper.IsMobile && AppSettings.Instance.EnableQuickDownload)
+                      {
+                          var downloaditem = new DownloadItem(this);
+                          var task = downloaditem.DownloadFullImageAsync(CTSFactory.MakeCTS());
+                          App.VMLocator.DownloadsVM.AddDownloadingImage(downloaditem);
+                      }
                   });
             }
         }
