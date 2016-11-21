@@ -368,7 +368,7 @@ namespace MyerSplash.Model
 
         public async Task RestoreDataAsync()
         {
-            this.MajorColor = new SolidColorBrush(ColorConverter.HexToColor(ColorValue).Value);
+            this.MajorColor = new SolidColorBrush(ColorValue.ToColor());
             await DownloadImgForListAsync();
         }
 

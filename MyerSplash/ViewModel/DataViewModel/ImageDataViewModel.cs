@@ -121,9 +121,9 @@ namespace MyerSplash.ViewModel
             {
                 var item = list.ElementAt(i);
 
-                if (i % 2 == 0) item.BackColor = new SolidColorBrush(ColorConverter.HexToColor("#FF2E2E2E").Value);
-                else item.BackColor = new SolidColorBrush(ColorConverter.HexToColor("#FF383838").Value);
-                item.MajorColor = new SolidColorBrush(ColorConverter.HexToColor(item.ColorValue).Value);
+                if (i % 2 == 0) item.BackColor = new SolidColorBrush("#FF2E2E2E".ToColor());
+                else item.BackColor = new SolidColorBrush("#FF383838".ToColor());
+                item.MajorColor = new SolidColorBrush(item.ColorValue.ToColor());
 
                 tasks.Add(item.DownloadImgForListAsync());
             }
@@ -183,7 +183,7 @@ namespace MyerSplash.ViewModel
             }
             catch(Exception e)
             {
-                Logger.LogAsync(e);
+                await Logger.LogAsync(e);
                 return new List<UnsplashImage>();
             }
         }

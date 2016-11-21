@@ -12,9 +12,9 @@ namespace MyerSplash.Common
             var titleBar = ApplicationView.GetForCurrentView().TitleBar;
             titleBar.ButtonBackgroundColor = Colors.Transparent;
             titleBar.ButtonForegroundColor = Colors.Black;
-            titleBar.ButtonHoverBackgroundColor = ColorConverter.HexToColor("#35000000").Value;
+            titleBar.ButtonHoverBackgroundColor = "#35000000".ToColor();
             titleBar.ButtonHoverForegroundColor = Colors.Black;
-            titleBar.ButtonPressedBackgroundColor = ColorConverter.HexToColor("#64000000").Value;
+            titleBar.ButtonPressedBackgroundColor = "#64000000".ToColor();
             titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
             titleBar.ButtonInactiveForegroundColor = Colors.Black;
         }
@@ -26,13 +26,13 @@ namespace MyerSplash.Common
             titleBar.ForegroundColor = Colors.White;
             titleBar.InactiveBackgroundColor = (App.Current.Resources["TitleBarDarkBrush"] as SolidColorBrush).Color;
             titleBar.InactiveForegroundColor = Colors.White;
-            titleBar.ButtonBackgroundColor = ColorConverter.HexToColor("#00000000");
+            titleBar.ButtonBackgroundColor = "#00000000".ToColor();
             titleBar.ButtonForegroundColor = Colors.White;
-            titleBar.ButtonInactiveBackgroundColor = ColorConverter.HexToColor("#00000000");
+            titleBar.ButtonInactiveBackgroundColor = "#00000000".ToColor();
             titleBar.ButtonInactiveForegroundColor = Colors.White;
-            titleBar.ButtonHoverBackgroundColor = ColorConverter.HexToColor("#20FFFFFF");
+            titleBar.ButtonHoverBackgroundColor = "#20FFFFFF".ToColor();
             titleBar.ButtonHoverForegroundColor = Colors.White;
-            titleBar.ButtonPressedBackgroundColor = ColorConverter.HexToColor("#10FFFFFF");
+            titleBar.ButtonPressedBackgroundColor = "#10FFFFFF".ToColor();
             titleBar.ButtonPressedForegroundColor = Colors.White;
         }
     }
