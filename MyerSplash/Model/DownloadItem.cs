@@ -464,7 +464,7 @@ namespace MyerSplash.Model
 
             var backgroundDownloader = new BackgroundDownloader();
             backgroundDownloader.SuccessToastNotification = ToastHelper.CreateToastNotification("Saved:D",
-                                $"Tap to open {folder.Path}.");
+                                $"Find it in {folder.Path}.");
 
             var downloadOperation = backgroundDownloader.CreateDownload(new Uri(url), newFile);
             downloadOperation.Priority = BackgroundTransferPriority.High;

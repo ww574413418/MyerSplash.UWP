@@ -318,7 +318,7 @@ namespace MyerSplash.Model
                 if (_downloadCommand != null) return _downloadCommand;
                 return _downloadCommand = new RelayCommand(() =>
                   {
-                      if (DeviceHelper.IsMobile && AppSettings.Instance.EnableQuickDownload)
+                      if (DeviceHelper.IsMobile && !AppSettings.Instance.EnableQuickDownload)
                       {
                           return;
                       }

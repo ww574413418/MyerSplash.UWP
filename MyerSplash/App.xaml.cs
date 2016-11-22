@@ -98,14 +98,8 @@ namespace MyerSplash
             }
         }
 
-        protected async override void OnActivated(IActivatedEventArgs args)
+        protected override void OnActivated(IActivatedEventArgs args)
         {
-            var folder = await AppSettings.Instance.GetSavingFolderAsync();
-            if (folder != null)
-            {
-                await Launcher.LaunchFolderAsync(folder);
-            }
-
             CreateFrame();
         }
 

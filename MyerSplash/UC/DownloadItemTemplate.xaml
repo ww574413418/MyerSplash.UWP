@@ -126,7 +126,7 @@
                                Foreground="{Binding Image.InfoForeColor,
                                                     FallbackValue=White,
                                                     Mode=OneWay}"
-                               Text="Background and Lock screen" />
+                               Text="Both" />
                 </Grid>
             </Button>
         </Grid>
