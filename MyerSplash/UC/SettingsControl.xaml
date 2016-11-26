@@ -456,15 +456,14 @@
                     <Grid Height="50">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
-                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="150" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Margin="10,0,0,0"
                                    VerticalAlignment="Center"
-                                   Foreground="White"
-                                   >
-                            <Run Text="Show download button in list"/>
-                            <LineBreak/>
-                            <Run Text="for mobile devices" Foreground="#4CFFFFFF"/>
+                                   Foreground="White">
+                            <Run Text="Show download button in list" />
+                            <LineBreak />
+                            <Run Foreground="#4CFFFFFF" Text="for mobile devices" />
                         </TextBlock>
                         <ToggleSwitch Grid.Column="1"
                                       HorizontalAlignment="Right"
@@ -499,6 +498,22 @@
                             </Border>
                         </Button>
                     </StackPanel>
+                    <TextBlock Margin="10,10,0,0"
+                               VerticalAlignment="Center"
+                               Foreground="White"
+                               Text="Default category" />
+                    <ComboBox Margin="10,10,10,0"
+                              HorizontalAlignment="Stretch"
+                              BorderThickness="1"
+                              RequestedTheme="Dark"
+                              SelectedIndex="{Binding Source={StaticResource AppSettings},
+                                                      Path=DefaultCategory,
+                                                      FallbackValue=1,
+                                                      Mode=TwoWay}">
+                        <ComboBoxItem Content="Random" Style="{StaticResource ComboBoxItemStyle}" />
+                        <ComboBoxItem Content="New" Style="{StaticResource ComboBoxItemStyle}" />
+                        <ComboBoxItem Content="Featured" Style="{StaticResource ComboBoxItemStyle}" />
+                    </ComboBox>
                     <TextBlock Margin="10,10,0,0"
                                VerticalAlignment="Center"
                                Foreground="White"

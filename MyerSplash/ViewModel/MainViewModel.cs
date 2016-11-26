@@ -22,10 +22,23 @@ namespace MyerSplash.ViewModel
 {
     public class MainViewModel : ViewModelBase, INavigable
     {
-        private const string DEFAULT_TITLE_NAME = "NEW";
         private const int RANDOM_INDEX = 0;
         private const int FEATURED_INDEX = 2;
         private const int NEW_INDEX = 1;
+
+        private string DefaultTitleName
+        {
+            get
+            {
+                switch (AppSettings.Instance.DefaultCategory)
+                {
+                    case 0: return "RANDOM";
+                    case 1: return "NEW";
+                    case 2: return "FEATURED";
+                    default: return "MyerSplash";
+                }
+            }
+        }
 
         #region icon
         private bool _showDiceIcon;
@@ -526,7 +539,7 @@ namespace MyerSplash.ViewModel
                 {
                     if (SearchKeyword == null)
                     {
-                        return DEFAULT_TITLE_NAME;
+                        return DefaultTitleName;
                     }
                     else return SearchKeyword.ToUpper();
                 }
@@ -534,7 +547,7 @@ namespace MyerSplash.ViewModel
                 {
                     return Categories[SelectedIndex].Title.ToUpper();
                 }
-                else return DEFAULT_TITLE_NAME;
+                else return DefaultTitleName;
             }
         }
 
@@ -563,6 +576,8 @@ namespace MyerSplash.ViewModel
 
         private async Task RestoreMainListDataAsync()
         {
+            InitDataVM();
+
             var file = await CacheUtil.GetCachedFileFolder().TryGetFileAsync(CachedFileNames.MainListFileName);
             if (file != null)
             {
@@ -570,7 +585,7 @@ namespace MyerSplash.ViewModel
                 var list = JsonConvert.DeserializeObject<List<UnsplashImage>>(str);
                 if (list != null)
                 {
-                    this.DataVM = new ImageDataViewModel(UrlHelper.GetNewImages, false);
+                    //this.DataVM = new ImageDataViewModel(UrlHelper.GetNewImages, false);
                     list.ForEach(s => DataVM.DataList.Add(s));
 
                     for (int i = 0; i < DataVM.DataList.Count; i++)
@@ -580,10 +595,30 @@ namespace MyerSplash.ViewModel
                         else item.BackColor = Application.Current.Resources["ImageBackBrush2"] as SolidColorBrush;
                         var task = item.RestoreDataAsync();
                     }
+
+                    return;
                 }
-                else DataVM = new ImageDataViewModel(UrlHelper.GetNewImages, false);
             }
-            else DataVM = new ImageDataViewModel(UrlHelper.GetNewImages, false);
+            //InitDataVM();
+        }
+
+        private void InitDataVM()
+        {
+            switch (AppSettings.Instance.DefaultCategory)
+            {
+                case 0:
+                    {
+                        DataVM = new ImageDataViewModel(UrlHelper.GetRandomImages, false);
+                    }; break;
+                case 1:
+                    {
+                        DataVM = new ImageDataViewModel(UrlHelper.GetNewImages, false);
+                    }; break;
+                case 2:
+                    {
+                        DataVM = new ImageDataViewModel(UrlHelper.GetFeaturedImages, false);
+                    }; break;
+            }
         }
 
         private async Task RefreshAllAsync()
@@ -621,7 +656,7 @@ namespace MyerSplash.ViewModel
                 {
                     Title = "Random",
                 });
-                SelectedIndex = NEW_INDEX;
+                SelectedIndex = App.AppSettings.DefaultCategory;
                 await SerializerHelper.SerializerToJson<ObservableCollection<UnsplashCategory>>(list, CachedFileNames.CateListFileName, CacheUtil.GetCachedFileFolder());
             }
         }
@@ -629,7 +664,7 @@ namespace MyerSplash.ViewModel
         private async Task RestoreCategoriyListAsync()
         {
             this.Categories = await SerializerHelper.DeserializeFromJsonByFile<ObservableCollection<UnsplashCategory>>(CachedFileNames.CateListFileName);
-            SelectedIndex = 1;
+            SelectedIndex = App.AppSettings.DefaultCategory;
         }
 
         private async Task SaveMainListDataAsync()
