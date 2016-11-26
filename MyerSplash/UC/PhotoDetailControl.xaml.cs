@@ -20,6 +20,13 @@ using Windows.UI.Xaml.Media;
 
 namespace MyerSplash.UC
 {
+    public enum DownloadStatus
+    {
+        Pending = 0,
+        Donwloading = 1,
+        OK = 2
+    }
+
     public sealed partial class PhotoDetailControl : UserControl, INotifyPropertyChanged
     {
         public event Action OnHideControl;
@@ -28,12 +35,10 @@ namespace MyerSplash.UC
         private Compositor _compositor;
         private Visual _detailGridVisual;
         private Visual _borderGridVisual;
-        private Visual _downloadBtnVisual;
         private Visual _shareBtnVisual;
         private Visual _infoGridVisual;
-        private Visual _downloadingHintGridVisual;
         private Visual _loadingPath;
-        private Visual _okVisual;
+        private Visual _flipperVisual;
 
         private CancellationTokenSource _cts;
 
@@ -88,12 +93,10 @@ namespace MyerSplash.UC
             _compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
             _detailGridVisual = ElementCompositionPreview.GetElementVisual(DetailGrid);
             _borderGridVisual = ElementCompositionPreview.GetElementVisual(MaskBorder);
-            _downloadBtnVisual = ElementCompositionPreview.GetElementVisual(DownloadBtn);
             _infoGridVisual = ElementCompositionPreview.GetElementVisual(InfoGrid);
-            _downloadingHintGridVisual = ElementCompositionPreview.GetElementVisual(LoadingHintGrid);
             _loadingPath = ElementCompositionPreview.GetElementVisual(LoadingPath);
-            _okVisual = ElementCompositionPreview.GetElementVisual(OKBtn);
             _shareBtnVisual = ElementCompositionPreview.GetElementVisual(ShareBtn);
+            _flipperVisual = ElementCompositionPreview.GetElementVisual(FlipperControl);
 
             ResetVisualInitState();
         }
@@ -101,11 +104,9 @@ namespace MyerSplash.UC
         private void ResetVisualInitState()
         {
             _infoGridVisual.Offset = new Vector3(0f, -100f, 0);
-            _downloadBtnVisual.Offset = new Vector3(100f, 0f, 0f);
             _shareBtnVisual.Offset = new Vector3(150f, 0f, 0f);
+            _flipperVisual.Offset = new Vector3(170f, 0f, 0f);
             _detailGridVisual.Opacity = 0;
-            _okVisual.Offset = new Vector3(100f, 0f, 0f);
-            _downloadingHintGridVisual.Offset = new Vector3(100f, 0f, 0f);
 
             PhotoSV.ChangeView(null, 0, null);
             StartLoadingAnimation();
@@ -118,10 +119,8 @@ namespace MyerSplash.UC
 
         public void HideDetailControl()
         {
-            ToggleDownloadBtnAnimation(false);
+            ToggleFlipperControlAnimation(false);
             ToggleShareBtnAnimation(false);
-            ToggleOkBtnAnimation(false);
-            ToggleDownloadingBtnAnimation(false);
 
             var batch = _compositor.CreateScopedBatch(CompositionBatchTypes.Animation);
             ToggleInfoGridAnimation(false);
@@ -129,6 +128,7 @@ namespace MyerSplash.UC
             {
                 OnHideControl?.Invoke();
                 ToggleDetailGridAnimation(false);
+                FlipperControl.DisplayIndex = (int)DownloadStatus.Pending;
             };
             batch.End();
         }
@@ -149,7 +149,7 @@ namespace MyerSplash.UC
 
             if (show)
             {
-                ToggleDownloadBtnAnimation(true);
+                ToggleFlipperControlAnimation(true);
                 ToggleShareBtnAnimation(true);
                 ToggleInfoGridAnimation(true);
             }
@@ -165,14 +165,14 @@ namespace MyerSplash.UC
             batch.End();
         }
 
-        private void ToggleDownloadBtnAnimation(bool show)
+        private void ToggleFlipperControlAnimation(bool show)
         {
             var offsetAnimation = _compositor.CreateVector3KeyFrameAnimation();
             offsetAnimation.InsertKeyFrame(1f, new Vector3(show ? 0f : 100f, 0f, 0f));
             offsetAnimation.Duration = TimeSpan.FromMilliseconds(1000);
             offsetAnimation.DelayTime = TimeSpan.FromMilliseconds(show ? 500 : 0);
 
-            _downloadBtnVisual.StartAnimation("Offset", offsetAnimation);
+            _flipperVisual.StartAnimation("Offset", offsetAnimation);
         }
 
         private void ToggleShareBtnAnimation(bool show)
@@ -203,30 +203,10 @@ namespace MyerSplash.UC
         }
 
         #region Download animation
-        private void ToggleDownloadingBtnAnimation(bool show)
-        {
-            var offsetAnimation = _compositor.CreateVector3KeyFrameAnimation();
-            offsetAnimation.InsertKeyFrame(1f, new Vector3(show ? 0f : 100f, 0f, 0f));
-            offsetAnimation.Duration = TimeSpan.FromMilliseconds(500);
-            offsetAnimation.DelayTime = TimeSpan.FromMilliseconds(show ? 200 : 0);
-
-            _downloadingHintGridVisual.StartAnimation("Offset", offsetAnimation);
-        }
-
-        private void ToggleOkBtnAnimation(bool show)
-        {
-            var offsetAnimation = _compositor.CreateVector3KeyFrameAnimation();
-            offsetAnimation.InsertKeyFrame(1f, new Vector3(show ? 0f : 100f, 0f, 0f));
-            offsetAnimation.Duration = TimeSpan.FromMilliseconds(500);
-            offsetAnimation.DelayTime = TimeSpan.FromMilliseconds(show ? 200 : 0);
-
-            _okVisual.StartAnimation("Offset", offsetAnimation);
-        }
 
         private async void DownloadBtn_Click(object sender, RoutedEventArgs e)
         {
-            ToggleDownloadBtnAnimation(false);
-            ToggleDownloadingBtnAnimation(true);
+            FlipperControl.DisplayIndex = (int)DownloadStatus.Donwloading;
 
             try
             {
@@ -235,28 +215,22 @@ namespace MyerSplash.UC
                 App.VMLocator.DownloadsVM.AddDownloadingImage(item);
                 await item.DownloadFullImageAsync(_cts);
 
-                ToggleDownloadingBtnAnimation(false);
-
                 //Still in this page
                 if (IsShown)
                 {
-                    ToggleOkBtnAnimation(true);
+                    FlipperControl.DisplayIndex = (int)DownloadStatus.OK;
                     ToastService.SendToast("Saved :D", TimeSpan.FromMilliseconds(1000));
                 }
             }
             catch (OperationCanceledException)
             {
-                ToggleDownloadBtnAnimation(true);
-                ToggleDownloadingBtnAnimation(false);
-                ToggleOkBtnAnimation(false);
+                FlipperControl.DisplayIndex = (int)DownloadStatus.Pending;
                 ToastService.SendToast("Cancelled", TimeSpan.FromMilliseconds(1000));
             }
             catch (Exception ex)
             {
                 var task = Logger.LogAsync(ex);
-                ToggleDownloadBtnAnimation(true);
-                ToggleDownloadingBtnAnimation(false);
-                ToggleOkBtnAnimation(false);
+                FlipperControl.DisplayIndex = (int)DownloadStatus.Pending;
                 ToastService.SendToast($"Exception throws.{ex.Message}", TimeSpan.FromMilliseconds(1000));
             }
         }

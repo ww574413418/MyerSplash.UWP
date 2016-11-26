@@ -488,6 +488,7 @@ namespace MyerSplash.Model
                 ToastService.SendToast("Download has been cancelled.");
                 DownloadStatus = "";
                 DisplayIndex = (int)DisplayMenu.Retry;
+                throw;
             }
             catch (Exception e)
             {

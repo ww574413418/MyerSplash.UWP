@@ -19,7 +19,7 @@
           "lib/uap10.0/CompositionHelper.dll": {}
         }
       },
-      "FlipperControl/1.0.4": {
+      "FlipperControl/1.0.6": {
         "compile": {
           "lib/uap10.0/FlipperControl.dll": {}
         },
@@ -1948,7 +1948,7 @@
           "lib/uap10.0/CompositionHelper.dll": {}
         }
       },
-      "FlipperControl/1.0.4": {
+      "FlipperControl/1.0.6": {
         "compile": {
           "lib/uap10.0/FlipperControl.dll": {}
         },
@@ -3727,7 +3727,7 @@
           "lib/uap10.0/CompositionHelper.dll": {}
         }
       },
-      "FlipperControl/1.0.4": {
+      "FlipperControl/1.0.6": {
         "compile": {
           "lib/uap10.0/FlipperControl.dll": {}
         },
@@ -5464,7 +5464,7 @@
           "lib/uap10.0/CompositionHelper.dll": {}
         }
       },
-      "FlipperControl/1.0.4": {
+      "FlipperControl/1.0.6": {
         "compile": {
           "lib/uap10.0/FlipperControl.dll": {}
         },
@@ -7251,7 +7251,7 @@
           "lib/uap10.0/CompositionHelper.dll": {}
         }
       },
-      "FlipperControl/1.0.4": {
+      "FlipperControl/1.0.6": {
         "compile": {
           "lib/uap10.0/FlipperControl.dll": {}
         },
@@ -8988,7 +8988,7 @@
           "lib/uap10.0/CompositionHelper.dll": {}
         }
       },
-      "FlipperControl/1.0.4": {
+      "FlipperControl/1.0.6": {
         "compile": {
           "lib/uap10.0/FlipperControl.dll": {}
         },
@@ -10775,7 +10775,7 @@
           "lib/uap10.0/CompositionHelper.dll": {}
         }
       },
-      "FlipperControl/1.0.4": {
+      "FlipperControl/1.0.6": {
         "compile": {
           "lib/uap10.0/FlipperControl.dll": {}
         },
@@ -12520,11 +12520,11 @@
         "lib/uap10.0/CompositionHelper/Properties/CompositionHelper.rd.xml"
       ]
     },
-    "FlipperControl/1.0.4": {
-      "sha512": "7ki3ihrx3nKUNG8S+7+/fV6ZJI2ObnlC8u+n+TvhnKUjUeM2GxXN8ZZchduHQ6nYfRb8SGmM4+NDYY9GI3yocQ==",
+    "FlipperControl/1.0.6": {
+      "sha512": "LcJsmTO4C5yPCYnl6vlOUBYS/4SgEcRYdGg+b/A2/72u4y2JcdSS8ar4JizLQ8V3PPYJp91Ec4SfyhUOatKNtg==",
       "type": "package",
       "files": [
-        "FlipperControl.1.0.4.nupkg.sha512",
+        "FlipperControl.1.0.6.nupkg.sha512",
         "FlipperControl.nuspec",
         "lib/uap10.0/FlipperControl.dll",
         "lib/uap10.0/FlipperControl.pdb",
@@ -16055,7 +16055,7 @@
   "projectFileDependencyGroups": {
     "": [
       "CompositionHelper >= 1.0.4",
-      "FlipperControl >= 1.0.4",
+      "FlipperControl >= 1.0.6",
       "JP.Utils.UWP >= 1.1.29",
       "Microsoft.ApplicationInsights >= 2.1.0",
       "Microsoft.ApplicationInsights.PersistenceChannel >= 1.2.3",
