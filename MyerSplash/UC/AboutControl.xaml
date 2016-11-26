@@ -140,7 +140,7 @@
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
                                        Foreground="#99FFFFFF"
-                                       Text="Buy me a drink" />
+                                       Text="Treat me a drink" />
                         </Border>
                     </Button>
                     <Button HorizontalAlignment="Center"
