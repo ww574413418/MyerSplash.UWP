@@ -164,6 +164,9 @@
     <Compile Include="UC\PhotoDetailControl.xaml.cs">
       <DependentUpon>PhotoDetailControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UC\TipsControl.xaml.cs">
+      <DependentUpon>TipsControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\AboutViewModel.cs" />
     <Compile Include="ViewModel\DataViewModel\DataViewModelBase.cs" />
     <Compile Include="Common\IncrementalLoadingCollection.cs" />
@@ -203,7 +206,8 @@
     <Content Include="Assets\Icon\Logo_trans_narrow.png" />
     <Content Include="Assets\Icon\Logo_white.png" />
     <Content Include="Assets\Image\Banner.jpg" />
-    <Content Include="Assets\Image\The Watchtower.jpg" />
+    <Content Include="Assets\Image\tips1.png" />
+    <Content Include="Assets\Image\tips2.png" />
     <Content Include="Assets\Logo-500.png" />
     <Content Include="Assets\NewStoreLogo.scale-100.png" />
     <Content Include="Assets\NewStoreLogo.scale-125.png" />
@@ -335,6 +339,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UC\PhotoDetailControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\TipsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

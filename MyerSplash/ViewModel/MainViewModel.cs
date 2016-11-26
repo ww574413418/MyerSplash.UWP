@@ -15,6 +15,8 @@ using Windows.Storage;
 using System;
 using Newtonsoft.Json;
 using MyerSplashCustomControl;
+using MyerSplash.UC;
+using JP.Utils.Helper;
 
 namespace MyerSplash.ViewModel
 {
@@ -658,7 +660,20 @@ namespace MyerSplash.ViewModel
 
         public void Activate(object param)
         {
-
+            if (DeviceHelper.IsDesktop)
+            {
+#if DEBUG
+                var uc = new TipsControl();
+                var task = PopupService.Instance.ShowAsync(uc);
+#else
+                if (!LocalSettingHelper.HasValue("TIPS221"))
+                {
+                    LocalSettingHelper.AddValue("TIPS221", true);
+                    var uc = new TipsControl();
+                    var task = PopupService.Instance.ShowAsync(uc);
+                }
+#endif
+            }
         }
 
         public void Deactivate(object param)
