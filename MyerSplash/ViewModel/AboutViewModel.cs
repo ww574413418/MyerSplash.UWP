@@ -26,6 +26,19 @@ namespace MyerSplash.ViewModel
             }
         }
 
+        private RelayCommand _visitTwitterCommand;
+        public RelayCommand VisitTwitterCommand
+        {
+            get
+            {
+                if (_visitTwitterCommand != null) return _visitTwitterCommand;
+                return _visitTwitterCommand = new RelayCommand(async() =>
+                  {
+                      await Launcher.LaunchUriAsync(new Uri("https://twitter.com/JuniperPhoton"));
+                  });
+            }
+        }
+
         private RelayCommand _donateCommand;
         public RelayCommand DonateCommand
         {

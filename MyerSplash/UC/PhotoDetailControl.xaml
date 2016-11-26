@@ -54,27 +54,53 @@
                                        TextTrimming="CharacterEllipsis" />
                         </Button>
                     </StackPanel>
-                    <Button x:Name="CopyUlrBtn"
-                            Grid.RowSpan="2"
-                            Margin="0,0,10,22"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Bottom"
-                            Background="{x:Null}"
-                            Command="{x:Bind CurrentImage.CopyUrlCommand, Mode=OneWay}"
-                            Style="{StaticResource ButtonCommonStyle}">
-                        <Grid>
-                            <Border x:Name="CopyUrlBorder"
-                                    Background="{x:Bind CurrentImage.InfoForeColor, FallbackValue=White, Mode=OneWay}"
-                                    CornerRadius="2"
-                                    Opacity="0.6" />
-                            <TextBlock x:Uid="CopyUrlTB"
-                                       x:Name="CopyUrlTB"
-                                       Margin="15,5"
-                                       FontWeight="Bold"
-                                       Foreground="{x:Bind CurrentImage.BtnForeColor, Mode=OneWay}"
-                                       Text="COPY URL" />
-                        </Grid>
-                    </Button>
+                    <flipper:FlipperControl x:Name="CopyFlipperControl"
+                                            Grid.RowSpan="2"
+                                            Margin="0,0,10,22"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Bottom"
+                                            AnimationDuration="150"
+                                            DisplayIndex="0"
+                                            FlipDirection="BackToFront">
+                        <flipper:FlipperControl.Views>
+                            <Button HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="{x:Null}"
+                                    BorderThickness="0"
+                                    Style="{StaticResource ButtonCommonStyle}">
+                                <Grid>
+                                    <Border Background="{x:Bind CurrentImage.InfoForeColor, FallbackValue=White, Mode=OneWay}"
+                                            CornerRadius="2"
+                                            Opacity="1" />
+                                    <TextBlock Margin="15,5"
+                                               FontWeight="Bold"
+                                               Foreground="{x:Bind CurrentImage.BtnForeColor, Mode=OneWay}"
+                                               Text="Copied :D" />
+                                </Grid>
+                            </Button>
+                            <Button x:Name="CopyUlrBtn"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="{x:Null}"
+                                    BorderThickness="0"
+                                    Click="CopyUlrBtn_Click"
+                                    Command="{x:Bind CurrentImage.CopyUrlCommand, Mode=OneWay}"
+                                    Style="{StaticResource ButtonCommonStyle}">
+                                <Grid>
+                                    <Border x:Name="CopyUrlBorder"
+                                            Background="{x:Bind CurrentImage.InfoForeColor, FallbackValue=White, Mode=OneWay}"
+                                            CornerRadius="2"
+                                            Opacity="0.6" />
+                                    <TextBlock x:Name="CopyUrlTB"
+                                               Margin="15,5"
+                                               FontWeight="Bold"
+                                               Foreground="{x:Bind CurrentImage.BtnForeColor, Mode=OneWay}"
+                                               Text="COPY URL" />
+                                </Grid>
+                            </Button>
+                        </flipper:FlipperControl.Views>
+                    </flipper:FlipperControl>
+
                 </Grid>
             </Grid>
             <Grid>
@@ -128,9 +154,9 @@
                                             Width="50"
                                             Height="50"
                                             AnimationDuration="150"
+                                            DisplayIndex="0"
                                             EnablePerspect="False"
-                                            FlipDirection="BackToFront"
-                                            DisplayIndex="0">
+                                            FlipDirection="BackToFront">
                         <flipper:FlipperControl.Views>
                             <Button x:Name="OKBtn"
                                     Grid.RowSpan="2"

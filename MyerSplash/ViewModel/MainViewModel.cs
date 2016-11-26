@@ -697,17 +697,12 @@ namespace MyerSplash.ViewModel
         {
             if (DeviceHelper.IsDesktop)
             {
-#if DEBUG
-                var uc = new TipsControl();
-                var task = PopupService.Instance.ShowAsync(uc);
-#else
                 if (!LocalSettingHelper.HasValue("TIPS221"))
                 {
                     LocalSettingHelper.AddValue("TIPS221", true);
                     var uc = new TipsControl();
                     var task = PopupService.Instance.ShowAsync(uc);
                 }
-#endif
             }
         }
 

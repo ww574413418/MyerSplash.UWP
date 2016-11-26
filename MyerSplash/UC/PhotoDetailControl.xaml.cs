@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Numerics;
 using System.Threading;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Storage;
@@ -219,19 +220,18 @@ namespace MyerSplash.UC
                 if (IsShown)
                 {
                     FlipperControl.DisplayIndex = (int)DownloadStatus.OK;
-                    ToastService.SendToast("Saved :D", TimeSpan.FromMilliseconds(1000));
+                    ToastService.SendToast("Saved :D", 1000);
                 }
             }
             catch (OperationCanceledException)
             {
                 FlipperControl.DisplayIndex = (int)DownloadStatus.Pending;
-                ToastService.SendToast("Cancelled", TimeSpan.FromMilliseconds(1000));
             }
             catch (Exception ex)
             {
                 var task = Logger.LogAsync(ex);
                 FlipperControl.DisplayIndex = (int)DownloadStatus.Pending;
-                ToastService.SendToast($"Exception throws.{ex.Message}", TimeSpan.FromMilliseconds(1000));
+                ToastService.SendToast($"Exception throws.{ex.Message}", 1000);
             }
         }
 
@@ -280,6 +280,13 @@ namespace MyerSplash.UC
             args.Data.RequestedOperation = DataPackageOperation.Copy;
             args.Data.SetText(image.ShareText);
             args.Data.SetWebLink(new Uri(image.GetSaveImageUrlFromSettings()));
+        }
+
+        private async void CopyUlrBtn_Click(object sender, RoutedEventArgs e)
+        {
+            CopyFlipperControl.DisplayIndex = 1;
+            await Task.Delay(2000);
+            CopyFlipperControl.DisplayIndex = 0;
         }
     }
 }

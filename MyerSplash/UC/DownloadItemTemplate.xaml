@@ -240,7 +240,7 @@
                 <Grid x:Name="ProgressGrid"
                       Grid.Row="1"
                       d:IsHidden="True">
-                    <Border Background="{Binding Image.MajorColor, Mode=OneWay}" />
+                    <Border Background="{Binding Image.MajorColor, Mode=OneWay}" Opacity="0.95" />
                     <Border Background="#B2000000" />
                     <ProgressBar VerticalAlignment="Stretch"
                                  Foreground="{Binding Image.MajorColor,
