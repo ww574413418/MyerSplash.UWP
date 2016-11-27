@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using Windows.Networking.BackgroundTransfer;
 using Windows.Storage;
 using Windows.System;
+using MyerSplash.Common;
 using Windows.System.UserProfile;
 
 namespace MyerSplash.Model
@@ -401,7 +402,7 @@ namespace MyerSplash.Model
             var task = Image.RestoreDataAsync();
 
             var folder = await AppSettings.Instance.GetSavingFolderAsync();
-            var item = await folder.TryGetItemAsync(GetFileNameForDownloading());
+            var item = await folder.TryGetItemAsync(Image.GetFileNameForDownloading());
             if (item != null)
             {
                 var file = item as StorageFile;
@@ -432,12 +433,6 @@ namespace MyerSplash.Model
             }
         }
 
-        private string GetFileNameForDownloading()
-        {
-            var fileName = $"{Image.Owner.Name}  {Image.CreateTimeString}.jpg";
-            return fileName;
-        }
-
         public async Task AwaitGuidCreatedAsync()
         {
             if (_tcs != null)
@@ -456,11 +451,13 @@ namespace MyerSplash.Model
 
             if (string.IsNullOrEmpty(url)) return;
 
+            Image.DownloadStatus = Common.DownloadStatus.Downloading;
+
             ToastService.SendToast("Downloading in background...", 2000);
 
             var folder = await AppSettings.Instance.GetSavingFolderAsync();
 
-            var newFile = await folder.CreateFileAsync(GetFileNameForDownloading(), CreationCollisionOption.OpenIfExists);
+            var newFile = await folder.CreateFileAsync(Image.GetFileNameForDownloading(), CreationCollisionOption.OpenIfExists);
 
             var backgroundDownloader = new BackgroundDownloader();
             backgroundDownloader.SuccessToastNotification = ToastHelper.CreateToastNotification("Saved:D",
@@ -488,10 +485,12 @@ namespace MyerSplash.Model
                 ToastService.SendToast("Download has been cancelled.");
                 DownloadStatus = "";
                 DisplayIndex = (int)DisplayMenu.Retry;
+                Image.DownloadStatus = Common.DownloadStatus.Pending;
                 throw;
             }
             catch (Exception e)
             {
+                Image.DownloadStatus = Common.DownloadStatus.Pending;
                 await Logger.LogAsync(e);
                 ToastService.SendToast("ERROR" + e.Message, 2000);
             }
@@ -504,6 +503,7 @@ namespace MyerSplash.Model
             if (Progress >= 100)
             {
                 _resultFile = e.ResultFile;
+                Image.DownloadStatus = Common.DownloadStatus.OK;
             }
         }
     }

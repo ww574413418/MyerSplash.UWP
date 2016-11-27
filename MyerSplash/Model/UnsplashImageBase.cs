@@ -5,6 +5,7 @@ using JP.Utils.Network;
 using JP.Utils.UI;
 using MyerSplash.Common;
 using MyerSplash.Interface;
+using MyerSplash.UC;
 using MyerSplashCustomControl;
 using MyerSplashShared.Shared;
 using System;
@@ -328,12 +329,20 @@ namespace MyerSplash.Model
             }
         }
 
+        public DownloadStatus DownloadStatus { get; set; } = DownloadStatus.Pending;
+
         public string ShareText => $"Share {this.Owner.Name}'s amazing photo from MyerSplash app. {FullImageUrl}";
 
         public UnsplashImageBase()
         {
             ListImageBitmap = new CachedBitmapSource();
             LargeBitmap = new CachedBitmapSource();
+        }
+
+        public string GetFileNameForDownloading()
+        {
+            var fileName = $"{Owner.Name}  {CreateTimeString}.jpg";
+            return fileName;
         }
 
         public async Task SetDataRequestData(DataRequest request)
@@ -378,9 +387,29 @@ namespace MyerSplash.Model
 
             if (string.IsNullOrEmpty(url)) return;
 
+            var task = CheckDownloadedAsync();
+
             ListImageBitmap.ExpectedFileName = this.ID + ".jpg";
             ListImageBitmap.RemoteUrl = url;
             await ListImageBitmap.LoadBitmapAsync();
+        }
+
+        public async Task CheckDownloadedAsync()
+        {
+            var name = GetFileNameForDownloading();
+            var folder = await KnownFolders.PicturesLibrary.CreateFolderAsync("MyerSplash", CreationCollisionOption.OpenIfExists);
+            if (folder != null)
+            {
+                var file = await folder.TryGetItemAsync(name);
+                if (file != null)
+                {
+                    var pro = await file.GetBasicPropertiesAsync();
+                    if (pro.Size > 10)
+                    {
+                        this.DownloadStatus = DownloadStatus.OK;
+                    }
+                }
+            }
         }
 
         public string GetListImageUrlFromSettings()

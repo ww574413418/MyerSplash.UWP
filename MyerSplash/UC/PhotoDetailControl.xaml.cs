@@ -1,5 +1,6 @@
 ﻿using JP.Utils.Debug;
 using JP.Utils.UI;
+using MyerSplash.Common;
 using MyerSplash.Model;
 using MyerSplashCustomControl;
 using System;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Storage;
+using Windows.System;
 using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
@@ -21,13 +23,6 @@ using Windows.UI.Xaml.Media;
 
 namespace MyerSplash.UC
 {
-    public enum DownloadStatus
-    {
-        Pending = 0,
-        Donwloading = 1,
-        OK = 2
-    }
-
     public sealed partial class PhotoDetailControl : UserControl, INotifyPropertyChanged
     {
         public event Action OnHideControl;
@@ -150,6 +145,7 @@ namespace MyerSplash.UC
 
             if (show)
             {
+                var task = CheckImageDownloadStatusAsync();
                 ToggleFlipperControlAnimation(true);
                 ToggleShareBtnAnimation(true);
                 ToggleInfoGridAnimation(true);
@@ -203,11 +199,22 @@ namespace MyerSplash.UC
             { Rect = new Rect(0, 0, DetailContentGrid.ActualWidth, DetailContentGrid.Height) };
         }
 
+        private async Task CheckImageDownloadStatusAsync()
+        {
+            await CurrentImage.CheckDownloadedAsync();
+            this.FlipperControl.DisplayIndex = (int)CurrentImage.DownloadStatus;
+        }
+
         #region Download animation
 
         private async void DownloadBtn_Click(object sender, RoutedEventArgs e)
         {
-            FlipperControl.DisplayIndex = (int)DownloadStatus.Donwloading;
+            if (CurrentImage.DownloadStatus == DownloadStatus.OK)
+            {
+                return;
+            }
+
+            FlipperControl.DisplayIndex = (int)DownloadStatus.Downloading;
 
             try
             {
@@ -219,6 +226,7 @@ namespace MyerSplash.UC
                 //Still in this page
                 if (IsShown)
                 {
+                    CurrentImage.DownloadStatus = DownloadStatus.OK;
                     FlipperControl.DisplayIndex = (int)DownloadStatus.OK;
                     ToastService.SendToast("Saved :D", 1000);
                 }
