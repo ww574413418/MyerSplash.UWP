@@ -577,7 +577,10 @@ namespace MyerSplash.ViewModel
         private async Task RestoreMainListDataAsync()
         {
             InitDataVM();
-
+            if (AppSettings.Instance.DefaultCategory == 0)
+            {
+                return;
+            }
             var file = await CacheUtil.GetCachedFileFolder().TryGetFileAsync(CachedFileNames.MainListFileName);
             if (file != null)
             {
@@ -585,7 +588,6 @@ namespace MyerSplash.ViewModel
                 var list = JsonConvert.DeserializeObject<List<UnsplashImage>>(str);
                 if (list != null)
                 {
-                    //this.DataVM = new ImageDataViewModel(UrlHelper.GetNewImages, false);
                     list.ForEach(s => DataVM.DataList.Add(s));
 
                     for (int i = 0; i < DataVM.DataList.Count; i++)
@@ -599,16 +601,29 @@ namespace MyerSplash.ViewModel
                     return;
                 }
             }
-            //InitDataVM();
         }
 
         private void InitDataVM()
         {
+            if (!string.IsNullOrEmpty(_launcherArg))
+            {
+                if (_launcherArg == Constant.RANDOM_KEY)
+                {
+                    DataVM = new RandomImagesDataViewModel(UrlHelper.GetRandomImages, false);
+                    ShowDiceIcon = true;
+                    return;
+                }
+                else if (_launcherArg == Constant.SEARCH_KEY)
+                {
+                    ShowSearchBar = true;
+                }
+            }
             switch (AppSettings.Instance.DefaultCategory)
             {
                 case 0:
                     {
-                        DataVM = new ImageDataViewModel(UrlHelper.GetRandomImages, false);
+                        DataVM = new RandomImagesDataViewModel(UrlHelper.GetRandomImages, false);
+                        ShowDiceIcon = true;
                     }; break;
                 case 1:
                     {
@@ -616,7 +631,7 @@ namespace MyerSplash.ViewModel
                     }; break;
                 case 2:
                     {
-                        DataVM = new ImageDataViewModel(UrlHelper.GetFeaturedImages, false);
+                        DataVM = new ImageDataViewModel(UrlHelper.GetFeaturedImages, true);
                     }; break;
             }
         }
@@ -693,8 +708,15 @@ namespace MyerSplash.ViewModel
             }
         }
 
+        private string _launcherArg;
+
         public void Activate(object param)
         {
+            _launcherArg = param as string;
+            if (_launcherArg == Constant.SEARCH_KEY)
+            {
+                ShowSearchBar = true;
+            }
             if (DeviceHelper.IsDesktop)
             {
                 if (!LocalSettingHelper.HasValue("TIPS221"))

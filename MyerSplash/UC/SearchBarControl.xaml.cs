@@ -77,7 +77,7 @@ namespace MyerSplash.UC
         {
             this.Visibility = Visibility.Visible;
 
-            if(Shown)
+            if (Shown)
             {
                 InputTB.Focus(FocusState.Programmatic);
             }
@@ -101,7 +101,7 @@ namespace MyerSplash.UC
                   }
                   else
                   {
-                      
+
                   }
               };
             batch.End();

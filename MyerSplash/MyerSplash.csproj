@@ -107,9 +107,11 @@
     <Compile Include="Common\AppSettings.cs" />
     <Compile Include="Common\BindablePage.cs" />
     <Compile Include="Common\CachedFileNames.cs" />
+    <Compile Include="Common\Constant.cs" />
     <Compile Include="Common\CustomizedTitleBarPage.cs" />
     <Compile Include="Common\DownloadStatus.cs" />
     <Compile Include="Common\GlobalLocaleHelper.cs" />
+    <Compile Include="Common\JumpListHelper.cs" />
     <Compile Include="Common\NavigationService.cs" />
     <Compile Include="Common\ToastHelper.cs" />
     <Compile Include="Common\NavigableUserControl.cs" />
@@ -202,6 +204,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Icon\dice.png" />
+    <Content Include="Assets\Icon\search.png" />
     <Content Include="Assets\Icon\Logo_black.png" />
     <Content Include="Assets\Icon\Logo_trans.png" />
     <Content Include="Assets\Icon\Logo_trans_narrow.png" />
