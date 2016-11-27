@@ -8,6 +8,49 @@
              d:DesignHeight="600"
              d:DesignWidth="900"
              mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style x:Key="MenuFlyoutPresenterStyle1" TargetType="MenuFlyoutPresenter">
+            <Setter Property="Background" Value="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}" />
+            <Setter Property="BorderBrush" Value="{ThemeResource SystemControlForegroundChromeHighBrush}" />
+            <Setter Property="BorderThickness" Value="{ThemeResource FlyoutBorderThemeThickness}" />
+            <Setter Property="MinHeight" Value="56" />
+            <Setter Property="Padding" Value="{ThemeResource MenuFlyoutPresenterThemePadding}" />
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+            <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Disabled" />
+            <Setter Property="ScrollViewer.IsHorizontalRailEnabled" Value="False" />
+            <Setter Property="ScrollViewer.IsVerticalRailEnabled" Value="False" />
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+            <Setter Property="ScrollViewer.VerticalScrollMode" Value="Auto" />
+            <Setter Property="ScrollViewer.ZoomMode" Value="Disabled" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="MenuFlyoutPresenter">
+                        <Grid Background="Transparent">
+                            <ScrollViewer x:Name="MenuFlyoutPresenterScrollViewer"
+                                          MinWidth="{Binding TemplateSettings.FlyoutContentMinWidth,
+                                                             RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                                          Margin="0,0,0,0"
+                                          AutomationProperties.AccessibilityView="Raw"
+                                          Foreground="White"
+                                          HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                                          HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}"
+                                          IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}"
+                                          IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}"
+                                          Padding="{TemplateBinding Padding}"
+                                          VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                                          VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}"
+                                          ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}">
+                                <ItemsPresenter Margin="0" />
+                            </ScrollViewer>
+                            <Border x:Name="MenuFlyoutPresenterBorder"
+                                    BorderBrush="Transparent"
+                                    BorderThickness="{TemplateBinding BorderThickness}" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid x:Name="DetailGrid"
           Grid.RowSpan="5"
           Margin="0 5 0 0"
@@ -167,13 +210,16 @@
                                     VerticalAlignment="Stretch"
                                     Background="{x:Null}"
                                     BorderThickness="0"
+                                    Click="OKBtn_Click"
                                     IsEnabled="False"
                                     Style="{StaticResource ButtonCommonStyle}">
                                 <Grid>
                                     <Ellipse Width="50"
                                              Height="50"
                                              Fill="{StaticResource MyerSplashThemeColor}" />
-                                    <SymbolIcon Foreground="White" Symbol="Accept" />
+                                    <FontIcon FontFamily="Segoe MDL2 Assets"
+                                              Foreground="White"
+                                              Glyph="&#xE001;" />
                                 </Grid>
                             </Button>
                             <Grid x:Name="LoadingHintGrid"
@@ -242,6 +288,49 @@
 
                 </Grid>
             </StackPanel>
+            <!--<Grid Margin="0,0,12,30"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Bottom">
+                <StackPanel x:Name="MenuSP"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom">
+                    <Button HorizontalAlignment="Stretch"
+                            x:Name="SetAsBackgroundBtn"
+                            Click="SetAsBackgroundBtn_Click"
+                            Style="{StaticResource ButtonCommonStyle}">
+                        <Border Background="Black" CornerRadius="2">
+                            <TextBlock Margin="8"
+                                       FontSize="12"
+                                       Foreground="White"
+                                       Text="Background" />
+                        </Border>
+                    </Button>
+                    <Button Margin="0,4,0,0"
+                            x:Name="SetAsLockscreenBtn"
+                            Click="SetAsLockscreenBtn_Click"
+                            HorizontalAlignment="Stretch"
+                            Style="{StaticResource ButtonCommonStyle}">
+                        <Border Background="Black" CornerRadius="2">
+                            <TextBlock Margin="8"
+                                       FontSize="12"
+                                       Foreground="White"
+                                       Text="Lockscreen" />
+                        </Border>
+                    </Button>
+                    <Button Margin="0,4,0,0"
+                            HorizontalAlignment="Stretch"
+                            x:Name="SetAsBothBtn"
+                            Click="SetAsBothBtn_Click"
+                            Style="{StaticResource ButtonCommonStyle}">
+                        <Border Background="Black" CornerRadius="2">
+                            <TextBlock Margin="8"
+                                       FontSize="12"
+                                       Foreground="White"
+                                       Text="Both" />
+                        </Border>
+                    </Button>
+                </StackPanel>
+            </Grid>-->
         </Grid>
     </Grid>
 </UserControl>

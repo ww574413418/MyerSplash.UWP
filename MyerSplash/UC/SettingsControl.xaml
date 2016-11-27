@@ -498,7 +498,7 @@
                             </Border>
                         </Button>
                     </StackPanel>
-                    <TextBlock Margin="10,10,0,0"
+                    <!--<TextBlock Margin="10,10,0,0"
                                VerticalAlignment="Center"
                                Foreground="White"
                                Text="Default category" />
@@ -513,7 +513,7 @@
                         <ComboBoxItem Content="Random" Style="{StaticResource ComboBoxItemStyle}" />
                         <ComboBoxItem Content="New" Style="{StaticResource ComboBoxItemStyle}" />
                         <ComboBoxItem Content="Featured" Style="{StaticResource ComboBoxItemStyle}" />
-                    </ComboBox>
+                    </ComboBox>-->
                     <TextBlock Margin="10,10,0,0"
                                VerticalAlignment="Center"
                                Foreground="White"

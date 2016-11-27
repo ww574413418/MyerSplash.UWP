@@ -22,9 +22,9 @@ namespace MyerSplash.UC
         public ManageDownloadControl()
         {
             this.InitializeComponent();
-            if(!DesignMode.DesignModeEnabled)
+            if (!DesignMode.DesignModeEnabled)
             {
-                if(DeviceHelper.IsMobile)
+                if (DeviceHelper.IsMobile)
                 {
                     ImageGridView.MinItemWidth = 160;
                     ImageGridView.MinItemHeight = 208;

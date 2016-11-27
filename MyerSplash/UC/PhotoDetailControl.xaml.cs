@@ -17,6 +17,7 @@ using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
@@ -201,11 +202,11 @@ namespace MyerSplash.UC
 
         private async Task CheckImageDownloadStatusAsync()
         {
-            await CurrentImage.CheckDownloadedAsync();
+            await CurrentImage.CheckAndGetDownloadedFileAsync();
             this.FlipperControl.DisplayIndex = (int)CurrentImage.DownloadStatus;
         }
 
-        #region Download animation
+        #region Download
 
         private async void DownloadBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -221,6 +222,7 @@ namespace MyerSplash.UC
                 _cts = new CancellationTokenSource();
                 var item = new DownloadItem(CurrentImage);
                 App.VMLocator.DownloadsVM.AddDownloadingImage(item);
+
                 await item.DownloadFullImageAsync(_cts);
 
                 //Still in this page
@@ -295,6 +297,35 @@ namespace MyerSplash.UC
             CopyFlipperControl.DisplayIndex = 1;
             await Task.Delay(2000);
             CopyFlipperControl.DisplayIndex = 0;
+        }
+
+        private void OKBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private async void SetAsBackgroundBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (CurrentImage.DownloadedFile != null)
+            {
+                await WallpaperSettingHelper.SetAsBackgroundAsync(CurrentImage.DownloadedFile);
+            }
+        }
+
+        private async void SetAsLockscreenBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (CurrentImage.DownloadedFile != null)
+            {
+                await WallpaperSettingHelper.SetAsLockscreenAsync(CurrentImage.DownloadedFile);
+            }
+        }
+
+        private async void SetAsBothBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (CurrentImage.DownloadedFile != null)
+            {
+                await WallpaperSettingHelper.SetBothAsync(CurrentImage.DownloadedFile);
+            }
         }
     }
 }
