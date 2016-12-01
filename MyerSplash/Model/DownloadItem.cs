@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using JP.Utils.Debug;
 using MyerSplash.Common;
 using MyerSplashCustomControl;
@@ -404,6 +405,8 @@ namespace MyerSplash.Model
             {
                 _resultFile = e.ResultFile;
                 Image.DownloadStatus = Common.DownloadStatus.OK;
+                Image.DownloadedFile = _resultFile as StorageFile;
+                Messenger.Default.Send(new GenericMessage<string>(Image.ID), MessengerTokens.REPORT_DOWNLOADED);
             }
         }
     }

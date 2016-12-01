@@ -1,4 +1,5 @@
-﻿using JP.Utils.Debug;
+﻿using GalaSoft.MvvmLight.Messaging;
+using JP.Utils.Debug;
 using JP.Utils.UI;
 using MyerSplash.Common;
 using MyerSplash.Model;
@@ -72,6 +73,15 @@ namespace MyerSplash.UC
             this.DataContext = this;
             _dataTransferManager = DataTransferManager.GetForCurrentView();
             _dataTransferManager.DataRequested += _dataTransferManager_DataRequested;
+
+            Messenger.Default.Register<GenericMessage<string>>(this, MessengerTokens.REPORT_DOWNLOADED, msg =>
+              {
+                  var id = msg.Content;
+                  if (id == CurrentImage.ID)
+                  {
+                      FlipperControl.DisplayIndex = (int)DownloadStatus.OK;
+                  }
+              });
         }
 
         private async void _dataTransferManager_DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
@@ -299,9 +309,9 @@ namespace MyerSplash.UC
             CopyFlipperControl.DisplayIndex = 0;
         }
 
-        private void OKBtn_Click(object sender, RoutedEventArgs e)
+        private async void OKBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            await Launcher.LaunchFileAsync(CurrentImage.DownloadedFile);
         }
 
         private async void SetAsBackgroundBtn_Click(object sender, RoutedEventArgs e)
