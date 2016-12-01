@@ -1,8 +1,8 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using JP.Utils.Debug;
 using MyerSplash.Common;
-using MyerSplash.UC;
 using MyerSplashCustomControl;
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 using Windows.Networking.BackgroundTransfer;
 using Windows.Storage;
 using Windows.System;
-using Windows.System.UserProfile;
 
 namespace MyerSplash.Model
 {
@@ -168,30 +167,7 @@ namespace MyerSplash.Model
                 return _setWallpaperCommand = new RelayCommand(async () =>
                 {
                     IsMenuOn = false;
-
-                    var uc = new LoadingTextControl() { LoadingText = "Setting background..." };
-                    await PopupService.Instance.ShowAsync(uc);
-
-                    var file = await PrepareImageFileAsync();
-                    if (file != null)
-                    {
-                        var ok = await UserProfilePersonalizationSettings.Current.TrySetWallpaperImageAsync(file);
-                        if (ok)
-                        {
-                            ToastService.SendToast("Set as wallpaper successfully.");
-                        }
-                        else
-                        {
-                            ToastService.SendToast("Fail to set as background. #API ERROR.");
-                        }
-                        await file.DeleteAsync(StorageDeleteOption.PermanentDelete);
-                    }
-                    else
-                    {
-                        ToastService.SendToast("Can't find the image file.");
-                    }
-
-                    PopupService.Instance.TryHide(1000);
+                    await WallpaperSettingHelper.SetAsBackgroundAsync(_resultFile as StorageFile);
                 });
             }
         }
@@ -206,29 +182,7 @@ namespace MyerSplash.Model
                 return _setLockWallpaperCommand = new RelayCommand(async () =>
                 {
                     IsMenuOn = false;
-
-                    var uc = new LoadingTextControl() { LoadingText = "Setting lockscreen..." };
-                    await PopupService.Instance.ShowAsync(uc);
-
-                    var file = await PrepareImageFileAsync();
-                    if (file != null)
-                    {
-                        var ok = await UserProfilePersonalizationSettings.Current.TrySetLockScreenImageAsync(file);
-                        if (ok)
-                        {
-                            ToastService.SendToast("Set as lock screen successfully.");
-                        }
-                        else
-                        {
-                            ToastService.SendToast("Fail to set as lock screen. #API ERROR.");
-                        }
-                        await file.DeleteAsync(StorageDeleteOption.PermanentDelete);
-                    }
-                    else
-                    {
-                        ToastService.SendToast("Can't find the image file.");
-                    }
-                    PopupService.Instance.TryHide(1000);
+                    await WallpaperSettingHelper.SetAsLockscreenAsync(_resultFile as StorageFile);
                 });
             }
         }
@@ -243,30 +197,7 @@ namespace MyerSplash.Model
                 return _setBothCommand = new RelayCommand(async () =>
                 {
                     IsMenuOn = false;
-
-                    var uc = new LoadingTextControl() { LoadingText = "Setting background and lockscreen..." };
-                    await PopupService.Instance.ShowAsync(uc);
-
-                    var file = await PrepareImageFileAsync();
-                    if (file != null)
-                    {
-                        var result1 = await UserProfilePersonalizationSettings.Current.TrySetWallpaperImageAsync(file);
-                        var result2 = await UserProfilePersonalizationSettings.Current.TrySetLockScreenImageAsync(file);
-                        if (result1 && result2)
-                        {
-                            ToastService.SendToast("Successfully.");
-                        }
-                        else
-                        {
-                            ToastService.SendToast("Fail to set as wallpaper and lock screen. #API ERROR.");
-                        }
-                        await file.DeleteAsync(StorageDeleteOption.PermanentDelete);
-                    }
-                    else
-                    {
-                        ToastService.SendToast("Can't find the image file.");
-                    }
-                    PopupService.Instance.TryHide(1000);
+                    await WallpaperSettingHelper.SetBothAsync(_resultFile as StorageFile);
                 });
             }
         }
@@ -367,41 +298,12 @@ namespace MyerSplash.Model
             DisplayIndex = (int)DisplayMenu.SetAs;
         }
 
-        private async Task<StorageFile> PrepareImageFileAsync()
-        {
-            if (!UserProfilePersonalizationSettings.IsSupported())
-            {
-                ToastService.SendToast("Your device can set wallpaper.");
-                return null;
-            }
-            if (_resultFile != null)
-            {
-                StorageFile file = null;
-
-                //WTF, the file should be copy to LocalFolder to make the setting wallpaer api work.
-                var folder = ApplicationData.Current.LocalFolder;
-                var oldFile = await folder.TryGetItemAsync(_resultFile.Name) as StorageFile;
-                if (oldFile != null)
-                {
-                    await _resultFile.CopyAndReplaceAsync(oldFile);
-                }
-                else
-                {
-                    file = await _resultFile.CopyAsync(folder);
-                }
-
-                return file;
-            }
-
-            return null;
-        }
-
         public async Task CheckDownloadStatusAsync(IReadOnlyList<DownloadOperation> operations)
         {
             var task = Image.RestoreDataAsync();
 
             var folder = await AppSettings.Instance.GetSavingFolderAsync();
-            var item = await folder.TryGetItemAsync(GetFileNameForDownloading());
+            var item = await folder.TryGetItemAsync(Image.GetFileNameForDownloading());
             if (item != null)
             {
                 var file = item as StorageFile;
@@ -432,12 +334,6 @@ namespace MyerSplash.Model
             }
         }
 
-        private string GetFileNameForDownloading()
-        {
-            var fileName = $"{Image.Owner.Name}  {Image.CreateTimeString}.jpg";
-            return fileName;
-        }
-
         public async Task AwaitGuidCreatedAsync()
         {
             if (_tcs != null)
@@ -456,15 +352,17 @@ namespace MyerSplash.Model
 
             if (string.IsNullOrEmpty(url)) return;
 
+            Image.DownloadStatus = Common.DownloadStatus.Downloading;
+
             ToastService.SendToast("Downloading in background...", 2000);
 
             var folder = await AppSettings.Instance.GetSavingFolderAsync();
 
-            var newFile = await folder.CreateFileAsync(GetFileNameForDownloading(), CreationCollisionOption.OpenIfExists);
+            var newFile = await folder.CreateFileAsync(Image.GetFileNameForDownloading(), CreationCollisionOption.OpenIfExists);
 
             var backgroundDownloader = new BackgroundDownloader();
             backgroundDownloader.SuccessToastNotification = ToastHelper.CreateToastNotification("Saved:D",
-                                $"Tap to open {folder.Path}.");
+                                $"Find it in {folder.Path}.");
 
             var downloadOperation = backgroundDownloader.CreateDownload(new Uri(url), newFile);
             downloadOperation.Priority = BackgroundTransferPriority.High;
@@ -488,9 +386,12 @@ namespace MyerSplash.Model
                 ToastService.SendToast("Download has been cancelled.");
                 DownloadStatus = "";
                 DisplayIndex = (int)DisplayMenu.Retry;
+                Image.DownloadStatus = Common.DownloadStatus.Pending;
+                throw;
             }
             catch (Exception e)
             {
+                Image.DownloadStatus = Common.DownloadStatus.Pending;
                 await Logger.LogAsync(e);
                 ToastService.SendToast("ERROR" + e.Message, 2000);
             }
@@ -503,6 +404,9 @@ namespace MyerSplash.Model
             if (Progress >= 100)
             {
                 _resultFile = e.ResultFile;
+                Image.DownloadStatus = Common.DownloadStatus.OK;
+                Image.DownloadedFile = _resultFile as StorageFile;
+                Messenger.Default.Send(new GenericMessage<string>(Image.ID), MessengerTokens.REPORT_DOWNLOADED);
             }
         }
     }

@@ -68,6 +68,19 @@ namespace MyerSplash.Common
             }
         }
 
+        public int DefaultCategory
+        {
+            get
+            {
+                return ReadSettings(nameof(DefaultCategory), 1);
+            }
+            set
+            {
+                SaveSettings(nameof(DefaultCategory), value);
+                RaisePropertyChanged(() => DefaultCategory);
+            }
+        }
+
         public int LoadQuality
         {
             get

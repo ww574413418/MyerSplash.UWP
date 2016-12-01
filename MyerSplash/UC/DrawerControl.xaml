@@ -9,28 +9,35 @@
              d:DesignHeight="700"
              d:DesignWidth="300"
              mc:Ignorable="d">
-    <Grid Background="{StaticResource MyerSplashDarkColor}">
+    <Grid Background="{StaticResource TitleBarDarkBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="200" />
+            <RowDefinition Height="120" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Grid>
-            <Image Source="ms-appx:///Assets/Image/The Watchtower.jpg" Stretch="UniformToFill" />
-            <TextBlock Margin="24,0,0,20"
-                       HorizontalAlignment="Left"
-                       VerticalAlignment="Bottom"
-                       FontSize="20"
-                       FontWeight="Bold"
-                       Foreground="White"
-                       Text="MyerSplash" />
-            <Button Width="64"
+        <Grid Margin="0,0,0,0">
+            <StackPanel Margin="0,0,0,12" VerticalAlignment="Bottom">
+                <StackPanel Margin="24,0,0,4" Orientation="Horizontal">
+                    <TextBlock VerticalAlignment="Bottom"
+                               FontFamily="Segoe UI Light"
+                               FontSize="24"
+                               FontWeight="ExtraLight"
+                               Foreground="White"
+                               Text="Myer" />
+                    <TextBlock FontSize="24"
+                               FontWeight="Bold"
+                               Foreground="White"
+                               Text="Splash" />
+                </StackPanel>
+            </StackPanel>
+
+            <Button x:Name="DownloadEntryBtn"
+                    Width="64"
                     Height="64.4"
-                    x:Name="DownloadEntryBtn"
-                    Visibility="Collapsed"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
                     Command="{x:Bind MainVM.ShowDownloadsCommand, Mode=OneWay}"
-                    Style="{StaticResource ListButtonStyle}">
+                    Style="{StaticResource ListButtonStyle}"
+                    Visibility="Visible">
                 <FontIcon FontFamily="Segoe MDL2 Assets"
                           Foreground="White"
                           Glyph="&#xE118;" />
@@ -40,10 +47,9 @@
             <ScrollViewer Margin="0,0,0,0"
                           HorizontalAlignment="Center"
                           attach:ScrollViewerStyleChanger.Style="{StaticResource ScrollViewerCommonStyle}"
-                          VerticalScrollBarVisibility="Auto"
+                          VerticalScrollBarVisibility="Hidden"
                           VerticalScrollMode="Auto">
                 <ListBox Margin="0,0,0,70"
-                         attach:ScrollViewerStyleChanger.Style="{StaticResource ScrollViewerCommonStyle}"
                          Background="{x:Null}"
                          ItemContainerStyle="{StaticResource MenuListBoxItemStyle}"
                          ItemsSource="{x:Bind MainVM.Categories, Mode=OneWay}"
@@ -62,8 +68,7 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
             </ScrollViewer>
-
-            <Grid VerticalAlignment="Bottom" Background="{StaticResource MyerSplashDarkColor}">
+            <Grid VerticalAlignment="Bottom" Background="{StaticResource TitleBarDarkBrush}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />

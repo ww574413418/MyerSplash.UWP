@@ -107,11 +107,16 @@
     <Compile Include="Common\AppSettings.cs" />
     <Compile Include="Common\BindablePage.cs" />
     <Compile Include="Common\CachedFileNames.cs" />
+    <Compile Include="Common\Constant.cs" />
     <Compile Include="Common\CustomizedTitleBarPage.cs" />
+    <Compile Include="Common\DownloadStatus.cs" />
     <Compile Include="Common\GlobalLocaleHelper.cs" />
+    <Compile Include="Common\JumpListHelper.cs" />
+    <Compile Include="Common\MessengerTokens.cs" />
     <Compile Include="Common\NavigationService.cs" />
     <Compile Include="Common\ToastHelper.cs" />
     <Compile Include="Common\NavigableUserControl.cs" />
+    <Compile Include="Common\WallpaperSettingHelper.cs" />
     <Compile Include="Converter\BoolToVisibilityConverter.cs" />
     <Compile Include="Interface\INavigableUserControl.cs" />
     <Compile Include="Interface\IUnsplashImage.cs" />
@@ -164,6 +169,9 @@
     <Compile Include="UC\PhotoDetailControl.xaml.cs">
       <DependentUpon>PhotoDetailControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UC\TipsControl.xaml.cs">
+      <DependentUpon>TipsControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\AboutViewModel.cs" />
     <Compile Include="ViewModel\DataViewModel\DataViewModelBase.cs" />
     <Compile Include="Common\IncrementalLoadingCollection.cs" />
@@ -198,12 +206,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Icon\dice.png" />
+    <Content Include="Assets\Icon\search.png" />
     <Content Include="Assets\Icon\Logo_black.png" />
     <Content Include="Assets\Icon\Logo_trans.png" />
     <Content Include="Assets\Icon\Logo_trans_narrow.png" />
     <Content Include="Assets\Icon\Logo_white.png" />
     <Content Include="Assets\Image\Banner.jpg" />
-    <Content Include="Assets\Image\The Watchtower.jpg" />
+    <Content Include="Assets\Image\tips1.png" />
+    <Content Include="Assets\Image\tips2.png" />
     <Content Include="Assets\Logo-500.png" />
     <Content Include="Assets\NewStoreLogo.scale-100.png" />
     <Content Include="Assets\NewStoreLogo.scale-125.png" />
@@ -335,6 +345,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UC\PhotoDetailControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\TipsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

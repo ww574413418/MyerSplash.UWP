@@ -22,6 +22,7 @@ namespace MyerSplash.UC
             {
                 DownloadEntryBtn.Visibility = Visibility.Visible;
             }
+            else DownloadEntryBtn.Visibility = Visibility.Collapsed;
         }
     }
 }

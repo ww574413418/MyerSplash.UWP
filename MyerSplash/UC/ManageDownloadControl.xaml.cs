@@ -1,5 +1,7 @@
-﻿using MyerSplash.Common;
+﻿using JP.Utils.Helper;
+using MyerSplash.Common;
 using MyerSplash.ViewModel;
+using Windows.ApplicationModel;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -20,6 +22,14 @@ namespace MyerSplash.UC
         public ManageDownloadControl()
         {
             this.InitializeComponent();
+            if (!DesignMode.DesignModeEnabled)
+            {
+                if (DeviceHelper.IsMobile)
+                {
+                    ImageGridView.MinItemWidth = 160;
+                    ImageGridView.MinItemHeight = 208;
+                }
+            }
         }
 
         public void CloseBtn_Click(object sender, RoutedEventArgs e)

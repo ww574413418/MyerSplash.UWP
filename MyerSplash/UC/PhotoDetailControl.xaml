@@ -2,11 +2,55 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:flipper="using:FlipperControl"
              xmlns:local="using:MyerSplash.UC"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              d:DesignHeight="600"
              d:DesignWidth="900"
              mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style x:Key="MenuFlyoutPresenterStyle1" TargetType="MenuFlyoutPresenter">
+            <Setter Property="Background" Value="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}" />
+            <Setter Property="BorderBrush" Value="{ThemeResource SystemControlForegroundChromeHighBrush}" />
+            <Setter Property="BorderThickness" Value="{ThemeResource FlyoutBorderThemeThickness}" />
+            <Setter Property="MinHeight" Value="56" />
+            <Setter Property="Padding" Value="{ThemeResource MenuFlyoutPresenterThemePadding}" />
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+            <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Disabled" />
+            <Setter Property="ScrollViewer.IsHorizontalRailEnabled" Value="False" />
+            <Setter Property="ScrollViewer.IsVerticalRailEnabled" Value="False" />
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+            <Setter Property="ScrollViewer.VerticalScrollMode" Value="Auto" />
+            <Setter Property="ScrollViewer.ZoomMode" Value="Disabled" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="MenuFlyoutPresenter">
+                        <Grid Background="Transparent">
+                            <ScrollViewer x:Name="MenuFlyoutPresenterScrollViewer"
+                                          MinWidth="{Binding TemplateSettings.FlyoutContentMinWidth,
+                                                             RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                                          Margin="0,0,0,0"
+                                          AutomationProperties.AccessibilityView="Raw"
+                                          Foreground="White"
+                                          HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                                          HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}"
+                                          IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}"
+                                          IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}"
+                                          Padding="{TemplateBinding Padding}"
+                                          VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                                          VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}"
+                                          ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}">
+                                <ItemsPresenter Margin="0" />
+                            </ScrollViewer>
+                            <Border x:Name="MenuFlyoutPresenterBorder"
+                                    BorderBrush="Transparent"
+                                    BorderThickness="{TemplateBinding BorderThickness}" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid x:Name="DetailGrid"
           Grid.RowSpan="5"
           Margin="0 5 0 0"
@@ -32,7 +76,11 @@
                 <Grid x:Name="InfoGrid"
                       Grid.Row="1"
                       Background="{x:Bind CurrentImage.MajorColor, Mode=OneWay}">
-                    <StackPanel Margin="20,20,150,20"
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="619*"/>
+                        <ColumnDefinition Width="21*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Margin="20,28,0,27"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center">
                         <TextBlock x:Name="ByTB"
@@ -53,27 +101,52 @@
                                        TextTrimming="CharacterEllipsis" />
                         </Button>
                     </StackPanel>
-                    <Button x:Name="CopyUlrBtn"
-                            Grid.RowSpan="2"
-                            Margin="0,0,10,22"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Bottom"
-                            Background="{x:Null}"
-                            Command="{x:Bind CurrentImage.CopyUrlCommand, Mode=OneWay}"
-                            Style="{StaticResource ButtonCommonStyle}">
-                        <Grid>
-                            <Border x:Name="CopyUrlBorder"
-                                    Background="{x:Bind CurrentImage.InfoForeColor, FallbackValue=White, Mode=OneWay}"
-                                    CornerRadius="2"
-                                    Opacity="0.6" />
-                            <TextBlock x:Uid="CopyUrlTB"
-                                       x:Name="CopyUrlTB"
-                                       Margin="15,5"
-                                       FontWeight="Bold"
-                                       Foreground="{x:Bind CurrentImage.BtnForeColor, Mode=OneWay}"
-                                       Text="COPY URL" />
-                        </Grid>
-                    </Button>
+                    <flipper:FlipperControl x:Name="CopyFlipperControl"
+                                            Margin="0,0,10,22"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Bottom"
+                                            AnimationDuration="150"
+                                            DisplayIndex="0"
+                                            FlipDirection="BackToFront" Grid.ColumnSpan="2">
+                        <flipper:FlipperControl.Views>
+                            <Button HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="{x:Null}"
+                                    BorderThickness="0"
+                                    Style="{StaticResource ButtonCommonStyle}">
+                                <Grid>
+                                    <Border Background="{x:Bind CurrentImage.InfoForeColor, FallbackValue=White, Mode=OneWay}"
+                                            CornerRadius="2"
+                                            Opacity="1" />
+                                    <TextBlock Margin="15,5"
+                                               FontWeight="Bold"
+                                               Foreground="{x:Bind CurrentImage.BtnForeColor, Mode=OneWay}"
+                                               Text="Copied :D" />
+                                </Grid>
+                            </Button>
+                            <Button x:Name="CopyUlrBtn"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="{x:Null}"
+                                    BorderThickness="0"
+                                    Click="CopyUlrBtn_Click"
+                                    Command="{x:Bind CurrentImage.CopyUrlCommand, Mode=OneWay}"
+                                    Style="{StaticResource ButtonCommonStyle}">
+                                <Grid>
+                                    <Border x:Name="CopyUrlBorder"
+                                            Background="{x:Bind CurrentImage.InfoForeColor, FallbackValue=White, Mode=OneWay}"
+                                            CornerRadius="2"
+                                            Opacity="0.6" />
+                                    <TextBlock x:Name="CopyUrlTB"
+                                               Margin="15,5"
+                                               FontWeight="Bold"
+                                               Foreground="{x:Bind CurrentImage.BtnForeColor, Mode=OneWay}"
+                                               Text="COPY URL" />
+                                </Grid>
+                            </Button>
+                        </flipper:FlipperControl.Views>
+                    </flipper:FlipperControl>
+
                 </Grid>
             </Grid>
             <Grid>
@@ -123,76 +196,140 @@
                     </Grid>
                 </Button>
                 <Grid Grid.RowSpan="2" Margin="0,0,10,0">
-                    <Button x:Name="OKBtn"
-                            Grid.RowSpan="2"
-                            Margin="0"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            Background="{x:Null}"
-                            IsEnabled="False"
-                            Style="{StaticResource ButtonCommonStyle}">
-                        <Grid>
-                            <Ellipse Width="50"
-                                     Height="50"
-                                     Fill="{StaticResource MyerSplashThemeColor}" />
-                            <SymbolIcon Foreground="White" Symbol="Accept" />
-                        </Grid>
-                    </Button>
-                    <Button x:Name="DownloadBtn"
-                            Grid.RowSpan="2"
-                            Margin="0"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            Background="{x:Null}"
-                            Click="DownloadBtn_Click"
-                            Style="{StaticResource ButtonCommonStyle}">
-                        <Grid>
-                            <Ellipse Width="50"
-                                     Height="50"
-                                     Fill="{StaticResource MyerSplashThemeColor}" />
-                            <SymbolIcon Foreground="White" Symbol="Download" />
-                        </Grid>
-                    </Button>
-                    <Grid x:Name="LoadingHintGrid">
-                        <Button x:Name="CancelBtn"
-                                Grid.RowSpan="2"
-                                Margin="0"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
-                                Background="{x:Null}"
-                                Click="CancelBtn_Click"
-                                IsEnabled="True"
-                                Style="{StaticResource ButtonCommonStyle}">
-                            <Grid>
-                                <Ellipse Width="50"
-                                         Height="50"
-                                         Fill="{StaticResource MyerSplashThemeColor}" />
-                                <SymbolIcon Foreground="White" Symbol="Cancel" />
-                            </Grid>
-                        </Button>
-                        <Canvas Width="50" Height="50">
-                            <Path x:Name="LoadingPath"
+                    <flipper:FlipperControl x:Name="FlipperControl"
+                                            Width="50"
+                                            Height="50"
+                                            AnimationDuration="150"
+                                            DisplayIndex="0"
+                                            EnablePerspect="False"
+                                            FlipDirection="BackToFront">
+                        <flipper:FlipperControl.Views>
+                            <Button x:Name="OKBtn"
+                                    Grid.RowSpan="2"
+                                    Width="50"
+                                    Height="50"
+                                    Margin="0"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    Background="{x:Null}"
+                                    BorderThickness="0"
+                                    Click="OKBtn_Click"
+                                    Style="{StaticResource ButtonCommonStyle}">
+                                <Grid>
+                                    <Ellipse Width="50"
+                                             Height="50" Fill="{StaticResource ImageBackBrush2}" />
+                                    <FontIcon FontFamily="Segoe MDL2 Assets"
+                                              Glyph="&#xEC50;" Foreground="White" />
+                                </Grid>
+                            </Button>
+                            <Grid x:Name="LoadingHintGrid"
                                   Width="50"
-                                  Height="50"
-                                  Stroke="#CCFFFFFF"
-                                  StrokeThickness="3">
-                                <Path.Data>
-                                    <PathGeometry>
-                                        <PathGeometry.Figures>
-                                            <PathFigure IsClosed="False" StartPoint="25,1">
-                                                <ArcSegment IsLargeArc="False"
-                                                            Point="49,25"
-                                                            Size="24 24"
-                                                            SweepDirection="Clockwise" />
-                                            </PathFigure>
-                                        </PathGeometry.Figures>
-                                    </PathGeometry>
-                                </Path.Data>
-                            </Path>
-                        </Canvas>
-                    </Grid>
+                                  Height="50">
+                                <Button x:Name="CancelBtn"
+                                        Grid.RowSpan="2"
+                                        Width="50"
+                                        Height="50"
+                                        Margin="0"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        Background="{x:Null}"
+                                        BorderThickness="0"
+                                        Click="CancelBtn_Click"
+                                        IsEnabled="True"
+                                        Style="{StaticResource ButtonCommonStyle}">
+                                    <Grid>
+                                        <Ellipse Width="50"
+                                                 Height="50"
+                                                 Fill="{StaticResource MyerSplashThemeColor}" />
+                                        <SymbolIcon Foreground="White" Symbol="Cancel" />
+                                    </Grid>
+                                </Button>
+                                <Canvas Width="50" Height="50">
+                                    <Path x:Name="LoadingPath"
+                                          Width="50"
+                                          Height="50"
+                                          Stroke="#CCFFFFFF"
+                                          StrokeThickness="3">
+                                        <Path.Data>
+                                            <PathGeometry>
+                                                <PathGeometry.Figures>
+                                                    <PathFigure IsClosed="False" StartPoint="25,1">
+                                                        <ArcSegment IsLargeArc="False"
+                                                                    Point="49,25"
+                                                                    Size="24 24"
+                                                                    SweepDirection="Clockwise" />
+                                                    </PathFigure>
+                                                </PathGeometry.Figures>
+                                            </PathGeometry>
+                                        </Path.Data>
+                                    </Path>
+                                </Canvas>
+                            </Grid>
+                            <Button x:Name="DownloadBtn"
+                                    Grid.RowSpan="2"
+                                    Margin="0"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    Background="{x:Null}"
+                                    BorderThickness="0"
+                                    Click="DownloadBtn_Click"
+                                    Style="{StaticResource ButtonCommonStyle}">
+                                <Grid>
+                                    <Ellipse Width="50"
+                                             Height="50"
+                                             HorizontalAlignment="Center"
+                                             VerticalAlignment="Center"
+                                             Fill="{StaticResource MyerSplashThemeColor}" />
+                                    <SymbolIcon Foreground="White" Symbol="Download" />
+                                </Grid>
+                            </Button>
+                        </flipper:FlipperControl.Views>
+                    </flipper:FlipperControl>
                 </Grid>
             </StackPanel>
+            <!--<Grid Margin="0,0,12,30"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Bottom">
+                <StackPanel x:Name="MenuSP"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom">
+                    <Button HorizontalAlignment="Stretch"
+                            x:Name="SetAsBackgroundBtn"
+                            Click="SetAsBackgroundBtn_Click"
+                            Style="{StaticResource ButtonCommonStyle}">
+                        <Border Background="Black" CornerRadius="2">
+                            <TextBlock Margin="8"
+                                       FontSize="12"
+                                       Foreground="White"
+                                       Text="Background" />
+                        </Border>
+                    </Button>
+                    <Button Margin="0,4,0,0"
+                            x:Name="SetAsLockscreenBtn"
+                            Click="SetAsLockscreenBtn_Click"
+                            HorizontalAlignment="Stretch"
+                            Style="{StaticResource ButtonCommonStyle}">
+                        <Border Background="Black" CornerRadius="2">
+                            <TextBlock Margin="8"
+                                       FontSize="12"
+                                       Foreground="White"
+                                       Text="Lockscreen" />
+                        </Border>
+                    </Button>
+                    <Button Margin="0,4,0,0"
+                            HorizontalAlignment="Stretch"
+                            x:Name="SetAsBothBtn"
+                            Click="SetAsBothBtn_Click"
+                            Style="{StaticResource ButtonCommonStyle}">
+                        <Border Background="Black" CornerRadius="2">
+                            <TextBlock Margin="8"
+                                       FontSize="12"
+                                       Foreground="White"
+                                       Text="Both" />
+                        </Border>
+                    </Button>
+                </StackPanel>
+            </Grid>-->
         </Grid>
     </Grid>
 </UserControl>

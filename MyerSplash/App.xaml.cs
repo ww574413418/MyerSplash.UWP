@@ -60,12 +60,12 @@ namespace MyerSplash
             }
 #endif
             if (e.PrelaunchActivated) return;
-
-            CreateFrame();
+            var task = JumpListHelper.SetupJumpList();
+            CreateFrame(e.Arguments);
         }
 #pragma warning restore    
 
-        private void CreateFrame()
+        private void CreateFrame(string arg)
         {
             Frame rootFrame = Window.Current.Content as Frame;
 
@@ -76,10 +76,7 @@ namespace MyerSplash
                 Window.Current.Content = rootFrame;
             }
 
-            if (rootFrame.Content == null)
-            {
-                rootFrame.Navigate(typeof(MainPage), null);
-            }
+            rootFrame.Navigate(typeof(MainPage), arg);
             Window.Current.Activate();
 
             TitleBarHelper.SetUpLightTitleBar();
@@ -98,15 +95,9 @@ namespace MyerSplash
             }
         }
 
-        protected async override void OnActivated(IActivatedEventArgs args)
+        protected override void OnActivated(IActivatedEventArgs args)
         {
-            var folder = await AppSettings.Instance.GetSavingFolderAsync();
-            if (folder != null)
-            {
-                await Launcher.LaunchFolderAsync(folder);
-            }
-
-            CreateFrame();
+            CreateFrame(null);
         }
 
         private void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)

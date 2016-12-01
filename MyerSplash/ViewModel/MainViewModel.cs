@@ -15,15 +15,30 @@ using Windows.Storage;
 using System;
 using Newtonsoft.Json;
 using MyerSplashCustomControl;
+using MyerSplash.UC;
+using JP.Utils.Helper;
 
 namespace MyerSplash.ViewModel
 {
     public class MainViewModel : ViewModelBase, INavigable
     {
-        private const string DEFAULT_TITLE_NAME = "NEW";
         private const int RANDOM_INDEX = 0;
         private const int FEATURED_INDEX = 2;
         private const int NEW_INDEX = 1;
+
+        private string DefaultTitleName
+        {
+            get
+            {
+                switch (AppSettings.Instance.DefaultCategory)
+                {
+                    case 0: return "RANDOM";
+                    case 1: return "NEW";
+                    case 2: return "FEATURED";
+                    default: return "MyerSplash";
+                }
+            }
+        }
 
         #region icon
         private bool _showDiceIcon;
@@ -524,7 +539,7 @@ namespace MyerSplash.ViewModel
                 {
                     if (SearchKeyword == null)
                     {
-                        return DEFAULT_TITLE_NAME;
+                        return DefaultTitleName;
                     }
                     else return SearchKeyword.ToUpper();
                 }
@@ -532,7 +547,7 @@ namespace MyerSplash.ViewModel
                 {
                     return Categories[SelectedIndex].Title.ToUpper();
                 }
-                else return DEFAULT_TITLE_NAME;
+                else return DefaultTitleName;
             }
         }
 
@@ -561,6 +576,11 @@ namespace MyerSplash.ViewModel
 
         private async Task RestoreMainListDataAsync()
         {
+            InitDataVM();
+            if (AppSettings.Instance.DefaultCategory == 0)
+            {
+                return;
+            }
             var file = await CacheUtil.GetCachedFileFolder().TryGetFileAsync(CachedFileNames.MainListFileName);
             if (file != null)
             {
@@ -568,7 +588,6 @@ namespace MyerSplash.ViewModel
                 var list = JsonConvert.DeserializeObject<List<UnsplashImage>>(str);
                 if (list != null)
                 {
-                    this.DataVM = new ImageDataViewModel(UrlHelper.GetNewImages, false);
                     list.ForEach(s => DataVM.DataList.Add(s));
 
                     for (int i = 0; i < DataVM.DataList.Count; i++)
@@ -578,10 +597,43 @@ namespace MyerSplash.ViewModel
                         else item.BackColor = Application.Current.Resources["ImageBackBrush2"] as SolidColorBrush;
                         var task = item.RestoreDataAsync();
                     }
+
+                    return;
                 }
-                else DataVM = new ImageDataViewModel(UrlHelper.GetNewImages, false);
             }
-            else DataVM = new ImageDataViewModel(UrlHelper.GetNewImages, false);
+        }
+
+        private void InitDataVM()
+        {
+            if (!string.IsNullOrEmpty(_launcherArg))
+            {
+                if (_launcherArg == Constant.RANDOM_KEY)
+                {
+                    DataVM = new RandomImagesDataViewModel(UrlHelper.GetRandomImages, false);
+                    ShowDiceIcon = true;
+                    return;
+                }
+                else if (_launcherArg == Constant.SEARCH_KEY)
+                {
+                    ShowSearchBar = true;
+                }
+            }
+            switch (AppSettings.Instance.DefaultCategory)
+            {
+                case 0:
+                    {
+                        DataVM = new RandomImagesDataViewModel(UrlHelper.GetRandomImages, false);
+                        ShowDiceIcon = true;
+                    }; break;
+                case 1:
+                    {
+                        DataVM = new ImageDataViewModel(UrlHelper.GetNewImages, false);
+                    }; break;
+                case 2:
+                    {
+                        DataVM = new ImageDataViewModel(UrlHelper.GetFeaturedImages, true);
+                    }; break;
+            }
         }
 
         private async Task RefreshAllAsync()
@@ -619,7 +671,7 @@ namespace MyerSplash.ViewModel
                 {
                     Title = "Random",
                 });
-                SelectedIndex = NEW_INDEX;
+                SelectedIndex = App.AppSettings.DefaultCategory;
                 await SerializerHelper.SerializerToJson<ObservableCollection<UnsplashCategory>>(list, CachedFileNames.CateListFileName, CacheUtil.GetCachedFileFolder());
             }
         }
@@ -627,7 +679,7 @@ namespace MyerSplash.ViewModel
         private async Task RestoreCategoriyListAsync()
         {
             this.Categories = await SerializerHelper.DeserializeFromJsonByFile<ObservableCollection<UnsplashCategory>>(CachedFileNames.CateListFileName);
-            SelectedIndex = 1;
+            SelectedIndex = App.AppSettings.DefaultCategory;
         }
 
         private async Task SaveMainListDataAsync()
@@ -656,9 +708,24 @@ namespace MyerSplash.ViewModel
             }
         }
 
+        private string _launcherArg;
+
         public void Activate(object param)
         {
-
+            _launcherArg = param as string;
+            if (_launcherArg == Constant.SEARCH_KEY)
+            {
+                ShowSearchBar = true;
+            }
+            if (DeviceHelper.IsDesktop)
+            {
+                if (!LocalSettingHelper.HasValue("TIPS221"))
+                {
+                    LocalSettingHelper.AddValue("TIPS221", true);
+                    var uc = new TipsControl();
+                    var task = PopupService.Instance.ShowAsync(uc);
+                }
+            }
         }
 
         public void Deactivate(object param)

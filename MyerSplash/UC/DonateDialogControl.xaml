@@ -5,26 +5,37 @@
              xmlns:local="using:MyerSplash.UC"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              Width="320"
-             Height="200"
+             Height="250"
              d:DesignHeight="300"
              d:DesignWidth="400"
              mc:Ignorable="d">
 
     <Grid Background="{StaticResource TitleBarDarkBrush}" CornerRadius="2">
-        <StackPanel Margin="8">
-            <TextBlock Margin="12,12,0,0"
-                       FontSize="20"
-                       FontWeight="Bold"
-                       Foreground="{StaticResource MyerSplashThemeColor}"
-                       Text="BUY ME A DRINK" />
+        <StackPanel>
+            <Grid Background="{StaticResource MyerSplashThemeColor}">
+                <StackPanel Margin="0,0,0,8">
+                    <TextBlock Margin="12,12,0,0"
+                               FontSize="20"
+                               FontWeight="Bold"
+                               Foreground="{StaticResource MyerSplashDarkColor}"
+                               Text="TREAT ME A DRINK ☕" />
+                    <TextBlock Margin="12,12,0,0"
+                               FontSize="12"
+                               Foreground="{StaticResource MyerSplashDarkColor}"
+                               Text="If you think this app is amazing. How about treating me a drink? "
+                               TextWrapping="Wrap" />
+                </StackPanel>
+
+            </Grid>
+
             <Button x:Name="InAppClick"
-                    Margin="0,12,0,0"
+                    Margin="8,12,8,0"
                     HorizontalAlignment="Stretch"
                     Click="InAppClick_Click"
                     Style="{StaticResource ListButtonStyle}">
                 <Border>
-                    <TextBlock Margin="12"
-                               x:Name="IAPTB"
+                    <TextBlock x:Name="IAPTB"
+                               Margin="12"
                                FontWeight="SemiBold"
                                Foreground="#B2FFFFFF"
                                Text="Via in-app purchase" />
@@ -33,7 +44,7 @@
             <Button x:Name="AlipayBtn"
                     HorizontalAlignment="Stretch"
                     Click="AlipayBtn_Click"
-                    Style="{StaticResource ListButtonStyle}">
+                    Style="{StaticResource ListButtonStyle}" Margin="8,0">
                 <Border>
                     <TextBlock Margin="12"
                                FontWeight="SemiBold"

@@ -1,12 +1,10 @@
 ﻿using JP.Utils.Helper;
-using JP.Utils.UI;
 using MyerSplash.Common;
 using MyerSplash.Model;
 using MyerSplash.ViewModel;
 using System;
 using System.Numerics;
 using Windows.Foundation;
-using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -451,6 +449,15 @@ namespace MyerSplash.View
             {
                 Window.Current.SetTitleBar(TitleGrid);
             }
+        }
+
+        private void TitleGrid_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            ToggleTitleStackAnimation(true);
+        }
+
+        private void TitleGrid_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
         }
     }
 }

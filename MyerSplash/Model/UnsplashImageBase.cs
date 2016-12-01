@@ -5,16 +5,13 @@ using JP.Utils.Network;
 using JP.Utils.UI;
 using MyerSplash.Common;
 using MyerSplash.Interface;
-using MyerSplashCustomControl;
 using MyerSplashShared.Shared;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Data.Json;
-using Windows.Networking.BackgroundTransfer;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.System;
@@ -289,7 +286,6 @@ namespace MyerSplash.Model
                       DataPackage dataPackage = new DataPackage();
                       dataPackage.SetText(GetSaveImageUrlFromSettings());
                       Clipboard.SetContent(dataPackage);
-                      ToastService.SendToast("Download address is copied", 2000);
                   });
             }
         }
@@ -318,7 +314,7 @@ namespace MyerSplash.Model
                 if (_downloadCommand != null) return _downloadCommand;
                 return _downloadCommand = new RelayCommand(() =>
                   {
-                      if (DeviceHelper.IsMobile && AppSettings.Instance.EnableQuickDownload)
+                      if (DeviceHelper.IsMobile && !AppSettings.Instance.EnableQuickDownload)
                       {
                           return;
                       }
@@ -329,12 +325,23 @@ namespace MyerSplash.Model
             }
         }
 
+        [IgnoreDataMember]
+        public StorageFile DownloadedFile { get; set; }
+
+        public DownloadStatus DownloadStatus { get; set; } = DownloadStatus.Pending;
+
         public string ShareText => $"Share {this.Owner.Name}'s amazing photo from MyerSplash app. {FullImageUrl}";
 
         public UnsplashImageBase()
         {
             ListImageBitmap = new CachedBitmapSource();
             LargeBitmap = new CachedBitmapSource();
+        }
+
+        public string GetFileNameForDownloading()
+        {
+            var fileName = $"{Owner.Name}  {CreateTimeString}.jpg";
+            return fileName;
         }
 
         public async Task SetDataRequestData(DataRequest request)
@@ -379,9 +386,30 @@ namespace MyerSplash.Model
 
             if (string.IsNullOrEmpty(url)) return;
 
+            var task = CheckAndGetDownloadedFileAsync();
+
             ListImageBitmap.ExpectedFileName = this.ID + ".jpg";
             ListImageBitmap.RemoteUrl = url;
             await ListImageBitmap.LoadBitmapAsync();
+        }
+
+        public async Task CheckAndGetDownloadedFileAsync()
+        {
+            var name = GetFileNameForDownloading();
+            var folder = await KnownFolders.PicturesLibrary.CreateFolderAsync("MyerSplash", CreationCollisionOption.OpenIfExists);
+            if (folder != null)
+            {
+                var file = await folder.TryGetItemAsync(name) as StorageFile;
+                if (file != null)
+                {
+                    var pro = await file.GetBasicPropertiesAsync();
+                    if (pro.Size > 10)
+                    {
+                        this.DownloadStatus = DownloadStatus.OK;
+                        DownloadedFile = file;
+                    }
+                }
+            }
         }
 
         public string GetListImageUrlFromSettings()

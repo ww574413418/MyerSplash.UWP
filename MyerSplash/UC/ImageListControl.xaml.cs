@@ -241,6 +241,17 @@ namespace MyerSplash.UC
             var rootGrid = sender as Grid;
             var maskBorder = rootGrid.Children[2] as FrameworkElement;
             var img = rootGrid.Children[1] as FrameworkElement;
+            var btn = rootGrid.FindName("DownloadBtn") as Button;
+
+            var unsplashImage = rootGrid.DataContext as UnsplashImageBase;
+            if (unsplashImage.DownloadStatus != DownloadStatus.Pending)
+            {
+                btn.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                btn.Visibility = Visibility.Visible;
+            }
 
             ToggleItemPointAnimation(maskBorder, img, true);
         }

@@ -1,5 +1,7 @@
-﻿using JP.Utils.Debug;
+﻿using GalaSoft.MvvmLight.Messaging;
+using JP.Utils.Debug;
 using JP.Utils.UI;
+using MyerSplash.Common;
 using MyerSplash.Model;
 using MyerSplashCustomControl;
 using System;
@@ -7,13 +9,16 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Numerics;
 using System.Threading;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Storage;
+using Windows.System;
 using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
@@ -28,12 +33,10 @@ namespace MyerSplash.UC
         private Compositor _compositor;
         private Visual _detailGridVisual;
         private Visual _borderGridVisual;
-        private Visual _downloadBtnVisual;
         private Visual _shareBtnVisual;
         private Visual _infoGridVisual;
-        private Visual _downloadingHintGridVisual;
         private Visual _loadingPath;
-        private Visual _okVisual;
+        private Visual _flipperVisual;
 
         private CancellationTokenSource _cts;
 
@@ -70,6 +73,15 @@ namespace MyerSplash.UC
             this.DataContext = this;
             _dataTransferManager = DataTransferManager.GetForCurrentView();
             _dataTransferManager.DataRequested += _dataTransferManager_DataRequested;
+
+            Messenger.Default.Register<GenericMessage<string>>(this, MessengerTokens.REPORT_DOWNLOADED, msg =>
+              {
+                  var id = msg.Content;
+                  if (id == CurrentImage.ID)
+                  {
+                      FlipperControl.DisplayIndex = (int)DownloadStatus.OK;
+                  }
+              });
         }
 
         private async void _dataTransferManager_DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
@@ -88,12 +100,10 @@ namespace MyerSplash.UC
             _compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
             _detailGridVisual = ElementCompositionPreview.GetElementVisual(DetailGrid);
             _borderGridVisual = ElementCompositionPreview.GetElementVisual(MaskBorder);
-            _downloadBtnVisual = ElementCompositionPreview.GetElementVisual(DownloadBtn);
             _infoGridVisual = ElementCompositionPreview.GetElementVisual(InfoGrid);
-            _downloadingHintGridVisual = ElementCompositionPreview.GetElementVisual(LoadingHintGrid);
             _loadingPath = ElementCompositionPreview.GetElementVisual(LoadingPath);
-            _okVisual = ElementCompositionPreview.GetElementVisual(OKBtn);
             _shareBtnVisual = ElementCompositionPreview.GetElementVisual(ShareBtn);
+            _flipperVisual = ElementCompositionPreview.GetElementVisual(FlipperControl);
 
             ResetVisualInitState();
         }
@@ -101,11 +111,9 @@ namespace MyerSplash.UC
         private void ResetVisualInitState()
         {
             _infoGridVisual.Offset = new Vector3(0f, -100f, 0);
-            _downloadBtnVisual.Offset = new Vector3(100f, 0f, 0f);
             _shareBtnVisual.Offset = new Vector3(150f, 0f, 0f);
+            _flipperVisual.Offset = new Vector3(170f, 0f, 0f);
             _detailGridVisual.Opacity = 0;
-            _okVisual.Offset = new Vector3(100f, 0f, 0f);
-            _downloadingHintGridVisual.Offset = new Vector3(100f, 0f, 0f);
 
             PhotoSV.ChangeView(null, 0, null);
             StartLoadingAnimation();
@@ -118,10 +126,8 @@ namespace MyerSplash.UC
 
         public void HideDetailControl()
         {
-            ToggleDownloadBtnAnimation(false);
+            ToggleFlipperControlAnimation(false);
             ToggleShareBtnAnimation(false);
-            ToggleOkBtnAnimation(false);
-            ToggleDownloadingBtnAnimation(false);
 
             var batch = _compositor.CreateScopedBatch(CompositionBatchTypes.Animation);
             ToggleInfoGridAnimation(false);
@@ -129,6 +135,7 @@ namespace MyerSplash.UC
             {
                 OnHideControl?.Invoke();
                 ToggleDetailGridAnimation(false);
+                FlipperControl.DisplayIndex = (int)DownloadStatus.Pending;
             };
             batch.End();
         }
@@ -149,7 +156,8 @@ namespace MyerSplash.UC
 
             if (show)
             {
-                ToggleDownloadBtnAnimation(true);
+                var task = CheckImageDownloadStatusAsync();
+                ToggleFlipperControlAnimation(true);
                 ToggleShareBtnAnimation(true);
                 ToggleInfoGridAnimation(true);
             }
@@ -165,14 +173,14 @@ namespace MyerSplash.UC
             batch.End();
         }
 
-        private void ToggleDownloadBtnAnimation(bool show)
+        private void ToggleFlipperControlAnimation(bool show)
         {
             var offsetAnimation = _compositor.CreateVector3KeyFrameAnimation();
             offsetAnimation.InsertKeyFrame(1f, new Vector3(show ? 0f : 100f, 0f, 0f));
             offsetAnimation.Duration = TimeSpan.FromMilliseconds(1000);
             offsetAnimation.DelayTime = TimeSpan.FromMilliseconds(show ? 500 : 0);
 
-            _downloadBtnVisual.StartAnimation("Offset", offsetAnimation);
+            _flipperVisual.StartAnimation("Offset", offsetAnimation);
         }
 
         private void ToggleShareBtnAnimation(bool show)
@@ -202,62 +210,48 @@ namespace MyerSplash.UC
             { Rect = new Rect(0, 0, DetailContentGrid.ActualWidth, DetailContentGrid.Height) };
         }
 
-        #region Download animation
-        private void ToggleDownloadingBtnAnimation(bool show)
+        private async Task CheckImageDownloadStatusAsync()
         {
-            var offsetAnimation = _compositor.CreateVector3KeyFrameAnimation();
-            offsetAnimation.InsertKeyFrame(1f, new Vector3(show ? 0f : 100f, 0f, 0f));
-            offsetAnimation.Duration = TimeSpan.FromMilliseconds(500);
-            offsetAnimation.DelayTime = TimeSpan.FromMilliseconds(show ? 200 : 0);
-
-            _downloadingHintGridVisual.StartAnimation("Offset", offsetAnimation);
+            await CurrentImage.CheckAndGetDownloadedFileAsync();
+            this.FlipperControl.DisplayIndex = (int)CurrentImage.DownloadStatus;
         }
 
-        private void ToggleOkBtnAnimation(bool show)
-        {
-            var offsetAnimation = _compositor.CreateVector3KeyFrameAnimation();
-            offsetAnimation.InsertKeyFrame(1f, new Vector3(show ? 0f : 100f, 0f, 0f));
-            offsetAnimation.Duration = TimeSpan.FromMilliseconds(500);
-            offsetAnimation.DelayTime = TimeSpan.FromMilliseconds(show ? 200 : 0);
-
-            _okVisual.StartAnimation("Offset", offsetAnimation);
-        }
+        #region Download
 
         private async void DownloadBtn_Click(object sender, RoutedEventArgs e)
         {
-            ToggleDownloadBtnAnimation(false);
-            ToggleDownloadingBtnAnimation(true);
+            if (CurrentImage.DownloadStatus == DownloadStatus.OK)
+            {
+                return;
+            }
+
+            FlipperControl.DisplayIndex = (int)DownloadStatus.Downloading;
 
             try
             {
                 _cts = new CancellationTokenSource();
                 var item = new DownloadItem(CurrentImage);
                 App.VMLocator.DownloadsVM.AddDownloadingImage(item);
-                await item.DownloadFullImageAsync(_cts);
 
-                ToggleDownloadingBtnAnimation(false);
+                await item.DownloadFullImageAsync(_cts);
 
                 //Still in this page
                 if (IsShown)
                 {
-                    ToggleOkBtnAnimation(true);
-                    ToastService.SendToast("Saved :D", TimeSpan.FromMilliseconds(1000));
+                    CurrentImage.DownloadStatus = DownloadStatus.OK;
+                    FlipperControl.DisplayIndex = (int)DownloadStatus.OK;
+                    ToastService.SendToast("Saved :D", 1000);
                 }
             }
             catch (OperationCanceledException)
             {
-                ToggleDownloadBtnAnimation(true);
-                ToggleDownloadingBtnAnimation(false);
-                ToggleOkBtnAnimation(false);
-                ToastService.SendToast("Cancelled", TimeSpan.FromMilliseconds(1000));
+                FlipperControl.DisplayIndex = (int)DownloadStatus.Pending;
             }
             catch (Exception ex)
             {
                 var task = Logger.LogAsync(ex);
-                ToggleDownloadBtnAnimation(true);
-                ToggleDownloadingBtnAnimation(false);
-                ToggleOkBtnAnimation(false);
-                ToastService.SendToast($"Exception throws.{ex.Message}", TimeSpan.FromMilliseconds(1000));
+                FlipperControl.DisplayIndex = (int)DownloadStatus.Pending;
+                ToastService.SendToast($"Exception throws.{ex.Message}", 1000);
             }
         }
 
@@ -306,6 +300,42 @@ namespace MyerSplash.UC
             args.Data.RequestedOperation = DataPackageOperation.Copy;
             args.Data.SetText(image.ShareText);
             args.Data.SetWebLink(new Uri(image.GetSaveImageUrlFromSettings()));
+        }
+
+        private async void CopyUlrBtn_Click(object sender, RoutedEventArgs e)
+        {
+            CopyFlipperControl.DisplayIndex = 1;
+            await Task.Delay(2000);
+            CopyFlipperControl.DisplayIndex = 0;
+        }
+
+        private async void OKBtn_Click(object sender, RoutedEventArgs e)
+        {
+            await Launcher.LaunchFileAsync(CurrentImage.DownloadedFile);
+        }
+
+        private async void SetAsBackgroundBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (CurrentImage.DownloadedFile != null)
+            {
+                await WallpaperSettingHelper.SetAsBackgroundAsync(CurrentImage.DownloadedFile);
+            }
+        }
+
+        private async void SetAsLockscreenBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (CurrentImage.DownloadedFile != null)
+            {
+                await WallpaperSettingHelper.SetAsLockscreenAsync(CurrentImage.DownloadedFile);
+            }
+        }
+
+        private async void SetAsBothBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (CurrentImage.DownloadedFile != null)
+            {
+                await WallpaperSettingHelper.SetBothAsync(CurrentImage.DownloadedFile);
+            }
         }
     }
 }

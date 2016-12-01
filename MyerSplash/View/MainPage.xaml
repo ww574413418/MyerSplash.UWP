@@ -66,7 +66,10 @@
                     ManipulationDelta="TouchGrid_ManipulationDelta"
                     ManipulationMode="TranslateX" />
         </Grid>
-        <Grid x:Name="TitleGrid" Background="Transparent" />
+        <Grid x:Name="TitleGrid"
+              Background="Transparent"
+              PointerEntered="TitleGrid_PointerEntered"
+              PointerExited="TitleGrid_PointerExited" />
         <Grid x:Name="TitleStack"
               Grid.RowSpan="2"
               Margin="12"

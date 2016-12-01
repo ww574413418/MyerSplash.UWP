@@ -13,6 +13,32 @@ namespace MyerSplash.ViewModel
 {
     public class AboutViewModel
     {
+        private RelayCommand _visitGitHubCommand;
+        public RelayCommand VisitGitHubCommand
+        {
+            get
+            {
+                if (_visitGitHubCommand != null) return _visitGitHubCommand;
+                return _visitGitHubCommand = new RelayCommand(async () =>
+                  {
+                      await Launcher.LaunchUriAsync(new Uri("https://github.com/JuniperPhoton/MyerSplashUWP"));
+                  });
+            }
+        }
+
+        private RelayCommand _visitTwitterCommand;
+        public RelayCommand VisitTwitterCommand
+        {
+            get
+            {
+                if (_visitTwitterCommand != null) return _visitTwitterCommand;
+                return _visitTwitterCommand = new RelayCommand(async() =>
+                  {
+                      await Launcher.LaunchUriAsync(new Uri("https://twitter.com/JuniperPhoton"));
+                  });
+            }
+        }
+
         private RelayCommand _donateCommand;
         public RelayCommand DonateCommand
         {
