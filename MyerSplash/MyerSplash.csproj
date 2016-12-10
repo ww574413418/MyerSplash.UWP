@@ -205,7 +205,6 @@
     <None Include="MyerSplash_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Icon\dice.png" />
     <Content Include="Assets\Icon\search.png" />
     <Content Include="Assets\Icon\Logo_black.png" />
     <Content Include="Assets\Icon\Logo_trans.png" />

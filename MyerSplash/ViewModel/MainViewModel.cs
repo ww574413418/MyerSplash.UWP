@@ -40,26 +40,6 @@ namespace MyerSplash.ViewModel
             }
         }
 
-        #region icon
-        private bool _showDiceIcon;
-        public bool ShowDiceIcon
-        {
-            get
-            {
-                return _showDiceIcon;
-            }
-            set
-            {
-                if (_showDiceIcon != value)
-                {
-                    _showDiceIcon = value;
-                    RaisePropertyChanged(() => ShowDiceIcon);
-                }
-            }
-        }
-
-        #endregion
-
         private ImageDataViewModel _dataVM;
         public ImageDataViewModel DataVM
         {
@@ -491,7 +471,7 @@ namespace MyerSplash.ViewModel
             {
                 if (_selectedIndex != value)
                 {
-                    var lastValue = _selectedIndex;
+                    var lastValue = value;
 
                     _selectedIndex = value;
                     RaisePropertyChanged(() => SelectedIndex);
@@ -501,8 +481,8 @@ namespace MyerSplash.ViewModel
                     {
                         return;
                     }
-                    ShowDiceIcon = false;
 
+                    // From search to category
                     if (lastValue != -1)
                     {
                         if (value == NEW_INDEX)
@@ -516,7 +496,6 @@ namespace MyerSplash.ViewModel
                         else if (value == RANDOM_INDEX)
                         {
                             DataVM = new RandomImagesDataViewModel(UrlHelper.GetRandomImages, false);
-                            ShowDiceIcon = true;
                         }
                         else if (value > NEW_INDEX)
                         {
@@ -559,7 +538,6 @@ namespace MyerSplash.ViewModel
             FooterReloadVisibility = Visibility.Collapsed;
             EndVisibility = Visibility.Collapsed;
             IsRefreshing = true;
-            ShowDiceIcon = false;
             ShowDownloadsUC = false;
 
             App.MainVM = this;
@@ -610,7 +588,6 @@ namespace MyerSplash.ViewModel
                 if (_launcherArg == Constant.RANDOM_KEY)
                 {
                     DataVM = new RandomImagesDataViewModel(UrlHelper.GetRandomImages, false);
-                    ShowDiceIcon = true;
                     return;
                 }
                 else if (_launcherArg == Constant.SEARCH_KEY)
@@ -623,7 +600,6 @@ namespace MyerSplash.ViewModel
                 case 0:
                     {
                         DataVM = new RandomImagesDataViewModel(UrlHelper.GetRandomImages, false);
-                        ShowDiceIcon = true;
                     }; break;
                 case 1:
                     {
@@ -647,7 +623,10 @@ namespace MyerSplash.ViewModel
             IsRefreshing = true;
             await DataVM.RefreshAsync();
             IsRefreshing = false;
-            await SaveMainListDataAsync();
+            if (SelectedIndex == 1)
+            {
+                await SaveMainListDataAsync();
+            }
         }
 
         private async Task GetCategoriesAsync()

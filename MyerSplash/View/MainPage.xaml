@@ -51,10 +51,6 @@
                         <SymbolIcon x:Name="RefreshIcon"
                                     Foreground="White"
                                     Symbol="Refresh" />
-                        <Image x:Name="DiceIcon"
-                               Width="25"
-                               Source="ms-appx:///Assets/Icon/dice.png"
-                               Visibility="Collapsed" />
                     </Grid>
                 </Grid>
             </Button>

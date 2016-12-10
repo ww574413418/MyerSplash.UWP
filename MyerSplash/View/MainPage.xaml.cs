@@ -75,31 +75,6 @@ namespace MyerSplash.View
             page.ToggleDrawerMaskAnimation((bool)e.NewValue);
         }
 
-        public bool ShowDiceIcon
-        {
-            get { return (bool)GetValue(ShowDiceIconProperty); }
-            set { SetValue(ShowDiceIconProperty, value); }
-        }
-
-        public static readonly DependencyProperty ShowDiceIconProperty =
-            DependencyProperty.Register("ShowDiceIcon", typeof(bool), typeof(MainPage),
-                new PropertyMetadata(false, OnShowDiceIconPropertyChanged));
-
-        public static void OnShowDiceIconPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var page = d as MainPage;
-            if ((bool)e.NewValue)
-            {
-                page.DiceIcon.Visibility = Visibility.Visible;
-                page.RefreshIcon.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                page.DiceIcon.Visibility = Visibility.Collapsed;
-                page.RefreshIcon.Visibility = Visibility.Visible;
-            }
-        }
-
         public MainPage()
         {
             this.InitializeComponent();
@@ -148,14 +123,6 @@ namespace MyerSplash.View
                 Mode = BindingMode.TwoWay,
             };
             this.SetBinding(DrawerOpendedProperty, b2);
-
-            var b3 = new Binding()
-            {
-                Source = MainVM,
-                Path = new PropertyPath("ShowDiceIcon"),
-                Mode = BindingMode.TwoWay,
-            };
-            this.SetBinding(ShowDiceIconProperty, b3);
         }
 
         private void InitComposition()
