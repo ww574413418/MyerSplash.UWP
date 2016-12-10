@@ -139,6 +139,9 @@
     <Compile Include="UC\DownloadItemTemplate.xaml.cs">
       <DependentUpon>DownloadItemTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UC\EllipseShadowControl.xaml.cs">
+      <DependentUpon>EllipseShadowControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UC\LoadingTextControl.xaml.cs">
       <DependentUpon>LoadingTextControl.xaml</DependentUpon>
     </Compile>
@@ -300,6 +303,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UC\DrawerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\EllipseShadowControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

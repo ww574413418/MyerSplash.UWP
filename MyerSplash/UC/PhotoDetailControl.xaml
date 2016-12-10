@@ -165,19 +165,22 @@
                            Stretch="UniformToFill" />
                 </ScrollViewer>
             </Grid>
-            <StackPanel Margin="0,0,0,-25"
+            <StackPanel Margin="0,0,8,-35"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Bottom"
                         Orientation="Horizontal">
                 <Button x:Name="ShareBtn"
                         Grid.RowSpan="2"
-                        Margin="0,0,10,0"
+                        Margin="10,10,0,10"
+                        Width="50"
+                        Height="50"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
                         Background="{x:Null}"
                         Command="{x:Bind CurrentImage.ShareCommand, Mode=OneWay}"
                         Style="{StaticResource ButtonCommonStyle}">
                     <Grid>
+                        <local:EllipseShadowControl Radius="20"/>
                         <Ellipse x:Name="ShareBtnEll"
                                  Width="40"
                                  Height="40">
@@ -195,19 +198,17 @@
                         </FontIcon>
                     </Grid>
                 </Button>
-                <Grid Grid.RowSpan="2" Margin="0,0,10,0">
+                <Grid Grid.RowSpan="2" Margin="0">
                     <flipper:FlipperControl x:Name="FlipperControl"
-                                            Width="50"
-                                            Height="50"
                                             AnimationDuration="150"
                                             DisplayIndex="0"
                                             EnablePerspect="False"
-                                            FlipDirection="BackToFront">
+                                            FlipDirection="BackToFront" Width="60" Height="60">
                         <flipper:FlipperControl.Views>
                             <Button x:Name="OKBtn"
                                     Grid.RowSpan="2"
-                                    Width="50"
-                                    Height="50"
+                                    Width="60"
+                                    Height="60"
                                     Margin="0"
                                     HorizontalAlignment="Stretch"
                                     VerticalAlignment="Stretch"
@@ -216,6 +217,7 @@
                                     Click="OKBtn_Click"
                                     Style="{StaticResource ButtonCommonStyle}">
                                 <Grid>
+                                    <local:EllipseShadowControl Radius="25"/>
                                     <Ellipse Width="50"
                                              Height="50" Fill="{StaticResource ImageBackBrush2}" />
                                     <FontIcon FontFamily="Segoe MDL2 Assets"
@@ -223,12 +225,11 @@
                                 </Grid>
                             </Button>
                             <Grid x:Name="LoadingHintGrid"
-                                  Width="50"
-                                  Height="50">
+                                  >
                                 <Button x:Name="CancelBtn"
                                         Grid.RowSpan="2"
-                                        Width="50"
-                                        Height="50"
+                                        Width="60"
+                                        Height="60"
                                         Margin="0"
                                         HorizontalAlignment="Stretch"
                                         VerticalAlignment="Stretch"
@@ -238,6 +239,7 @@
                                         IsEnabled="True"
                                         Style="{StaticResource ButtonCommonStyle}">
                                     <Grid>
+                                        <local:EllipseShadowControl Radius="25"/>
                                         <Ellipse Width="50"
                                                  Height="50"
                                                  Fill="{StaticResource MyerSplashThemeColor}" />
@@ -275,6 +277,7 @@
                                     Click="DownloadBtn_Click"
                                     Style="{StaticResource ButtonCommonStyle}">
                                 <Grid>
+                                    <local:EllipseShadowControl Radius="25"/>
                                     <Ellipse Width="50"
                                              Height="50"
                                              HorizontalAlignment="Center"

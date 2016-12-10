@@ -5,6 +5,7 @@
                                xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
                                xmlns:attach="using:JP.Utils.Framework"
                                xmlns:cc="using:JP.Utils.Control"
+                               xmlns:win2d="using:Microsoft.Graphics.Canvas.UI.Xaml"
                                xmlns:common="using:MyerSplash.Common"
                                xmlns:control="using:MyerSplashCustomControl"
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -43,7 +44,8 @@
                     Command="{x:Bind MainVM.RefreshCommand, Mode=OneWay}"
                     Foreground="White"
                     Style="{StaticResource ButtonCommonStyle}">
-                <Grid Width="50" Height="50">
+                <Grid Width="60" Height="60">
+                    <uc:EllipseShadowControl Radius="25"/>
                     <Ellipse Width="50"
                              Height="50"
                              Fill="{StaticResource MyerSplashThemeColor}" />
