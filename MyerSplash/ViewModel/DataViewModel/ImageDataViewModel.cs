@@ -11,7 +11,6 @@ using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml;
-using System.Runtime.Serialization;
 using System.Diagnostics;
 using MyerSplash.LiveTile;
 
@@ -36,22 +35,33 @@ namespace MyerSplash.ViewModel
 
         protected void UpdateHintVisibility(IEnumerable<UnsplashImageBase> list)
         {
-            if (list.Count() == 0)
-            {
-                App.MainVM.FooterLoadingVisibility = Visibility.Collapsed;
-                App.MainVM.EndVisibility = Visibility.Visible;
-                App.MainVM.FooterReloadVisibility = Visibility.Collapsed;
-            }
-            if (DataList.Count + list.Count() == 0)
-            {
-                App.MainVM.NoItemHintVisibility = Visibility.Visible;
-                App.MainVM.FooterLoadingVisibility = Visibility.Collapsed;
-            }
-            else
-            {
-                App.MainVM.NoItemHintVisibility = Visibility.Collapsed;
-                App.MainVM.FooterLoadingVisibility = Visibility.Visible;
-            }
+            var task = RunOnUiThread(() =>
+              {
+                  // No items at all
+                  if (DataList.Count == 0)
+                  {
+                      if (list.Count() == 0)
+                      {
+                          App.MainVM.NoItemHintVisibility = Visibility.Visible;
+                      }
+                  }
+                  else App.MainVM.NoItemHintVisibility = Visibility.Collapsed;
+
+                  // Has loaded items but no more
+                  if (list.Count() == 0)
+                  {
+                      App.MainVM.FooterLoadingVisibility = Visibility.Collapsed;
+                      App.MainVM.EndVisibility = Visibility.Visible;
+                  }
+                  //There are more items
+                  else
+                  {
+                      App.MainVM.FooterLoadingVisibility = Visibility.Visible;
+                      App.MainVM.EndVisibility = Visibility.Collapsed;
+                  }
+
+                  return;
+              });
         }
 
         protected async override Task<IEnumerable<UnsplashImageBase>> GetList(int pageIndex)
@@ -181,7 +191,7 @@ namespace MyerSplash.ViewModel
                 }
                 else throw new ArgumentNullException();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 await Logger.LogAsync(e);
                 return new List<UnsplashImage>();

@@ -525,7 +525,7 @@
                               SelectedIndex="{Binding Source={StaticResource AppSettings},
                                                       Path=LoadQuality,
                                                       Mode=TwoWay}">
-                        <ComboBoxItem Content="Large" Style="{StaticResource ComboBoxItemStyle}" />
+                        <ComboBoxItem Content="Large (Recommended)" Style="{StaticResource ComboBoxItemStyle}" />
                         <ComboBoxItem Content="Small" Style="{StaticResource ComboBoxItemStyle}" />
                         <ComboBoxItem Content="Thumbnail" Style="{StaticResource ComboBoxItemStyle}" />
                     </ComboBox>
@@ -540,9 +540,9 @@
                               SelectedIndex="{Binding Source={StaticResource AppSettings},
                                                       Path=SaveQuality,
                                                       Mode=TwoWay}">
-                        <ComboBoxItem Content="Highest (Up to 8MB)" Style="{StaticResource ComboBoxItemStyle}" />
-                        <ComboBoxItem Content="High (Up to 3MB)" Style="{StaticResource ComboBoxItemStyle}" />
-                        <ComboBoxItem Content="Medium (500 KB)" Style="{StaticResource ComboBoxItemStyle}" />
+                        <ComboBoxItem Content="Raw" Style="{StaticResource ComboBoxItemStyle}" />
+                        <ComboBoxItem Content="High (Default)" Style="{StaticResource ComboBoxItemStyle}" />
+                        <ComboBoxItem Content="Medium" Style="{StaticResource ComboBoxItemStyle}" />
                     </ComboBox>
                     <TextBlock Margin="10,20,0,0"
                                HorizontalAlignment="Left"

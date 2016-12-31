@@ -168,6 +168,11 @@ namespace MyerSplash.ViewModel
             return new ResultData<T>() { Data = newList, HasMoreItems = HasMoreItems };
         }
 
+        protected async Task RunOnUiThread(DispatchedHandler act)
+        {
+            await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, act);
+        }
+
         protected abstract Task<IEnumerable<T>> GetList(int pageIndex);
 
         protected abstract void ClickItem(T item);

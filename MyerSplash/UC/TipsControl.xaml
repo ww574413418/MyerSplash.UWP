@@ -4,7 +4,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="using:MyerSplash.UC"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             Height="320"
+             Height="250"
              MaxWidth="600"
              d:DesignHeight="600"
              d:DesignWidth="468"
@@ -17,15 +17,17 @@
         </Grid.RowDefinitions>
         <Grid>
             <Button x:Name="CloseBtn"
+                    Margin="0,0,8,0"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
                     Click="CloseBtn_Click"
                     Style="{StaticResource ListButtonStyle}"
-                    Visibility="Visible" Margin="0,0,8,0">
-                <FontIcon FontFamily="Segoe MDL2 Assets"
+                    Visibility="Visible">
+                <FontIcon Margin="12"
+                          FontFamily="Segoe MDL2 Assets"
+                          FontSize="16"
                           Foreground="White"
-                          Margin="12"
-                          Glyph="&#xE106;" FontSize="16" />
+                          Glyph="&#xE106;" />
             </Button>
 
             <TextBlock Margin="12,0,0,0"
@@ -34,45 +36,18 @@
                        FontSize="20"
                        FontWeight="Bold"
                        Foreground="{StaticResource MyerSplashThemeColor}"
-                       Text="Tips &amp; Recent updates" />
+                       Text="🥂 THANKS 2016" />
         </Grid>
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <Image Margin="8" Source="ms-appx:///Assets/Image/tips1.png" />
-                <StackPanel Grid.Row="1" Margin="8,0,8,8">
-                    <TextBlock FontSize="14"
-                               Foreground="White"
-                               Text="1. Click to view the photographer's webpage to see all his/her photos."
-                               TextWrapping="Wrap" />
-                    <TextBlock Margin="0,4,0,0"
-                               FontSize="14"
-                               Foreground="White"
-                               Text="2. Poor speed of downloading? Click COPY URL and paste to your outer downloader "
-                               TextWrapping="Wrap" />
-                </StackPanel>
-
-            </Grid>
-            <Grid Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <Image Margin="8" Source="ms-appx:///Assets/Image/tips2.png" />
-                <StackPanel Grid.Row="1" Margin="8,0,8,8">
-                    <TextBlock FontSize="14"
-                               Foreground="White"
-                               Text="1. Manage your downloaded/downloading images. And you can set them as background and lock screen."
-                               TextWrapping="Wrap" />
-                </StackPanel>
-            </Grid>
-        </Grid>
+        <StackPanel Grid.Row="1" Margin="12" VerticalAlignment="Top">
+            <TextBlock Foreground="White"
+                       CharacterSpacing="8"
+                       Text="{StaticResource Thanks}"
+                       TextWrapping="Wrap" />
+            <TextBlock 
+                       FontWeight="Bold"
+                       Foreground="{StaticResource MyerSplashThemeColor}"
+                       Text="{StaticResource Thanks2}"
+                       TextWrapping="Wrap" Margin="0,8,0,0" />
+        </StackPanel>
     </Grid>
 </UserControl>
