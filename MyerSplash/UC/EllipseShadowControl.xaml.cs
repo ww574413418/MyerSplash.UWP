@@ -20,7 +20,7 @@ namespace MyerSplash.UC
 
         public static readonly DependencyProperty RadiusProperty =
             DependencyProperty.Register("Radius", typeof(int), typeof(EllipseShadowControl),
-                new PropertyMetadata(20, (s, e) =>
+                new PropertyMetadata(0, (s, e) =>
                  {
                      var control = s as EllipseShadowControl;
                      control.CanvasControl.Invalidate();
