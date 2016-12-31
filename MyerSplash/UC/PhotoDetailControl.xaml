@@ -180,7 +180,7 @@
                         Command="{x:Bind CurrentImage.ShareCommand, Mode=OneWay}"
                         Style="{StaticResource ButtonCommonStyle}">
                     <Grid>
-                        <local:EllipseShadowControl Radius="20"/>
+                        <!--<local:EllipseShadowControl Radius="20"/>-->
                         <Ellipse x:Name="ShareBtnEll"
                                  Width="40"
                                  Height="40">
@@ -217,7 +217,7 @@
                                     Click="OKBtn_Click"
                                     Style="{StaticResource ButtonCommonStyle}">
                                 <Grid>
-                                    <local:EllipseShadowControl Radius="25"/>
+                                    <!--<local:EllipseShadowControl Radius="25"/>-->
                                     <Ellipse Width="50"
                                              Height="50" Fill="{StaticResource ImageBackBrush2}" />
                                     <FontIcon FontFamily="Segoe MDL2 Assets"
@@ -239,7 +239,7 @@
                                         IsEnabled="True"
                                         Style="{StaticResource ButtonCommonStyle}">
                                     <Grid>
-                                        <local:EllipseShadowControl Radius="25"/>
+                                        <!--<local:EllipseShadowControl Radius="25"/>-->
                                         <Ellipse Width="50"
                                                  Height="50"
                                                  Fill="{StaticResource MyerSplashThemeColor}" />
@@ -277,7 +277,7 @@
                                     Click="DownloadBtn_Click"
                                     Style="{StaticResource ButtonCommonStyle}">
                                 <Grid>
-                                    <local:EllipseShadowControl Radius="25"/>
+                                    <!--<local:EllipseShadowControl Radius="25"/>-->
                                     <Ellipse Width="50"
                                              Height="50"
                                              HorizontalAlignment="Center"
