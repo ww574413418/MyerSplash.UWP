@@ -171,12 +171,11 @@
                                        Fill="#B2000000"
                                        Opacity="0" />
                             <ContentPresenter x:Name="ContentPresenter"
-                                              Margin="{TemplateBinding Padding}"
                                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                               Content="{TemplateBinding Content}"
                                               ContentTemplate="{TemplateBinding ContentTemplate}"
-                                              ContentTransitions="{TemplateBinding ContentTransitions}" />
+                                              ContentTransitions="{TemplateBinding ContentTransitions}" Margin="0" />
                             <Rectangle x:Name="FocusVisualWhite"
                                        Opacity="0"
                                        Stroke="{ThemeResource FocusVisualWhiteStrokeThemeBrush}"
@@ -190,9 +189,9 @@
                                        StrokeDashOffset="1.5"
                                        StrokeEndLineCap="Square" />
                             <Border x:Name="SelectedBorder"
-                                    Width="8"
+                                    Width="6"
                                     HorizontalAlignment="Left"
-                                    Background="{StaticResource MyerSplashThemeColor}" />
+                                    Background="{StaticResource MyerSplashThemeColor}" Margin="8,8,0,8" Padding="0" Height="12" />
                         </Grid>
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
@@ -226,6 +225,8 @@
                                         <ColorAnimation Storyboard.TargetName="InnerGrid"
                                                         Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)"
                                                         To="Transparent" />
+                                        <DoubleAnimation Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Opacity"
+                                                         To="0.5"/>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SelectedBorder" Storyboard.TargetProperty="Visibility">
                                             <DiscreteObjectKeyFrame KeyTime="0:0:0.0" Value="Collapsed" />
                                         </ObjectAnimationUsingKeyFrames>
@@ -233,6 +234,8 @@
                                 </VisualState>
                                 <VisualState x:Name="Selected">
                                     <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Opacity"
+                                                         To="1"/>
                                         <ColorAnimation Storyboard.TargetName="InnerGrid"
                                                         Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)"
                                                         To="{StaticResource ListButtonSelected}" />
@@ -246,6 +249,8 @@
                                 </VisualState>
                                 <VisualState x:Name="SelectedUnfocused">
                                     <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Opacity"
+                                                         To="1"/>
                                         <ColorAnimation Storyboard.TargetName="InnerGrid"
                                                         Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)"
                                                         To="{StaticResource ListButtonSelected}" />
