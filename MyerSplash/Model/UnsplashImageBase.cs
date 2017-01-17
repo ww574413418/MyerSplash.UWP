@@ -258,7 +258,7 @@ namespace MyerSplash.Model
         {
             get
             {
-                return _createTime.ToString("yyyy-MM-dd");
+                return _createTime.ToString("yyyy-MM-dd hh-mm-ss");
             }
         }
 
@@ -340,7 +340,7 @@ namespace MyerSplash.Model
 
         public string GetFileNameForDownloading()
         {
-            var fileName = $"{Owner.Name}  {CreateTimeString}.jpg";
+            var fileName = $"{Owner.Name}  {CreateTimeString} .jpg";
             return fileName;
         }
 
