@@ -11,7 +11,7 @@
 
     <Grid x:Name="RootGrid">
         <Grid.Background>
-            <ImageBrush ImageSource="ms-appx:///Assets/Image/Banner.jpg" Stretch="UniformToFill" />
+            <ImageBrush ImageSource="ms-appx:///Assets/Image/banner.jpg" Stretch="UniformToFill" />
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />

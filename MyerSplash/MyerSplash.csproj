@@ -213,7 +213,7 @@
     <Content Include="Assets\Icon\Logo_trans.png" />
     <Content Include="Assets\Icon\Logo_trans_narrow.png" />
     <Content Include="Assets\Icon\Logo_white.png" />
-    <Content Include="Assets\Image\Banner.jpg" />
+    <Content Include="Assets\Image\banner.jpg" />
     <Content Include="Assets\Image\tips1.png" />
     <Content Include="Assets\Image\tips2.png" />
     <Content Include="Assets\Logo-500.png" />
