@@ -1,4 +1,5 @@
-﻿using MyerSplash.Common;
+﻿using JP.Utils.Helper;
+using MyerSplash.Common;
 using MyerSplash.ViewModel;
 using Windows.ApplicationModel;
 using Windows.UI.Xaml;
@@ -12,9 +13,13 @@ namespace MyerSplash.UC
         public SettingsControl()
         {
             this.InitializeComponent();
-            if(!DesignMode.DesignModeEnabled)
+            if (!DesignMode.DesignModeEnabled)
             {
                 this.DataContext = SettingsVM = new SettingsViewModel();
+            }
+            if (DeviceHelper.IsDesktop)
+            {
+                ShowListGrid.Visibility = Visibility.Collapsed;
             }
         }
 

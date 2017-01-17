@@ -80,7 +80,7 @@
                 <ColumnDefinition Width="60" />
                 <ColumnDefinition x:Name="C3" Width="60" />
             </Grid.ColumnDefinitions>
-            <Border x:Name="HamBtnBorder" Background="Black">
+            <Border x:Name="HamBtnBorder" >
                 <uc:HamburgerButton x:Name="HamBtn"
                                     Width="{StaticResource PosterHeight}"
                                     Height="{StaticResource PosterHeight}"

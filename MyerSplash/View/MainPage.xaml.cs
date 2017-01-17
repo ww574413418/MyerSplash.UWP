@@ -1,5 +1,4 @@
 ﻿using JP.Utils.Helper;
-using Microsoft.Graphics.Canvas.UI.Xaml;
 using MyerSplash.Common;
 using MyerSplash.Model;
 using MyerSplash.ViewModel;
@@ -14,11 +13,6 @@ using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using Microsoft.Graphics.Canvas.Effects;
-using Microsoft.Graphics.Canvas;
-using Microsoft.Graphics.Canvas.Brushes;
-using Windows.UI;
-using CompositionHelper.Helper;
 
 namespace MyerSplash.View
 {
