@@ -403,7 +403,7 @@
             <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                           HorizontalScrollMode="Disabled"
                           Style="{StaticResource ScrollViewerCommonStyle}"
-                          VerticalScrollBarVisibility="Auto"
+                          VerticalScrollBarVisibility="Hidden"
                           VerticalScrollMode="Auto">
                 <StackPanel Margin="0,20,0,0">
                     <TextBlock Margin="10,10,0,0"
@@ -453,7 +453,7 @@
                                       RequestedTheme="Dark"
                                       Style="{StaticResource ToggleSwitchStyle1}" />
                     </Grid>
-                    <Grid Height="50">
+                    <Grid x:Name="ShowListGrid" Height="50">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition Width="150" />
@@ -486,16 +486,28 @@
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch"
                                 Background="{x:Null}"
-                                Command="{x:Bind SettingsVM.ChooseSavingPositionCommand, Mode=OneWay}"
-                                IsEnabled="False"
                                 Style="{StaticResource ButtonCommonStyle}">
-                            <Border Background="#66000000"
-                                    BorderBrush="{StaticResource MyerSplashThemeColor}"
-                                    BorderThickness="1">
-                                <TextBlock Margin="5"
-                                           Foreground="White"
-                                           Text="{x:Bind SettingsVM.SavingPositionPath, Mode=OneWay}" />
-                            </Border>
+                            <Grid>
+                                <Border Background="#66000000"
+                                        BorderBrush="{StaticResource MyerSplashThemeColor}"
+                                        BorderThickness="1">
+                                    <TextBlock Margin="5,5,50,5"
+                                               Foreground="White"
+                                               Text="{x:Bind SettingsVM.SavingPositionPath, Mode=OneWay}"
+                                               TextTrimming="CharacterEllipsis" />
+                                </Border>
+                                <Button HorizontalAlignment="Right"
+                                        VerticalAlignment="Stretch"
+                                        Command="{x:Bind SettingsVM.OpenSavingFolderCommand, Mode=OneWay}"
+                                        Style="{StaticResource ButtonCommonStyle}">
+                                    <Border Background="{StaticResource MyerSplashThemeColor}">
+                                        <TextBlock Margin="4,0"
+                                                   VerticalAlignment="Center"
+                                                   FontWeight="Bold"
+                                                   Text="OPEN" />
+                                    </Border>
+                                </Button>
+                            </Grid>
                         </Button>
                     </StackPanel>
                     <!--<TextBlock Margin="10,10,0,0"

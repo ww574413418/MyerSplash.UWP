@@ -6,6 +6,7 @@ using Windows.Storage;
 using MyerSplashShared.API;
 using MyerSplashCustomControl;
 using MyerSplash.Common;
+using Windows.System;
 
 namespace MyerSplash.ViewModel
 {
@@ -95,6 +96,22 @@ namespace MyerSplash.ViewModel
             }
         }
 
+        private RelayCommand _cpenSavingFolderCommand;
+        public RelayCommand OpenSavingFolderCommand
+        {
+            get
+            {
+                if (_cpenSavingFolderCommand != null) return _cpenSavingFolderCommand;
+                return _cpenSavingFolderCommand = new RelayCommand(async () =>
+                  {
+                      var folder = await AppSettings.Instance.GetSavingFolderAsync();
+                      if (folder != null)
+                      {
+                          await Launcher.LaunchFolderAsync(folder);
+                      }
+                  });
+            }
+        }
 
         public SettingsViewModel()
         {
