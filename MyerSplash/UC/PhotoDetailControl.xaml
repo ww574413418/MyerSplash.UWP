@@ -276,7 +276,7 @@
                                            HorizontalAlignment="Right"
                                            FontSize="12"
                                            Foreground="White"
-                                           Text="LOCNSCREEN" />
+                                           Text="LOCKSCREEN" />
                             </Border>
                         </Button>
                         <Button HorizontalAlignment="Right"
