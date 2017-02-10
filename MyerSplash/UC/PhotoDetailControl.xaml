@@ -77,8 +77,8 @@
                       Grid.Row="1"
                       Background="{x:Bind CurrentImage.MajorColor, Mode=OneWay}">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="619*"/>
-                        <ColumnDefinition Width="21*"/>
+                        <ColumnDefinition Width="619*" />
+                        <ColumnDefinition Width="21*" />
                     </Grid.ColumnDefinitions>
                     <StackPanel Margin="20,28,0,27"
                                 HorizontalAlignment="Left"
@@ -102,12 +102,13 @@
                         </Button>
                     </StackPanel>
                     <flipper:FlipperControl x:Name="CopyFlipperControl"
+                                            Grid.ColumnSpan="2"
                                             Margin="0,0,10,22"
                                             HorizontalAlignment="Right"
                                             VerticalAlignment="Bottom"
                                             AnimationDuration="150"
                                             DisplayIndex="0"
-                                            FlipDirection="BackToFront" Grid.ColumnSpan="2">
+                                            FlipDirection="BackToFront">
                         <flipper:FlipperControl.Views>
                             <Button HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
@@ -164,6 +165,79 @@
                            Source="{x:Bind CurrentImage.ListImageBitmap.Bitmap, Mode=OneWay}"
                            Stretch="UniformToFill" />
                 </ScrollViewer>
+                <Image x:Name="LockImage"
+                       Width="250"
+                       Margin="0,0,0,70"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Bottom"
+                       Source="ms-appx:///Assets/Image/lock.png"
+                       Visibility="Collapsed" />
+                <Grid x:Name="TaskBarImage"
+                      Height="20"
+                      VerticalAlignment="Bottom"
+                      Background="#FF101010"
+                      Visibility="Collapsed">
+                    <Image Width="181"
+                           HorizontalAlignment="Left"
+                           Source="ms-appx:///Assets/Image/pc_taskbar_l.png"
+                           Stretch="UniformToFill"
+                           Visibility="Visible" />
+                    <!--<Image Width="146"
+                           HorizontalAlignment="Right"
+                           Source="ms-appx:///Assets/Image/pc_taskbar_r.png"
+                           Stretch="UniformToFill"
+                           Visibility="Visible" />-->
+                </Grid>
+
+                <StackPanel x:Name="SecondaryToolSP"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Bottom"
+                            Orientation="Horizontal">
+                    <Button x:Name="PreviewBtn"
+                            Grid.RowSpan="2"
+                            Width="40"
+                            Height="40"
+                            Margin="12"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Background="{x:Null}"
+                            Click="PreviewBtn_Click"
+                            Style="{StaticResource ButtonCommonStyle}">
+                        <Grid>
+                            <Ellipse Width="32" Height="32">
+                                <Ellipse.Fill>
+                                    <SolidColorBrush Color="#7F000000" />
+                                </Ellipse.Fill>
+                            </Ellipse>
+                            <FontIcon FontFamily="Segoe MDL2 Assets"
+                                      FontSize="12"
+                                      Foreground="#B2FFFFFF"
+                                      Glyph="&#xEB9F;" />
+                        </Grid>
+                    </Button>
+                    <!--<Button x:Name="InfoBtn"
+                            Grid.RowSpan="2"
+                            Width="50"
+                            Height="50"
+                            Margin="0,12,12,12"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Background="{x:Null}"
+                            Click="InfoBtn_Click"
+                            Style="{StaticResource ButtonCommonStyle}">
+                        <Grid>
+                            <Ellipse Width="40" Height="40">
+                                <Ellipse.Fill>
+                                    <SolidColorBrush Color="Black" />
+                                </Ellipse.Fill>
+                            </Ellipse>
+                            <FontIcon FontFamily="Segoe MDL2 Assets"
+                                      FontSize="17"
+                                      Foreground="#B2FFFFFF"
+                                      Glyph="&#xE783;" />
+                        </Grid>
+                    </Button>-->
+                </StackPanel>
             </Grid>
             <StackPanel Margin="0,0,8,-35"
                         HorizontalAlignment="Right"
@@ -171,9 +245,9 @@
                         Orientation="Horizontal">
                 <Button x:Name="ShareBtn"
                         Grid.RowSpan="2"
-                        Margin="10,10,0,10"
                         Width="50"
                         Height="50"
+                        Margin="10,10,0,10"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
                         Background="{x:Null}"
@@ -181,9 +255,7 @@
                         Style="{StaticResource ButtonCommonStyle}">
                     <Grid>
                         <!--<local:EllipseShadowControl Radius="20"/>-->
-                        <Ellipse x:Name="ShareBtnEll"
-                                 Width="40"
-                                 Height="40">
+                        <Ellipse Width="40" Height="40">
                             <Ellipse.Fill>
                                 <SolidColorBrush Color="{StaticResource MyerSplashUnLikedHeartColor}" />
                             </Ellipse.Fill>
@@ -200,10 +272,12 @@
                 </Button>
                 <Grid Grid.RowSpan="2" Margin="0">
                     <flipper:FlipperControl x:Name="FlipperControl"
+                                            Width="60"
+                                            Height="60"
                                             AnimationDuration="150"
                                             DisplayIndex="0"
                                             EnablePerspect="False"
-                                            FlipDirection="BackToFront" Width="60" Height="60">
+                                            FlipDirection="BackToFront">
                         <flipper:FlipperControl.Views>
                             <Button x:Name="OKBtn"
                                     Grid.RowSpan="2"
@@ -219,13 +293,14 @@
                                 <Grid>
                                     <!--<local:EllipseShadowControl Radius="25"/>-->
                                     <Ellipse Width="50"
-                                             Height="50" Fill="{StaticResource ImageBackBrush2}" />
+                                             Height="50"
+                                             Fill="{StaticResource ImageBackBrush2}" />
                                     <FontIcon FontFamily="Segoe MDL2 Assets"
-                                              Glyph="&#xEC50;" Foreground="White" />
+                                              Foreground="White"
+                                              Glyph="&#xEC50;" />
                                 </Grid>
                             </Button>
-                            <Grid x:Name="LoadingHintGrid"
-                                  >
+                            <Grid x:Name="LoadingHintGrid">
                                 <Button x:Name="CancelBtn"
                                         Grid.RowSpan="2"
                                         Width="60"

@@ -1,6 +1,6 @@
-﻿using GalaSoft.MvvmLight.Messaging;
+﻿using CompositionHelper.Animation.Fluent;
+using GalaSoft.MvvmLight.Messaging;
 using JP.Utils.Debug;
-using JP.Utils.UI;
 using MyerSplash.Common;
 using MyerSplash.Model;
 using MyerSplashCustomControl;
@@ -14,11 +14,9 @@ using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Storage;
 using Windows.System;
-using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
@@ -37,6 +35,8 @@ namespace MyerSplash.UC
         private Visual _infoGridVisual;
         private Visual _loadingPath;
         private Visual _flipperVisual;
+        private Visual _taskbarImageVisual;
+        private Visual _lockScreenImageVisual;
 
         private CancellationTokenSource _cts;
 
@@ -104,6 +104,8 @@ namespace MyerSplash.UC
             _loadingPath = ElementCompositionPreview.GetElementVisual(LoadingPath);
             _shareBtnVisual = ElementCompositionPreview.GetElementVisual(ShareBtn);
             _flipperVisual = ElementCompositionPreview.GetElementVisual(FlipperControl);
+            _taskbarImageVisual = ElementCompositionPreview.GetElementVisual(TaskBarImage);
+            _lockScreenImageVisual = ElementCompositionPreview.GetElementVisual(LockImage);
 
             ResetVisualInitState();
         }
@@ -114,6 +116,8 @@ namespace MyerSplash.UC
             _shareBtnVisual.Offset = new Vector3(150f, 0f, 0f);
             _flipperVisual.Offset = new Vector3(170f, 0f, 0f);
             _detailGridVisual.Opacity = 0;
+            _taskbarImageVisual.Opacity = 0;
+            _lockScreenImageVisual.Opacity = 0;
 
             PhotoSV.ChangeView(null, 0, null);
             StartLoadingAnimation();
@@ -126,6 +130,8 @@ namespace MyerSplash.UC
 
         public void HideDetailControl()
         {
+            dismissPreview();
+
             ToggleFlipperControlAnimation(false);
             ToggleShareBtnAnimation(false);
 
@@ -292,6 +298,7 @@ namespace MyerSplash.UC
         private async void LargeImage_DragStarting(UIElement sender, DragStartingEventArgs args)
         {
             var image = (sender as FrameworkElement).DataContext as UnsplashImageBase;
+            if (image == null) return;
             var file = await StorageFile.GetFileFromPathAsync(image.ListImageBitmap.LocalPath);
             if (file != null)
             {
@@ -300,6 +307,102 @@ namespace MyerSplash.UC
             args.Data.RequestedOperation = DataPackageOperation.Copy;
             args.Data.SetText(image.ShareText);
             args.Data.SetWebLink(new Uri(image.GetSaveImageUrlFromSettings()));
+        }
+
+        private int _showingPreview = 0;
+
+        private void TogglePreview()
+        {
+            _showingPreview++;
+            if (_showingPreview > 2)
+            {
+                _showingPreview = 0;
+            }
+
+            Visual fadingVisual = null;
+            Visual showingVisual = null;
+            switch (_showingPreview)
+            {
+                case 0:
+                    {
+                        fadingVisual = _lockScreenImageVisual;
+                        showingVisual = null;
+                    }
+                    break;
+                case 1:
+                    {
+                        fadingVisual = null;
+                        showingVisual = _taskbarImageVisual;
+                    }
+                    break;
+                case 2:
+                    {
+                        fadingVisual = _taskbarImageVisual;
+                        showingVisual = _lockScreenImageVisual;
+                    }
+                    break;
+            }
+            if (fadingVisual != null)
+            {
+                fadingVisual.StartBuildAnimation()
+                    .Animate(AnimateProperties.Opacity)
+                    .To(0)
+                    .Spend(300)
+                    .Over()
+                    .Start()
+                    .Completed += (sender, e) =>
+                      {
+                          if (_showingPreview == 2)
+                          {
+                              TaskBarImage.Visibility = Visibility.Collapsed;
+                          }
+                          else if (_showingPreview == 0)
+                          {
+                              LockImage.Visibility = Visibility.Collapsed;
+                          }
+                      };
+            }
+            if (showingVisual != null)
+            {
+                if (_showingPreview == 1)
+                {
+                    TaskBarImage.Visibility = Visibility.Visible;
+                }
+                else if (_showingPreview == 2)
+                {
+                    LockImage.Visibility = Visibility.Visible;
+                }
+                showingVisual.StartBuildAnimation()
+                    .Animate(AnimateProperties.Opacity)
+                    .To(1)
+                    .Spend(300)
+                    .Over()
+                    .Start();
+            }
+        }
+
+        private void dismissPreview()
+        {
+            _taskbarImageVisual.StartBuildAnimation()
+                   .Animate(AnimateProperties.Opacity)
+                   .To(0)
+                   .Spend(300)
+                   .Over()
+                   .Start()
+                   .Completed += (sender, e) =>
+                   {
+                       TaskBarImage.Visibility = Visibility.Collapsed;
+                   };
+            _lockScreenImageVisual.StartBuildAnimation()
+                  .Animate(AnimateProperties.Opacity)
+                  .To(0)
+                  .Spend(300)
+                  .Over()
+                  .Start()
+                  .Completed += (sender, e) =>
+                  {
+                      LockImage.Visibility = Visibility.Collapsed;
+                  };
         }
 
         private async void CopyUlrBtn_Click(object sender, RoutedEventArgs e)
@@ -336,6 +439,16 @@ namespace MyerSplash.UC
             {
                 await WallpaperSettingHelper.SetBothAsync(CurrentImage.DownloadedFile);
             }
+        }
+
+        private void PreviewBtn_Click(object sender, RoutedEventArgs e)
+        {
+            TogglePreview();
+        }
+
+        private void InfoBtn_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
