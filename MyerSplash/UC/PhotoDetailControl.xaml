@@ -105,9 +105,8 @@
                     </StackPanel>
                     <flipper:FlipperControl x:Name="CopyFlipperControl"
                                             Grid.ColumnSpan="2"
-                                            Margin="0,0,10,22"
+                                            Margin="0,48,10,22"
                                             HorizontalAlignment="Right"
-                                            VerticalAlignment="Bottom"
                                             AnimationDuration="150"
                                             DisplayIndex="0"
                                             FlipDirection="BackToFront">
@@ -338,6 +337,28 @@
                                             EnablePerspect="False"
                                             FlipDirection="BackToFront">
                         <flipper:FlipperControl.Views>
+                            <Button x:Name="CloseBtn"
+                                    Grid.RowSpan="2"
+                                    Width="60"
+                                    Height="60"
+                                    Margin="0"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    Background="{x:Null}"
+                                    BorderThickness="0"
+                                    Click="OKBtn_Click"
+                                    Style="{StaticResource ButtonCommonStyle}">
+                                <Grid>
+                                    <!--<local:EllipseShadowControl Radius="25"/>-->
+                                    <Ellipse Width="50"
+                                             Height="50"
+                                             Fill="Black" />
+                                    <FontIcon FontFamily="Segoe MDL2 Assets"
+                                              FontSize="15"
+                                              Foreground="White"
+                                              Glyph="&#xE106;" />
+                                </Grid>
+                            </Button>
                             <Button x:Name="OKBtn"
                                     Grid.RowSpan="2"
                                     Width="60"

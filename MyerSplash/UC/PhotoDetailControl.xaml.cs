@@ -412,6 +412,10 @@ namespace MyerSplash.UC
             {
                 DismissPreview();
             }
+            if (!show)
+            {
+                FlipperControl.DisplayIndex = 2;
+            }
             SetAsSP.Visibility = Visibility.Visible;
             _setAsSPVisual.StartBuildAnimation()
                   .Animate(AnimateProperties.Offset.Y)
@@ -471,6 +475,7 @@ namespace MyerSplash.UC
         {
             if (_setAsSPVisual.Opacity == 0)
             {
+                FlipperControl.DisplayIndex = 3;
                 ToggleSetAsSP(true);
             }
             else
