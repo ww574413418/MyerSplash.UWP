@@ -254,9 +254,12 @@ namespace MyerSplash.UC
             {
                 _cts = new CancellationTokenSource();
                 var item = new DownloadItem(CurrentImage);
-                App.VMLocator.DownloadsVM.AddDownloadingImage(item);
+                item = await App.VMLocator.DownloadsVM.AddDownloadingImageAsync(item);
 
-                await item.DownloadFullImageAsync(_cts);
+                if (item != null)
+                {
+                    await item.DownloadFullImageAsync(_cts);
+                }
 
                 //Still in this page
                 if (IsShown)

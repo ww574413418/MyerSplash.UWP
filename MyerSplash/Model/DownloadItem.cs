@@ -276,8 +276,7 @@ namespace MyerSplash.Model
                 if (_retryDownloadCommand != null) return _retryDownloadCommand;
                 return _retryDownloadCommand = new RelayCommand(async () =>
                   {
-                      DisplayIndex = (int)DisplayMenu.Downloading;
-                      await DownloadFullImageAsync(_cts = new CancellationTokenSource());
+                      await RetryAsync();
                   });
             }
         }
@@ -289,6 +288,11 @@ namespace MyerSplash.Model
             ProgressString = "0 %";
             IsMenuOn = false;
             DisplayIndex = (int)DisplayMenu.Downloading;
+        }
+
+        public async Task RetryAsync()
+        {
+            await DownloadFullImageAsync(_cts = new CancellationTokenSource());
         }
 
         public async void UpateUIWhenCompleted()
@@ -351,6 +355,8 @@ namespace MyerSplash.Model
             var url = Image.GetSaveImageUrlFromSettings();
 
             if (string.IsNullOrEmpty(url)) return;
+
+            DisplayIndex = (int)DisplayMenu.Downloading;
 
             Image.DownloadStatus = Common.DownloadStatus.Downloading;
 

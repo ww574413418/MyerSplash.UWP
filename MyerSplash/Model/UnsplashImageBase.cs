@@ -350,7 +350,7 @@ namespace MyerSplash.Model
                       }
                       var downloaditem = new DownloadItem(this);
                       var task = downloaditem.DownloadFullImageAsync(CTSFactory.MakeCTS());
-                      App.VMLocator.DownloadsVM.AddDownloadingImage(downloaditem);
+                      App.VMLocator.DownloadsVM.AddDownloadingImageAsync(downloaditem);
                   });
             }
         }
