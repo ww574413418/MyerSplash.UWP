@@ -37,6 +37,7 @@ namespace MyerSplash.UC
         private Visual _flipperVisual;
         private Visual _taskbarImageVisual;
         private Visual _lockScreenImageVisual;
+        private Visual _secondaryToolVisual;
 
         private CancellationTokenSource _cts;
 
@@ -106,6 +107,7 @@ namespace MyerSplash.UC
             _flipperVisual = ElementCompositionPreview.GetElementVisual(FlipperControl);
             _taskbarImageVisual = ElementCompositionPreview.GetElementVisual(TaskBarImage);
             _lockScreenImageVisual = ElementCompositionPreview.GetElementVisual(LockImage);
+            _secondaryToolVisual = ElementCompositionPreview.GetElementVisual(SecondaryToolSP);
 
             ResetVisualInitState();
         }
@@ -118,6 +120,7 @@ namespace MyerSplash.UC
             _detailGridVisual.Opacity = 0;
             _taskbarImageVisual.Opacity = 0;
             _lockScreenImageVisual.Opacity = 0;
+            _secondaryToolVisual.Opacity = 1;
 
             PhotoSV.ChangeView(null, 0, null);
             StartLoadingAnimation();
@@ -131,6 +134,7 @@ namespace MyerSplash.UC
         public void HideDetailControl()
         {
             dismissPreview();
+            TogglePreviewButtonAnimation(false);
 
             ToggleFlipperControlAnimation(false);
             ToggleShareBtnAnimation(false);
@@ -146,11 +150,23 @@ namespace MyerSplash.UC
             batch.End();
         }
 
+        private void TogglePreviewButtonAnimation(bool show)
+        {
+            _secondaryToolVisual.StartBuildAnimation()
+                .Animate(AnimateProperties.Opacity)
+                .To(show ? 1 : 0)
+                .Spend(300)
+                .Over()
+                .Start();
+        }
+
         public void ToggleDetailGridAnimation(bool show)
         {
             IsShown = show;
 
             this.Visibility = Visibility.Visible;
+
+            TogglePreviewButtonAnimation(true);
 
             var fadeAnimation = _compositor.CreateScalarKeyFrameAnimation();
             fadeAnimation.InsertKeyFrame(1f, show ? 1f : 0f);
