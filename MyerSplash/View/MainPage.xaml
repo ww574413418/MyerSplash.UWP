@@ -117,7 +117,7 @@
                     Command="{x:Bind MainVM.SearchCommand, Mode=OneWay}"
                     Style="{StaticResource ListButtonStyle}">
                 <FontIcon FontFamily="Segoe MDL2 Assets"
-                          Foreground="White"
+                          Foreground="{StaticResource MainBarIconColorBrush}"
                           Glyph="&#xE094;"
                           RenderTransformOrigin="0.5,0.5">
                     <FontIcon.RenderTransform>
@@ -136,7 +136,7 @@
                     Command="{x:Bind MainVM.ShowDownloadsCommand, Mode=OneWay}"
                     Style="{StaticResource ListButtonStyle}">
                 <FontIcon FontFamily="Segoe MDL2 Assets"
-                          Foreground="White"
+                          Foreground="{StaticResource MainBarIconColorBrush}"
                           Glyph="&#xE118;" />
             </Button>
         </Grid>

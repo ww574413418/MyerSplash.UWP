@@ -188,7 +188,6 @@
                            Stretch="UniformToFill"
                            Visibility="Visible" />-->
                 </Grid>
-
                 <StackPanel x:Name="SecondaryToolSP"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Bottom"
@@ -206,12 +205,12 @@
                         <Grid>
                             <Ellipse Width="32" Height="32">
                                 <Ellipse.Fill>
-                                    <SolidColorBrush Color="#7F000000" />
+                                    <SolidColorBrush Color="{StaticResource ToolButtonEllColor}" />
                                 </Ellipse.Fill>
                             </Ellipse>
                             <FontIcon FontFamily="Segoe MDL2 Assets"
                                       FontSize="12"
-                                      Foreground="#B2FFFFFF"
+                                      Foreground="{StaticResource MainBarIconColorBrush}"
                                       Glyph="&#xEB9F;" />
                         </Grid>
                     </Button>
@@ -294,10 +293,10 @@
                                     <!--<local:EllipseShadowControl Radius="25"/>-->
                                     <Ellipse Width="50"
                                              Height="50"
-                                             Fill="{StaticResource ImageBackBrush2}" />
+                                             Fill="Black" />
                                     <FontIcon FontFamily="Segoe MDL2 Assets"
                                               Foreground="White"
-                                              Glyph="&#xEC50;" />
+                                              Glyph="&#xE771;" />
                                 </Grid>
                             </Button>
                             <Grid x:Name="LoadingHintGrid">
@@ -317,8 +316,11 @@
                                         <!--<local:EllipseShadowControl Radius="25"/>-->
                                         <Ellipse Width="50"
                                                  Height="50"
-                                                 Fill="{StaticResource MyerSplashThemeColor}" />
-                                        <SymbolIcon Foreground="White" Symbol="Cancel" />
+                                                 Fill="{StaticResource DownloadingColorBrush}" />
+                                        <FontIcon FontFamily="Segoe MDL2 Assets"
+                                                  FontSize="15"
+                                                  Foreground="White"
+                                                  Glyph="&#xE106;" />
                                     </Grid>
                                 </Button>
                                 <Canvas Width="50" Height="50">
@@ -358,7 +360,9 @@
                                              HorizontalAlignment="Center"
                                              VerticalAlignment="Center"
                                              Fill="{StaticResource MyerSplashThemeColor}" />
-                                    <SymbolIcon Foreground="White" Symbol="Download" />
+                                    <FontIcon FontFamily="Segoe MDL2 Assets"
+                                              Foreground="White"
+                                              Glyph="&#xE118;" />
                                 </Grid>
                             </Button>
                         </flipper:FlipperControl.Views>

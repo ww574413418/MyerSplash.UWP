@@ -40,6 +40,7 @@ namespace MyerSplash.UC
         private Visual _secondaryToolVisual;
 
         private CancellationTokenSource _cts;
+        private int _showingPreview = 0;
 
         private UnsplashImageBase _currentImage;
         public UnsplashImageBase CurrentImage
@@ -325,8 +326,6 @@ namespace MyerSplash.UC
             args.Data.SetWebLink(new Uri(image.GetSaveImageUrlFromSettings()));
         }
 
-        private int _showingPreview = 0;
-
         private void TogglePreview()
         {
             _showingPreview++;
@@ -399,6 +398,7 @@ namespace MyerSplash.UC
 
         private void dismissPreview()
         {
+            _showingPreview = 0;
             _taskbarImageVisual.StartBuildAnimation()
                    .Animate(AnimateProperties.Opacity)
                    .To(0)

@@ -299,7 +299,7 @@
                            FontSize="24"
                            FontWeight="Bold"
                            Foreground="White"
-                           Text="SEARCH" />
+                           Text="SEARCH PHOTOS" />
             </Grid>
         </Border>
     </Grid>
