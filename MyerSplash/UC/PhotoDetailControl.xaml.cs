@@ -38,6 +38,7 @@ namespace MyerSplash.UC
         private Visual _taskbarImageVisual;
         private Visual _lockScreenImageVisual;
         private Visual _secondaryToolVisual;
+        private Visual _setAsSPVisual;
 
         private CancellationTokenSource _cts;
         private int _showingPreview = 0;
@@ -109,6 +110,7 @@ namespace MyerSplash.UC
             _taskbarImageVisual = ElementCompositionPreview.GetElementVisual(TaskBarImage);
             _lockScreenImageVisual = ElementCompositionPreview.GetElementVisual(LockImage);
             _secondaryToolVisual = ElementCompositionPreview.GetElementVisual(SecondaryToolSP);
+            _setAsSPVisual = ElementCompositionPreview.GetElementVisual(SetAsSP);
 
             ResetVisualInitState();
         }
@@ -122,6 +124,8 @@ namespace MyerSplash.UC
             _taskbarImageVisual.Opacity = 0;
             _lockScreenImageVisual.Opacity = 0;
             _secondaryToolVisual.Opacity = 1;
+            _setAsSPVisual.Opacity = 0;
+            _setAsSPVisual.Offset = new Vector3(0f, 150f, 0f);
 
             PhotoSV.ChangeView(null, 0, null);
             StartLoadingAnimation();
@@ -134,7 +138,9 @@ namespace MyerSplash.UC
 
         public void HideDetailControl()
         {
-            dismissPreview();
+            ToggleSetAsSP(false);
+
+            DismissPreview();
             TogglePreviewButtonAnimation(false);
 
             ToggleFlipperControlAnimation(false);
@@ -331,6 +337,7 @@ namespace MyerSplash.UC
 
         private void TogglePreview()
         {
+            ToggleSetAsSP(false);
             _showingPreview++;
             if (_showingPreview > 2)
             {
@@ -399,7 +406,35 @@ namespace MyerSplash.UC
             }
         }
 
-        private void dismissPreview()
+        private void ToggleSetAsSP(bool show)
+        {
+            if (show)
+            {
+                DismissPreview();
+            }
+            SetAsSP.Visibility = Visibility.Visible;
+            _setAsSPVisual.StartBuildAnimation()
+                  .Animate(AnimateProperties.Offset.Y)
+                  .To(show ? 0 : 150f)
+                  .Spend(500)
+                  .Over()
+                  .Start()
+                  .Completed += (sender, e) =>
+                  {
+                      if (!show)
+                      {
+                          SetAsSP.Visibility = Visibility.Collapsed;
+                      }
+                  };
+            _setAsSPVisual.StartBuildAnimation()
+                  .Animate(AnimateProperties.Opacity)
+                  .To(show ? 1 : 0)
+                  .Spend(300)
+                  .Over()
+                  .Start();
+        }
+
+        private void DismissPreview()
         {
             _showingPreview = 0;
             _taskbarImageVisual.StartBuildAnimation()
@@ -426,14 +461,22 @@ namespace MyerSplash.UC
 
         private async void CopyUlrBtn_Click(object sender, RoutedEventArgs e)
         {
+            ToggleSetAsSP(false);
             CopyFlipperControl.DisplayIndex = 1;
             await Task.Delay(2000);
             CopyFlipperControl.DisplayIndex = 0;
         }
 
-        private async void OKBtn_Click(object sender, RoutedEventArgs e)
+        private void OKBtn_Click(object sender, RoutedEventArgs e)
         {
-            await Launcher.LaunchFileAsync(CurrentImage.DownloadedFile);
+            if (_setAsSPVisual.Opacity == 0)
+            {
+                ToggleSetAsSP(true);
+            }
+            else
+            {
+                ToggleSetAsSP(false);
+            }
         }
 
         private async void SetAsBackgroundBtn_Click(object sender, RoutedEventArgs e)
@@ -468,6 +511,24 @@ namespace MyerSplash.UC
         private void InfoBtn_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void SetAsGrid_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            SetAsGrid.Clip = new RectangleGeometry()
+            {
+                Rect = new Rect(0, 0, e.NewSize.Width, e.NewSize.Height)
+            };
+        }
+
+        private void ShareBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleSetAsSP(false);
+        }
+
+        private void AutherNameBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleSetAsSP(false);
         }
     }
 }
