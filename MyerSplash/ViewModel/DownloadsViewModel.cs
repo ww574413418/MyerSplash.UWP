@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using JP.Utils.Debug;
 using GalaSoft.MvvmLight.Command;
 using MyerSplash.UC;
+using System.Linq;
 
 namespace MyerSplash.ViewModel
 {
@@ -154,16 +155,31 @@ namespace MyerSplash.ViewModel
         }
 #pragma warning restore
 
-        public async void AddDownloadingImage(DownloadItem item)
+        public async Task<DownloadItem> AddDownloadingImageAsync(DownloadItem item)
         {
             if (DownloadingImages == null)
             {
                 DownloadingImages = new ObservableCollection<DownloadItem>();
             }
 
+            var existItem = DownloadingImages.Where(s =>
+             {
+                 return s.Image.ID == item.Image.ID;
+             }).FirstOrDefault();
+
+            if (existItem != null)
+            {
+                if (existItem.DisplayIndex == (int)DisplayMenu.Retry)
+                {
+                    return existItem;
+                }
+            }
+
             DownloadingImages.Insert(0, item);
             item.OnMenuStatusChanged += Item_OnMenuStatusChanged;
             var list = await BackgroundDownloader.GetCurrentDownloadsAsync();
+
+            return item;
         }
 
         private void Item_OnMenuStatusChanged(DownloadItem item, bool menuOpened)

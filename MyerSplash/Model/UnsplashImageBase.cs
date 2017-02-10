@@ -173,9 +173,39 @@ namespace MyerSplash.Model
 
         public string ColorValue { get; set; }
 
-        public double Width { get; set; }
+        private double _width;
+        public double Width
+        {
+            get
+            {
+                return _width;
+            }
+            set
+            {
+                if (_width != value)
+                {
+                    _width = value;
+                    RaisePropertyChanged(() => Width);
+                }
+            }
+        }
 
-        public double Height { get; set; }
+        private double _height;
+        public double Height
+        {
+            get
+            {
+                return _height;
+            }
+            set
+            {
+                if (_height != value)
+                {
+                    _height = value;
+                    RaisePropertyChanged(() => Height);
+                }
+            }
+        }
 
         private UnsplashUser _owner;
         public UnsplashUser Owner
@@ -320,7 +350,7 @@ namespace MyerSplash.Model
                       }
                       var downloaditem = new DownloadItem(this);
                       var task = downloaditem.DownloadFullImageAsync(CTSFactory.MakeCTS());
-                      App.VMLocator.DownloadsVM.AddDownloadingImage(downloaditem);
+                      App.VMLocator.DownloadsVM.AddDownloadingImageAsync(downloaditem);
                   });
             }
         }

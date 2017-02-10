@@ -35,6 +35,13 @@ namespace MyerSplash
             }
         }
 
+        public static string GetAppVersion()
+        {
+            var packageVersion = Package.Current.Id.Version;
+            var version = $"{packageVersion.Major}.{packageVersion.Minor}.{packageVersion.Build}";
+            return version;
+        }
+
         public App()
         {
             Microsoft.ApplicationInsights.WindowsAppInitializer.InitializeAsync(
