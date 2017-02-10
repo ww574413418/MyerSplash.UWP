@@ -2,6 +2,7 @@
   "dependencies": {
     "CompositionHelper": "1.0.4",
     "FlipperControl": "1.0.6",
+    "ImageLib.UWP": "5.2.0",
     "JP.Utils.UWP": "1.1.29",
     "Microsoft.ApplicationInsights": "2.1.0",
     "Microsoft.ApplicationInsights.PersistenceChannel": "1.2.3",

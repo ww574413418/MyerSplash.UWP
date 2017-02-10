@@ -27,6 +27,21 @@
           "lib/uap10.0/FlipperControl.dll": {}
         }
       },
+      "ImageLib.UWP/5.2.0": {
+        "dependencies": {
+          "Win2D.uwp": "1.7.0"
+        },
+        "compile": {
+          "lib/uap10.0/ImageLib.Controls.dll": {},
+          "lib/uap10.0/ImageLib.Gif.dll": {},
+          "lib/uap10.0/ImageLib.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/ImageLib.Controls.dll": {},
+          "lib/uap10.0/ImageLib.Gif.dll": {},
+          "lib/uap10.0/ImageLib.dll": {}
+        }
+      },
       "JP.Utils.UWP/1.1.29": {
         "compile": {
           "lib/uap10.0/JP.Utils.UWP.dll": {}
@@ -1956,6 +1971,21 @@
           "lib/uap10.0/FlipperControl.dll": {}
         }
       },
+      "ImageLib.UWP/5.2.0": {
+        "dependencies": {
+          "Win2D.uwp": "1.7.0"
+        },
+        "compile": {
+          "lib/uap10.0/ImageLib.Controls.dll": {},
+          "lib/uap10.0/ImageLib.Gif.dll": {},
+          "lib/uap10.0/ImageLib.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/ImageLib.Controls.dll": {},
+          "lib/uap10.0/ImageLib.Gif.dll": {},
+          "lib/uap10.0/ImageLib.dll": {}
+        }
+      },
       "JP.Utils.UWP/1.1.29": {
         "compile": {
           "lib/uap10.0/JP.Utils.UWP.dll": {}
@@ -3735,6 +3765,21 @@
           "lib/uap10.0/FlipperControl.dll": {}
         }
       },
+      "ImageLib.UWP/5.2.0": {
+        "dependencies": {
+          "Win2D.uwp": "1.7.0"
+        },
+        "compile": {
+          "lib/uap10.0/ImageLib.Controls.dll": {},
+          "lib/uap10.0/ImageLib.Gif.dll": {},
+          "lib/uap10.0/ImageLib.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/ImageLib.Controls.dll": {},
+          "lib/uap10.0/ImageLib.Gif.dll": {},
+          "lib/uap10.0/ImageLib.dll": {}
+        }
+      },
       "JP.Utils.UWP/1.1.29": {
         "compile": {
           "lib/uap10.0/JP.Utils.UWP.dll": {}
@@ -5470,6 +5515,21 @@
         },
         "runtime": {
           "lib/uap10.0/FlipperControl.dll": {}
+        }
+      },
+      "ImageLib.UWP/5.2.0": {
+        "dependencies": {
+          "Win2D.uwp": "1.7.0"
+        },
+        "compile": {
+          "lib/uap10.0/ImageLib.Controls.dll": {},
+          "lib/uap10.0/ImageLib.Gif.dll": {},
+          "lib/uap10.0/ImageLib.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/ImageLib.Controls.dll": {},
+          "lib/uap10.0/ImageLib.Gif.dll": {},
+          "lib/uap10.0/ImageLib.dll": {}
         }
       },
       "JP.Utils.UWP/1.1.29": {
@@ -7259,6 +7319,21 @@
           "lib/uap10.0/FlipperControl.dll": {}
         }
       },
+      "ImageLib.UWP/5.2.0": {
+        "dependencies": {
+          "Win2D.uwp": "1.7.0"
+        },
+        "compile": {
+          "lib/uap10.0/ImageLib.Controls.dll": {},
+          "lib/uap10.0/ImageLib.Gif.dll": {},
+          "lib/uap10.0/ImageLib.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/ImageLib.Controls.dll": {},
+          "lib/uap10.0/ImageLib.Gif.dll": {},
+          "lib/uap10.0/ImageLib.dll": {}
+        }
+      },
       "JP.Utils.UWP/1.1.29": {
         "compile": {
           "lib/uap10.0/JP.Utils.UWP.dll": {}
@@ -8994,6 +9069,21 @@
         },
         "runtime": {
           "lib/uap10.0/FlipperControl.dll": {}
+        }
+      },
+      "ImageLib.UWP/5.2.0": {
+        "dependencies": {
+          "Win2D.uwp": "1.7.0"
+        },
+        "compile": {
+          "lib/uap10.0/ImageLib.Controls.dll": {},
+          "lib/uap10.0/ImageLib.Gif.dll": {},
+          "lib/uap10.0/ImageLib.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/ImageLib.Controls.dll": {},
+          "lib/uap10.0/ImageLib.Gif.dll": {},
+          "lib/uap10.0/ImageLib.dll": {}
         }
       },
       "JP.Utils.UWP/1.1.29": {
@@ -10783,6 +10873,21 @@
           "lib/uap10.0/FlipperControl.dll": {}
         }
       },
+      "ImageLib.UWP/5.2.0": {
+        "dependencies": {
+          "Win2D.uwp": "1.7.0"
+        },
+        "compile": {
+          "lib/uap10.0/ImageLib.Controls.dll": {},
+          "lib/uap10.0/ImageLib.Gif.dll": {},
+          "lib/uap10.0/ImageLib.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/ImageLib.Controls.dll": {},
+          "lib/uap10.0/ImageLib.Gif.dll": {},
+          "lib/uap10.0/ImageLib.dll": {}
+        }
+      },
       "JP.Utils.UWP/1.1.29": {
         "compile": {
           "lib/uap10.0/JP.Utils.UWP.dll": {}
@@ -12531,6 +12636,29 @@
         "lib/uap10.0/FlipperControl.pri",
         "lib/uap10.0/FlipperControl/FlipperControl.xr.xml",
         "lib/uap10.0/FlipperControl/Themes/Generic.xaml"
+      ]
+    },
+    "ImageLib.UWP/5.2.0": {
+      "sha512": "eesCbpuxDgdMN8plWqh3NSXBOZJesG7+zdJJygw9N+seqNZeFBQaWrsC3fzyl0es1kHLPPiJaalSWeNWGNMCJw==",
+      "type": "package",
+      "files": [
+        "ImageLib.UWP.5.2.0.nupkg.sha512",
+        "ImageLib.UWP.nuspec",
+        "lib/uap10.0/ImageLib.Controls.dll",
+        "lib/uap10.0/ImageLib.Controls.pdb",
+        "lib/uap10.0/ImageLib.Controls.pri",
+        "lib/uap10.0/ImageLib.Controls/ImageLib.Controls.xr.xml",
+        "lib/uap10.0/ImageLib.Controls/ImageView.xbf",
+        "lib/uap10.0/ImageLib.Controls/Properties/ImageLib.Controls.rd.xml",
+        "lib/uap10.0/ImageLib.Gif.dll",
+        "lib/uap10.0/ImageLib.Gif.pdb",
+        "lib/uap10.0/ImageLib.Gif.pri",
+        "lib/uap10.0/ImageLib.Gif/Properties/ImageLib.Gif.rd.xml",
+        "lib/uap10.0/ImageLib.dll",
+        "lib/uap10.0/ImageLib.pdb",
+        "lib/uap10.0/ImageLib.pri",
+        "lib/uap10.0/ImageLib/Properties/ImageLib.rd.xml",
+        "lib/uap10.0/ImageView.xbf"
       ]
     },
     "JP.Utils.UWP/1.1.29": {
@@ -16056,6 +16184,7 @@
     "": [
       "CompositionHelper >= 1.0.4",
       "FlipperControl >= 1.0.6",
+      "ImageLib.UWP >= 5.2.0",
       "JP.Utils.UWP >= 1.1.29",
       "Microsoft.ApplicationInsights >= 2.1.0",
       "Microsoft.ApplicationInsights.PersistenceChannel >= 1.2.3",
