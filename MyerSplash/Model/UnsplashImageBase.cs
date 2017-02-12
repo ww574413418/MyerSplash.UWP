@@ -383,12 +383,6 @@ namespace MyerSplash.Model
 
             requestData.SetText(ShareText);
 
-            DataPackage dataPackage = new DataPackage();
-            dataPackage.SetText(ShareText);
-            Clipboard.SetContent(dataPackage);
-
-            DataRequestDeferral deferral = request.GetDeferral();
-
             var file = await StorageFile.GetFileFromPathAsync(ListImageBitmap.LocalPath);
             if (file != null)
             {
@@ -400,8 +394,6 @@ namespace MyerSplash.Model
                 requestData.SetBitmap(imageStreamRef);
                 requestData.Properties.Thumbnail = imageStreamRef;
             }
-
-            deferral.Complete();
         }
 
         public async Task RestoreDataAsync()

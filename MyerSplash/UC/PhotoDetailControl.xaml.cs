@@ -60,8 +60,6 @@ namespace MyerSplash.UC
             }
         }
 
-        private DataTransferManager _dataTransferManager;
-
         public bool IsShown { get; set; }
 
         private void RaisePropertyChanged(string name)
@@ -74,8 +72,8 @@ namespace MyerSplash.UC
             InitializeComponent();
             InitComposition();
             this.DataContext = this;
-            _dataTransferManager = DataTransferManager.GetForCurrentView();
-            _dataTransferManager.DataRequested += _dataTransferManager_DataRequested;
+            var manager = DataTransferManager.GetForCurrentView();
+            manager.DataRequested += _dataTransferManager_DataRequested;
 
             Messenger.Default.Register<GenericMessage<string>>(this, MessengerTokens.REPORT_DOWNLOADED, msg =>
               {
@@ -408,6 +406,10 @@ namespace MyerSplash.UC
 
         private void ToggleSetAsSP(bool show)
         {
+            if (FlipperControl.DisplayIndex != 3 && FlipperControl.DisplayIndex != 2)
+            {
+                return;
+            }
             if (show)
             {
                 DismissPreview();

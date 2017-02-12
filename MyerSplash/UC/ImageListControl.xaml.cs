@@ -88,9 +88,14 @@ namespace MyerSplash.UC
             TapItem(item);
         }
 
+        private bool checkListImageDownloaded(UnsplashImageBase image)
+        {
+            return !string.IsNullOrEmpty(image.ListImageBitmap.LocalPath);
+        }
+
         private void TapItem(UnsplashImageBase image)
         {
-            if (string.IsNullOrEmpty(image.ListImageBitmap.LocalPath))
+            if (!checkListImageDownloaded(image))
             {
                 return;
             }
@@ -251,6 +256,10 @@ namespace MyerSplash.UC
             else
             {
                 btn.Visibility = Visibility.Visible;
+            }
+            if (!checkListImageDownloaded(unsplashImage))
+            {
+                btn.Visibility = Visibility.Collapsed;
             }
 
             ToggleItemPointAnimation(maskBorder, img, true);
