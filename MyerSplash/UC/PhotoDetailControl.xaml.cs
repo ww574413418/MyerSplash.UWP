@@ -60,8 +60,6 @@ namespace MyerSplash.UC
             }
         }
 
-        private DataTransferManager _dataTransferManager;
-
         public bool IsShown { get; set; }
 
         private void RaisePropertyChanged(string name)
@@ -74,8 +72,8 @@ namespace MyerSplash.UC
             InitializeComponent();
             InitComposition();
             this.DataContext = this;
-            _dataTransferManager = DataTransferManager.GetForCurrentView();
-            _dataTransferManager.DataRequested += _dataTransferManager_DataRequested;
+            var manager = DataTransferManager.GetForCurrentView();
+            manager.DataRequested += _dataTransferManager_DataRequested;
 
             Messenger.Default.Register<GenericMessage<string>>(this, MessengerTokens.REPORT_DOWNLOADED, msg =>
               {
