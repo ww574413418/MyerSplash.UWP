@@ -406,6 +406,10 @@ namespace MyerSplash.UC
 
         private void ToggleSetAsSP(bool show)
         {
+            if (FlipperControl.DisplayIndex != 3 && FlipperControl.DisplayIndex != 2)
+            {
+                return;
+            }
             if (show)
             {
                 DismissPreview();
