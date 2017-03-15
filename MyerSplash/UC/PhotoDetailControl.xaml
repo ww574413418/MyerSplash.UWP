@@ -455,13 +455,17 @@
                                             Glyph="&#xE106;" />
                                     </Grid>
                                 </Button>
-                                <Canvas Width="50" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Canvas
+                                    Width="50"
+                                    Height="50"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
                                     <Path
                                         x:Name="LoadingPath"
                                         Width="50"
                                         Height="50"
                                         Stroke="White"
-                                        StrokeThickness="1">
+                                        StrokeThickness="1.5">
                                         <Path.Data>
                                             <PathGeometry>
                                                 <PathGeometry.Figures>
