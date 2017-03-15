@@ -163,6 +163,7 @@ namespace MyerSplash.ViewModel
                           SelectedIndex = -1;
                           ShowSearchBar = false;
                           await SearchByKeywordAsync();
+                          SearchKeyword = "";
                       }
                   });
             }
@@ -546,7 +547,7 @@ namespace MyerSplash.ViewModel
                     }
                     else name = SearchKeyword.ToUpper();
                 }
-                if (Categories?.Count > 0)
+                else if (Categories?.Count > 0)
                 {
                     name = Categories[SelectedIndex].Title.ToUpper();
                 }
