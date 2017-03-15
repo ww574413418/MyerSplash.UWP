@@ -1,1 +1,1 @@
-D:\Dev\MyerSplash\MyerSplash\AppPackages\MyerSplash_2.4.0.0\MyerSplash_2.4.0.0_x86_x64.appxbundle
+D:\Dev\MyerSplashUWP\MyerSplash\AppPackages\MyerSplash_2.5.0.0\MyerSplash_2.5.0.0_x86.appxbundle
