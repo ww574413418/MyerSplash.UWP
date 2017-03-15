@@ -14,8 +14,8 @@
     <SolidColorBrush x:Key="ImageBackBrush1">#FF2E2E2E</SolidColorBrush>
     <SolidColorBrush x:Key="ImageBackBrush2">#FF383838</SolidColorBrush>
     <SolidColorBrush x:Key="PhotoDetailBackgroundBrush">#DB000000</SolidColorBrush>
-    <SolidColorBrush x:Key="TitleBarDarkBrush">#FF151515</SolidColorBrush>
-    <SolidColorBrush x:Key="RootBackgrdBrush">#FF0C0C0C</SolidColorBrush>
+    <SolidColorBrush x:Key="TitleBarDarkBrush">#FF070707</SolidColorBrush>
+    <SolidColorBrush x:Key="RootBackgrdBrush">#FF070707</SolidColorBrush>
     <SolidColorBrush x:Key="HintTextForegroundBrush">#B4FFFFFF</SolidColorBrush>
     <SolidColorBrush x:Key="MainBarIconColorBrush">#C1FFFFFF</SolidColorBrush>
     <Color x:Key="ToolButtonEllColor">#7F000000</Color>

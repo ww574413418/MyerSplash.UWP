@@ -51,8 +51,13 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Orientation="Horizontal">
-                        <Image Width="50" Source="ms-appx:///Assets/tran_logo.targetsize-176_altform-unplated.png" />
+                        <Image
+                            Width="44"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Source="ms-appx:///Assets/tran_logo.targetsize-176_altform-unplated.png" />
                         <TextBlock
+                            Margin="12,0,0,0"
                             VerticalAlignment="Bottom"
                             FontFamily="Segoe UI Light"
                             FontSize="35"

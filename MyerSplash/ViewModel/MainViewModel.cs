@@ -514,19 +514,21 @@ namespace MyerSplash.ViewModel
         {
             get
             {
+                var name = "";
                 if (SelectedIndex == -1)
                 {
                     if (SearchKeyword == null)
                     {
-                        return DefaultTitleName;
+                        name = DefaultTitleName;
                     }
-                    else return SearchKeyword.ToUpper();
+                    else name = SearchKeyword.ToUpper();
                 }
                 if (Categories?.Count > 0)
                 {
-                    return Categories[SelectedIndex].Title.ToUpper();
+                    name = Categories[SelectedIndex].Title.ToUpper();
                 }
-                else return DefaultTitleName;
+                else name = DefaultTitleName;
+                return $"# {name}";
             }
         }
 
