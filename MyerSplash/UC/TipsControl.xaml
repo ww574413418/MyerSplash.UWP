@@ -36,14 +36,12 @@
                        FontSize="20"
                        FontWeight="Bold"
                        Foreground="{StaticResource MyerSplashThemeColor}"
-                       Text="WHAT'S NEW: SUPPORT PREVIEW" />
+                       Text="WHAT'S NEW" />
         </Grid>
         <Grid Grid.Row="1"
               Margin="4"
               VerticalAlignment="Top">
-            <controls:ImageView Margin="0,12"
-                                Stretch="Uniform"
-                                UriSource="ms-appx:///Assets/Image/presentation_preview.gif" />
+            <Image Height="200" Source="ms-appx:///Assets/tran_logo.targetsize-176_altform-unplated.png"/>
         </Grid>
     </Grid>
 </UserControl>

@@ -4,9 +4,9 @@
     <Color x:Key="ListButtonSelected">#7A363636</Color>
     <Color x:Key="ListButtonPressed">#14FFFFFF</Color>
     <Color x:Key="ListButtonPointOver">#22FFFFFF</Color>
-    <SolidColorBrush x:Key="MyerSplashThemeColor">#00bebe</SolidColorBrush>
-    <SolidColorBrush x:Key="MyerSplashThemeLightColor">#FF10D6D6</SolidColorBrush>
-    <SolidColorBrush x:Key="MyerSplashThemeDarkColor">#FF06AEAE</SolidColorBrush>
+    <SolidColorBrush x:Key="MyerSplashThemeColor">#18c3d8</SolidColorBrush>
+    <SolidColorBrush x:Key="MyerSplashThemeLightColor">#3ADBEF</SolidColorBrush>
+    <SolidColorBrush x:Key="MyerSplashThemeDarkColor">#16ACBE</SolidColorBrush>
     <Color x:Key="MyerSplashUnLikedHeartColor">#FFECECEC</Color>
     <Color x:Key="MyerSplashLikedHeartColor">#FFD93A58</Color>
     <SolidColorBrush x:Key="MyerSplashDarkColor">#FF1D1D1D</SolidColorBrush>
