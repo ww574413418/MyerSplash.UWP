@@ -117,7 +117,7 @@
                         Margin="4"
                         HorizontalAlignment="Center"
                         FontSize="15"
-                        Foreground="#99FFFFFF"
+                        Foreground="White"
                         Text="Photos are from Unsplash, a website providing free (do whatever you want) high-resolution photos."
                         TextAlignment="Center"
                         TextWrapping="Wrap" />
@@ -140,7 +140,7 @@
                                 Margin="8"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                Foreground="#99FFFFFF"
+                                Foreground="White"
                                 Text="Tell me your ideas" />
                         </Border>
                     </Button>
@@ -154,7 +154,7 @@
                                 Margin="8"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                Foreground="#99FFFFFF"
+                                Foreground="White"
                                 Text="Contribute your code" />
                         </Border>
                     </Button>
@@ -168,7 +168,7 @@
                                 Margin="8"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                Foreground="#99FFFFFF"
+                                Foreground="White"
                                 Text="Follow me on Twitter" />
                         </Border>
                     </Button>
@@ -192,7 +192,7 @@
                                 Margin="8"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                Foreground="#99FFFFFF"
+                                Foreground="White"
                                 Text="Treat me a drink" />
                         </Border>
                     </Button>
@@ -206,7 +206,7 @@
                                 Margin="8"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                Foreground="#99FFFFFF"
+                                Foreground="White"
                                 Text="Rate in Store" />
                         </Border>
                     </Button>

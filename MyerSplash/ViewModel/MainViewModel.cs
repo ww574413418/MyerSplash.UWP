@@ -17,6 +17,7 @@ using Newtonsoft.Json;
 using MyerSplashCustomControl;
 using MyerSplash.UC;
 using JP.Utils.Helper;
+using Windows.UI.ViewManagement;
 
 namespace MyerSplash.ViewModel
 {
@@ -456,6 +457,28 @@ namespace MyerSplash.ViewModel
                               }
                               return false;
                           });
+                  });
+            }
+        }
+
+        private RelayCommand _toggleFullScreenCommand;
+        public RelayCommand ToggleFullScreenCommand
+        {
+            get
+            {
+                if (_toggleFullScreenCommand != null) return _toggleFullScreenCommand;
+                return _toggleFullScreenCommand = new RelayCommand(() =>
+                  {
+                      var isInFullScreen = ApplicationView.GetForCurrentView().IsFullScreenMode;
+                      if (!isInFullScreen)
+                      {
+                          ApplicationView.GetForCurrentView().TryEnterFullScreenMode();
+                      }
+                      else
+                      {
+                          ApplicationView.GetForCurrentView().ExitFullScreenMode();
+                      }
+                      DrawerOpened = false;
                   });
             }
         }

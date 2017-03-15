@@ -39,11 +39,10 @@
                         Text="Splash" />
                 </StackPanel>
             </StackPanel>
-
             <Button
                 x:Name="DownloadEntryBtn"
                 Width="64"
-                Height="64.4"
+                Height="64"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 Command="{x:Bind MainVM.ShowDownloadsCommand, Mode=OneWay}"
@@ -53,6 +52,19 @@
                     FontFamily="Segoe MDL2 Assets"
                     Foreground="White"
                     Glyph="&#xE118;" />
+            </Button>
+            <Button
+                x:Name="FullscreenBtn"
+                Width="64"
+                Height="64"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Command="{x:Bind MainVM.ToggleFullScreenCommand, Mode=OneWay}"
+                Style="{StaticResource ListButtonStyle}">
+                <SymbolIcon
+                    x:Name="FullscreenIcon"
+                    Foreground="White"
+                    Symbol="FullScreen" />
             </Button>
         </Grid>
         <Grid Grid.Row="1">
