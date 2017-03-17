@@ -81,6 +81,32 @@ namespace MyerSplash.Common
             }
         }
 
+        public int BackgroundWallpaperSource
+        {
+            get
+            {
+                return ReadSettings(nameof(BackgroundWallpaperSource), 0);
+            }
+            set
+            {
+                SaveSettings(nameof(BackgroundWallpaperSource), value);
+                RaisePropertyChanged(() => BackgroundWallpaperSource);
+                switch (value)
+                {
+                    case 0:
+                        var task0 = BackgroundTaskRegister.UnregisterAsync();
+                        break;
+                    case 1:
+                    // fall through
+                    case 2:
+                    // fall through
+                    case 3:
+                        var task1 = BackgroundTaskRegister.RegisterAsync();
+                        break;
+                }
+            }
+        }
+
         public int LoadQuality
         {
             get

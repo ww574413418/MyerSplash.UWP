@@ -2058,6 +2058,15 @@
           }
         }
       },
+      "BackgroundTask/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0",
+        "dependencies": {
+          "JP.Utils.UWP": "1.1.29",
+          "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
+          "MyerSplashShared": "1.0.0"
+        }
+      },
       "MyerSplashCustomControl/1.0.0": {
         "type": "project",
         "framework": "UAP,Version=v10.0",
@@ -3987,6 +3996,15 @@
           "runtimes/win10-arm/native/Microsoft.Graphics.Canvas.dll": {}
         }
       },
+      "BackgroundTask/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0",
+        "dependencies": {
+          "JP.Utils.UWP": "1.1.29",
+          "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
+          "MyerSplashShared": "1.0.0"
+        }
+      },
       "MyerSplashCustomControl/1.0.0": {
         "type": "project",
         "framework": "UAP,Version=v10.0",
@@ -5871,6 +5889,15 @@
         },
         "native": {
           "runtimes/win10-arm/native/Microsoft.Graphics.Canvas.dll": {}
+        }
+      },
+      "BackgroundTask/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0",
+        "dependencies": {
+          "JP.Utils.UWP": "1.1.29",
+          "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
+          "MyerSplashShared": "1.0.0"
         }
       },
       "MyerSplashCustomControl/1.0.0": {
@@ -7811,6 +7838,15 @@
           "runtimes/win10-x64/native/Microsoft.Graphics.Canvas.dll": {}
         }
       },
+      "BackgroundTask/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0",
+        "dependencies": {
+          "JP.Utils.UWP": "1.1.29",
+          "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
+          "MyerSplashShared": "1.0.0"
+        }
+      },
       "MyerSplashCustomControl/1.0.0": {
         "type": "project",
         "framework": "UAP,Version=v10.0",
@@ -9695,6 +9731,15 @@
         },
         "native": {
           "runtimes/win10-x64/native/Microsoft.Graphics.Canvas.dll": {}
+        }
+      },
+      "BackgroundTask/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0",
+        "dependencies": {
+          "JP.Utils.UWP": "1.1.29",
+          "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
+          "MyerSplashShared": "1.0.0"
         }
       },
       "MyerSplashCustomControl/1.0.0": {
@@ -11635,6 +11680,15 @@
           "runtimes/win10-x86/native/Microsoft.Graphics.Canvas.dll": {}
         }
       },
+      "BackgroundTask/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0",
+        "dependencies": {
+          "JP.Utils.UWP": "1.1.29",
+          "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
+          "MyerSplashShared": "1.0.0"
+        }
+      },
       "MyerSplashCustomControl/1.0.0": {
         "type": "project",
         "framework": "UAP,Version=v10.0",
@@ -13519,6 +13573,15 @@
         },
         "native": {
           "runtimes/win10-x86/native/Microsoft.Graphics.Canvas.dll": {}
+        }
+      },
+      "BackgroundTask/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0",
+        "dependencies": {
+          "JP.Utils.UWP": "1.1.29",
+          "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
+          "MyerSplashShared": "1.0.0"
         }
       },
       "MyerSplashCustomControl/1.0.0": {
@@ -17240,6 +17303,11 @@
         "win2d.uwp.nuspec"
       ]
     },
+    "BackgroundTask/1.0.0": {
+      "type": "project",
+      "path": "../BackgroundTask/project.json",
+      "msbuildProject": "../BackgroundTask/BackgroundTask.csproj"
+    },
     "MyerSplashCustomControl/1.0.0": {
       "type": "project",
       "path": "../MyerSplashCustomControl/project.json",
@@ -17282,6 +17350,9 @@
       "frameworks": {
         "uap10.0": {
           "projectReferences": {
+            "D:\\Dev\\MyerSplashUWP\\BackgroundTask\\BackgroundTask.csproj": {
+              "projectPath": "D:\\Dev\\MyerSplashUWP\\BackgroundTask\\BackgroundTask.csproj"
+            },
             "D:\\Dev\\MyerSplashUWP\\MyerSplashCustomControl\\MyerSplashCustomControl.csproj": {
               "projectPath": "D:\\Dev\\MyerSplashUWP\\MyerSplashCustomControl\\MyerSplashCustomControl.csproj"
             },

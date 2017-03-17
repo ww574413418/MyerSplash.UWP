@@ -1,13 +1,14 @@
-﻿<common:NavigableUserControl x:Class="MyerSplash.UC.SettingsControl"
-                             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                             xmlns:common="using:MyerSplash.Common"
-                             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                             xmlns:local="using:MyerSplash.UC"
-                             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                             d:DesignHeight="700"
-                             d:DesignWidth="400"
-                             mc:Ignorable="d">
+﻿<common:NavigableUserControl
+    x:Class="MyerSplash.UC.SettingsControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:common="using:MyerSplash.Common"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:MyerSplash.UC"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="700"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
 
     <UserControl.Resources>
         <Style x:Key="ToggleSwitchStyle1" TargetType="ToggleSwitch">
@@ -23,94 +24,105 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ToggleSwitch">
-                        <Grid MinHeight="40"
-                              Background="{TemplateBinding Background}"
-                              BorderBrush="{TemplateBinding BorderBrush}"
-                              BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid
+                            MinHeight="40"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
                                 <ColumnDefinition Width="62" />
                                 <ColumnDefinition Width="40" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock x:Name="HeaderContentPresenter"
-                                       VerticalAlignment="Center"
-                                       x:DeferLoadStrategy="Lazy"
-                                       AutomationProperties.AccessibilityView="Raw"
-                                       Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
-                                       IsHitTestVisible="False"
-                                       Text="{TemplateBinding Header}"
-                                       TextTrimming="CharacterEllipsis"
-                                       Visibility="Collapsed" />
-                            <ContentPresenter x:Name="OffContentPresenter"
-                                              Grid.Column="2"
-                                              Width="26"
-                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                              VerticalAlignment="Center"
-                                              AutomationProperties.AccessibilityView="Raw"
-                                              Content="{TemplateBinding OffContent}"
-                                              ContentTemplate="{TemplateBinding OffContentTemplate}"
-                                              Foreground="{TemplateBinding Foreground}"
-                                              IsHitTestVisible="False"
-                                              Opacity="0" />
-                            <ContentPresenter x:Name="OnContentPresenter"
-                                              Grid.Column="2"
-                                              Width="23"
-                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                              VerticalAlignment="Center"
-                                              AutomationProperties.AccessibilityView="Raw"
-                                              Content="{TemplateBinding OnContent}"
-                                              ContentTemplate="{TemplateBinding OnContentTemplate}"
-                                              Foreground="{TemplateBinding Foreground}"
-                                              IsHitTestVisible="False"
-                                              Opacity="0" />
-                            <Grid Grid.Column="1"
-                                  Margin="0,5"
-                                  Control.IsTemplateFocusTarget="True" />
-                            <Rectangle x:Name="OuterBorder"
-                                       Grid.Column="1"
-                                       Width="45"
-                                       Height="20"
-                                       Margin="0"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Fill="{StaticResource MyerSplashDarkColor}"
-                                       RadiusX="10"
-                                       RadiusY="10"
-                                       Stroke="{StaticResource MyerSplashThemeColor}"
-                                       StrokeThickness="2" />
-                            <Rectangle x:Name="SwitchKnobBounds"
-                                       Grid.Column="1"
-                                       Width="45"
-                                       Height="20"
-                                       Margin="0"
-                                       HorizontalAlignment="Center"
-                                       Fill="{StaticResource MyerSplashThemeColor}"
-                                       Opacity="0"
-                                       RadiusX="10"
-                                       RadiusY="10"
-                                       Stroke="{ThemeResource SystemControlHighlightAltBaseHighBrush}"
-                                       StrokeThickness="{ThemeResource ToggleSwitchOnStrokeThickness}" />
-                            <Grid x:Name="SwitchKnob"
-                                  Grid.Column="1"
-                                  Width="20"
-                                  Margin="9,0,0,0"
-                                  HorizontalAlignment="Left">
+                            <TextBlock
+                                x:Name="HeaderContentPresenter"
+                                VerticalAlignment="Center"
+                                x:DeferLoadStrategy="Lazy"
+                                AutomationProperties.AccessibilityView="Raw"
+                                Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                                IsHitTestVisible="False"
+                                Text="{TemplateBinding Header}"
+                                TextTrimming="CharacterEllipsis"
+                                Visibility="Collapsed" />
+                            <ContentPresenter
+                                x:Name="OffContentPresenter"
+                                Grid.Column="2"
+                                Width="26"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="Center"
+                                AutomationProperties.AccessibilityView="Raw"
+                                Content="{TemplateBinding OffContent}"
+                                ContentTemplate="{TemplateBinding OffContentTemplate}"
+                                Foreground="{TemplateBinding Foreground}"
+                                IsHitTestVisible="False"
+                                Opacity="0" />
+                            <ContentPresenter
+                                x:Name="OnContentPresenter"
+                                Grid.Column="2"
+                                Width="23"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="Center"
+                                AutomationProperties.AccessibilityView="Raw"
+                                Content="{TemplateBinding OnContent}"
+                                ContentTemplate="{TemplateBinding OnContentTemplate}"
+                                Foreground="{TemplateBinding Foreground}"
+                                IsHitTestVisible="False"
+                                Opacity="0" />
+                            <Grid
+                                Grid.Column="1"
+                                Margin="0,5"
+                                Control.IsTemplateFocusTarget="True" />
+                            <Rectangle
+                                x:Name="OuterBorder"
+                                Grid.Column="1"
+                                Width="45"
+                                Height="20"
+                                Margin="0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Fill="{StaticResource MyerSplashDarkColor}"
+                                RadiusX="10"
+                                RadiusY="10"
+                                Stroke="{StaticResource MyerSplashThemeColor}"
+                                StrokeThickness="2" />
+                            <Rectangle
+                                x:Name="SwitchKnobBounds"
+                                Grid.Column="1"
+                                Width="45"
+                                Height="20"
+                                Margin="0"
+                                HorizontalAlignment="Center"
+                                Fill="{StaticResource MyerSplashThemeColor}"
+                                Opacity="0"
+                                RadiusX="10"
+                                RadiusY="10"
+                                Stroke="{ThemeResource SystemControlHighlightAltBaseHighBrush}"
+                                StrokeThickness="{ThemeResource ToggleSwitchOnStrokeThickness}" />
+                            <Grid
+                                x:Name="SwitchKnob"
+                                Grid.Column="1"
+                                Width="20"
+                                Margin="9,0,0,0"
+                                HorizontalAlignment="Left">
                                 <Grid.RenderTransform>
                                     <TranslateTransform x:Name="KnobTranslateTransform" />
                                 </Grid.RenderTransform>
-                                <Ellipse x:Name="SwitchKnobOn"
-                                         Width="10"
-                                         Height="10"
-                                         Fill="White"
-                                         Opacity="0" />
-                                <Ellipse x:Name="SwitchKnobOff"
-                                         Width="10"
-                                         Height="10"
-                                         Fill="White" />
+                                <Ellipse
+                                    x:Name="SwitchKnobOn"
+                                    Width="10"
+                                    Height="10"
+                                    Fill="White"
+                                    Opacity="0" />
+                                <Ellipse
+                                    x:Name="SwitchKnobOff"
+                                    Width="10"
+                                    Height="10"
+                                    Fill="White" />
                             </Grid>
-                            <Thumb x:Name="SwitchThumb"
-                                   Grid.ColumnSpan="3"
-                                   AutomationProperties.AccessibilityView="Raw">
+                            <Thumb
+                                x:Name="SwitchThumb"
+                                Grid.ColumnSpan="3"
+                                AutomationProperties.AccessibilityView="Raw">
                                 <Thumb.Template>
                                     <ControlTemplate TargetType="Thumb">
                                         <Rectangle Fill="Transparent" />
@@ -156,10 +168,11 @@
                                 </VisualStateGroup>
                                 <VisualStateGroup x:Name="ToggleStates">
                                     <VisualStateGroup.Transitions>
-                                        <VisualTransition x:Name="DraggingToOnTransition"
-                                                          From="Dragging"
-                                                          GeneratedDuration="0"
-                                                          To="On">
+                                        <VisualTransition
+                                            x:Name="DraggingToOnTransition"
+                                            GeneratedDuration="0"
+                                            From="Dragging"
+                                            To="On">
                                             <Storyboard>
                                                 <RepositionThemeAnimation FromHorizontalOffset="{Binding TemplateSettings.KnobCurrentToOnOffset, RelativeSource={RelativeSource Mode=TemplatedParent}}" TargetName="SwitchKnob" />
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SwitchKnobBounds" Storyboard.TargetProperty="Opacity">
@@ -176,26 +189,29 @@
                                                 </ObjectAnimationUsingKeyFrames>
                                             </Storyboard>
                                         </VisualTransition>
-                                        <VisualTransition x:Name="DraggingToOffTransition"
-                                                          From="Dragging"
-                                                          GeneratedDuration="0"
-                                                          To="Off">
+                                        <VisualTransition
+                                            x:Name="DraggingToOffTransition"
+                                            GeneratedDuration="0"
+                                            From="Dragging"
+                                            To="Off">
                                             <Storyboard>
                                                 <RepositionThemeAnimation FromHorizontalOffset="{Binding TemplateSettings.KnobCurrentToOffOffset, RelativeSource={RelativeSource Mode=TemplatedParent}}" TargetName="SwitchKnob" />
                                             </Storyboard>
                                         </VisualTransition>
-                                        <VisualTransition x:Name="OnToOffTransition"
-                                                          From="On"
-                                                          GeneratedDuration="0"
-                                                          To="Off">
+                                        <VisualTransition
+                                            x:Name="OnToOffTransition"
+                                            GeneratedDuration="0"
+                                            From="On"
+                                            To="Off">
                                             <Storyboard>
                                                 <RepositionThemeAnimation FromHorizontalOffset="{Binding TemplateSettings.KnobOnToOffOffset, RelativeSource={RelativeSource Mode=TemplatedParent}}" TargetName="SwitchKnob" />
                                             </Storyboard>
                                         </VisualTransition>
-                                        <VisualTransition x:Name="OffToOnTransition"
-                                                          From="Off"
-                                                          GeneratedDuration="0"
-                                                          To="On">
+                                        <VisualTransition
+                                            x:Name="OffToOnTransition"
+                                            GeneratedDuration="0"
+                                            From="Off"
+                                            To="On">
                                             <Storyboard>
                                                 <RepositionThemeAnimation FromHorizontalOffset="{Binding TemplateSettings.KnobOffToOnOffset, RelativeSource={RelativeSource Mode=TemplatedParent}}" TargetName="SwitchKnob" />
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SwitchKnobBounds" Storyboard.TargetProperty="Opacity">
@@ -217,10 +233,11 @@
                                     <VisualState x:Name="Off" />
                                     <VisualState x:Name="On">
                                         <Storyboard>
-                                            <DoubleAnimation Duration="0"
-                                                             Storyboard.TargetName="KnobTranslateTransform"
-                                                             Storyboard.TargetProperty="X"
-                                                             To="24" />
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="KnobTranslateTransform"
+                                                Storyboard.TargetProperty="X"
+                                                To="24"
+                                                Duration="0" />
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SwitchKnobBounds" Storyboard.TargetProperty="Opacity">
                                                 <DiscreteObjectKeyFrame KeyTime="0" Value="1" />
                                             </ObjectAnimationUsingKeyFrames>
@@ -239,10 +256,11 @@
                                 <VisualStateGroup x:Name="ContentStates">
                                     <VisualState x:Name="OffContent">
                                         <Storyboard>
-                                            <DoubleAnimation Duration="0"
-                                                             Storyboard.TargetName="OffContentPresenter"
-                                                             Storyboard.TargetProperty="Opacity"
-                                                             To="1" />
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="OffContentPresenter"
+                                                Storyboard.TargetProperty="Opacity"
+                                                To="1"
+                                                Duration="0" />
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="OffContentPresenter" Storyboard.TargetProperty="IsHitTestVisible">
                                                 <DiscreteObjectKeyFrame KeyTime="0">
                                                     <DiscreteObjectKeyFrame.Value>
@@ -254,10 +272,11 @@
                                     </VisualState>
                                     <VisualState x:Name="OnContent">
                                         <Storyboard>
-                                            <DoubleAnimation Duration="0"
-                                                             Storyboard.TargetName="OnContentPresenter"
-                                                             Storyboard.TargetProperty="Opacity"
-                                                             To="1" />
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="OnContentPresenter"
+                                                Storyboard.TargetProperty="Opacity"
+                                                To="1"
+                                                Duration="0" />
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="OnContentPresenter" Storyboard.TargetProperty="IsHitTestVisible">
                                                 <DiscreteObjectKeyFrame KeyTime="0">
                                                     <DiscreteObjectKeyFrame.Value>
@@ -285,19 +304,21 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ComboBoxItem">
-                        <Grid x:Name="LayoutRoot"
-                              Background="{TemplateBinding Background}"
-                              BorderBrush="{TemplateBinding BorderBrush}"
-                              BorderThickness="{TemplateBinding BorderThickness}"
-                              Control.IsTemplateFocusTarget="True">
-                            <ContentPresenter x:Name="ContentPresenter"
-                                              Margin="{TemplateBinding Padding}"
-                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                              Content="{TemplateBinding Content}"
-                                              ContentTemplate="{TemplateBinding ContentTemplate}"
-                                              ContentTransitions="{TemplateBinding ContentTransitions}"
-                                              Foreground="White" />
+                        <Grid
+                            x:Name="LayoutRoot"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Control.IsTemplateFocusTarget="True">
+                            <ContentPresenter
+                                x:Name="ContentPresenter"
+                                Margin="{TemplateBinding Padding}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                ContentTransitions="{TemplateBinding ContentTransitions}"
+                                Foreground="White" />
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup x:Name="CommonStates">
                                     <VisualState x:Name="Normal">
@@ -380,215 +401,249 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid x:Name="TitleBar" Background="{StaticResource TitleBarDarkBrush}">
-
-            <TextBlock Margin="0,0,0,0"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       FontSize="25"
-                       FontWeight="Bold"
-                       Foreground="White"
-                       Text="SETTINGS" />
+            <TextBlock
+                Margin="0,0,0,0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="25"
+                FontWeight="Bold"
+                Foreground="White"
+                Text="SETTINGS" />
         </Grid>
-        <Button x:Name="CloseBtn"
-                Width="70"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Stretch"
-                Click="CloseBtn_Click"
-                Style="{StaticResource ListButtonStyle}">
-            <FontIcon FontFamily="Segoe MDL2 Assets"
-                      Foreground="White"
-                      Glyph="&#xE0D5;" />
+        <Button
+            x:Name="CloseBtn"
+            Width="70"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Stretch"
+            Click="CloseBtn_Click"
+            Style="{StaticResource ListButtonStyle}">
+            <FontIcon
+                FontFamily="Segoe MDL2 Assets"
+                Foreground="White"
+                Glyph="&#xE0D5;" />
         </Button>
         <Grid Grid.Row="1" MaxWidth="600">
-            <ScrollViewer HorizontalScrollBarVisibility="Disabled"
-                          HorizontalScrollMode="Disabled"
-                          Style="{StaticResource ScrollViewerCommonStyle}"
-                          VerticalScrollBarVisibility="Hidden"
-                          VerticalScrollMode="Auto">
+            <ScrollViewer
+                HorizontalScrollBarVisibility="Disabled"
+                HorizontalScrollMode="Disabled"
+                Style="{StaticResource ScrollViewerCommonStyle}"
+                VerticalScrollBarVisibility="Hidden"
+                VerticalScrollMode="Auto">
                 <StackPanel Margin="0,20,0,0">
-                    <TextBlock Margin="10,10,0,0"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Center"
-                               FontSize="20"
-                               FontWeight="Bold"
-                               Foreground="{StaticResource MyerSplashThemeColor}"
-                               Text="PERSONALIZATION" />
+                    <TextBlock
+                        Margin="10,10,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        FontSize="20"
+                        FontWeight="Bold"
+                        Foreground="{StaticResource MyerSplashThemeColor}"
+                        Text="PERSONALIZATION" />
                     <Grid Height="50">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Margin="10,0,0,0"
-                                   VerticalAlignment="Center"
-                                   Foreground="White"
-                                   Text="Enable Live Tile" />
-                        <ToggleSwitch Grid.Column="1"
-                                      HorizontalAlignment="Right"
-                                      Foreground="White"
-                                      IsOn="{Binding Source={StaticResource AppSettings},
-                                                     Path=EnableTile,
-                                                     Mode=TwoWay}"
-                                      OffContent="Off"
-                                      OnContent="On"
-                                      RequestedTheme="Dark"
-                                      Style="{StaticResource ToggleSwitchStyle1}" />
+                        <TextBlock
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            Foreground="White"
+                            Text="Enable Live Tile" />
+                        <ToggleSwitch
+                            Grid.Column="1"
+                            HorizontalAlignment="Right"
+                            Foreground="White"
+                            IsOn="{Binding Source={StaticResource AppSettings}, Path=EnableTile, Mode=TwoWay}"
+                            OffContent="Off"
+                            OnContent="On"
+                            RequestedTheme="Dark"
+                            Style="{StaticResource ToggleSwitchStyle1}" />
                     </Grid>
                     <Grid Height="50">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Margin="10,0,0,0"
-                                   VerticalAlignment="Center"
-                                   Foreground="White"
-                                   Text="Enable scale animation" />
-                        <ToggleSwitch Grid.Column="1"
-                                      HorizontalAlignment="Right"
-                                      Foreground="White"
-                                      IsOn="{Binding Source={StaticResource AppSettings},
-                                                     Path=EnableScaleAnimation,
-                                                     Mode=TwoWay}"
-                                      OffContent="Off"
-                                      OnContent="On"
-                                      RequestedTheme="Dark"
-                                      Style="{StaticResource ToggleSwitchStyle1}" />
+                        <TextBlock
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            Foreground="White"
+                            Text="Enable scale animation" />
+                        <ToggleSwitch
+                            Grid.Column="1"
+                            HorizontalAlignment="Right"
+                            Foreground="White"
+                            IsOn="{Binding Source={StaticResource AppSettings}, Path=EnableScaleAnimation, Mode=TwoWay}"
+                            OffContent="Off"
+                            OnContent="On"
+                            RequestedTheme="Dark"
+                            Style="{StaticResource ToggleSwitchStyle1}" />
                     </Grid>
                     <Grid x:Name="ShowListGrid" Height="50">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition Width="150" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Margin="10,0,0,0"
-                                   VerticalAlignment="Center"
-                                   Foreground="White">
+                        <TextBlock
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            Foreground="White">
                             <Run Text="Show download button in list" />
                             <LineBreak />
                             <Run Foreground="#4CFFFFFF" Text="for mobile devices" />
                         </TextBlock>
-                        <ToggleSwitch Grid.Column="1"
-                                      HorizontalAlignment="Right"
-                                      Foreground="White"
-                                      IsOn="{Binding Source={StaticResource AppSettings},
-                                                     Path=EnableQuickDownload,
-                                                     Mode=TwoWay}"
-                                      OffContent="Off"
-                                      OnContent="On"
-                                      RequestedTheme="Dark"
-                                      Style="{StaticResource ToggleSwitchStyle1}" />
+                        <ToggleSwitch
+                            Grid.Column="1"
+                            HorizontalAlignment="Right"
+                            Foreground="White"
+                            IsOn="{Binding Source={StaticResource AppSettings}, Path=EnableQuickDownload, Mode=TwoWay}"
+                            OffContent="Off"
+                            OnContent="On"
+                            RequestedTheme="Dark"
+                            Style="{StaticResource ToggleSwitchStyle1}" />
                     </Grid>
 
                     <StackPanel>
-                        <TextBlock Margin="10,10,0,0"
-                                   VerticalAlignment="Top"
-                                   Foreground="White"
-                                   Text="Saving position" />
-                        <Button Margin="10"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
-                                Background="{x:Null}"
-                                Style="{StaticResource ButtonCommonStyle}">
+                        <TextBlock
+                            Margin="10,10,0,0"
+                            VerticalAlignment="Top"
+                            Foreground="White"
+                            Text="Saving position" />
+                        <Button
+                            Margin="10"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Background="{x:Null}"
+                            Style="{StaticResource ButtonCommonStyle}">
                             <Grid>
-                                <Border Background="#66000000"
-                                        BorderBrush="{StaticResource MyerSplashThemeColor}"
-                                        BorderThickness="1">
-                                    <TextBlock Margin="5,5,50,5"
-                                               Foreground="White"
-                                               Text="{x:Bind SettingsVM.SavingPositionPath, Mode=OneWay}"
-                                               TextTrimming="CharacterEllipsis" />
+                                <Border
+                                    Background="#66000000"
+                                    BorderBrush="{StaticResource MyerSplashThemeColor}"
+                                    BorderThickness="1">
+                                    <TextBlock
+                                        Margin="5,5,50,5"
+                                        Foreground="White"
+                                        Text="{x:Bind SettingsVM.SavingPositionPath, Mode=OneWay}"
+                                        TextTrimming="CharacterEllipsis" />
                                 </Border>
-                                <Button HorizontalAlignment="Right"
-                                        VerticalAlignment="Stretch"
-                                        Command="{x:Bind SettingsVM.OpenSavingFolderCommand, Mode=OneWay}"
-                                        Style="{StaticResource ButtonCommonStyle}">
+                                <Button
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Stretch"
+                                    Command="{x:Bind SettingsVM.OpenSavingFolderCommand, Mode=OneWay}"
+                                    Style="{StaticResource ButtonCommonStyle}">
                                     <Border Background="{StaticResource MyerSplashThemeColor}">
-                                        <TextBlock Margin="4,0"
-                                                   VerticalAlignment="Center"
-                                                   FontWeight="Bold"
-                                                   Text="OPEN" />
+                                        <TextBlock
+                                            Margin="4,0"
+                                            VerticalAlignment="Center"
+                                            FontWeight="Bold"
+                                            Text="OPEN" />
                                     </Border>
                                 </Button>
                             </Grid>
                         </Button>
                     </StackPanel>
-                    <!--<TextBlock Margin="10,10,0,0"
-                               VerticalAlignment="Center"
-                               Foreground="White"
-                               Text="Default category" />
-                    <ComboBox Margin="10,10,10,0"
-                              HorizontalAlignment="Stretch"
-                              BorderThickness="1"
-                              RequestedTheme="Dark"
-                              SelectedIndex="{Binding Source={StaticResource AppSettings},
-                                                      Path=DefaultCategory,
-                                                      FallbackValue=1,
-                                                      Mode=TwoWay}">
-                        <ComboBoxItem Content="Random" Style="{StaticResource ComboBoxItemStyle}" />
-                        <ComboBoxItem Content="New" Style="{StaticResource ComboBoxItemStyle}" />
-                        <ComboBoxItem Content="Featured" Style="{StaticResource ComboBoxItemStyle}" />
-                    </ComboBox>-->
-                    <TextBlock Margin="10,10,0,0"
-                               VerticalAlignment="Center"
-                               Foreground="White"
-                               Text="Loading quality in list" />
-                    <ComboBox Margin="10,10,10,0"
-                              HorizontalAlignment="Stretch"
-                              BorderThickness="1"
-                              RequestedTheme="Dark"
-                              SelectedIndex="{Binding Source={StaticResource AppSettings},
-                                                      Path=LoadQuality,
-                                                      Mode=TwoWay}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            Margin="10,10,0,0"
+                            VerticalAlignment="Center"
+                            Foreground="White"
+                            Text="Update wallpaper in background every day" />
+                        <Button
+                            Margin="12,0,0,0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Command="{x:Bind SettingsVM.BackgroundWallpaperHelpCommand, Mode=OneWay}"
+                            Style="{StaticResource ButtonCommonStyle}">
+                            <Grid>
+                                <Ellipse
+                                    Width="20"
+                                    Height="20"
+                                    Fill="{StaticResource MyerSplashThemeColor}" />
+                                <FontIcon
+                                    FontFamily="Segoe MDL2 Assets"
+                                    FontSize="12"
+                                    FontWeight="Bold"
+                                    Glyph="&#xE11B;" />
+                            </Grid>
+                        </Button>
+                    </StackPanel>
+                    <ComboBox
+                        Margin="10,10,10,0"
+                        HorizontalAlignment="Stretch"
+                        BorderThickness="1"
+                        RequestedTheme="Dark"
+                        SelectedIndex="{Binding Source={StaticResource AppSettings}, Path=BackgroundWallpaperSource, Mode=TwoWay}">
+                        <ComboBoxItem Content="Disable" Style="{StaticResource ComboBoxItemStyle}" />
+                        <ComboBoxItem Content="Enable" Style="{StaticResource ComboBoxItemStyle}" />
+                    </ComboBox>
+                    <TextBlock
+                        Margin="10,10,0,0"
+                        VerticalAlignment="Center"
+                        Foreground="White"
+                        Text="Loading quality in list" />
+                    <ComboBox
+                        Margin="10,10,10,0"
+                        HorizontalAlignment="Stretch"
+                        BorderThickness="1"
+                        RequestedTheme="Dark"
+                        SelectedIndex="{Binding Source={StaticResource AppSettings}, Path=LoadQuality, Mode=TwoWay}">
                         <ComboBoxItem Content="Large (Recommended)" Style="{StaticResource ComboBoxItemStyle}" />
                         <ComboBoxItem Content="Small" Style="{StaticResource ComboBoxItemStyle}" />
                         <ComboBoxItem Content="Thumbnail" Style="{StaticResource ComboBoxItemStyle}" />
                     </ComboBox>
-                    <TextBlock Margin="10,10,0,0"
-                               VerticalAlignment="Center"
-                               Foreground="White"
-                               Text="Image quality for downloading" />
-                    <ComboBox Margin="10,10,10,0"
-                              HorizontalAlignment="Stretch"
-                              BorderThickness="1"
-                              RequestedTheme="Dark"
-                              SelectedIndex="{Binding Source={StaticResource AppSettings},
-                                                      Path=SaveQuality,
-                                                      Mode=TwoWay}">
+                    <TextBlock
+                        Margin="10,10,0,0"
+                        VerticalAlignment="Center"
+                        Foreground="White"
+                        Text="Image quality for downloading" />
+                    <ComboBox
+                        Margin="10,10,10,0"
+                        HorizontalAlignment="Stretch"
+                        BorderThickness="1"
+                        RequestedTheme="Dark"
+                        SelectedIndex="{Binding Source={StaticResource AppSettings}, Path=SaveQuality, Mode=TwoWay}">
                         <ComboBoxItem Content="Raw" Style="{StaticResource ComboBoxItemStyle}" />
                         <ComboBoxItem Content="High (Default)" Style="{StaticResource ComboBoxItemStyle}" />
                         <ComboBoxItem Content="Medium" Style="{StaticResource ComboBoxItemStyle}" />
                     </ComboBox>
-                    <TextBlock Margin="10,20,0,0"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Center"
-                               FontSize="20"
-                               FontWeight="Bold"
-                               Foreground="{StaticResource MyerSplashThemeColor}"
-                               Text="CLEAN UP" />
-                    <Button Margin="10,10,10,0"
-                            HorizontalAlignment="Stretch"
-                            Command="{x:Bind SettingsVM.ClearCacheCommand, Mode=OneWay}"
-                            Style="{StaticResource ListButtonStyle}">
+                    <TextBlock
+                        Margin="10,20,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        FontSize="20"
+                        FontWeight="Bold"
+                        Foreground="{StaticResource MyerSplashThemeColor}"
+                        Text="CLEAN UP" />
+                    <Button
+                        Margin="10,10,10,0"
+                        HorizontalAlignment="Stretch"
+                        Command="{x:Bind SettingsVM.ClearCacheCommand, Mode=OneWay}"
+                        Style="{StaticResource ListButtonStyle}">
                         <Border Background="#66000000">
-                            <TextBlock Margin="10"
-                                       HorizontalAlignment="Left"
-                                       Foreground="White"
-                                       Text="{x:Bind SettingsVM.CacheHint, Mode=OneWay}" />
+                            <TextBlock
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                Foreground="White"
+                                Text="{x:Bind SettingsVM.CacheHint, Mode=OneWay}" />
                         </Border>
                     </Button>
-                    <TextBlock Margin="10,10,10,0"
-                               HorizontalAlignment="Left"
-                               FontSize="12"
-                               Foreground="#99FFFFFF"
-                               Text="{StaticResource TempFilesHint}"
-                               TextWrapping="Wrap" />
-                    <Button Margin="10"
-                            HorizontalAlignment="Stretch"
-                            Command="{x:Bind SettingsVM.ClearTempCommand, Mode=OneWay}"
-                            Style="{StaticResource ListButtonStyle}">
+                    <TextBlock
+                        Margin="10,10,10,0"
+                        HorizontalAlignment="Left"
+                        FontSize="12"
+                        Foreground="#99FFFFFF"
+                        Text="{StaticResource TempFilesHint}"
+                        TextWrapping="Wrap" />
+                    <Button
+                        Margin="10"
+                        HorizontalAlignment="Stretch"
+                        Command="{x:Bind SettingsVM.ClearTempCommand, Mode=OneWay}"
+                        Style="{StaticResource ListButtonStyle}">
                         <Border Background="#66000000">
-                            <TextBlock Margin="10"
-                                       HorizontalAlignment="Left"
-                                       Foreground="White"
-                                       Text="Clean up temp files" />
+                            <TextBlock
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                Foreground="White"
+                                Text="Clean up temp files" />
 
                         </Border>
                     </Button>

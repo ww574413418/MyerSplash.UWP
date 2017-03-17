@@ -41,6 +41,9 @@ namespace MyerSplashShared.Shared
 
         public string ExpectedFileName { get; set; }
 
+        [IgnoreDataMember]
+        public StorageFile File { get; set; }
+
         public CachedBitmapSource()
         {
 
@@ -51,7 +54,7 @@ namespace MyerSplashShared.Shared
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public async Task LoadBitmapAsync()
+        public async Task LoadBitmapAsync(bool setBitmap = true)
         {
             if (!string.IsNullOrEmpty(LocalPath))
             {
@@ -62,10 +65,10 @@ namespace MyerSplashShared.Shared
                     return;
                 }
             }
-            await DownloadFromRemoteUrlAsync();
+            await DownloadFromRemoteUrlAsync(setBitmap);
         }
 
-        private async Task DownloadFromRemoteUrlAsync()
+        private async Task DownloadFromRemoteUrlAsync(bool setBitmap = true)
         {
             var cachedFolder = ApplicationData.Current.TemporaryFolder;
 
@@ -75,6 +78,7 @@ namespace MyerSplashShared.Shared
                 if (file != null)
                 {
                     LocalPath = file.Path;
+                    File = file;
                     await SetImageSourceAsync(file);
                     return;
                 }
@@ -89,9 +93,10 @@ namespace MyerSplashShared.Shared
                 if (file != null)
                 {
                     LocalPath = file.Path;
+                    File = file;
                 }
                 stream.Seek(0);
-                if (stream != null)
+                if (stream != null && setBitmap)
                 {
                     await SetImageSourceAsync(stream);
                 }
@@ -132,7 +137,6 @@ namespace MyerSplashShared.Shared
                 await stream.ReadAsync(bytes, 0, (int)stream.Length);
                 await FileIO.WriteBytesAsync(file, bytes);
                 return file;
-
             }
             catch (Exception e)
             {
