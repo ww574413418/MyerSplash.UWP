@@ -29,6 +29,11 @@
         </uap:InitialRotationPreference>
       </uap:VisualElements>
       <Extensions>
+        <Extension Category="windows.backgroundTasks" EntryPoint="BackgroundTask.WallpaperAutoChangeTask">
+          <BackgroundTasks>
+            <Task Type="timer" />
+          </BackgroundTasks>
+        </Extension>
         <uap:Extension Category="windows.protocol">
           <uap:Protocol Name="myersplash-share">
             <uap:Logo>NewStoreLogo.png</uap:Logo>

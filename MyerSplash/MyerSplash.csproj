@@ -104,6 +104,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\AppSettings.cs" />
+    <Compile Include="Common\BackgroundTaskRegister.cs" />
     <Compile Include="Common\BindablePage.cs" />
     <Compile Include="Common\CachedFileNames.cs" />
     <Compile Include="Common\Constant.cs" />
@@ -128,6 +129,9 @@
     <Compile Include="Model\UnsplashImageBase.cs" />
     <Compile Include="UC\AboutControl.xaml.cs">
       <DependentUpon>AboutControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UC\BackgroundHintDialog.xaml.cs">
+      <DependentUpon>BackgroundHintDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="UC\DeleteDialogControl.xaml.cs">
       <DependentUpon>DeleteDialogControl.xaml</DependentUpon>
@@ -286,6 +290,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UC\BackgroundHintDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UC\DeleteDialogControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -372,6 +380,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BackgroundTask\BackgroundTask.csproj">
+      <Project>{2782d88f-ba1c-4cfb-96b3-5cd734038e7a}</Project>
+      <Name>BackgroundTask</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MyerSplashCustomControl\MyerSplashCustomControl.csproj">
       <Project>{8efb922e-f05e-4e74-945d-ab6db8d85224}</Project>
       <Name>MyerSplashCustomControl</Name>

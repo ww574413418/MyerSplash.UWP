@@ -7,6 +7,7 @@ using MyerSplashShared.API;
 using MyerSplashCustomControl;
 using MyerSplash.Common;
 using Windows.System;
+using MyerSplash.UC;
 
 namespace MyerSplash.ViewModel
 {
@@ -14,6 +15,20 @@ namespace MyerSplash.ViewModel
     {
         public static string SAVING_POSITION = "SAVING_POSITION";
         public static string DEFAULT_SAVING_POSITION = "\\Pictures\\MyerSplash (Can'be modified)";
+
+        private RelayCommand _backgroundWallpaperHelpCommand;
+        public RelayCommand BackgroundWallpaperHelpCommand
+        {
+            get
+            {
+                if (_backgroundWallpaperHelpCommand != null) return _backgroundWallpaperHelpCommand;
+                return _backgroundWallpaperHelpCommand = new RelayCommand(async () =>
+                  {
+                      var uc = new BackgroundHintDialog();
+                      await PopupService.Instance.ShowAsync(uc);
+                  });
+            }
+        }
 
         private RelayCommand _clearCacheCommand;
         public RelayCommand ClearCacheCommand

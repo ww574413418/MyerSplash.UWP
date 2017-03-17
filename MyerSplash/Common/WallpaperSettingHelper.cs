@@ -89,7 +89,7 @@ namespace MyerSplash.Common
         {
             if (!UserProfilePersonalizationSettings.IsSupported())
             {
-                ToastService.SendToast("Your device can set wallpaper.");
+                ToastService.SendToast("Your device can't set wallpaper.");
                 return null;
             }
             if (resultFile != null)
@@ -108,10 +108,8 @@ namespace MyerSplash.Common
                 {
                     file = await resultFile.CopyAsync(folder);
                 }
-
                 return file;
             }
-
             return null;
         }
 

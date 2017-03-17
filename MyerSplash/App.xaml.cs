@@ -1,10 +1,14 @@
-﻿using JP.Utils.Helper;
+﻿using BackgroundTask;
+using JP.Utils.Helper;
 using MyerSplash.Common;
 using MyerSplash.View;
 using MyerSplash.ViewModel;
 using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Background;
 using Windows.Phone.UI.Input;
 using Windows.Storage;
 using Windows.System;
@@ -72,7 +76,7 @@ namespace MyerSplash
         }
 #pragma warning restore    
 
-        private void CreateFrame(string arg)
+        private async void CreateFrame(string arg)
         {
             Frame rootFrame = Window.Current.Content as Frame;
 
