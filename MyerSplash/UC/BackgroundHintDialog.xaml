@@ -23,7 +23,7 @@
                 Margin="12"
                 FontSize="12"
                 Foreground="#66FFFFFF"
-                Text="This feature may not be stable due to various factors like network and Windows 10 OS. If you make sure your network is fine and never get updates, please contact me in email. Thanks."
+                Text="This feature may not be stable due to various factors like network and Windows. If you make sure your network is great and never get updates, please contact me in email. Thanks."
                 TextWrapping="Wrap" />
         </StackPanel>
         <Button

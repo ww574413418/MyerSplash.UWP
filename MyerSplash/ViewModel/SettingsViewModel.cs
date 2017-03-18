@@ -56,27 +56,6 @@ namespace MyerSplash.ViewModel
             }
         }
 
-        private RelayCommand _chooseSavingPositionCommand;
-        public RelayCommand ChooseSavingPositionCommand
-        {
-            get
-            {
-                if (_chooseSavingPositionCommand != null) return _chooseSavingPositionCommand;
-                return _chooseSavingPositionCommand = new RelayCommand(() =>
-                  {
-                      //FolderPicker savePicker = new FolderPicker();
-                      //savePicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
-                      //savePicker.FileTypeFilter.Add(".jpg");
-                      //var folder = await savePicker.PickSingleFolderAsync();
-                      //if (folder != null)
-                      //{
-                      //    SavingPositionPath = folder.Path;
-                      //    LocalSettingHelper.AddValue(SAVING_POSITION, SavingPositionPath);
-                      //}
-                  });
-            }
-        }
-
         private string _savingPositionPath;
         public string SavingPositionPath
         {
