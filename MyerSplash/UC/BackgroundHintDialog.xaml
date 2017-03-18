@@ -21,7 +21,7 @@
                 Text="ATTENTION" />
             <TextBlock
                 Margin="12"
-                FontSize="12"
+                FontSize="15"
                 Foreground="#66FFFFFF"
                 Text="This feature may not be stable due to various factors like network and Windows. If you make sure your network is great and never get updates, please contact me in email. Thanks."
                 TextWrapping="Wrap" />
