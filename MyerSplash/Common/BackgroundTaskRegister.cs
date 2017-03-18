@@ -9,14 +9,10 @@ namespace MyerSplash.Common
     public static class BackgroundTaskRegister
     {
         private static string NAME => "WallpaperAutoChangeTask";
-        private static uint PERIOD_MINS => 1200;
+        private static uint PERIOD_MINS => 120;
 
         public static async Task RegisterAsync()
         {
-            switch (AppSettings.Instance.BackgroundWallpaperSource)
-            {
-
-            }
             await RegisterBackgroundTask(typeof(WallpaperAutoChangeTask),
                                                     new TimeTrigger(PERIOD_MINS, false),
                                                     null);

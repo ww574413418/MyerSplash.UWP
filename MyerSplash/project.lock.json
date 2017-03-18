@@ -2063,7 +2063,7 @@
         "framework": "UAP,Version=v10.0",
         "dependencies": {
           "JP.Utils.UWP": "1.1.29",
-          "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
+          "Microsoft.NETCore.UniversalWindowsPlatform": "5.3.1",
           "MyerSplashShared": "1.0.0"
         }
       },
@@ -4001,7 +4001,7 @@
         "framework": "UAP,Version=v10.0",
         "dependencies": {
           "JP.Utils.UWP": "1.1.29",
-          "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
+          "Microsoft.NETCore.UniversalWindowsPlatform": "5.3.1",
           "MyerSplashShared": "1.0.0"
         }
       },
@@ -5896,7 +5896,7 @@
         "framework": "UAP,Version=v10.0",
         "dependencies": {
           "JP.Utils.UWP": "1.1.29",
-          "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
+          "Microsoft.NETCore.UniversalWindowsPlatform": "5.3.1",
           "MyerSplashShared": "1.0.0"
         }
       },
@@ -7843,7 +7843,7 @@
         "framework": "UAP,Version=v10.0",
         "dependencies": {
           "JP.Utils.UWP": "1.1.29",
-          "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
+          "Microsoft.NETCore.UniversalWindowsPlatform": "5.3.1",
           "MyerSplashShared": "1.0.0"
         }
       },
@@ -9738,7 +9738,7 @@
         "framework": "UAP,Version=v10.0",
         "dependencies": {
           "JP.Utils.UWP": "1.1.29",
-          "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
+          "Microsoft.NETCore.UniversalWindowsPlatform": "5.3.1",
           "MyerSplashShared": "1.0.0"
         }
       },
@@ -11685,7 +11685,7 @@
         "framework": "UAP,Version=v10.0",
         "dependencies": {
           "JP.Utils.UWP": "1.1.29",
-          "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
+          "Microsoft.NETCore.UniversalWindowsPlatform": "5.3.1",
           "MyerSplashShared": "1.0.0"
         }
       },
@@ -13580,7 +13580,7 @@
         "framework": "UAP,Version=v10.0",
         "dependencies": {
           "JP.Utils.UWP": "1.1.29",
-          "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
+          "Microsoft.NETCore.UniversalWindowsPlatform": "5.3.1",
           "MyerSplashShared": "1.0.0"
         }
       },

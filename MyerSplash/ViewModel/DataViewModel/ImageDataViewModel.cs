@@ -136,7 +136,15 @@ namespace MyerSplash.ViewModel
 
                 tasks.Add(item.DownloadImgForListAsync());
             }
-            await Task.WhenAll(tasks);
+
+            try
+            {
+                await Task.WhenAll(tasks);
+            }
+            catch (Exception)
+            {
+
+            }
 
             if (index == 1)
             {
