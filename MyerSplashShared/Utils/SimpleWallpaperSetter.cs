@@ -1,6 +1,7 @@
 ﻿using JP.Utils.Data.Json;
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Windows.Data.Json;
@@ -13,43 +14,55 @@ namespace MyerSplashShared.Utils
     {
         public static async Task<bool> DownloadAndSetAsync(string url)
         {
+            if (!UserProfilePersonalizationSettings.IsSupported())
+            {
+                return false;
+            }
+
             try
             {
                 var client = new HttpClient();
                 var result = await client.GetAsync(url);
                 result.EnsureSuccessStatusCode();
                 var str = await result.Content.ReadAsStringAsync();
-                JsonObject obj;
-                var json = JsonObject.TryParse(str, out obj);
-                if (obj != null)
+                var json = JsonObject.TryParse(str, out var obj);
+                if (obj == null)
                 {
-                    var downloadUrl = JsonParser.GetStringFromJsonObj(obj, "url");
-                    if (!string.IsNullOrEmpty(downloadUrl))
+                    return false;
+                }
+                var downloadUrl = JsonParser.GetStringFromJsonObj(obj, "url");
+                if (!string.IsNullOrEmpty(downloadUrl))
+                {
+                    var fileName = Path.GetFileName(downloadUrl);
+
+                    var pictureLib = await KnownFolders.PicturesLibrary.CreateFolderAsync("MyerSplash", CreationCollisionOption.OpenIfExists);
+                    var targetFolder = await pictureLib.CreateFolderAsync("Auto-change wallpapers", CreationCollisionOption.OpenIfExists);
+                    var localFolder = ApplicationData.Current.LocalFolder;
+
+                    StorageFile file;
+                    file = (StorageFile)await localFolder.TryGetItemAsync(fileName);
+
+                    // Download
+                    if (file == null)
                     {
                         Debug.WriteLine($"===========url {downloadUrl}==============");
 
                         var imageResp = await client.GetAsync(downloadUrl);
-                        var stream = await imageResp.Content.ReadAsStreamAsync();
-
-                        Debug.WriteLine($"===========download complete==============");
-
-                        var folder = ApplicationData.Current.LocalFolder;
-                        StorageFile file = null;
-                        try
+                        using (var stream = await imageResp.Content.ReadAsStreamAsync())
                         {
-                            file = await folder.CreateFileAsync("test.jpg", CreationCollisionOption.ReplaceExisting);
+                            Debug.WriteLine($"===========download complete==============");
+
+                            file = await targetFolder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
                             var bytes = new byte[stream.Length];
                             await stream.ReadAsync(bytes, 0, (int)stream.Length);
                             await FileIO.WriteBytesAsync(file, bytes);
-                        }
-                        catch (Exception e)
-                        {
-                            Debug.WriteLine(e);
-                        }
 
-                        Debug.WriteLine($"===========save complete==============");
+                            // File must be in local folder
+                            file = await file.CopyAsync(localFolder, fileName, NameCollisionOption.ReplaceExisting);
 
-                        if (UserProfilePersonalizationSettings.IsSupported())
+                            Debug.WriteLine($"===========save complete==============");
+                        }
+                        if (file != null)
                         {
                             var setResult = await UserProfilePersonalizationSettings.Current.TrySetWallpaperImageAsync(file);
                             Debug.WriteLine($"===========TrySetWallpaperImageAsync result{setResult}=============");
