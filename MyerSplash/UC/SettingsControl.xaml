@@ -7,7 +7,7 @@
     xmlns:local="using:MyerSplash.UC"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="700"
-    d:DesignWidth="400"
+    d:DesignWidth="700"
     mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -541,9 +541,12 @@
                             </Grid>
                         </Button>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                        <Border Background="{StaticResource MyerSplashThemeLightColor}" Margin="10,0,0,0" VerticalAlignment="Bottom">
+                            <TextBlock Margin="4" Text="NEW" FontWeight="Bold" Foreground="Black" FontSize="12" VerticalAlignment="Center"/>
+                        </Border>
                         <TextBlock
-                            Margin="10,10,0,0"
+                            Margin="10,0,0,0"
                             VerticalAlignment="Center"
                             Foreground="White"
                             Text="Auto-change wallpaper in background every day" />
@@ -557,12 +560,12 @@
                                 <Ellipse
                                     Width="20"
                                     Height="20"
-                                    Fill="{StaticResource MyerSplashThemeColor}" />
+                                    Fill="#FF454545" />
                                 <FontIcon
                                     FontFamily="Segoe MDL2 Assets"
                                     FontSize="10"
                                     FontWeight="Bold"
-                                    Glyph="&#xE11B;" />
+                                    Glyph="&#xE11B;" Foreground="White" />
                             </Grid>
                         </Button>
                     </StackPanel>

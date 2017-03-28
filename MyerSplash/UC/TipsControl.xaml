@@ -6,8 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:MyerSplash.UC"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Width="600"
-    Height="400"
+    Width="450"
+    Height="220"
     d:DesignHeight="300"
     d:DesignWidth="600"
     mc:Ignorable="d">
@@ -34,19 +34,41 @@
                     Glyph="&#xE106;" />
             </Button>
             <TextBlock
-                Margin="0"
-                HorizontalAlignment="Center"
+                Margin="16,0,0,0"
+                HorizontalAlignment="Left"
                 VerticalAlignment="Center"
                 FontSize="20"
                 FontWeight="Bold"
                 Foreground="{StaticResource MyerSplashThemeColor}"
                 Text="WHAT'S NEW" />
         </Grid>
-        <Grid
-            Grid.Row="1"
-            Margin="4"
-            VerticalAlignment="Top">
-            <Image Height="200" Source="ms-appx:///Assets/tran_logo.targetsize-176_altform-unplated.png" />
+        <Grid Grid.Row="1">
+            <StackPanel Margin="16,8,16,0" VerticalAlignment="Top">
+                <TextBlock
+                    FontWeight="Bold"
+                    Foreground="White"
+                    Text="Optimize for auto-changing wallpapers"
+                    TextWrapping="WrapWholeWords" Margin="0,0,0,12" />
+                <TextBlock
+                    Foreground="#CCFFFFFF"
+                    Text="Haven't try this feature? Enable it in Settings. Let me know if you like it 😝"
+                    TextWrapping="WrapWholeWords" />
+            </StackPanel>
+            <Button
+                x:Name="SettingsBtn"
+                Margin="0,8,8,8"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Click="SettingsBtn_Click"
+                Style="{StaticResource ListButtonStyle}">
+                <Border>
+                    <TextBlock
+                        Margin="12"
+                        FontWeight="Bold"
+                        Foreground="White"
+                        Text="GO TO SETTINGS" />
+                </Border>
+            </Button>
         </Grid>
     </Grid>
 </UserControl>

@@ -722,15 +722,15 @@ namespace MyerSplash.ViewModel
             {
                 ShowSearchBar = true;
             }
-            //if (DeviceHelper.IsDesktop)
-            //{
-            //    if (!LocalSettingHelper.HasValue("TIPS240"))
-            //    {
-            //        LocalSettingHelper.AddValue("TIPS240", true);
-            //        var uc = new TipsControl();
-            //        var task = PopupService.Instance.ShowAsync(uc);
-            //    }
-            //}
+            if (DeviceHelper.IsDesktop)
+            {
+                if (!LocalSettingHelper.HasValue("TIPS252"))
+                {
+                    LocalSettingHelper.AddValue("TIPS252", true);
+                    var uc = new TipsControl();
+                    var task = PopupService.Instance.ShowAsync(uc);
+                }
+            }
         }
 
         public void Deactivate(object param)

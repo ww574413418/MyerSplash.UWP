@@ -18,12 +18,12 @@
                 FontSize="20"
                 FontWeight="Bold"
                 Foreground="{StaticResource MyerSplashThemeColor}"
-                Text="ATTENTION" />
+                Text="WHAT'S THIS?" />
             <TextBlock
                 Margin="12"
                 FontSize="15"
-                Foreground="#66FFFFFF"
-                Text="This feature may not be stable due to various factors like network and Windows. If you make sure your network is great and never get updates, please contact me in email. Thanks."
+                Foreground="#CCFFFFFF"
+                Text="Change your wallpaper automatically in background every day. All wallpapers are from Unsplash and are well chosen by me, the developer of this app."
                 TextWrapping="Wrap" />
         </StackPanel>
         <Button
@@ -42,5 +42,4 @@
             </Border>
         </Button>
     </Grid>
-
 </UserControl>
