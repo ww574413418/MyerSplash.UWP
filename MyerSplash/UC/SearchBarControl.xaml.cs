@@ -7,6 +7,7 @@ using CompositionHelper;
 using System.Numerics;
 using Windows.UI.Xaml.Data;
 using Windows.ApplicationModel;
+using MyerSplashShared.Utils;
 
 namespace MyerSplash.UC
 {
@@ -38,7 +39,7 @@ namespace MyerSplash.UC
 
         private Compositor _compositor;
         private Visual _maskVisual;
-        private Visual _barVisual;
+        private Visual _contentVisual;
 
         public SearchBarControl()
         {
@@ -67,13 +68,12 @@ namespace MyerSplash.UC
 
             _compositor = this.GetVisual().Compositor;
             _maskVisual = MaskBorder.GetVisual();
-            _barVisual = SearchBorder.GetVisual();
+            _contentVisual = ContentGrid.GetVisual();
 
-            _maskVisual.Opacity = 0f;
-            _barVisual.Offset = new Vector3(0f, -150f, 0f);
+            _contentVisual.Opacity = _maskVisual.Opacity = 0f;
         }
 
-        private void ToggleAnimation()
+        private async void ToggleAnimation()
         {
             this.Visibility = Visibility.Visible;
 
@@ -82,26 +82,27 @@ namespace MyerSplash.UC
                 InputTB.Focus(FocusState.Programmatic);
             }
 
+            await ContentGrid.WaitForNonZeroSizeAsync();
+            _contentVisual.CenterPoint = new Vector3((float)(ContentGrid.ActualWidth / 2f), (float)(ContentGrid.ActualHeight / 2f), 1f);
+
             var maskAnimation = _compositor.CreateScalarKeyFrameAnimation();
             maskAnimation.InsertKeyFrame(1f, Shown ? 1f : 0f);
             maskAnimation.Duration = TimeSpan.FromMilliseconds(400);
 
-            var offsetAnimation = _compositor.CreateScalarKeyFrameAnimation();
-            offsetAnimation.InsertKeyFrame(1f, Shown ? 0f : -150f);
-            offsetAnimation.Duration = TimeSpan.FromMilliseconds(400);
+            var contentAnimation = _compositor.CreateVector3KeyFrameAnimation();
+            contentAnimation.InsertKeyFrame(0f, Shown ? new Vector3(1.2f, 1.2f, 1f) : new Vector3(1f, 1f, 1f));
+            contentAnimation.InsertKeyFrame(1f, Shown ? new Vector3(1f, 1f, 1f) : new Vector3(1.2f, 1.2f, 1f));
+            contentAnimation.Duration = TimeSpan.FromMilliseconds(400);
 
             var batch = _compositor.CreateScopedBatch(CompositionBatchTypes.Animation);
             _maskVisual.StartAnimation("Opacity", maskAnimation);
-            _barVisual.StartAnimation("Offset.y", offsetAnimation);
+            _contentVisual.StartAnimation("Opacity", maskAnimation);
+            _contentVisual.StartAnimation("Scale", contentAnimation);
             batch.Completed += (sender, e) =>
               {
                   if (!Shown)
                   {
                       this.Visibility = Visibility.Collapsed;
-                  }
-                  else
-                  {
-
                   }
               };
             batch.End();

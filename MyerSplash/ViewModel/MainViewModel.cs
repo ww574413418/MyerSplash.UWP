@@ -18,6 +18,8 @@ using MyerSplashCustomControl;
 using MyerSplash.UC;
 using JP.Utils.Helper;
 using Windows.UI.ViewManagement;
+using Windows.UI;
+using JP.Utils.UI;
 
 namespace MyerSplash.ViewModel
 {
@@ -54,6 +56,23 @@ namespace MyerSplash.ViewModel
                 {
                     _dataVM = value;
                     RaisePropertyChanged(() => DataVM);
+                }
+            }
+        }
+
+        private ObservableCollection<ColorFilter> _colorFilterList;
+        public ObservableCollection<ColorFilter> ColorFilterList
+        {
+            get
+            {
+                return _colorFilterList;
+            }
+            set
+            {
+                if (_colorFilterList != value)
+                {
+                    _colorFilterList = value;
+                    RaisePropertyChanged(() => ColorFilterList);
                 }
             }
         }
@@ -743,9 +762,21 @@ namespace MyerSplash.ViewModel
             if (IsFirstActived)
             {
                 IsFirstActived = false;
+                PrepareColorFilterList();
                 await RestoreMainListDataAsync();
                 await RefreshAllAsync();
             }
+        }
+
+        private void PrepareColorFilterList()
+        {
+            ColorFilterList = new ObservableCollection<ColorFilter>();
+            ColorFilterList.Add(new ColorFilter("#f44336".ToColor(), "RED"));
+            ColorFilterList.Add(new ColorFilter("#fec006".ToColor(), "AMBER"));
+            ColorFilterList.Add(new ColorFilter("#00bbd3".ToColor(), "CYAN"));
+            ColorFilterList.Add(new ColorFilter("#2095f2".ToColor(), "BLUE"));
+            ColorFilterList.Add(new ColorFilter("#3e50b4".ToColor(), "INDIGO"));
+            ColorFilterList.Add(new ColorFilter("#5f7c8a".ToColor(), "GREY"));
         }
     }
 }
