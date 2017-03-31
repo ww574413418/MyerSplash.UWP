@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml;
 using System.Diagnostics;
 using MyerSplash.LiveTile;
+using Windows.UI;
 
 namespace MyerSplash.ViewModel
 {
@@ -130,14 +131,20 @@ namespace MyerSplash.ViewModel
             for (var i = 0; i < list.Count(); i++)
             {
                 var item = list.ElementAt(i);
-
-                if (i % 2 == 0) item.BackColor = new SolidColorBrush("#FF2E2E2E".ToColor());
-                else item.BackColor = new SolidColorBrush("#FF383838".ToColor());
+                item.BackColor = new SolidColorBrush(item.ColorValue.ToColor());
                 item.MajorColor = new SolidColorBrush(item.ColorValue.ToColor());
 
                 tasks.Add(item.DownloadImgForListAsync());
             }
-            await Task.WhenAll(tasks);
+
+            try
+            {
+                await Task.WhenAll(tasks);
+            }
+            catch (Exception)
+            {
+
+            }
 
             if (index == 1)
             {

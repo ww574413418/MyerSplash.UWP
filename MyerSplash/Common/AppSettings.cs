@@ -2,9 +2,12 @@
 using GalaSoft.MvvmLight.Messaging;
 using JP.Utils.Data;
 using MyerSplash.LiveTile;
+using MyerSplashCustomControl;
 using System;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Core;
 using Windows.Storage;
+using Windows.UI.Core;
 
 namespace MyerSplash.Common
 {
@@ -78,6 +81,32 @@ namespace MyerSplash.Common
             {
                 SaveSettings(nameof(DefaultCategory), value);
                 RaisePropertyChanged(() => DefaultCategory);
+            }
+        }
+
+        public int BackgroundWallpaperSource
+        {
+            get
+            {
+                return ReadSettings(nameof(BackgroundWallpaperSource), 0);
+            }
+            set
+            {
+                SaveSettings(nameof(BackgroundWallpaperSource), value);
+                RaisePropertyChanged(() => BackgroundWallpaperSource);
+                switch (value)
+                {
+                    case 0:
+                        var task0 = BackgroundTaskRegister.UnregisterAsync();
+                        break;
+                    case 1:
+                    // fall through
+                    case 2:
+                    // fall through
+                    case 3:
+                        var task1 = BackgroundTaskRegister.RegisterAsync();
+                        break;
+                }
             }
         }
 

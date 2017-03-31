@@ -16,11 +16,11 @@
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>MyerSplash_StoreKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>MyerSplash_TemporaryKey.pfx</PackageCertificateKeyFile>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64</AppxBundlePlatforms>
-    <PackageCertificateThumbprint>735A4CA4310F02FE989ADDEDA8DDC53570312672</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>B26B8882B512189B1F10E363129450E25D83E352</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -97,14 +97,16 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Design\projectGuides.guides" />
-    <None Include="MyerSplash_StoreKey.pfx" />
     <None Include="project.json" />
+    <PRIResource Include="Strings\zh-CN\Resources.resw" />
+    <PRIResource Include="Strings\en-US\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\AppSettings.cs" />
+    <Compile Include="Common\BackgroundTaskRegister.cs" />
     <Compile Include="Common\BindablePage.cs" />
     <Compile Include="Common\CachedFileNames.cs" />
     <Compile Include="Common\Constant.cs" />
@@ -129,6 +131,9 @@
     <Compile Include="Model\UnsplashImageBase.cs" />
     <Compile Include="UC\AboutControl.xaml.cs">
       <DependentUpon>AboutControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UC\BackgroundHintDialog.xaml.cs">
+      <DependentUpon>BackgroundHintDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="UC\DeleteDialogControl.xaml.cs">
       <DependentUpon>DeleteDialogControl.xaml</DependentUpon>
@@ -210,16 +215,9 @@
   <ItemGroup>
     <Content Include="Assets\Image\lock.png" />
     <Content Include="Assets\Icon\search.png" />
-    <Content Include="Assets\Icon\Logo_black.png" />
-    <Content Include="Assets\Icon\Logo_trans.png" />
-    <Content Include="Assets\Icon\Logo_trans_narrow.png" />
-    <Content Include="Assets\Icon\Logo_white.png" />
     <Content Include="Assets\Image\banner.jpg" />
     <Content Include="Assets\Image\pc_taskbar_l.png" />
     <Content Include="Assets\Image\pc_taskbar_r.png" />
-    <Content Include="Assets\Image\presentation_preview.gif" />
-    <Content Include="Assets\Image\tips1.png" />
-    <Content Include="Assets\Image\tips2.png" />
     <Content Include="Assets\Logo-500.png" />
     <Content Include="Assets\NewStoreLogo.scale-100.png" />
     <Content Include="Assets\NewStoreLogo.scale-125.png" />
@@ -291,6 +289,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="UC\AboutControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\BackgroundHintDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -380,6 +382,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BackgroundTask\BackgroundTask.csproj">
+      <Project>{2782d88f-ba1c-4cfb-96b3-5cd734038e7a}</Project>
+      <Name>BackgroundTask</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MyerSplashCustomControl\MyerSplashCustomControl.csproj">
       <Project>{8efb922e-f05e-4e74-945d-ab6db8d85224}</Project>
       <Name>MyerSplashCustomControl</Name>
@@ -394,9 +400,7 @@
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Strings\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

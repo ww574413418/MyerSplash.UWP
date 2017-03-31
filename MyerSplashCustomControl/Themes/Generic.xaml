@@ -1,10 +1,11 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                    xmlns:local="using:MyerSplashCustomControl"
-                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                    mc:Ignorable="d">
-    <SolidColorBrush x:Key="MyerSplashThemeColor" Color="#00bebe" />
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:MyerSplashCustomControl"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <SolidColorBrush x:Key="MyerSplashThemeColor" Color="#18c3d8" />
     <Style TargetType="local:DialogService">
         <Setter Property="Template">
             <Setter.Value>
@@ -29,12 +30,13 @@
                                                 <Grid.Background>
                                                     <SolidColorBrush Color="Transparent" />
                                                 </Grid.Background>
-                                                <ContentPresenter x:Name="ContentPresenter"
-                                                                  AutomationProperties.AccessibilityView="Raw"
-                                                                  BorderBrush="{TemplateBinding BorderBrush}"
-                                                                  Content="{TemplateBinding Content}"
-                                                                  ContentTemplate="{TemplateBinding ContentTemplate}"
-                                                                  ContentTransitions="{TemplateBinding ContentTransitions}" />
+                                                <ContentPresenter
+                                                    x:Name="ContentPresenter"
+                                                    AutomationProperties.AccessibilityView="Raw"
+                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                    Content="{TemplateBinding Content}"
+                                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                    ContentTransitions="{TemplateBinding ContentTransitions}" />
                                                 <VisualStateManager.VisualStateGroups>
                                                     <VisualStateGroup x:Name="CommonStates">
                                                         <!--<VisualStateGroup.Transitions>
@@ -42,26 +44,29 @@
                                 </VisualStateGroup.Transitions>-->
                                                         <VisualState x:Name="Normal">
                                                             <Storyboard>
-                                                                <ColorAnimation Duration="0:0:0.1"
-                                                                                Storyboard.TargetName="RootGrid"
-                                                                                Storyboard.TargetProperty="(UIElement.Background).(SolidColorBrush.Color)"
-                                                                                To="Transparent" />
+                                                                <ColorAnimation
+                                                                    Storyboard.TargetName="RootGrid"
+                                                                    Storyboard.TargetProperty="(UIElement.Background).(SolidColorBrush.Color)"
+                                                                    To="Transparent"
+                                                                    Duration="0:0:0.1" />
                                                             </Storyboard>
                                                         </VisualState>
                                                         <VisualState x:Name="PointerOver">
                                                             <Storyboard>
-                                                                <ColorAnimation Duration="0:0:0.2"
-                                                                                Storyboard.TargetName="RootGrid"
-                                                                                Storyboard.TargetProperty="(UIElement.Background).(SolidColorBrush.Color)"
-                                                                                To="#FFE8E8E8" />
+                                                                <ColorAnimation
+                                                                    Storyboard.TargetName="RootGrid"
+                                                                    Storyboard.TargetProperty="(UIElement.Background).(SolidColorBrush.Color)"
+                                                                    To="#FFE8E8E8"
+                                                                    Duration="0:0:0.2" />
                                                             </Storyboard>
                                                         </VisualState>
                                                         <VisualState x:Name="Pressed">
                                                             <Storyboard>
-                                                                <ColorAnimation Duration="0:0:0.1"
-                                                                                Storyboard.TargetName="RootGrid"
-                                                                                Storyboard.TargetProperty="(UIElement.Background).(SolidColorBrush.Color)"
-                                                                                To="LightGray" />
+                                                                <ColorAnimation
+                                                                    Storyboard.TargetName="RootGrid"
+                                                                    Storyboard.TargetProperty="(UIElement.Background).(SolidColorBrush.Color)"
+                                                                    To="LightGray"
+                                                                    Duration="0:0:0.1" />
                                                             </Storyboard>
                                                         </VisualState>
                                                         <VisualState x:Name="Disabled">
@@ -178,19 +183,21 @@
                                                         <Setter Property="Template">
                                                             <Setter.Value>
                                                                 <ControlTemplate TargetType="Button">
-                                                                    <Grid x:Name="ButtonLayoutGrid"
-                                                                          Background="{ThemeResource TextBoxButtonBackgroundThemeBrush}"
-                                                                          BorderBrush="{ThemeResource TextBoxButtonBorderThemeBrush}"
-                                                                          BorderThickness="{TemplateBinding BorderThickness}">
-                                                                        <TextBlock x:Name="GlyphElement"
-                                                                                   HorizontalAlignment="Center"
-                                                                                   VerticalAlignment="Center"
-                                                                                   AutomationProperties.AccessibilityView="Raw"
-                                                                                   FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                                                                                   FontSize="12"
-                                                                                   FontStyle="Normal"
-                                                                                   Foreground="{ThemeResource SystemControlForegroundChromeBlackMediumBrush}"
-                                                                                   Text="&#xE10A;" />
+                                                                    <Grid
+                                                                        x:Name="ButtonLayoutGrid"
+                                                                        Background="{ThemeResource TextBoxButtonBackgroundThemeBrush}"
+                                                                        BorderBrush="{ThemeResource TextBoxButtonBorderThemeBrush}"
+                                                                        BorderThickness="{TemplateBinding BorderThickness}">
+                                                                        <TextBlock
+                                                                            x:Name="GlyphElement"
+                                                                            HorizontalAlignment="Center"
+                                                                            VerticalAlignment="Center"
+                                                                            AutomationProperties.AccessibilityView="Raw"
+                                                                            FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                                                            FontSize="12"
+                                                                            FontStyle="Normal"
+                                                                            Foreground="{ThemeResource SystemControlForegroundChromeBlackMediumBrush}"
+                                                                            Text="&#xE10A;" />
                                                                         <VisualStateManager.VisualStateGroups>
                                                                             <VisualStateGroup x:Name="CommonStates">
                                                                                 <VisualState x:Name="Normal" />
@@ -213,10 +220,11 @@
                                                                                 </VisualState>
                                                                                 <VisualState x:Name="Disabled">
                                                                                     <Storyboard>
-                                                                                        <DoubleAnimation Duration="0"
-                                                                                                         Storyboard.TargetName="ButtonLayoutGrid"
-                                                                                                         Storyboard.TargetProperty="Opacity"
-                                                                                                         To="0" />
+                                                                                        <DoubleAnimation
+                                                                                            Storyboard.TargetName="ButtonLayoutGrid"
+                                                                                            Storyboard.TargetProperty="Opacity"
+                                                                                            To="0"
+                                                                                            Duration="0" />
                                                                                     </Storyboard>
                                                                                 </VisualState>
                                                                             </VisualStateGroup>
@@ -235,63 +243,69 @@
                                                     <RowDefinition Height="Auto" />
                                                     <RowDefinition Height="*" />
                                                 </Grid.RowDefinitions>
-                                                <Border x:Name="BackgroundElement"
-                                                        Grid.Row="1"
-                                                        Grid.RowSpan="1"
-                                                        Grid.ColumnSpan="2"
-                                                        Margin="{TemplateBinding BorderThickness}"
-                                                        Background="{TemplateBinding Background}"
-                                                        Opacity="{ThemeResource TextControlBackgroundRestOpacity}" />
-                                                <Border x:Name="BorderElement"
-                                                        Grid.Row="1"
-                                                        Grid.RowSpan="1"
-                                                        Grid.ColumnSpan="2"
-                                                        BorderBrush="{TemplateBinding BorderBrush}"
-                                                        BorderThickness="{TemplateBinding BorderThickness}" />
-                                                <ContentPresenter x:Name="HeaderContentPresenter"
-                                                                  Grid.Row="0"
-                                                                  Grid.ColumnSpan="2"
-                                                                  Margin="0,0,0,8"
-                                                                  x:DeferLoadStrategy="Lazy"
-                                                                  Content="{TemplateBinding Header}"
-                                                                  ContentTemplate="{TemplateBinding HeaderTemplate}"
-                                                                  FontWeight="Normal"
-                                                                  Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
-                                                                  Visibility="Collapsed" />
-                                                <ScrollViewer x:Name="ContentElement"
-                                                              Grid.Row="1"
-                                                              Margin="{TemplateBinding BorderThickness}"
-                                                              AutomationProperties.AccessibilityView="Raw"
-                                                              HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
-                                                              HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}"
-                                                              IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
-                                                              IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}"
-                                                              IsTabStop="False"
-                                                              IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}"
-                                                              Padding="{TemplateBinding Padding}"
-                                                              VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
-                                                              VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}"
-                                                              ZoomMode="Disabled" />
-                                                <ContentControl x:Name="PlaceholderTextContentPresenter"
-                                                                Grid.Row="1"
-                                                                Grid.ColumnSpan="2"
-                                                                Margin="{TemplateBinding BorderThickness}"
-                                                                Content="{TemplateBinding PlaceholderText}"
-                                                                Foreground="{ThemeResource SystemControlPageTextBaseMediumBrush}"
-                                                                IsHitTestVisible="False"
-                                                                IsTabStop="False"
-                                                                Padding="{TemplateBinding Padding}" />
-                                                <Button x:Name="DeleteButton"
-                                                        Grid.Row="1"
-                                                        Grid.Column="1"
-                                                        MinWidth="34"
-                                                        Margin="{ThemeResource HelperButtonThemePadding}"
-                                                        VerticalAlignment="Stretch"
-                                                        BorderThickness="{TemplateBinding BorderThickness}"
-                                                        FontSize="{TemplateBinding FontSize}"
-                                                        IsTabStop="False"
-                                                        Style="{StaticResource DeleteButtonStyle}"
-                                                        Visibility="Collapsed" />
+                                                <Border
+                                                    x:Name="BackgroundElement"
+                                                    Grid.Row="1"
+                                                    Grid.RowSpan="1"
+                                                    Grid.ColumnSpan="2"
+                                                    Margin="{TemplateBinding BorderThickness}"
+                                                    Background="{TemplateBinding Background}"
+                                                    Opacity="{ThemeResource TextControlBackgroundRestOpacity}" />
+                                                <Border
+                                                    x:Name="BorderElement"
+                                                    Grid.Row="1"
+                                                    Grid.RowSpan="1"
+                                                    Grid.ColumnSpan="2"
+                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="{TemplateBinding BorderThickness}" />
+                                                <ContentPresenter
+                                                    x:Name="HeaderContentPresenter"
+                                                    Grid.Row="0"
+                                                    Grid.ColumnSpan="2"
+                                                    Margin="0,0,0,8"
+                                                    x:DeferLoadStrategy="Lazy"
+                                                    Content="{TemplateBinding Header}"
+                                                    ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                                    FontWeight="Normal"
+                                                    Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                                                    Visibility="Collapsed" />
+                                                <ScrollViewer
+                                                    x:Name="ContentElement"
+                                                    Grid.Row="1"
+                                                    Margin="{TemplateBinding BorderThickness}"
+                                                    Padding="{TemplateBinding Padding}"
+                                                    AutomationProperties.AccessibilityView="Raw"
+                                                    HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                                                    HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}"
+                                                    IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
+                                                    IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}"
+                                                    IsTabStop="False"
+                                                    IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}"
+                                                    VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                                                    VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}"
+                                                    ZoomMode="Disabled" />
+                                                <ContentControl
+                                                    x:Name="PlaceholderTextContentPresenter"
+                                                    Grid.Row="1"
+                                                    Grid.ColumnSpan="2"
+                                                    Margin="{TemplateBinding BorderThickness}"
+                                                    Padding="{TemplateBinding Padding}"
+                                                    Content="{TemplateBinding PlaceholderText}"
+                                                    Foreground="{ThemeResource SystemControlPageTextBaseMediumBrush}"
+                                                    IsHitTestVisible="False"
+                                                    IsTabStop="False" />
+                                                <Button
+                                                    x:Name="DeleteButton"
+                                                    Grid.Row="1"
+                                                    Grid.Column="1"
+                                                    MinWidth="34"
+                                                    Margin="{ThemeResource HelperButtonThemePadding}"
+                                                    VerticalAlignment="Stretch"
+                                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                                    FontSize="{TemplateBinding FontSize}"
+                                                    IsTabStop="False"
+                                                    Style="{StaticResource DeleteButtonStyle}"
+                                                    Visibility="Collapsed" />
                                                 <VisualStateManager.VisualStateGroups>
                                                     <VisualStateGroup x:Name="CommonStates">
                                                         <VisualState x:Name="Disabled">
@@ -371,36 +385,41 @@
                                 </Setter>
                             </Style>
                         </Grid.Resources>
-                        <Border x:Name="MaskBorder"
-                                Background="Black"
-                                Opacity="0"
-                                Visibility="Collapsed" />
-                        <StackPanel x:Name="ContentGrid"
-                                    MaxWidth="350"
-                                    VerticalAlignment="Center"
-                                    Background="White"
-                                    Padding="5"
-                                    RenderTransformOrigin="0.5,0.5">
+                        <Border
+                            x:Name="MaskBorder"
+                            Background="Black"
+                            Opacity="0"
+                            Visibility="Collapsed" />
+                        <StackPanel
+                            x:Name="ContentGrid"
+                            MaxWidth="350"
+                            Padding="5"
+                            VerticalAlignment="Center"
+                            Background="White"
+                            RenderTransformOrigin="0.5,0.5">
                             <StackPanel.RenderTransform>
                                 <CompositeTransform />
                             </StackPanel.RenderTransform>
                             <StackPanel Margin="15,15,15,10">
-                                <TextBlock x:Name="TitleTB"
-                                           HorizontalAlignment="Left"
-                                           FontSize="22"
-                                           Text="{TemplateBinding TitleText}" />
-                                <TextBox x:Name="InputBox"
-                                         Margin="0 10 0 0"
-                                         VerticalAlignment="Center"
-                                         FontFamily="ms-appx:/Assets/Fonts/fzltxh.TTF#FZLanTingHei-EL-GBK"
-                                         PlaceholderText="{TemplateBinding InputBoxHintText}"
-                                         TextWrapping="Wrap" />
-                                <TextBlock x:Name="ContentTB"
-                                           Margin="0,10,0,0"
-                                           HorizontalAlignment="Stretch"
-                                           FontSize="14"
-                                           Text="{TemplateBinding ContentText}"
-                                           TextWrapping="Wrap" />
+                                <TextBlock
+                                    x:Name="TitleTB"
+                                    HorizontalAlignment="Left"
+                                    FontSize="22"
+                                    Text="{TemplateBinding TitleText}" />
+                                <TextBox
+                                    x:Name="InputBox"
+                                    Margin="0,10,0,0"
+                                    VerticalAlignment="Center"
+                                    FontFamily="ms-appx:/Assets/Fonts/fzltxh.TTF#FZLanTingHei-EL-GBK"
+                                    PlaceholderText="{TemplateBinding InputBoxHintText}"
+                                    TextWrapping="Wrap" />
+                                <TextBlock
+                                    x:Name="ContentTB"
+                                    Margin="0,10,0,0"
+                                    HorizontalAlignment="Stretch"
+                                    FontSize="14"
+                                    Text="{TemplateBinding ContentText}"
+                                    TextWrapping="Wrap" />
                             </StackPanel>
                             <!--<Grid VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="200">
                                 <Grid.ColumnDefinitions>
@@ -421,37 +440,42 @@
                                     </Border>
                                 </Button>
                             </Grid>-->
-                            <StackPanel Margin="0 0 15 10"
-                                        HorizontalAlignment="Right"
-                                        Orientation="Horizontal">
-                                <Button x:Name="LeftBtn"
-                                        Grid.Column="1"
-                                        HorizontalAlignment="Stretch"
-                                        Background="{x:Null}"
-                                        BorderThickness="0"
-                                        Style="{StaticResource AnimatedButtonStyle}">
+                            <StackPanel
+                                Margin="0,0,15,10"
+                                HorizontalAlignment="Right"
+                                Orientation="Horizontal">
+                                <Button
+                                    x:Name="LeftBtn"
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Stretch"
+                                    Background="{x:Null}"
+                                    BorderThickness="0"
+                                    Style="{StaticResource AnimatedButtonStyle}">
                                     <Border BorderThickness="2">
-                                        <TextBlock x:Name="LeftBtnTB"
-                                                   Margin="15 10 15 10"
-                                                   HorizontalAlignment="Center"
-                                                   VerticalAlignment="Center"
-                                                   FontFamily="ms-appx:/Assets/Fonts/fzltxh.TTF#FZLanTingHei-EL-GBK"
-                                                   Text="确认" />
+                                        <TextBlock
+                                            x:Name="LeftBtnTB"
+                                            Margin="15,10,15,10"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontFamily="ms-appx:/Assets/Fonts/fzltxh.TTF#FZLanTingHei-EL-GBK"
+                                            Text="确认" />
                                     </Border>
                                 </Button>
-                                <Button x:Name="RightBtn"
-                                        Grid.Column="1"
-                                        HorizontalAlignment="Stretch"
-                                        Background="{x:Null}"
-                                        BorderThickness="0"
-                                        Style="{StaticResource AnimatedButtonStyle}">
+                                <Button
+                                    x:Name="RightBtn"
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Stretch"
+                                    Background="{x:Null}"
+                                    BorderThickness="0"
+                                    Style="{StaticResource AnimatedButtonStyle}">
                                     <Border BorderThickness="2">
-                                        <TextBlock x:Name="RightBtnTB"
-                                                   Margin="15 10 15 10"
-                                                   HorizontalAlignment="Center"
-                                                   VerticalAlignment="Center"
-                                                   FontFamily="ms-appx:/Assets/Fonts/fzltxh.TTF#FZLanTingHei-EL-GBK"
-                                                   Text="取消" />
+                                        <TextBlock
+                                            x:Name="RightBtnTB"
+                                            Margin="15,10,15,10"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontFamily="ms-appx:/Assets/Fonts/fzltxh.TTF#FZLanTingHei-EL-GBK"
+                                            Text="取消" />
                                     </Border>
                                 </Button>
                             </StackPanel>
@@ -496,22 +520,25 @@
                                 </DoubleAnimationUsingKeyFrames>
                             </Storyboard>
                         </Grid.Resources>
-                        <Border x:Name="border"
-                                Margin="0 0 0 60"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Bottom">
+                        <Border
+                            x:Name="border"
+                            Margin="0,0,0,60"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Bottom">
                             <Border.RenderTransform>
                                 <CompositeTransform />
                             </Border.RenderTransform>
                             <Grid>
-                                <Border Background="{StaticResource MyerSplashThemeColor}"
-                                        CornerRadius="2"
-                                        Opacity="1" />
-                                <TextBlock x:Name="ContentTB"
-                                           Margin="20,10"
-                                           FontSize="16"
-                                           Foreground="Black"
-                                           Text="{TemplateBinding ContentText}" />
+                                <Border
+                                    Background="{StaticResource MyerSplashThemeColor}"
+                                    CornerRadius="2"
+                                    Opacity="1" />
+                                <TextBlock
+                                    x:Name="ContentTB"
+                                    Margin="20,10"
+                                    FontSize="16"
+                                    Foreground="Black"
+                                    Text="{TemplateBinding ContentText}" />
                             </Grid>
                         </Border>
                     </Grid>

@@ -17,6 +17,7 @@ using Newtonsoft.Json;
 using MyerSplashCustomControl;
 using MyerSplash.UC;
 using JP.Utils.Helper;
+using Windows.UI.ViewManagement;
 
 namespace MyerSplash.ViewModel
 {
@@ -162,6 +163,7 @@ namespace MyerSplash.ViewModel
                           SelectedIndex = -1;
                           ShowSearchBar = false;
                           await SearchByKeywordAsync();
+                          SearchKeyword = "";
                       }
                   });
             }
@@ -460,6 +462,28 @@ namespace MyerSplash.ViewModel
             }
         }
 
+        private RelayCommand _toggleFullScreenCommand;
+        public RelayCommand ToggleFullScreenCommand
+        {
+            get
+            {
+                if (_toggleFullScreenCommand != null) return _toggleFullScreenCommand;
+                return _toggleFullScreenCommand = new RelayCommand(() =>
+                  {
+                      var isInFullScreen = ApplicationView.GetForCurrentView().IsFullScreenMode;
+                      if (!isInFullScreen)
+                      {
+                          ApplicationView.GetForCurrentView().TryEnterFullScreenMode();
+                      }
+                      else
+                      {
+                          ApplicationView.GetForCurrentView().ExitFullScreenMode();
+                      }
+                      DrawerOpened = false;
+                  });
+            }
+        }
+
         private int _selectedIndex;
         public int SelectedIndex
         {
@@ -514,19 +538,21 @@ namespace MyerSplash.ViewModel
         {
             get
             {
+                var name = "";
                 if (SelectedIndex == -1)
                 {
                     if (SearchKeyword == null)
                     {
-                        return DefaultTitleName;
+                        name = DefaultTitleName;
                     }
-                    else return SearchKeyword.ToUpper();
+                    else name = SearchKeyword.ToUpper();
                 }
-                if (Categories?.Count > 0)
+                else if (Categories?.Count > 0)
                 {
-                    return Categories[SelectedIndex].Title.ToUpper();
+                    name = Categories[SelectedIndex].Title.ToUpper();
                 }
-                else return DefaultTitleName;
+                else name = DefaultTitleName;
+                return $"# {name}";
             }
         }
 
@@ -698,9 +724,9 @@ namespace MyerSplash.ViewModel
             }
             if (DeviceHelper.IsDesktop)
             {
-                if (!LocalSettingHelper.HasValue("TIPS240"))
+                if (!LocalSettingHelper.HasValue("TIPS252"))
                 {
-                    LocalSettingHelper.AddValue("TIPS240", true);
+                    LocalSettingHelper.AddValue("TIPS252", true);
                     var uc = new TipsControl();
                     var task = PopupService.Instance.ShowAsync(uc);
                 }

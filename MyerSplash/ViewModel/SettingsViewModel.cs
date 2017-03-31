@@ -7,6 +7,7 @@ using MyerSplashShared.API;
 using MyerSplashCustomControl;
 using MyerSplash.Common;
 using Windows.System;
+using MyerSplash.UC;
 
 namespace MyerSplash.ViewModel
 {
@@ -14,6 +15,20 @@ namespace MyerSplash.ViewModel
     {
         public static string SAVING_POSITION = "SAVING_POSITION";
         public static string DEFAULT_SAVING_POSITION = "\\Pictures\\MyerSplash (Can'be modified)";
+
+        private RelayCommand _backgroundWallpaperHelpCommand;
+        public RelayCommand BackgroundWallpaperHelpCommand
+        {
+            get
+            {
+                if (_backgroundWallpaperHelpCommand != null) return _backgroundWallpaperHelpCommand;
+                return _backgroundWallpaperHelpCommand = new RelayCommand(async () =>
+                  {
+                      var uc = new BackgroundHintDialog();
+                      await PopupService.Instance.ShowAsync(uc);
+                  });
+            }
+        }
 
         private RelayCommand _clearCacheCommand;
         public RelayCommand ClearCacheCommand
@@ -37,27 +52,6 @@ namespace MyerSplash.ViewModel
                 return _clearTempCommand = new RelayCommand(async () =>
                   {
                       await ClearTempFileAsync();
-                  });
-            }
-        }
-
-        private RelayCommand _chooseSavingPositionCommand;
-        public RelayCommand ChooseSavingPositionCommand
-        {
-            get
-            {
-                if (_chooseSavingPositionCommand != null) return _chooseSavingPositionCommand;
-                return _chooseSavingPositionCommand = new RelayCommand(() =>
-                  {
-                      //FolderPicker savePicker = new FolderPicker();
-                      //savePicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
-                      //savePicker.FileTypeFilter.Add(".jpg");
-                      //var folder = await savePicker.PickSingleFolderAsync();
-                      //if (folder != null)
-                      //{
-                      //    SavingPositionPath = folder.Path;
-                      //    LocalSettingHelper.AddValue(SAVING_POSITION, SavingPositionPath);
-                      //}
                   });
             }
         }

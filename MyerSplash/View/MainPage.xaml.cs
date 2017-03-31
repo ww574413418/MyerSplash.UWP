@@ -287,10 +287,12 @@ namespace MyerSplash.View
         private void ToggleRefreshBtnAnimation(bool show)
         {
             var offsetAnimation = _compositor.CreateScalarKeyFrameAnimation();
-            offsetAnimation.InsertKeyFrame(1f, show ? 0f : 100f);
+            offsetAnimation.InsertKeyFrame(1f, show ? 1f : 0);
             offsetAnimation.Duration = TimeSpan.FromMilliseconds(500);
 
-            _refreshBtnVisual.StartAnimation("Offset.Y", offsetAnimation);
+            _refreshBtnVisual.CenterPoint = new Vector3((float)RefreshBtn.ActualWidth / 2f, (float)RefreshBtn.ActualHeight / 2f, 0f);
+            _refreshBtnVisual.StartAnimation("Scale.X", offsetAnimation);
+            _refreshBtnVisual.StartAnimation("Scale.Y", offsetAnimation);
         }
 
         private void ToggleTitleStackAnimation(bool show)
