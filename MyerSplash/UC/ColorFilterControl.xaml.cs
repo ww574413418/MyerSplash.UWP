@@ -30,5 +30,10 @@ namespace MyerSplash.UC
         {
             this.InitializeComponent();
         }
+
+        private void ImageGridView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
     }
 }

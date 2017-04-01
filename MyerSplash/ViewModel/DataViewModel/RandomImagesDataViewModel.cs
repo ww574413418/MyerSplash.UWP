@@ -2,13 +2,14 @@
 using System.Threading.Tasks;
 using MyerSplash.Model;
 using MyerSplashShared.API;
+using System;
 
 namespace MyerSplash.ViewModel.DataViewModel
 {
     public class RandomImagesDataViewModel : ImageDataViewModel
     {
-        public RandomImagesDataViewModel(string url, bool featured)
-            : base(url, featured)
+        public RandomImagesDataViewModel(string url, bool featured, Func<UnsplashImageBase, bool> filter)
+            : base(url, featured, filter)
         {
 
         }

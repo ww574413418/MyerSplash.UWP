@@ -98,6 +98,8 @@ namespace MyerSplash.ViewModel
 
         public bool IsFirstActived { get; set; } = true;
 
+        public ColorFilter ColorToFilter { get; set; }
+
         #region Search
         private bool _showSearchBar;
         public bool ShowSearchBar
@@ -530,19 +532,19 @@ namespace MyerSplash.ViewModel
                     {
                         if (value == NEW_INDEX)
                         {
-                            DataVM = new ImageDataViewModel(UrlHelper.GetNewImages, false);
+                            DataVM = new ImageDataViewModel(UrlHelper.GetNewImages, false, null);
                         }
                         else if (value == FEATURED_INDEX)
                         {
-                            DataVM = new ImageDataViewModel(UrlHelper.GetFeaturedImages, true);
+                            DataVM = new ImageDataViewModel(UrlHelper.GetFeaturedImages, true, null);
                         }
                         else if (value == RANDOM_INDEX)
                         {
-                            DataVM = new RandomImagesDataViewModel(UrlHelper.GetRandomImages, false);
+                            DataVM = new RandomImagesDataViewModel(UrlHelper.GetRandomImages, false, null);
                         }
                         else if (value > NEW_INDEX)
                         {
-                            DataVM = new ImageDataViewModel(Categories[value].RequestUrl, false);
+                            DataVM = new ImageDataViewModel(Categories[value].RequestUrl, false, null);
                         }
                         if (DataVM != null)
                         {
@@ -560,18 +562,42 @@ namespace MyerSplash.ViewModel
                 var name = "";
                 if (SelectedIndex == -1)
                 {
-                    if (SearchKeyword == null)
+                    if (SearchKeyword != null)
                     {
-                        name = DefaultTitleName;
+                        name = SearchKeyword.ToUpper();
                     }
-                    else name = SearchKeyword.ToUpper();
+                    else if (ColorToFilter != null)
+                    {
+                        name = ColorToFilter.ColorName.Replace("#", "");
+                    }
                 }
                 else if (Categories?.Count > 0)
                 {
                     name = Categories[SelectedIndex].Title.ToUpper();
                 }
-                else name = DefaultTitleName;
+
+                if (string.IsNullOrEmpty(name))
+                {
+                    name = DefaultTitleName;
+                }
                 return $"# {name}";
+            }
+        }
+
+        private RelayCommand<ColorFilter> _tapColorCommand;
+        public RelayCommand<ColorFilter> TapColorCommand
+        {
+            get
+            {
+                if (_tapColorCommand != null) return _tapColorCommand;
+                return _tapColorCommand = new RelayCommand<ColorFilter>(async (filter) =>
+                  {
+                      ShowSearchBar = false;
+                      SelectedIndex = -1;
+                      ColorToFilter = filter;
+                      RaisePropertyChanged(() => SelectedTitle);
+                      await SearchByColorAsync();
+                  });
             }
         }
 
@@ -595,6 +621,29 @@ namespace MyerSplash.ViewModel
             DataVM = new SearchResultViewModel(UrlHelper.SearchImages, SearchKeyword);
             RaisePropertyChanged(() => SelectedTitle);
             await RefreshListAsync();
+        }
+
+        private async Task SearchByColorAsync()
+        {
+            DataVM = new RandomImagesDataViewModel(UrlHelper.GetRandomImages, false, (image) =>
+             {
+                 var imageR = image.MajorColor.Color.R;
+                 var imageG = image.MajorColor.Color.G;
+                 var imageB = image.MajorColor.Color.B;
+
+                 var filterR = ColorToFilter.Color.R;
+                 var filterG = ColorToFilter.Color.G;
+                 var filterB = ColorToFilter.Color.B;
+
+                 var distance = Math.Sqrt(Math.Pow(imageR - filterR, 2) + Math.Pow(imageG - filterG, 2)
+                     + Math.Pow(imageB - filterB, 2));
+
+                 return distance < 50;
+             });
+            if (DataVM != null)
+            {
+                await RefreshListAsync();
+            }
         }
 
         private async Task RestoreMainListDataAsync()
@@ -632,7 +681,7 @@ namespace MyerSplash.ViewModel
             {
                 if (_launcherArg == Constant.RANDOM_KEY)
                 {
-                    DataVM = new RandomImagesDataViewModel(UrlHelper.GetRandomImages, false);
+                    DataVM = new RandomImagesDataViewModel(UrlHelper.GetRandomImages, false, null);
                     return;
                 }
                 else if (_launcherArg == Constant.SEARCH_KEY)
@@ -644,15 +693,15 @@ namespace MyerSplash.ViewModel
             {
                 case 0:
                     {
-                        DataVM = new RandomImagesDataViewModel(UrlHelper.GetRandomImages, false);
+                        DataVM = new RandomImagesDataViewModel(UrlHelper.GetRandomImages, false, null);
                     }; break;
                 case 1:
                     {
-                        DataVM = new ImageDataViewModel(UrlHelper.GetNewImages, false);
+                        DataVM = new ImageDataViewModel(UrlHelper.GetNewImages, false, null);
                     }; break;
                 case 2:
                     {
-                        DataVM = new ImageDataViewModel(UrlHelper.GetFeaturedImages, true);
+                        DataVM = new ImageDataViewModel(UrlHelper.GetFeaturedImages, true, null);
                     }; break;
             }
         }

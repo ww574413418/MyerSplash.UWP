@@ -15,6 +15,7 @@
         <GridView
             x:Name="ImageGridView"
             attach:ScrollViewerStyleChanger.Style="{StaticResource ScrollViewerCommonStyle}"
+            attach:ListViewBaseCommandEx.ItemClickCommand="{x:Bind MainVM.TapColorCommand, Mode=OneWay}"
             IncrementalLoadingTrigger="Edge"
             IsItemClickEnabled="True"
             ItemContainerTransitions="{x:Null}"
@@ -30,14 +31,14 @@
                         <Border CornerRadius="4" />
                         <Grid VerticalAlignment="Center">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
                             </Grid.ColumnDefinitions>
                             <Ellipse
                                 Width="20"
                                 Height="20"
-                                HorizontalAlignment="Center"
-                                Fill="{x:Bind Brush, Mode=OneWay, FallbackValue=Black}" />
+                                HorizontalAlignment="Right"
+                                Fill="{x:Bind Brush, Mode=OneWay, FallbackValue=Black}" Margin="0,0,12,0" />
                             <TextBlock
                                 Grid.Column="1"
                                 HorizontalAlignment="Center"
