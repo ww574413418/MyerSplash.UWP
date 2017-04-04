@@ -93,8 +93,8 @@ namespace MyerSplash.View
                 TitleStack.Margin = new Thickness(0);
                 TitleStack.HorizontalAlignment = HorizontalAlignment.Stretch;
                 TitleTB.HorizontalAlignment = HorizontalAlignment.Center;
-                HamBtnBorder.Background = App.Current.Resources["TitleBarDarkBrush"] as SolidColorBrush;
-                C3.Width = new GridLength(0);
+                //HamBtnBorder.Background = App.Current.Resources["TitleBarDarkBrush"] as SolidColorBrush;
+                //C3.Width = new GridLength(0);
             }
         }
 
