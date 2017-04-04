@@ -20,6 +20,7 @@ using JP.Utils.Helper;
 using Windows.UI.ViewManagement;
 using Windows.UI;
 using JP.Utils.UI;
+using MyerSplash.Algorithm;
 
 namespace MyerSplash.ViewModel
 {
@@ -98,7 +99,7 @@ namespace MyerSplash.ViewModel
 
         public bool IsFirstActived { get; set; } = true;
 
-        public ColorFilter ColorToFilter { get; set; }
+        public ColorFilter ColorToFilter;
 
         #region Search
         private bool _showSearchBar;
@@ -568,7 +569,7 @@ namespace MyerSplash.ViewModel
                     }
                     else if (ColorToFilter != null)
                     {
-                        name = ColorToFilter.ColorName.Replace("#", "");
+                        name = ColorToFilter.ColorName;
                     }
                 }
                 else if (Categories?.Count > 0)
@@ -580,6 +581,7 @@ namespace MyerSplash.ViewModel
                 {
                     name = DefaultTitleName;
                 }
+                name = name.Replace("#", "");
                 return $"# {name}";
             }
         }
@@ -618,28 +620,26 @@ namespace MyerSplash.ViewModel
 
         private async Task SearchByKeywordAsync()
         {
-            DataVM = new SearchResultViewModel(UrlHelper.SearchImages, SearchKeyword);
-            RaisePropertyChanged(() => SelectedTitle);
-            await RefreshListAsync();
+            if (SearchKeyword.Contains("#"))
+            {
+                ColorToFilter = new ColorFilter(SearchKeyword.ToColor(), SearchKeyword);
+                RaisePropertyChanged(() => SelectedTitle);
+                await SearchByColorAsync();
+            }
+            else
+            {
+                DataVM = new SearchResultViewModel(UrlHelper.SearchImages, SearchKeyword, null);
+                RaisePropertyChanged(() => SelectedTitle);
+                await RefreshListAsync();
+            }
         }
 
         private async Task SearchByColorAsync()
         {
-            DataVM = new RandomImagesDataViewModel(UrlHelper.GetRandomImages, false, (image) =>
-             {
-                 var imageR = image.MajorColor.Color.R;
-                 var imageG = image.MajorColor.Color.G;
-                 var imageB = image.MajorColor.Color.B;
-
-                 var filterR = ColorToFilter.Color.R;
-                 var filterG = ColorToFilter.Color.G;
-                 var filterB = ColorToFilter.Color.B;
-
-                 var distance = Math.Sqrt(Math.Pow(imageR - filterR, 2) + Math.Pow(imageG - filterG, 2)
-                     + Math.Pow(imageB - filterB, 2));
-
-                 return distance < 50;
-             });
+            DataVM = new RandomImagesDataViewModel(UrlHelper.GetRandomImages, false, (image)=>
+            {
+                return FilterFuncs.FilterByLAB.Invoke(image, ColorToFilter);
+            });
             if (DataVM != null)
             {
                 await RefreshListAsync();

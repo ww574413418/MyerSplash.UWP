@@ -13,8 +13,6 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml;
 using System.Diagnostics;
 using MyerSplash.LiveTile;
-using Windows.UI;
-using System.Collections.ObjectModel;
 
 namespace MyerSplash.ViewModel
 {
@@ -24,13 +22,13 @@ namespace MyerSplash.ViewModel
 
         public bool Featured { get; set; } = false;
 
-        public Func<UnsplashImageBase, bool> Filter { get; set; }
+        public Func<UnsplashImageBase, bool> FilterFunc { get; set; }
 
         public ImageDataViewModel(string url, bool featured, Func<UnsplashImageBase, bool> filter)
         {
             this.RequestUrl = url;
             this.Featured = featured;
-            this.Filter = filter;
+            this.FilterFunc = filter;
         }
 
         protected override void ClickItem(UnsplashImageBase item)
@@ -69,7 +67,7 @@ namespace MyerSplash.ViewModel
               });
         }
 
-        protected async override Task<Collection<UnsplashImageBase>> GetList(int pageIndex)
+        protected async override Task<IEnumerable<UnsplashImageBase>> GetList(int pageIndex)
         {
             try
             {
@@ -129,20 +127,9 @@ namespace MyerSplash.ViewModel
             }
         }
 
-        protected async override void LoadMoreItemCompleted(Collection<UnsplashImageBase> list, int index)
+        protected async override void LoadMoreItemCompleted(IEnumerable<UnsplashImageBase> list, int index)
         {
             var tasks = new List<Task>();
-            if (Filter != null)
-            {
-                for (int i = 0; i < list.Count; i++)
-                {
-                    var image = list[i];
-                    if (!Filter(image))
-                    {
-                        list.RemoveAt(i);
-                    }
-                }
-            }
             for (var i = 0; i < list.Count(); i++)
             {
                 var item = list.ElementAt(i);
@@ -184,7 +171,7 @@ namespace MyerSplash.ViewModel
             }
         }
 
-        protected async virtual Task<Collection<UnsplashImageBase>> RequestAsync(int pageIndex)
+        protected async virtual Task<IEnumerable<UnsplashImageBase>> RequestAsync(int pageIndex)
         {
 #if DEBUG
             var cts = CTSFactory.MakeCTS();
@@ -196,7 +183,7 @@ namespace MyerSplash.ViewModel
                 var result = await CloudService.GetImages(pageIndex, (int)20u, cts.Token, RequestUrl);
                 if (result.IsRequestSuccessful)
                 {
-                    Collection<UnsplashImageBase> list = null;
+                    IEnumerable<UnsplashImageBase> list = null;
                     if (Featured)
                     {
                         list = UnsplashFeaturedImage.ParseListFromJson(result.JsonSrc);
@@ -216,8 +203,28 @@ namespace MyerSplash.ViewModel
             catch (Exception e)
             {
                 await Logger.LogAsync(e);
-                return new List<UnsplashImage>();
+                return new List<UnsplashImageBase>();
             }
+        }
+
+        protected override IEnumerable<UnsplashImageBase> FilterList(IEnumerable<UnsplashImageBase> list)
+        {
+            var newList = new List<UnsplashImageBase>();
+            if (FilterFunc != null)
+            {
+                foreach (var image in list)
+                {
+                    if (FilterFunc(image))
+                    {
+                        newList.Add(image);
+                    }
+                }
+            }
+            else
+            {
+                newList = list.ToList();
+            }
+            return newList;
         }
     }
 }

@@ -102,6 +102,7 @@
     <PRIResource Include="Strings\en-US\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithm\FilterFuncs.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -393,6 +394,10 @@
     <ProjectReference Include="..\BackgroundTask\BackgroundTask.csproj">
       <Project>{2782d88f-ba1c-4cfb-96b3-5cd734038e7a}</Project>
       <Name>BackgroundTask</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ColorMineUWP\ColorMineUWP.csproj">
+      <Project>{162cc085-313b-4a0c-bbd7-f90d1505f4a0}</Project>
+      <Name>ColorMineUWP</Name>
     </ProjectReference>
     <ProjectReference Include="..\MyerSplashCustomControl\MyerSplashCustomControl.csproj">
       <Project>{8efb922e-f05e-4e74-945d-ab6db8d85224}</Project>

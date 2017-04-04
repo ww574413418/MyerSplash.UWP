@@ -136,7 +136,7 @@ namespace MyerSplash.ViewModel
 
         private async Task<ResultData<T>> GetIncrementalListData(int pageIndex)
         {
-            Collection<T> newList = new Collection<T>();
+            IEnumerable<T> newList = new List<T>();
             bool HasMoreItems = false;
             try
             {
@@ -150,6 +150,8 @@ namespace MyerSplash.ViewModel
                 {
                     HasMoreItems = true;
                 }
+
+                newList = FilterList(newList);
 
                 await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
@@ -174,10 +176,12 @@ namespace MyerSplash.ViewModel
             await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, act);
         }
 
-        protected abstract Task<Collection<T>> GetList(int pageIndex);
+        protected abstract Task<IEnumerable<T>> GetList(int pageIndex);
 
         protected abstract void ClickItem(T item);
 
-        protected abstract void LoadMoreItemCompleted(Collection<T> list, int index);
+        protected abstract void LoadMoreItemCompleted(IEnumerable<T> list, int index);
+
+        protected abstract IEnumerable<T> FilterList(IEnumerable<T> list);
     }
 }

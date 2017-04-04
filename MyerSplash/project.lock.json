@@ -2067,6 +2067,13 @@
           "MyerSplashShared": "1.0.0"
         }
       },
+      "ColorMineUWP/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0",
+        "dependencies": {
+          "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2"
+        }
+      },
       "MyerSplashCustomControl/1.0.0": {
         "type": "project",
         "framework": "UAP,Version=v10.0",
@@ -4005,6 +4012,13 @@
           "MyerSplashShared": "1.0.0"
         }
       },
+      "ColorMineUWP/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0",
+        "dependencies": {
+          "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2"
+        }
+      },
       "MyerSplashCustomControl/1.0.0": {
         "type": "project",
         "framework": "UAP,Version=v10.0",
@@ -5898,6 +5912,13 @@
           "JP.Utils.UWP": "1.1.29",
           "Microsoft.NETCore.UniversalWindowsPlatform": "5.3.1",
           "MyerSplashShared": "1.0.0"
+        }
+      },
+      "ColorMineUWP/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0",
+        "dependencies": {
+          "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2"
         }
       },
       "MyerSplashCustomControl/1.0.0": {
@@ -7847,6 +7868,13 @@
           "MyerSplashShared": "1.0.0"
         }
       },
+      "ColorMineUWP/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0",
+        "dependencies": {
+          "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2"
+        }
+      },
       "MyerSplashCustomControl/1.0.0": {
         "type": "project",
         "framework": "UAP,Version=v10.0",
@@ -9740,6 +9768,13 @@
           "JP.Utils.UWP": "1.1.29",
           "Microsoft.NETCore.UniversalWindowsPlatform": "5.3.1",
           "MyerSplashShared": "1.0.0"
+        }
+      },
+      "ColorMineUWP/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0",
+        "dependencies": {
+          "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2"
         }
       },
       "MyerSplashCustomControl/1.0.0": {
@@ -11689,6 +11724,13 @@
           "MyerSplashShared": "1.0.0"
         }
       },
+      "ColorMineUWP/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0",
+        "dependencies": {
+          "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2"
+        }
+      },
       "MyerSplashCustomControl/1.0.0": {
         "type": "project",
         "framework": "UAP,Version=v10.0",
@@ -13582,6 +13624,13 @@
           "JP.Utils.UWP": "1.1.29",
           "Microsoft.NETCore.UniversalWindowsPlatform": "5.3.1",
           "MyerSplashShared": "1.0.0"
+        }
+      },
+      "ColorMineUWP/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0",
+        "dependencies": {
+          "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2"
         }
       },
       "MyerSplashCustomControl/1.0.0": {
@@ -17308,6 +17357,11 @@
       "path": "../BackgroundTask/project.json",
       "msbuildProject": "../BackgroundTask/BackgroundTask.csproj"
     },
+    "ColorMineUWP/1.0.0": {
+      "type": "project",
+      "path": "../ColorMineUWP/project.json",
+      "msbuildProject": "../ColorMineUWP/ColorMineUWP.csproj"
+    },
     "MyerSplashCustomControl/1.0.0": {
       "type": "project",
       "path": "../MyerSplashCustomControl/project.json",
@@ -17338,26 +17392,29 @@
     "UAP,Version=v10.0": []
   },
   "packageFolders": {
-    "C:\\Users\\dengw\\.nuget\\packages\\": {}
+    "C:\\Users\\chao\\.nuget\\packages\\": {}
   },
   "project": {
     "restore": {
-      "projectUniqueName": "D:\\Dev\\MyerSplashUWP\\MyerSplash\\MyerSplash.csproj",
+      "projectUniqueName": "D:\\Dev\\MyerSplash\\MyerSplash\\MyerSplash.csproj",
       "projectName": "MyerSplash",
-      "projectPath": "D:\\Dev\\MyerSplashUWP\\MyerSplash\\MyerSplash.csproj",
-      "projectJsonPath": "D:\\Dev\\MyerSplashUWP\\MyerSplash\\project.json",
+      "projectPath": "D:\\Dev\\MyerSplash\\MyerSplash\\MyerSplash.csproj",
+      "projectJsonPath": "D:\\Dev\\MyerSplash\\MyerSplash\\project.json",
       "projectStyle": "ProjectJson",
       "frameworks": {
         "uap10.0": {
           "projectReferences": {
-            "D:\\Dev\\MyerSplashUWP\\BackgroundTask\\BackgroundTask.csproj": {
-              "projectPath": "D:\\Dev\\MyerSplashUWP\\BackgroundTask\\BackgroundTask.csproj"
+            "D:\\Dev\\MyerSplash\\BackgroundTask\\BackgroundTask.csproj": {
+              "projectPath": "D:\\Dev\\MyerSplash\\BackgroundTask\\BackgroundTask.csproj"
             },
-            "D:\\Dev\\MyerSplashUWP\\MyerSplashCustomControl\\MyerSplashCustomControl.csproj": {
-              "projectPath": "D:\\Dev\\MyerSplashUWP\\MyerSplashCustomControl\\MyerSplashCustomControl.csproj"
+            "D:\\Dev\\MyerSplash\\ColorMineUWP\\ColorMineUWP.csproj": {
+              "projectPath": "D:\\Dev\\MyerSplash\\ColorMineUWP\\ColorMineUWP.csproj"
             },
-            "D:\\Dev\\MyerSplashUWP\\MyerSplashShared\\MyerSplashShared.csproj": {
-              "projectPath": "D:\\Dev\\MyerSplashUWP\\MyerSplashShared\\MyerSplashShared.csproj"
+            "D:\\Dev\\MyerSplash\\MyerSplashCustomControl\\MyerSplashCustomControl.csproj": {
+              "projectPath": "D:\\Dev\\MyerSplash\\MyerSplashCustomControl\\MyerSplashCustomControl.csproj"
+            },
+            "D:\\Dev\\MyerSplash\\MyerSplashShared\\MyerSplashShared.csproj": {
+              "projectPath": "D:\\Dev\\MyerSplash\\MyerSplashShared\\MyerSplashShared.csproj"
             }
           }
         }

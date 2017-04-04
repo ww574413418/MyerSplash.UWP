@@ -45,7 +45,7 @@
                     SizeChanged="RootGrid_SizeChanged"
                     Tapped="RootGrid_Tapped"
                     Unloaded="RootGrid_Unloaded">
-                    <Border Background="{x:Bind BackColor, Mode=OneWay}" Opacity="0.3" />
+                    <Border Background="{x:Bind BackColor, Mode=OneWay}" Opacity="1" />
                     <Image
                         x:Name="Img"
                         Source="{x:Bind ListImageBitmap.Bitmap, Mode=OneWay}"

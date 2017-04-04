@@ -4,6 +4,7 @@ using MyerSplash.Model;
 using MyerSplashShared.API;
 using Windows.Data.Json;
 using JP.Utils.Data.Json;
+using System;
 
 namespace MyerSplash.ViewModel
 {
@@ -11,8 +12,8 @@ namespace MyerSplash.ViewModel
     {
         private string _keyword;
 
-        public SearchResultViewModel(string url, string keyword) :
-            base(url, false)
+        public SearchResultViewModel(string url, string keyword, Func<UnsplashImageBase, bool> filter) :
+            base(url, false, filter)
         {
             _keyword = keyword;
         }
