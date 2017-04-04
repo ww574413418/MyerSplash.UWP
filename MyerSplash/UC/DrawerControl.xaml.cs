@@ -21,8 +21,11 @@ namespace MyerSplash.UC
             this.InitializeComponent();
             if (DeviceHelper.IsMobile)
             {
-                DownloadEntryBtn.Visibility = Visibility.Collapsed;
                 FullscreenBtn.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                FullscreenBtn.Visibility = Visibility.Visible;
             }
 
             Window.Current.SizeChanged += Current_SizeChanged;

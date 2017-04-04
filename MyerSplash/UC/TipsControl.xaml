@@ -45,10 +45,11 @@
         <Grid Grid.Row="1">
             <StackPanel Margin="16,8,16,0" VerticalAlignment="Top">
                 <TextBlock
+                    Margin="0,0,0,12"
                     FontWeight="Bold"
                     Foreground="White"
                     Text="Optimize for auto-changing wallpapers"
-                    TextWrapping="WrapWholeWords" Margin="0,0,0,12" />
+                    TextWrapping="WrapWholeWords" />
                 <TextBlock
                     Foreground="#CCFFFFFF"
                     Text="Haven't try this feature? Enable it in Settings. Let me know if you like it 😝"

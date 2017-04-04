@@ -40,20 +40,6 @@
                 </StackPanel>
             </StackPanel>
             <Button
-                x:Name="DownloadEntryBtn"
-                Width="64"
-                Height="64"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Command="{x:Bind MainVM.ShowDownloadsCommand, Mode=OneWay}"
-                Style="{StaticResource ListButtonStyle}"
-                Visibility="Visible">
-                <FontIcon
-                    FontFamily="Segoe MDL2 Assets"
-                    Foreground="White"
-                    Glyph="&#xE118;" />
-            </Button>
-            <Button
                 x:Name="FullscreenBtn"
                 Width="64"
                 Height="64"

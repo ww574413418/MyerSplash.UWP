@@ -1,69 +1,79 @@
-﻿<UserControl x:Class="MyerSplash.UC.DonateDialogControl"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="using:MyerSplash.UC"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             Width="320"
-             Height="250"
-             d:DesignHeight="300"
-             d:DesignWidth="400"
-             mc:Ignorable="d">
+﻿<UserControl
+    x:Class="MyerSplash.UC.DonateDialogControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:MyerSplash.UC"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Width="320"
+    Height="250"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
 
     <Grid Background="{StaticResource TitleBarDarkBrush}" CornerRadius="2">
         <StackPanel>
             <Grid Background="{StaticResource MyerSplashThemeColor}">
                 <StackPanel Margin="0,0,0,8">
-                    <TextBlock Margin="12,12,0,0"
-                               FontSize="20"
-                               FontWeight="Bold"
-                               Foreground="{StaticResource MyerSplashDarkColor}"
-                               Text="TREAT ME A DRINK ☕" />
-                    <TextBlock Margin="12,12,0,0"
-                               FontSize="12"
-                               Foreground="{StaticResource MyerSplashDarkColor}"
-                               Text="If you think this app is amazing. How about treating me a drink? "
-                               TextWrapping="Wrap" />
+                    <TextBlock
+                        Margin="12,12,0,0"
+                        FontSize="20"
+                        FontWeight="Bold"
+                        Foreground="{StaticResource MyerSplashDarkColor}"
+                        Text="TREAT ME A DRINK ☕" />
+                    <TextBlock
+                        Margin="12,12,0,0"
+                        FontSize="12"
+                        Foreground="{StaticResource MyerSplashDarkColor}"
+                        Text="If you think this app is amazing. How about treating me a drink? "
+                        TextWrapping="Wrap" />
                 </StackPanel>
 
             </Grid>
 
-            <Button x:Name="InAppClick"
-                    Margin="8,12,8,0"
-                    HorizontalAlignment="Stretch"
-                    Click="InAppClick_Click"
-                    Style="{StaticResource ListButtonStyle}">
+            <Button
+                x:Name="InAppClick"
+                Margin="8,12,8,0"
+                HorizontalAlignment="Stretch"
+                Click="InAppClick_Click"
+                Style="{StaticResource ListButtonStyle}">
                 <Border>
-                    <TextBlock x:Name="IAPTB"
-                               Margin="12"
-                               FontWeight="SemiBold"
-                               Foreground="#B2FFFFFF"
-                               Text="Via in-app purchase" />
+                    <TextBlock
+                        x:Name="IAPTB"
+                        Margin="12"
+                        FontWeight="SemiBold"
+                        Foreground="#B2FFFFFF"
+                        Text="Via in-app purchase" />
                 </Border>
             </Button>
-            <Button x:Name="AlipayBtn"
-                    HorizontalAlignment="Stretch"
-                    Click="AlipayBtn_Click"
-                    Style="{StaticResource ListButtonStyle}" Margin="8,0">
+            <Button
+                x:Name="AlipayBtn"
+                Margin="8,0"
+                HorizontalAlignment="Stretch"
+                Click="AlipayBtn_Click"
+                Style="{StaticResource ListButtonStyle}">
                 <Border>
-                    <TextBlock Margin="12"
-                               FontWeight="SemiBold"
-                               Foreground="#B2FFFFFF"
-                               Text="Via Alipay (My Account is 18520944923)" />
+                    <TextBlock
+                        Margin="12"
+                        FontWeight="SemiBold"
+                        Foreground="#B2FFFFFF"
+                        Text="Via Alipay (My Account is 18520944923)" />
                 </Border>
             </Button>
         </StackPanel>
-        <Button x:Name="CancelBtn"
-                Margin="0,8,8,8"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Click="CancelBtn_Click"
-                Style="{StaticResource ListButtonStyle}">
+        <Button
+            x:Name="CancelBtn"
+            Margin="0,8,8,8"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Click="CancelBtn_Click"
+            Style="{StaticResource ListButtonStyle}">
             <Border>
-                <TextBlock Margin="12"
-                           FontWeight="Bold"
-                           Foreground="White"
-                           Text="CLOSE" />
+                <TextBlock
+                    Margin="12"
+                    FontWeight="Bold"
+                    Foreground="White"
+                    Text="CLOSE" />
             </Border>
         </Button>
     </Grid>
