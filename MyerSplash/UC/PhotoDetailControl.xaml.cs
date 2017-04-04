@@ -1,6 +1,7 @@
 ﻿using CompositionHelper.Animation.Fluent;
 using GalaSoft.MvvmLight.Messaging;
 using JP.Utils.Debug;
+using JP.Utils.Helper;
 using MyerSplash.Common;
 using MyerSplash.Model;
 using MyerSplashCustomControl;
@@ -83,6 +84,11 @@ namespace MyerSplash.UC
                       FlipperControl.DisplayIndex = (int)DownloadStatus.OK;
                   }
               });
+
+            if (DeviceHelper.IsMobile)
+            {
+                SecondaryToolSP.Visibility = Visibility.Collapsed;
+            }
         }
 
         private async void _dataTransferManager_DataRequested(DataTransferManager sender, DataRequestedEventArgs args)

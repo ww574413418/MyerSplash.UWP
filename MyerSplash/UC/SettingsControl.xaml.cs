@@ -21,6 +21,10 @@ namespace MyerSplash.UC
             {
                 ShowListGrid.Visibility = Visibility.Collapsed;
             }
+            else if (DeviceHelper.IsMobile)
+            {
+                AutoChangeSP.Visibility = Visibility.Collapsed;
+            }
         }
 
         public override async void OnShow()

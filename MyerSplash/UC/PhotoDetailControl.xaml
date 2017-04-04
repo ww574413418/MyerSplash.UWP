@@ -88,7 +88,7 @@
                         <ColumnDefinition Width="21*" />
                     </Grid.ColumnDefinitions>
                     <StackPanel
-                        Margin="20,28,0,27"
+                        Margin="20,28,200,27"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center">
                         <TextBlock
@@ -166,7 +166,6 @@
                             </Button>
                         </flipper:FlipperControl.Views>
                     </flipper:FlipperControl>
-
                 </Grid>
             </Grid>
             <Grid>
