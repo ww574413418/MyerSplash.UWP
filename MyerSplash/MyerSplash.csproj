@@ -186,7 +186,6 @@
     <Compile Include="ViewModel\DataViewModel\DataViewModelBase.cs" />
     <Compile Include="Common\IncrementalLoadingCollection.cs" />
     <Compile Include="Common\ResourcesHelper.cs" />
-    <Compile Include="Common\StatusBarHelper.cs" />
     <Compile Include="Common\TitleBarHelper.cs" />
     <Compile Include="Model\UnsplashImage.cs" />
     <Compile Include="Model\UnsplashUser.cs" />
@@ -397,12 +396,6 @@
       <Name>MyerSplashShared</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <SDKReference Include="WindowsMobile, Version=10.0.10586.0">
-      <Name>Windows Mobile Extensions for the UWP</Name>
-    </SDKReference>
-  </ItemGroup>
-  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

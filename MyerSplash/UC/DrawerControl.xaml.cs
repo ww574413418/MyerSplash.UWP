@@ -1,5 +1,4 @@
-﻿using JP.Utils.Helper;
-using MyerSplash.ViewModel;
+﻿using MyerSplash.ViewModel;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml;
 using Windows.UI.ViewManagement;
@@ -19,15 +18,8 @@ namespace MyerSplash.UC
         public DrawerControl()
         {
             this.InitializeComponent();
-            if (DeviceHelper.IsMobile)
-            {
-                FullscreenBtn.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                FullscreenBtn.Visibility = Visibility.Visible;
-            }
 
+            FullscreenBtn.Visibility = Visibility.Visible;
             Window.Current.SizeChanged += Current_SizeChanged;
         }
 

@@ -1,13 +1,10 @@
 ﻿using JP.Utils.Framework;
-using JP.Utils.Helper;
 using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Core;
-using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
@@ -52,14 +49,7 @@ namespace MyerSplash.Common
             TransitionCollection collection = new TransitionCollection();
             NavigationThemeTransition theme = new NavigationThemeTransition();
 
-            NavigationTransitionInfo info;
-            if (DeviceHelper.IsMobile)
-            {
-                info = new EntranceNavigationTransitionInfo();
-            }
-            else info = new ContinuumNavigationTransitionInfo();
-
-            theme.DefaultNavigationTransitionInfo = info;
+            theme.DefaultNavigationTransitionInfo = new ContinuumNavigationTransitionInfo();
             collection.Add(theme);
             Transitions = collection;
         }
@@ -67,11 +57,6 @@ namespace MyerSplash.Common
         protected virtual void SetUpNavigationCache()
         {
             NavigationCacheMode = NavigationCacheMode.Enabled;
-        }
-
-        protected virtual void SetUpStatusBar()
-        {
-
         }
 
         protected virtual void SetUpTitleBar()
@@ -88,11 +73,6 @@ namespace MyerSplash.Common
             else SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
         }
 
-        /// <summary>
-        /// 全局下按下按键
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="args"></param>
         private void CoreWindow_KeyDown(CoreWindow sender, KeyEventArgs args)
         {
             GlobalPageKeyDown(sender, args);
