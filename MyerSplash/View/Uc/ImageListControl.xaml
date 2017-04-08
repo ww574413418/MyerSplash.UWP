@@ -17,11 +17,11 @@
     </UserControl.Resources>
     <control:AdaptiveGridView
         x:Name="ImageGridView"
-        Margin="0,-70,0,0"
         attach:ScrollViewerStyleChanger.Style="{StaticResource ScrollViewerCommonStyle}"
         ContainerContentChanging="AdaptiveGridView_ContainerContentChanging"
         IncrementalLoadingTrigger="Edge"
         IsItemClickEnabled="True"
+        Margin="0 -120 0 0"
         ItemClick="ImageGridView_ItemClick"
         ItemContainerTransitions="{x:Null}"
         ItemsSource="{x:Bind MainVM.DataVM.DataList, Mode=OneWay}"
@@ -31,56 +31,74 @@
         SelectionMode="None"
         ShowsScrollingPlaceholders="False">
         <control:AdaptiveGridView.Header>
-            <Grid Height="{StaticResource PosterHeight}">
+            <Grid Height="120">
                 <uc:LoadingControl x:Name="LoadingControl" />
             </Grid>
         </control:AdaptiveGridView.Header>
         <control:AdaptiveGridView.ItemTemplate>
             <DataTemplate x:DataType="model:ImageItem">
-                <Grid
-                    x:Name="RootGrid"
-                    CanDrag="True"
-                    DragStarting="RootGrid_DragStarting"
-                    Loaded="RootGrid_Loaded"
-                    SizeChanged="RootGrid_SizeChanged"
-                    Tapped="RootGrid_Tapped"
-                    Unloaded="RootGrid_Unloaded">
-                    <Border Background="{x:Bind BackColorBrush, Mode=OneWay}" Opacity="0.3" />
-                    <Image
-                        x:Name="Img"
-                        Source="{x:Bind ListImageBitmap.Bitmap, Mode=OneWay}"
-                        Stretch="UniformToFill" />
-                    <Grid x:Name="MaskBorder" Background="#53000000">
-                        <StackPanel
-                            Margin="16,0,0,16"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Bottom"
-                            Orientation="Horizontal"
-                            Visibility="{x:Bind LikesVisibility, Mode=OneWay}">
-                            <FontIcon
-                                FontFamily="Segoe MDL2 Assets"
-                                Foreground="#FFFF4A43"
-                                Glyph="&#xE00B;" />
-                            <TextBlock
-                                Margin="8,0,0,0"
-                                FontWeight="Bold"
-                                Foreground="White"
-                                Text="Likes" />
-                            <TextBlock
-                                Margin="8,0,0,0"
-                                FontWeight="Bold"
-                                Foreground="White"
-                                Text="{x:Bind LikesString, Mode=OneWay}" />
-                        </StackPanel>
+                <Grid Margin="0">
+                    <Grid
+                        x:Name="RootGrid"
+                        CanDrag="True"
+                        DragStarting="RootGrid_DragStarting"
+                        Loaded="RootGrid_Loaded"
+                        SizeChanged="RootGrid_SizeChanged"
+                        Tapped="RootGrid_Tapped"
+                        Unloaded="RootGrid_Unloaded">
+                        <Border Background="{x:Bind BackColorBrush, Mode=OneWay}" Opacity="0.3" />
+                        <Image
+                            x:Name="Img"
+                            Source="{x:Bind ListImageBitmap.Bitmap, Mode=OneWay}"
+                            Stretch="UniformToFill" />
+                        <Grid x:Name="MaskBorder" Background="#53000000">
+                            <StackPanel
+                                Margin="16,0,0,16"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Bottom"
+                                Orientation="Horizontal"
+                                Visibility="{x:Bind LikesVisibility, Mode=OneWay}">
+                                <FontIcon
+                                    FontFamily="Segoe MDL2 Assets"
+                                    Foreground="#FFFF4A43"
+                                    Glyph="&#xE00B;" />
+                                <TextBlock
+                                    Margin="8,0,0,0"
+                                    FontWeight="Bold"
+                                    Foreground="White"
+                                    Text="Likes" />
+                                <TextBlock
+                                    Margin="8,0,0,0"
+                                    FontWeight="Bold"
+                                    Foreground="White"
+                                    Text="{x:Bind LikesString, Mode=OneWay}" />
+                            </StackPanel>
+                            <Button
+                                x:Name="DownloadBtn"
+                                Width="50"
+                                Height="50"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Bottom"
+                                Command="{x:Bind DownloadCommand}"
+                                Style="{StaticResource ListButtonStyle}"
+                                Tapped="DownloadBtn_Tapped">
+                                <FontIcon
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontFamily="Segoe MDL2 Assets"
+                                    Foreground="White"
+                                    Glyph="&#xE118;" />
+                            </Button>
+                        </Grid>
                         <Button
-                            x:Name="DownloadBtn"
                             Width="50"
                             Height="50"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Bottom"
-                            Command="{x:Bind DownloadCommand, Mode=OneWay}"
+                            Command="{x:Bind DownloadCommand}"
                             Style="{StaticResource ListButtonStyle}"
-                            Tapped="DownloadBtn_Tapped">
+                            Tapped="DownloadBtn_Tapped"
+                            Visibility="{Binding Path=EnableQuickDownload, Converter={StaticResource Converter}, Source={StaticResource AppSettings}, Mode=OneWay}">
                             <FontIcon
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
@@ -88,51 +106,36 @@
                                 Foreground="White"
                                 Glyph="&#xE118;" />
                         </Button>
-                    </Grid>
-                    <Button
-                        Width="50"
-                        Height="50"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom"
-                        Command="{x:Bind DownloadCommand}"
-                        Style="{StaticResource ListButtonStyle}"
-                        Tapped="DownloadBtn_Tapped"
-                        Visibility="{Binding Path=EnableQuickDownload, Converter={StaticResource Converter}, Source={StaticResource AppSettings}, Mode=OneWay}">
-                        <FontIcon
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            FontFamily="Segoe MDL2 Assets"
-                            Foreground="White"
-                            Glyph="&#xE118;" />
-                    </Button>
-                    <Grid
-                        Margin="12,0,0,12"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Bottom"
-                        Visibility="{x:Bind RecommendationVisibility, Mode=OneWay}">
-                        <Rectangle
-                            Fill="#B8000000"
-                            RadiusX="4"
-                            RadiusY="4" />
-                        <StackPanel
-                            Margin="8"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Orientation="Horizontal">
-                            <FontIcon
-                                FontFamily="Segoe MDL2 Assets"
-                                FontSize="12"
-                                Foreground="#FFFFF024"
-                                Glyph="&#xE00A;" />
-                            <TextBlock
-                                Margin="8,0,0,0"
-                                FontSize="12"
-                                FontWeight="Bold"
-                                Foreground="White"
-                                Text="TODAY" />
-                        </StackPanel>
+                        <Grid
+                            Margin="12,0,0,12"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Bottom"
+                            Visibility="{x:Bind RecommendationVisibility, Mode=OneWay}">
+                            <Rectangle
+                                Fill="#B8000000"
+                                RadiusX="4"
+                                RadiusY="4" />
+                            <StackPanel
+                                Margin="8"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
+                                <FontIcon
+                                    FontFamily="Segoe MDL2 Assets"
+                                    FontSize="12"
+                                    Foreground="#FFFFF024"
+                                    Glyph="&#xE00A;" />
+                                <TextBlock
+                                    Margin="8,0,0,0"
+                                    FontSize="12"
+                                    FontWeight="Bold"
+                                    Foreground="White"
+                                    Text="TODAY" />
+                            </StackPanel>
+                        </Grid>
                     </Grid>
                 </Grid>
+
             </DataTemplate>
         </control:AdaptiveGridView.ItemTemplate>
         <control:AdaptiveGridView.ItemContainerStyle>

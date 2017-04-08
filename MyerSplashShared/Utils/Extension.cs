@@ -30,5 +30,33 @@ namespace MyerSplashShared.Utils
                 await tcs.Task;
             }
         }
+
+        public static async Task WaitForSizeChangedAsync(this FrameworkElement frameworkElement)
+        {
+            if (frameworkElement == null)
+            {
+                throw new ArgumentNullException(nameof(frameworkElement));
+            }
+
+            var initW = frameworkElement.ActualWidth;
+            var initH = frameworkElement.ActualHeight;
+
+            while (frameworkElement.ActualWidth == initW && frameworkElement.ActualHeight == initH)
+            {
+                var tcs = new TaskCompletionSource<object>();
+
+                SizeChangedEventHandler handler = null;
+
+                handler = (sender, e) =>
+                {
+                    frameworkElement.SizeChanged -= handler;
+                    tcs.SetResult(null);
+                };
+
+                frameworkElement.SizeChanged += handler;
+
+                await tcs.Task;
+            }
+        }
     }
 }

@@ -2,6 +2,12 @@
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml;
 using Windows.UI.ViewManagement;
+using System;
+using Windows.UI.Composition;
+using MyerSplash.Common;
+using System.Numerics;
+using Windows.UI.Xaml.Hosting;
+using MyerSplash.Common.Brush;
 
 namespace MyerSplash.View.Uc
 {
