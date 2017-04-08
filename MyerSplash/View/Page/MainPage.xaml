@@ -19,16 +19,15 @@
             <attach:InvokeCommandByKeyDown Command="{x:Bind MainVM.SearchCommand}" PressedKey="F6" />
         </Core:EventTriggerBehavior>
     </Interactivity:Interaction.Behaviors>
-    <Grid x:Name="RootGrid" Background="{StaticResource RootBackgrdBrush}">
+    <Grid x:Name="RootGrid" Background="{StaticResource AppHostBackgroundBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="70" />
+            <RowDefinition Height="100" />
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid
             x:Name="ContentGrid"
             Grid.Row="0"
-            Grid.RowSpan="2"
-            Margin="0">
+            Grid.RowSpan="2">
             <uc:ImageListControl
                 x:Name="ListControl"
                 d:IsHidden="True"
@@ -56,25 +55,24 @@
                 </Grid>
             </Button>
         </Grid>
-        <Grid
-            x:Name="TitleGrid"
-            Background="Transparent"
-            PointerEntered="TitleGrid_PointerEntered"
-            PointerExited="TitleGrid_PointerExited" />
+        <Grid x:Name="TitleGrid" Background="Transparent" />
         <Grid
             x:Name="TitleStack"
-            Grid.RowSpan="2"
-            Margin="12"
+            Margin="16"
             HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Background="#DB000000">
+            VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="60" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="60" />
                 <ColumnDefinition x:Name="C3" Width="60" />
             </Grid.ColumnDefinitions>
-            <Border x:Name="HamBtnBorder">
+            <Border
+                x:Name="BlurBorder"
+                Grid.ColumnSpan="5"
+                Background="{StaticResource AppBackgroundBrushLittleDark}"
+                Opacity="0" />
+            <Border x:Name="HamBtnBorder" VerticalAlignment="Center">
                 <uc:HamburgerButton
                     x:Name="HamBtn"
                     Width="{StaticResource PosterHeight}"
@@ -114,7 +112,7 @@
                 Height="{StaticResource PosterHeight}"
                 Margin="0"
                 HorizontalAlignment="Left"
-                VerticalAlignment="Top"
+                VerticalAlignment="Center"
                 BorderThickness="0"
                 Command="{x:Bind MainVM.SearchCommand, Mode=OneWay}"
                 Style="{StaticResource ListButtonStyle}">
@@ -135,7 +133,7 @@
                 Height="{StaticResource PosterHeight}"
                 Margin="0"
                 HorizontalAlignment="Left"
-                VerticalAlignment="Top"
+                VerticalAlignment="Center"
                 BorderThickness="0"
                 Command="{x:Bind MainVM.ShowDownloadsCommand, Mode=OneWay}"
                 Style="{StaticResource ListButtonStyle}">
@@ -159,23 +157,20 @@
             x:Name="DetailControl"
             Grid.RowSpan="2"
             d:IsHidden="True"
-            OnHidden="DetailControl_OnHidden"
             Visibility="Collapsed" />
         <Border
             x:Name="DrawerMaskBorder"
             Grid.RowSpan="2"
             attach:UIElementTapCommand.ItemTapCommand="{x:Bind MainVM.OpenDrawerCommand, Mode=OneWay}"
             d:IsHidden="True"
-            Background="Black"
-            Opacity="0.8" />
+            Background="Black" />
         <uc:DrawerControl
             x:Name="DrawerControl"
             Grid.RowSpan="2"
             Width="280"
             HorizontalAlignment="Left"
             d:IsHidden="True"
-            DataContext="{x:Bind MainVM, Mode=OneWay}"
-            ManipulationMode="TranslateX" />
+            DataContext="{x:Bind MainVM, Mode=OneWay}" />
         <uc:SearchBarControl
             x:Name="SearchControl"
             Grid.RowSpan="2"

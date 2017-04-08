@@ -11,7 +11,7 @@
     <AssemblyName>MyerSplashShared</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
+    <TargetPlatformVersion>10.0.15063.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -132,6 +132,7 @@
     <Compile Include="Utils\Extension.cs" />
     <Compile Include="Utils\FileDownloader.cs" />
     <Compile Include="Utils\LiveTileUpdater.cs" />
+    <Compile Include="Utils\DeviceUtil.cs" />
     <Compile Include="Utils\SimpleWallpaperSetter.cs" />
     <EmbeddedResource Include="Properties\MyerSplashShared.rd.xml" />
   </ItemGroup>

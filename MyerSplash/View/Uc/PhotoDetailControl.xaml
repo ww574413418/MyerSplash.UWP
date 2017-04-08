@@ -70,7 +70,6 @@
             Background="Black"
             ManipulationDelta="DetailGrid_ManipulationDelta"
             ManipulationMode="TranslateY"
-            Opacity="0.8"
             Tapped="MaskBorder_Tapped" />
         <Grid
             x:Name="DetailContentGrid"

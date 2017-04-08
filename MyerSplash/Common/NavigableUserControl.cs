@@ -1,5 +1,4 @@
-﻿using CompositionHelper;
-using MyerSplash.View.Uc;
+﻿using MyerSplash.View.Uc;
 using System;
 using System.Numerics;
 using Windows.ApplicationModel;
@@ -75,11 +74,11 @@ namespace MyerSplash.Common
             {
                 if (IsWide)
                 {
-                    _rootVisual.Offset = new Vector3(0f, (float)this.ActualHeight, 0f);
+                    _rootVisual.SetTranslation(new Vector3(0f, (float)this.ActualHeight, 0f));
                 }
                 else
                 {
-                    _rootVisual.Offset = new Vector3((float)this.ActualWidth, 0f, 0f);
+                    _rootVisual.SetTranslation(new Vector3((float)this.ActualWidth, 0f, 0f));
                 }
             }
         }
@@ -101,7 +100,8 @@ namespace MyerSplash.Common
                 (IsWide ? (float)this.ActualHeight : (float)this.ActualWidth));
             offsetAnimation.Duration = TimeSpan.FromMilliseconds(800);
 
-            _rootVisual.StartAnimation(IsWide ? "Offset.y" : "Offset.x", offsetAnimation);
+            _rootVisual.StartAnimation(IsWide ? _rootVisual.GetTranslationYPropertyName()
+                : _rootVisual.GetTranslationXPropertyName(), offsetAnimation);
         }
     }
 }

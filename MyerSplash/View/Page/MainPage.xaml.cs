@@ -1,16 +1,21 @@
-﻿using MyerSplash.Common;
+﻿using JP.Utils.UI;
+using Microsoft.Graphics.Canvas.Effects;
+using MyerSplash.Common;
 using MyerSplash.Model;
 using MyerSplash.ViewModel;
 using MyerSplashShared.Utils;
 using System;
+using System.Diagnostics;
 using System.Numerics;
 using Windows.Foundation;
+using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace MyerSplash.View.Page
@@ -85,7 +90,7 @@ namespace MyerSplash.View.Page
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
             _drawerMaskVisual.Opacity = 0;
-            _drawerVisual.Offset = new Vector3(-DRAWER_WIDTH, 0f, 0f);
+            _drawerVisual.SetTranslation(new Vector3(-DRAWER_WIDTH, 0f, 0f));
 
             DrawerMaskBorder.Visibility = Visibility.Collapsed;
         }
@@ -112,11 +117,11 @@ namespace MyerSplash.View.Page
         private void InitComposition()
         {
             _compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
-            _drawerVisual = ElementCompositionPreview.GetElementVisual(DrawerControl);
-            _drawerMaskVisual = ElementCompositionPreview.GetElementVisual(DrawerMaskBorder);
-            _titleGridVisual = ElementCompositionPreview.GetElementVisual(TitleGrid);
-            _refreshBtnVisual = ElementCompositionPreview.GetElementVisual(RefreshBtn);
-            _titleStackVisual = ElementCompositionPreview.GetElementVisual(TitleStack);
+            _drawerVisual = DrawerControl.GetVisual();
+            _drawerMaskVisual = DrawerMaskBorder.GetVisual();
+            _titleGridVisual = TitleGrid.GetVisual();
+            _refreshBtnVisual = RefreshBtn.GetVisual();
+            _titleStackVisual = TitleStack.GetVisual();
         }
 
         #region Loading animation
@@ -138,7 +143,7 @@ namespace MyerSplash.View.Page
             offsetAnim.InsertKeyFrame(1f, show ? 0f : -DRAWER_WIDTH);
             offsetAnim.Duration = TimeSpan.FromMilliseconds(300);
 
-            _drawerVisual.StartAnimation("Offset.X", offsetAnim);
+            _drawerVisual.StartAnimation(_drawerVisual.GetTranslationXPropertyName(), offsetAnim);
         }
 
         private void ToggleDrawerMaskAnimation(bool show)
@@ -146,7 +151,7 @@ namespace MyerSplash.View.Page
             if (show) DrawerMaskBorder.Visibility = Visibility.Visible;
 
             var fadeAnimation = _compositor.CreateScalarKeyFrameAnimation();
-            fadeAnimation.InsertKeyFrame(1f, show ? 1f : 0f);
+            fadeAnimation.InsertKeyFrame(1f, show ? 0.8f : 0f);
             fadeAnimation.Duration = TimeSpan.FromMilliseconds(500);
 
             var batch = _compositor.CreateScopedBatch(CompositionBatchTypes.Animation);
@@ -217,7 +222,7 @@ namespace MyerSplash.View.Page
             offsetAnimation.InsertKeyFrame(1f, show ? 0f : -100f);
             offsetAnimation.Duration = TimeSpan.FromMilliseconds(500);
 
-            _titleGridVisual.StartAnimation("Offset.Y", offsetAnimation);
+            _titleGridVisual.StartAnimation(_titleGridVisual.GetTranslationYPropertyName(), offsetAnimation);
         }
 
         private void ToggleRefreshBtnAnimation(bool show)
@@ -237,7 +242,7 @@ namespace MyerSplash.View.Page
             offsetAnimation.InsertKeyFrame(1f, show ? 0f : -100f);
             offsetAnimation.Duration = TimeSpan.FromMilliseconds(500);
 
-            _titleStackVisual.StartAnimation("Offset.Y", offsetAnimation);
+            _titleStackVisual.StartAnimation(_titleStackVisual.GetTranslationYPropertyName(), offsetAnimation);
         }
 
         private void ListControl_OnScrollViewerViewChanged(ScrollViewer scrollViewer)
@@ -255,6 +260,12 @@ namespace MyerSplash.View.Page
                 ToggleTitleStackAnimation(true);
             }
             _lastVerticalOffset = scrollViewer.VerticalOffset;
+
+            var offset = 100 - scrollViewer.VerticalOffset;
+            var alpha = offset > 0 ? (1 - offset / 90f) : 1;
+            BlurBorder.Opacity = alpha;
+
+            Debug.WriteLine("offset:" + scrollViewer.VerticalOffset);
         }
         #endregion
 

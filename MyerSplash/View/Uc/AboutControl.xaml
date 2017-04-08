@@ -8,12 +8,11 @@
     d:DesignHeight="700"
     d:DesignWidth="400"
     mc:Ignorable="d">
-    <Grid x:Name="RootGrid" Background="Black">
+    <Grid x:Name="RootGrid" Background="{StaticResource AppBackgroundBrushDark}">
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Border Grid.RowSpan="2" Background="{StaticResource MaskColorBrush}" />
         <Grid x:Name="TitleBar" Background="Transparent" />
         <Button
             x:Name="CloseBtn"

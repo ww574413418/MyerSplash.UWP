@@ -1,4 +1,5 @@
-﻿using Microsoft.Graphics.Canvas;
+﻿using JP.Utils.UI;
+using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.Brushes;
 using Microsoft.Graphics.Canvas.Effects;
 using Microsoft.Graphics.Canvas.UI.Xaml;
