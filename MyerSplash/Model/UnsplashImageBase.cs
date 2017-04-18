@@ -87,6 +87,26 @@ namespace MyerSplash.Model
             }
         }
 
+        public string LocationString
+        {
+            get
+            {
+                if (Location == null || Location.City == null || Location.Country == null)
+                {
+                    return "Unknown";
+                }
+                return $"{Location.City}, {Location.Country}";
+            }
+        }
+
+        public string SizeString
+        {
+            get
+            {
+                return $"{Width} x {Height}";
+            }
+        }
+
         private SolidColorBrush _majorColor;
         [IgnoreDataMember]
         public SolidColorBrush MajorColor
@@ -239,6 +259,7 @@ namespace MyerSplash.Model
                 {
                     _location = value;
                     RaisePropertyChanged(() => Location);
+                    RaisePropertyChanged(() => LocationString);
                 }
             }
         }
@@ -522,16 +543,16 @@ namespace MyerSplash.Model
 
             var exifObj = JsonParser.GetJsonObjFromJsonObj(obj, "exif");
             Exif.Model = JsonParser.GetStringFromJsonObj(exifObj, "model");
-            Double.TryParse(JsonParser.GetStringFromJsonObj(exifObj, "exposure_time"), out double exp);
-            Exif.ExposureTime = exp;
-            Double.TryParse(JsonParser.GetStringFromJsonObj(exifObj, "aperture"), out double aperture);
-            Exif.Aperture = aperture;
+            Exif.ExposureTime = JsonParser.GetStringFromJsonObj(exifObj, "exposure_time");
+            Exif.Aperture = JsonParser.GetStringFromJsonObj(exifObj, "aperture");
             Exif.Iso = (int)JsonParser.GetNumberFromJsonObj(exifObj, "iso");
 
-            Location = new ImageLocation();
+            var location = new ImageLocation();
             var locationObj = JsonParser.GetJsonObjFromJsonObj(obj, "location");
-            Location.City = JsonParser.GetStringFromJsonObj(locationObj, "city");
-            Location.Country = JsonParser.GetStringFromJsonObj(locationObj, "country");
+            location.City = JsonParser.GetStringFromJsonObj(locationObj, "city");
+            location.Country = JsonParser.GetStringFromJsonObj(locationObj, "country");
+
+            Location = location;
         }
 
         public abstract void ParseObjectFromJsonString(string json);

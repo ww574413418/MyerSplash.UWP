@@ -4,6 +4,8 @@ namespace MyerSplash.Model
 {
     public class ImageExif : ViewModelBase
     {
+        private const string DEFAULT = "Unknown";
+
         private string _model;
         public string Model
         {
@@ -21,12 +23,12 @@ namespace MyerSplash.Model
             }
         }
 
-        private double _exposureTime;
-        public double ExposureTime
+        private string _exposureTime;
+        public string ExposureTime
         {
             get
             {
-                return _exposureTime;
+                return $"{_exposureTime}s";
             }
             set
             {
@@ -38,12 +40,12 @@ namespace MyerSplash.Model
             }
         }
 
-        private double _aperture;
-        public double Aperture
+        private string _aperture;
+        public string Aperture
         {
             get
             {
-                return _aperture;
+                return $"f/{_aperture}";
             }
             set
             {
@@ -55,8 +57,8 @@ namespace MyerSplash.Model
             }
         }
 
-        private int _iso;
-        public int Iso
+        private int? _iso;
+        public int? Iso
         {
             get
             {
@@ -68,13 +70,25 @@ namespace MyerSplash.Model
                 {
                     _iso = value;
                     RaisePropertyChanged(() => Iso);
+                    RaisePropertyChanged(() => IsoString);
                 }
+            }
+        }
+
+        public string IsoString
+        {
+            get
+            {
+                if (Iso == null) return DEFAULT;
+                return Iso.ToString();
             }
         }
 
         public ImageExif()
         {
-
+            Model = DEFAULT;
+            ExposureTime = DEFAULT;
+            Aperture = DEFAULT;
         }
     }
 }

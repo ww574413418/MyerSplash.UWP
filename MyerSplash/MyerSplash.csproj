@@ -149,6 +149,9 @@
     <Compile Include="UC\EllipseShadowControl.xaml.cs">
       <DependentUpon>EllipseShadowControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UC\ExifInfoControl.xaml.cs">
+      <DependentUpon>ExifInfoControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UC\LoadingTextControl.xaml.cs">
       <DependentUpon>LoadingTextControl.xaml</DependentUpon>
     </Compile>
@@ -314,6 +317,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UC\EllipseShadowControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\ExifInfoControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

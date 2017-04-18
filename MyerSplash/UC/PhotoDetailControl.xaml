@@ -4,8 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:flipper="using:FlipperControl"
-    xmlns:local="using:MyerSplash.UC"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uc="using:MyerSplash.UC"
     d:DesignHeight="600"
     d:DesignWidth="900"
     mc:Ignorable="d">
@@ -75,124 +75,8 @@
                 <RowDefinition />
                 <RowDefinition Height="100" />
             </Grid.RowDefinitions>
-            <Grid
-                x:Name="InfoPlaceHolderGrid"
-                Grid.Row="1"
-                SizeChanged="InfoPlaceHolderGrid_SizeChanged">
-                <Grid
-                    x:Name="InfoGrid"
-                    Grid.Row="1"
-                    Background="{x:Bind CurrentImage.MajorColor, Mode=OneWay}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="619*" />
-                        <ColumnDefinition Width="21*" />
-                    </Grid.ColumnDefinitions>
-                    <StackPanel
-                        Margin="20,28,200,27"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center">
-                        <TextBlock
-                            x:Name="ByTB"
-                            FontSize="12"
-                            Foreground="{x:Bind CurrentImage.InfoForeColor, Mode=OneWay, FallbackValue=White}"
-                            Text="photo by" />
-                        <Button
-                            x:Name="AutherNameBtn"
-                            VerticalAlignment="Center"
-                            Background="{x:Null}"
-                            BorderBrush="{x:Bind CurrentImage.InfoForeColor, FallbackValue=White, Mode=OneWay}"
-                            BorderThickness="0,0,0,2"
-                            Click="AutherNameBtn_Click"
-                            Command="{x:Bind CurrentImage.NavigateHomeCommand, Mode=OneWay}"
-                            Style="{StaticResource ButtonCommonStyle}">
-                            <TextBlock
-                                x:Name="NameTB"
-                                FontSize="20"
-                                FontWeight="Bold"
-                                Foreground="{x:Bind CurrentImage.InfoForeColor, FallbackValue=White, Mode=OneWay}"
-                                Text="{x:Bind CurrentImage.Owner.Name, Mode=OneWay}"
-                                TextTrimming="CharacterEllipsis" />
-                        </Button>
-                        <Button
-                            x:Name="InfoBtn"
-                            Grid.RowSpan="2"
-                            Width="40"
-                            Height="40"
-                            Margin="12"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            Background="{x:Null}"
-                            Click="InfoBtn_Click"
-                            Style="{StaticResource ButtonCommonStyle}">
-                            <Grid>
-                                <Ellipse Width="32" Height="32">
-                                    <Ellipse.Fill>
-                                        <SolidColorBrush Color="{StaticResource ToolButtonEllColor}" />
-                                    </Ellipse.Fill>
-                                </Ellipse>
-                                <FontIcon
-                                    FontFamily="Segoe MDL2 Assets"
-                                    FontSize="12"
-                                    Glyph="&#xE114;" />
-                            </Grid>
-                        </Button>
-                    </StackPanel>
-                    <flipper:FlipperControl
-                        x:Name="CopyFlipperControl"
-                        Grid.ColumnSpan="2"
-                        Margin="0,48,10,22"
-                        HorizontalAlignment="Right"
-                        AnimationDuration="150"
-                        DisplayIndex="0"
-                        FlipDirection="BackToFront">
-                        <flipper:FlipperControl.Views>
-                            <Button
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Background="{x:Null}"
-                                BorderThickness="0"
-                                Style="{StaticResource ButtonCommonStyle}">
-                                <Grid>
-                                    <Border
-                                        Background="{x:Bind CurrentImage.InfoForeColor, FallbackValue=White, Mode=OneWay}"
-                                        CornerRadius="2"
-                                        Opacity="1" />
-                                    <TextBlock
-                                        Margin="15,5"
-                                        FontWeight="Bold"
-                                        Foreground="{x:Bind CurrentImage.BtnForeColor, Mode=OneWay}"
-                                        Text="Copied :D" />
-                                </Grid>
-                            </Button>
-                            <Button
-                                x:Name="CopyUlrBtn"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Background="{x:Null}"
-                                BorderThickness="0"
-                                Click="CopyUlrBtn_Click"
-                                Command="{x:Bind CurrentImage.CopyUrlCommand, Mode=OneWay}"
-                                Style="{StaticResource ButtonCommonStyle}">
-                                <Grid>
-                                    <Border
-                                        x:Name="CopyUrlBorder"
-                                        Background="{x:Bind CurrentImage.InfoForeColor, FallbackValue=White, Mode=OneWay}"
-                                        CornerRadius="2"
-                                        Opacity="0.6" />
-                                    <TextBlock
-                                        x:Name="CopyUrlTB"
-                                        Margin="15,5"
-                                        FontWeight="Bold"
-                                        Foreground="{x:Bind CurrentImage.BtnForeColor, Mode=OneWay}"
-                                        Text="COPY URL" />
-                                </Grid>
-                            </Button>
-                        </flipper:FlipperControl.Views>
-                    </flipper:FlipperControl>
-                </Grid>
-            </Grid>
             <Grid>
-                <Border Margin="0" Background="#FF1B1B1B" />
+                <Border Background="#FF1B1B1B" />
                 <ScrollViewer
                     x:Name="PhotoSV"
                     Background="{x:Null}"
@@ -228,42 +112,31 @@
                         Source="ms-appx:///Assets/Image/pc_taskbar_l.png"
                         Stretch="UniformToFill"
                         Visibility="Visible" />
-                    <!--<Image Width="146"
-                           HorizontalAlignment="Right"
-                           Source="ms-appx:///Assets/Image/pc_taskbar_r.png"
-                           Stretch="UniformToFill"
-                           Visibility="Visible" />-->
                 </Grid>
-                <StackPanel
-                    x:Name="SecondaryToolSP"
+                <Button
+                    x:Name="PreviewBtn"
+                    Grid.RowSpan="2"
+                    Width="40"
+                    Height="40"
+                    Margin="12"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Bottom"
-                    Orientation="Horizontal">
-                    <Button
-                        x:Name="PreviewBtn"
-                        Grid.RowSpan="2"
-                        Width="40"
-                        Height="40"
-                        Margin="12"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
-                        Background="{x:Null}"
-                        Click="PreviewBtn_Click"
-                        Style="{StaticResource ButtonCommonStyle}">
-                        <Grid>
-                            <Ellipse Width="32" Height="32">
-                                <Ellipse.Fill>
-                                    <SolidColorBrush Color="{StaticResource ToolButtonEllColor}" />
-                                </Ellipse.Fill>
-                            </Ellipse>
-                            <FontIcon
-                                FontFamily="Segoe MDL2 Assets"
-                                FontSize="12"
-                                Foreground="{StaticResource MainBarIconColorBrush}"
-                                Glyph="&#xEB9F;" />
-                        </Grid>
-                    </Button>
-                </StackPanel>
+                    Background="{x:Null}"
+                    Click="PreviewBtn_Click"
+                    Style="{StaticResource ButtonCommonStyle}">
+                    <Grid>
+                        <Ellipse Width="32" Height="32">
+                            <Ellipse.Fill>
+                                <SolidColorBrush Color="{StaticResource ToolButtonEllColor}" />
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <FontIcon
+                            FontFamily="Segoe MDL2 Assets"
+                            FontSize="12"
+                            Foreground="{StaticResource MainBarIconColorBrush}"
+                            Glyph="&#xEB9F;" />
+                    </Grid>
+                </Button>
                 <Grid
                     x:Name="SetAsGrid"
                     Margin="0,0,16,0"
@@ -334,7 +207,171 @@
 
                 </Grid>
             </Grid>
+            <Grid
+                x:Name="InfoPlaceHolderGrid"
+                Grid.Row="1"
+                SizeChanged="InfoPlaceHolderGrid_SizeChanged">
+                <Grid x:Name="ExifInfoGrid" Background="{x:Bind CurrentImage.MajorColor, Mode=OneWay}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <uc:ExifInfoControl
+                        Title="MODEL"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        BackgroundBrush="{x:Bind CurrentImage.MajorColor, Mode=OneWay}"
+                        ForegroundBrush="{x:Bind CurrentImage.InfoForeColor, Mode=OneWay}"
+                        Symbol="&#xE114;"
+                        Text="{x:Bind CurrentImage.Exif.Model, Mode=OneWay}" />
+                    <uc:ExifInfoControl
+                        Title="APERTURE"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        BackgroundBrush="{x:Bind CurrentImage.MajorColor, Mode=OneWay}"
+                        ForegroundBrush="{x:Bind CurrentImage.InfoForeColor, Mode=OneWay}"
+                        Symbol="&#xF093;"
+                        Text="{x:Bind CurrentImage.Exif.Aperture, Mode=OneWay}" />
+                    <uc:ExifInfoControl
+                        Title="ISO"
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        BackgroundBrush="{x:Bind CurrentImage.MajorColor, Mode=OneWay}"
+                        ForegroundBrush="{x:Bind CurrentImage.InfoForeColor, Mode=OneWay}"
+                        Symbol="&#xF08C;"
+                        Text="{x:Bind CurrentImage.Exif.IsoString, Mode=OneWay}" />
+                    <uc:ExifInfoControl
+                        Title="SHUTTER SPEED"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        BackgroundBrush="{x:Bind CurrentImage.MajorColor, Mode=OneWay}"
+                        ForegroundBrush="{x:Bind CurrentImage.InfoForeColor, Mode=OneWay}"
+                        Symbol="&#xE945;"
+                        Text="{x:Bind CurrentImage.Exif.ExposureTime, Mode=OneWay}" />
+                    <uc:ExifInfoControl
+                        Title="LOCATION"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        BackgroundBrush="{x:Bind CurrentImage.MajorColor, Mode=OneWay}"
+                        ForegroundBrush="{x:Bind CurrentImage.InfoForeColor, Mode=OneWay}"
+                        Symbol="&#xE707;"
+                        Text="{x:Bind CurrentImage.LocationString, Mode=OneWay}" />
+                    <uc:ExifInfoControl
+                        Title="DIMENSION"
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        BackgroundBrush="{x:Bind CurrentImage.MajorColor, Mode=OneWay}"
+                        ForegroundBrush="{x:Bind CurrentImage.InfoForeColor, Mode=OneWay}"
+                        Symbol="&#xE1D9;"
+                        Text="{x:Bind CurrentImage.SizeString, Mode=OneWay}" />
+                </Grid>
+                <Grid x:Name="InfoGrid" Background="{x:Bind CurrentImage.MajorColor, Mode=OneWay}">
+                    <StackPanel
+                        Margin="20,0,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center">
+                        <TextBlock
+                            x:Name="ByTB"
+                            FontSize="12"
+                            Foreground="{x:Bind CurrentImage.InfoForeColor, Mode=OneWay, FallbackValue=White}"
+                            Text="photo by" />
+                        <StackPanel Orientation="Horizontal">
+                            <Button
+                                x:Name="AutherNameBtn"
+                                VerticalAlignment="Center"
+                                Background="{x:Null}"
+                                BorderBrush="{x:Bind CurrentImage.InfoForeColor, FallbackValue=White, Mode=OneWay}"
+                                BorderThickness="0,0,0,2"
+                                Click="AutherNameBtn_Click"
+                                Command="{x:Bind CurrentImage.NavigateHomeCommand, Mode=OneWay}"
+                                Style="{StaticResource ButtonCommonStyle}">
+                                <TextBlock
+                                    x:Name="NameTB"
+                                    FontSize="20"
+                                    FontWeight="Bold"
+                                    Foreground="{x:Bind CurrentImage.InfoForeColor, FallbackValue=White, Mode=OneWay}"
+                                    Text="{x:Bind CurrentImage.Owner.Name, Mode=OneWay}"
+                                    TextTrimming="CharacterEllipsis" />
+                            </Button>
+                            <Button
+                                x:Name="InfoBtn"
+                                Grid.RowSpan="2"
+                                Width="40"
+                                Height="40"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Background="{x:Null}"
+                                Click="InfoBtn_Click"
+                                Style="{StaticResource ButtonCommonStyle}">
+                                <FontIcon
+                                    x:Name="ExifIcon"
+                                    FontFamily="Segoe MDL2 Assets"
+                                    FontSize="12"
+                                    Foreground="{x:Bind CurrentImage.InfoForeColor, FallbackValue=White, Mode=OneWay}"
+                                    Glyph="&#xE0E4;" />
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+                    <flipper:FlipperControl
+                        x:Name="CopyFlipperControl"
+                        Margin="0,48,10,22"
+                        HorizontalAlignment="Right"
+                        AnimationDuration="150"
+                        DisplayIndex="0"
+                        FlipDirection="BackToFront">
+                        <flipper:FlipperControl.Views>
+                            <Button
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Background="{x:Null}"
+                                BorderThickness="0"
+                                Style="{StaticResource ButtonCommonStyle}">
+                                <Grid>
+                                    <Border
+                                        Background="{x:Bind CurrentImage.InfoForeColor, FallbackValue=White, Mode=OneWay}"
+                                        CornerRadius="2"
+                                        Opacity="1" />
+                                    <TextBlock
+                                        Margin="15,5"
+                                        FontWeight="Bold"
+                                        Foreground="{x:Bind CurrentImage.BtnForeColor, Mode=OneWay}"
+                                        Text="Copied :D" />
+                                </Grid>
+                            </Button>
+                            <Button
+                                x:Name="CopyUlrBtn"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Background="{x:Null}"
+                                BorderThickness="0"
+                                Click="CopyUlrBtn_Click"
+                                Command="{x:Bind CurrentImage.CopyUrlCommand, Mode=OneWay}"
+                                Style="{StaticResource ButtonCommonStyle}">
+                                <Grid>
+                                    <Border
+                                        x:Name="CopyUrlBorder"
+                                        Background="{x:Bind CurrentImage.InfoForeColor, FallbackValue=White, Mode=OneWay}"
+                                        CornerRadius="2"
+                                        Opacity="0.6" />
+                                    <TextBlock
+                                        x:Name="CopyUrlTB"
+                                        Margin="15,5"
+                                        FontWeight="Bold"
+                                        Foreground="{x:Bind CurrentImage.BtnForeColor, Mode=OneWay}"
+                                        Text="COPY URL" />
+                                </Grid>
+                            </Button>
+                        </flipper:FlipperControl.Views>
+                    </flipper:FlipperControl>
+                </Grid>
+            </Grid>
             <StackPanel
+                x:Name="OperationSP"
                 Margin="0,0,8,-35"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
