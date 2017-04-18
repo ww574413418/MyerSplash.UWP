@@ -113,6 +113,29 @@
                                 Text="{x:Bind CurrentImage.Owner.Name, Mode=OneWay}"
                                 TextTrimming="CharacterEllipsis" />
                         </Button>
+                        <Button
+                            x:Name="InfoBtn"
+                            Grid.RowSpan="2"
+                            Width="40"
+                            Height="40"
+                            Margin="12"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Background="{x:Null}"
+                            Click="InfoBtn_Click"
+                            Style="{StaticResource ButtonCommonStyle}">
+                            <Grid>
+                                <Ellipse Width="32" Height="32">
+                                    <Ellipse.Fill>
+                                        <SolidColorBrush Color="{StaticResource ToolButtonEllColor}" />
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                                <FontIcon
+                                    FontFamily="Segoe MDL2 Assets"
+                                    FontSize="12"
+                                    Glyph="&#xE114;" />
+                            </Grid>
+                        </Button>
                     </StackPanel>
                     <flipper:FlipperControl
                         x:Name="CopyFlipperControl"
@@ -240,28 +263,6 @@
                                 Glyph="&#xEB9F;" />
                         </Grid>
                     </Button>
-                    <!--<Button x:Name="InfoBtn"
-                            Grid.RowSpan="2"
-                            Width="50"
-                            Height="50"
-                            Margin="0,12,12,12"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            Background="{x:Null}"
-                            Click="InfoBtn_Click"
-                            Style="{StaticResource ButtonCommonStyle}">
-                        <Grid>
-                            <Ellipse Width="40" Height="40">
-                                <Ellipse.Fill>
-                                    <SolidColorBrush Color="Black" />
-                                </Ellipse.Fill>
-                            </Ellipse>
-                            <FontIcon FontFamily="Segoe MDL2 Assets"
-                                      FontSize="17"
-                                      Foreground="#B2FFFFFF"
-                                      Glyph="&#xE783;" />
-                        </Grid>
-                    </Button>-->
                 </StackPanel>
                 <Grid
                     x:Name="SetAsGrid"
@@ -351,7 +352,6 @@
                     Command="{x:Bind CurrentImage.ShareCommand, Mode=OneWay}"
                     Style="{StaticResource ButtonCommonStyle}">
                     <Grid>
-                        <!--<local:EllipseShadowControl Radius="20"/>-->
                         <Ellipse Width="40" Height="40">
                             <Ellipse.Fill>
                                 <SolidColorBrush Color="{StaticResource MyerSplashUnLikedHeartColor}" />
@@ -391,7 +391,6 @@
                                 Click="OKBtn_Click"
                                 Style="{StaticResource ButtonCommonStyle}">
                                 <Grid>
-                                    <!--<local:EllipseShadowControl Radius="25"/>-->
                                     <Ellipse
                                         Width="50"
                                         Height="50"

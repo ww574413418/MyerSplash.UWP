@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Storage;
-using Windows.System;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -190,6 +189,7 @@ namespace MyerSplash.UC
             if (show)
             {
                 var task = CheckImageDownloadStatusAsync();
+                var task2 = CurrentImage.GetExifInfoAsync();
                 ToggleFlipperControlAnimation(true);
                 ToggleShareBtnAnimation(true);
                 ToggleInfoGridAnimation(true);

@@ -1,10 +1,12 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using JP.Utils.Data.Json;
 using JP.Utils.Helper;
 using JP.Utils.Network;
 using JP.Utils.UI;
 using MyerSplash.Common;
 using MyerSplash.Interface;
+using MyerSplashShared.API;
 using MyerSplashShared.Shared;
 using System;
 using System.Collections.Generic;
@@ -207,6 +209,40 @@ namespace MyerSplash.Model
             }
         }
 
+        private ImageExif _exif;
+        public ImageExif Exif
+        {
+            get
+            {
+                return _exif;
+            }
+            set
+            {
+                if (_exif != value)
+                {
+                    _exif = value;
+                    RaisePropertyChanged(() => Exif);
+                }
+            }
+        }
+
+        private ImageLocation _location;
+        public ImageLocation Location
+        {
+            get
+            {
+                return _location;
+            }
+            set
+            {
+                if (_location != value)
+                {
+                    _location = value;
+                    RaisePropertyChanged(() => Location);
+                }
+            }
+        }
+
         private UnsplashUser _owner;
         public UnsplashUser Owner
         {
@@ -349,7 +385,7 @@ namespace MyerSplash.Model
                           return;
                       }
                       var downloaditem = new DownloadItem(this);
-                      var task = downloaditem.DownloadFullImageAsync(CTSFactory.MakeCTS());
+                      var task = downloaditem.DownloadFullImageAsync(MyerSplashShared.API.CTSFactory.MakeCTS());
                       var task2 = App.VMLocator.DownloadsVM.AddDownloadingImageAsync(downloaditem);
                   });
             }
@@ -456,6 +492,46 @@ namespace MyerSplash.Model
                 case 2: return RegularImageUrl;
                 default: return "";
             }
+        }
+
+        public async Task GetExifInfoAsync()
+        {
+            var result = await CloudService.GetImageDetail(ID, MyerSplashShared.API.CTSFactory.MakeCTS().Token);
+            if (result.IsRequestSuccessful)
+            {
+                ParseExif(result.JsonSrc);
+            }
+        }
+
+        private void ParseExif(string json)
+        {
+            if (string.IsNullOrEmpty(json))
+            {
+                return;
+            }
+            var result = JsonObject.TryParse(json, out JsonObject obj);
+            if (!result)
+            {
+                return;
+            }
+
+            Width = JsonParser.GetNumberFromJsonObj(obj, "width");
+            Height = JsonParser.GetNumberFromJsonObj(obj, "height");
+
+            Exif = new ImageExif();
+
+            var exifObj = JsonParser.GetJsonObjFromJsonObj(obj, "exif");
+            Exif.Model = JsonParser.GetStringFromJsonObj(exifObj, "model");
+            Double.TryParse(JsonParser.GetStringFromJsonObj(exifObj, "exposure_time"), out double exp);
+            Exif.ExposureTime = exp;
+            Double.TryParse(JsonParser.GetStringFromJsonObj(exifObj, "aperture"), out double aperture);
+            Exif.Aperture = aperture;
+            Exif.Iso = (int)JsonParser.GetNumberFromJsonObj(exifObj, "iso");
+
+            Location = new ImageLocation();
+            var locationObj = JsonParser.GetJsonObjFromJsonObj(obj, "location");
+            Location.City = JsonParser.GetStringFromJsonObj(locationObj, "city");
+            Location.Country = JsonParser.GetStringFromJsonObj(locationObj, "country");
         }
 
         public abstract void ParseObjectFromJsonString(string json);
