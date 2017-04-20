@@ -46,6 +46,9 @@ namespace MyerSplash.UC
         private CancellationTokenSource _cts;
         private int _showingPreview = 0;
 
+        private bool _showingExif;
+        private bool _hidingAfterHidingExif;
+
         private UnsplashImageBase _currentImage;
         public UnsplashImageBase CurrentImage
         {
@@ -137,7 +140,15 @@ namespace MyerSplash.UC
 
         private void MaskBorder_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            HideDetailControl();
+            if (_showingExif)
+            {
+                _hidingAfterHidingExif = true;
+                ToggleExifInfo(false);
+            }
+            else
+            {
+                HideDetailControl();
+            }
         }
 
         public void HideDetailControl()
@@ -369,7 +380,7 @@ namespace MyerSplash.UC
 
             _infoGridVisual.StartBuildAnimation().Animate(AnimateProperties.Offset.Y)
                 .To(show ? -100f : 0f)
-                .Spend(show? 600 : 400f)
+                .Spend(show ? 600 : 400f)
                 .Over()
                 .Start()
                 .Completed += (s, e) =>
@@ -377,6 +388,11 @@ namespace MyerSplash.UC
                       if (!show)
                       {
                           SetInfoPlaceholderGridClip(true);
+                          if (_hidingAfterHidingExif)
+                          {
+                              _hidingAfterHidingExif = false;
+                              HideDetailControl();
+                          }
                       }
                   };
 
@@ -581,8 +597,6 @@ namespace MyerSplash.UC
         {
             TogglePreview();
         }
-
-        private bool _showingExif;
 
         private void InfoBtn_Click(object sender, RoutedEventArgs e)
         {

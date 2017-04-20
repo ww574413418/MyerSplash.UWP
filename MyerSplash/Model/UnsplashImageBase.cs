@@ -1,8 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using JP.Utils.Data.Json;
-using JP.Utils.Helper;
-using JP.Utils.Network;
 using JP.Utils.UI;
 using MyerSplash.Common;
 using MyerSplash.Interface;
