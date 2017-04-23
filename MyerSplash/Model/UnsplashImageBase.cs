@@ -399,12 +399,8 @@ namespace MyerSplash.Model
                 if (_downloadCommand != null) return _downloadCommand;
                 return _downloadCommand = new RelayCommand(() =>
                   {
-                      if (!AppSettings.Instance.EnableQuickDownload)
-                      {
-                          return;
-                      }
                       var downloaditem = new DownloadItem(this);
-                      var task = downloaditem.DownloadFullImageAsync(MyerSplashShared.API.CTSFactory.MakeCTS());
+                      var task = downloaditem.DownloadFullImageAsync(CTSFactory.MakeCTS());
                       var task2 = App.VMLocator.DownloadsVM.AddDownloadingImageAsync(downloaditem);
                   });
             }
