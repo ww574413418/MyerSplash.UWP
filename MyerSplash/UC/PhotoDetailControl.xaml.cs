@@ -47,7 +47,7 @@ namespace MyerSplash.UC
         private int _showingPreview = 0;
 
         private bool _showingExif;
-        private bool _hidingAfterHidingExif;
+        private bool _hideAfterHidingExif;
 
         private UnsplashImageBase _currentImage;
         public UnsplashImageBase CurrentImage
@@ -142,7 +142,7 @@ namespace MyerSplash.UC
         {
             if (_showingExif)
             {
-                _hidingAfterHidingExif = true;
+                _hideAfterHidingExif = true;
                 ToggleExifInfo(false);
             }
             else
@@ -365,6 +365,7 @@ namespace MyerSplash.UC
 
         private void ToggleExifInfo(bool show)
         {
+            _showingExif = show;
             if (show)
             {
                 SetInfoPlaceholderGridClip(false);
@@ -376,11 +377,17 @@ namespace MyerSplash.UC
                 InfoPlaceHolderGrid.Background = new SolidColorBrush(Colors.Transparent);
             }
 
+            var showDurationForInfo = 600f;
+            var hideDurationForInfo = _hideAfterHidingExif ? 200f : 400f;
+
+            var showDurationForExif = 400f;
+            var hideDurationForExif = _hideAfterHidingExif ? 200f : 600f;
+
             AutherNameBtn.BorderThickness = new Thickness(0, 0, 0, show ? 0 : 2);
 
             _infoGridVisual.StartBuildAnimation().Animate(AnimateProperties.Offset.Y)
                 .To(show ? -100f : 0f)
-                .Spend(show ? 600 : 400f)
+                .Spend(show ? showDurationForInfo : hideDurationForInfo)
                 .Over()
                 .Start()
                 .Completed += (s, e) =>
@@ -388,9 +395,9 @@ namespace MyerSplash.UC
                       if (!show)
                       {
                           SetInfoPlaceholderGridClip(true);
-                          if (_hidingAfterHidingExif)
+                          if (_hideAfterHidingExif)
                           {
-                              _hidingAfterHidingExif = false;
+                              _hideAfterHidingExif = false;
                               HideDetailControl();
                           }
                       }
@@ -398,20 +405,20 @@ namespace MyerSplash.UC
 
             _exifInfoVisual.StartBuildAnimation().Animate(AnimateProperties.Offset.Y)
                .To(show ? 0f : 100f)
-               .Spend(show ? 400 : 600)
+               .Spend(show ? showDurationForExif : hideDurationForExif)
                .Over()
                .Start();
 
             _operationSPVisual.StartBuildAnimation().Animate(AnimateProperties.Offset.Y)
                                         .To(show ? -100f : 0f)
-                                        .Spend(show ? 600 : 400)
+                                        .Spend(show ? showDurationForInfo : hideDurationForInfo)
                                         .Over()
                                         .Start();
 
             InfoBtn.GetVisual().CenterPoint = new Vector3((float)InfoBtn.ActualWidth / 2f, (float)InfoBtn.ActualHeight / 2f, 0);
             InfoBtn.GetVisual().StartBuildAnimation().Animate(AnimateProperties.RotationAngleInDegrees)
-                .To(show ? 180 : 0)
-                .Spend(show ? 600 : 400f)
+                .To(show ? 180f : 0f)
+                .Spend(show ? showDurationForInfo : hideDurationForInfo)
                 .Over()
                 .Start();
         }

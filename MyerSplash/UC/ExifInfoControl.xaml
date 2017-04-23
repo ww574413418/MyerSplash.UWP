@@ -14,28 +14,18 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
             Orientation="Vertical">
-            <Grid>
-                <!--<Ellipse
-                    x:Name="Ell"
-                    Width="20"
-                    Height="20" />-->
-                <!--<FontIcon
-                    x:Name="FontIcon"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    FontSize="12"
-                    Glyph="&#xEB42;" />-->
-            </Grid>
             <TextBlock
                 x:Name="TitleTB"
                 FontSize="12"
                 FontWeight="Bold"
-                Opacity="0.5" />
+                Opacity="0.5"
+                TextTrimming="CharacterEllipsis" />
             <TextBlock
                 x:Name="TextTB"
                 VerticalAlignment="Center"
                 FontSize="15"
-                FontWeight="Bold" />
+                FontWeight="Bold"
+                TextTrimming="CharacterEllipsis" />
         </StackPanel>
     </Grid>
 </UserControl>
