@@ -10,8 +10,7 @@
     d:DesignHeight="300"
     d:DesignWidth="600"
     mc:Ignorable="d">
-
-    <Grid Background="{StaticResource TitleBarDarkBrush}">
+    <Grid Background="{StaticResource MyerSplashDarkColor}">
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
             <RowDefinition />
