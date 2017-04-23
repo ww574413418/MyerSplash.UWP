@@ -18,15 +18,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <Border Grid.RowSpan="2" Background="#E5000000" />
-        <Grid x:Name="TitleBar" Background="Transparent">
-            <!--<TextBlock Margin="0"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       FontSize="25"
-                       FontWeight="Bold"
-                       Foreground="White"
-                       Text="ABOUT" />-->
-        </Grid>
+        <Grid x:Name="TitleBar" Background="Transparent" />
         <Button
             x:Name="CloseBtn"
             Width="70"
@@ -43,11 +35,9 @@
             <ScrollViewer Style="{StaticResource ScrollViewerCommonStyle}">
                 <StackPanel
                     MaxWidth="300"
-                    Margin="0"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
                     <StackPanel
-                        Margin="0"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Orientation="Horizontal">
@@ -79,7 +69,7 @@
                         Foreground="#99FFFFFF"
                         Text="for Windows &amp; Android" />
                     <Border
-                        Margin="0,10,0,0"
+                        Margin="0,12,0,0"
                         Padding="2"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
@@ -135,42 +125,36 @@
                         Background="{x:Null}"
                         Command="{x:Bind AboutVM.FeedbackCommand, Mode=OneWay}"
                         Style="{StaticResource ListButtonStyle}">
-                        <Border>
-                            <TextBlock
-                                Margin="8"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Foreground="White"
-                                Text="Tell me your ideas" />
-                        </Border>
+                        <TextBlock
+                            Margin="8"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Foreground="White"
+                            Text="Tell me your ideas" />
                     </Button>
                     <Button
                         HorizontalAlignment="Center"
                         Background="{x:Null}"
                         Command="{x:Bind AboutVM.VisitGitHubCommand, Mode=OneWay}"
                         Style="{StaticResource ListButtonStyle}">
-                        <Border>
-                            <TextBlock
-                                Margin="8"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Foreground="White"
-                                Text="Contribute your code" />
-                        </Border>
+                        <TextBlock
+                            Margin="8"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Foreground="White"
+                            Text="Contribute your code" />
                     </Button>
                     <Button
                         HorizontalAlignment="Center"
                         Background="{x:Null}"
                         Command="{x:Bind AboutVM.VisitTwitterCommand, Mode=OneWay}"
                         Style="{StaticResource ListButtonStyle}">
-                        <Border>
-                            <TextBlock
-                                Margin="8"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Foreground="White"
-                                Text="Follow me on Twitter" />
-                        </Border>
+                        <TextBlock
+                            Margin="8"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Foreground="White"
+                            Text="Follow me on Twitter" />
                     </Button>
                     <TextBlock
                         Margin="0,8,0,0"
@@ -186,29 +170,25 @@
                         Background="{x:Null}"
                         Command="{x:Bind AboutVM.DonateCommand, Mode=OneWay}"
                         Style="{StaticResource ListButtonStyle}">
-                        <Border>
-                            <TextBlock
-                                x:Name="DonateBtn"
-                                Margin="8"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Foreground="White"
-                                Text="Treat me a drink" />
-                        </Border>
+                        <TextBlock
+                            x:Name="DonateBtn"
+                            Margin="8"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Foreground="White"
+                            Text="Treat me a drink" />
                     </Button>
                     <Button
                         HorizontalAlignment="Center"
                         Background="{x:Null}"
                         Command="{x:Bind AboutVM.RateCommand, Mode=OneWay}"
                         Style="{StaticResource ListButtonStyle}">
-                        <Border>
-                            <TextBlock
-                                Margin="8"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Foreground="White"
-                                Text="Rate in Store" />
-                        </Border>
+                        <TextBlock
+                            Margin="8"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Foreground="White"
+                            Text="Rate this app" />
                     </Button>
                 </StackPanel>
             </ScrollViewer>

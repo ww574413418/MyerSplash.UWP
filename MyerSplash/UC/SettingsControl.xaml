@@ -4,12 +4,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:common="using:MyerSplash.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="using:MyerSplash.UC"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="700"
     d:DesignWidth="700"
     mc:Ignorable="d">
-
     <UserControl.Resources>
         <Style x:Key="ToggleSwitchStyle1" TargetType="ToggleSwitch">
             <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}" />
@@ -431,7 +429,7 @@
                 VerticalScrollMode="Auto">
                 <StackPanel Margin="0,20,0,0">
                     <TextBlock
-                        Margin="10,10,0,0"
+                        Margin="12,12,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         FontSize="20"
@@ -444,7 +442,7 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <TextBlock
-                            Margin="10,0,0,0"
+                            Margin="12,0,0,0"
                             VerticalAlignment="Center"
                             Foreground="White"
                             Text="Enable Live Tile" />
@@ -464,10 +462,10 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <TextBlock
-                            Margin="10,0,0,0"
+                            Margin="12,0,0,0"
                             VerticalAlignment="Center"
                             Foreground="White"
-                            Text="Enable scale animation" />
+                            Text="Enable scale animation when pointer enters" />
                         <ToggleSwitch
                             Grid.Column="1"
                             HorizontalAlignment="Right"
@@ -478,36 +476,14 @@
                             RequestedTheme="Dark"
                             Style="{StaticResource ToggleSwitchStyle1}" />
                     </Grid>
-                    <Grid x:Name="ShowListGrid" Height="50">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition Width="150" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock
-                            Margin="10,0,0,0"
-                            VerticalAlignment="Center"
-                            Foreground="White">
-                            <Run Text="Show download button in list" />
-                        </TextBlock>
-                        <ToggleSwitch
-                            Grid.Column="1"
-                            HorizontalAlignment="Right"
-                            Foreground="White"
-                            IsOn="{Binding Source={StaticResource AppSettings}, Path=EnableQuickDownload, Mode=TwoWay}"
-                            OffContent="Off"
-                            OnContent="On"
-                            RequestedTheme="Dark"
-                            Style="{StaticResource ToggleSwitchStyle1}" />
-                    </Grid>
-
                     <StackPanel>
                         <TextBlock
-                            Margin="10,10,0,0"
+                            Margin="12,12,0,0"
                             VerticalAlignment="Top"
                             Foreground="White"
-                            Text="Saving position" />
+                            Text="Save position" />
                         <Button
-                            Margin="10"
+                            Margin="12"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
                             Background="{x:Null}"
@@ -518,7 +494,7 @@
                                     BorderBrush="{StaticResource MyerSplashThemeColor}"
                                     BorderThickness="1">
                                     <TextBlock
-                                        Margin="5,5,50,5"
+                                        Margin="4,4,48,4"
                                         Foreground="White"
                                         Text="{x:Bind SettingsVM.SavingPositionPath, Mode=OneWay}"
                                         TextTrimming="CharacterEllipsis" />
@@ -540,9 +516,9 @@
                         </Button>
                     </StackPanel>
                     <StackPanel x:Name="AutoChangeSP">
-                        <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                        <StackPanel Margin="0,12,0,0" Orientation="Horizontal">
                             <TextBlock
-                                Margin="10,0,0,0"
+                                Margin="12,0,0,0"
                                 VerticalAlignment="Center"
                                 Foreground="White"
                                 Text="Auto-change wallpaper in background every day" />
@@ -567,7 +543,7 @@
                             </Button>
                         </StackPanel>
                         <ComboBox
-                            Margin="10,10,10,0"
+                            Margin="12,12,12,0"
                             HorizontalAlignment="Stretch"
                             BorderThickness="1"
                             RequestedTheme="Dark"
@@ -578,12 +554,12 @@
                     </StackPanel>
 
                     <TextBlock
-                        Margin="10,10,0,0"
+                        Margin="12,12,0,0"
                         VerticalAlignment="Center"
                         Foreground="White"
                         Text="Loading quality in list" />
                     <ComboBox
-                        Margin="10,10,10,0"
+                        Margin="12,12,12,0"
                         HorizontalAlignment="Stretch"
                         BorderThickness="1"
                         RequestedTheme="Dark"
@@ -593,12 +569,12 @@
                         <ComboBoxItem Content="Thumbnail" Style="{StaticResource ComboBoxItemStyle}" />
                     </ComboBox>
                     <TextBlock
-                        Margin="10,10,0,0"
+                        Margin="12,12,0,0"
                         VerticalAlignment="Center"
                         Foreground="White"
                         Text="Image quality for downloading" />
                     <ComboBox
-                        Margin="10,10,10,0"
+                        Margin="12,12,12,0"
                         HorizontalAlignment="Stretch"
                         BorderThickness="1"
                         RequestedTheme="Dark"
@@ -608,7 +584,7 @@
                         <ComboBoxItem Content="Medium" Style="{StaticResource ComboBoxItemStyle}" />
                     </ComboBox>
                     <TextBlock
-                        Margin="10,20,0,0"
+                        Margin="12,20,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         FontSize="20"
@@ -616,42 +592,40 @@
                         Foreground="{StaticResource MyerSplashThemeColor}"
                         Text="CLEAN UP" />
                     <Button
-                        Margin="10,10,10,0"
+                        Margin="12"
                         HorizontalAlignment="Stretch"
                         Command="{x:Bind SettingsVM.ClearCacheCommand, Mode=OneWay}"
                         Style="{StaticResource ListButtonStyle}">
-                        <Border Background="#66000000">
+                        <Border Background="#991D1D1D">
                             <TextBlock
-                                Margin="10"
+                                Margin="12"
                                 HorizontalAlignment="Left"
                                 Foreground="White"
                                 Text="{x:Bind SettingsVM.CacheHint, Mode=OneWay}" />
                         </Border>
                     </Button>
                     <TextBlock
-                        Margin="10,10,10,0"
+                        Margin="12,12,12,0"
                         HorizontalAlignment="Left"
                         FontSize="12"
                         Foreground="#99FFFFFF"
                         Text="{StaticResource TempFilesHint}"
                         TextWrapping="Wrap" />
                     <Button
-                        Margin="10"
+                        Margin="12"
                         HorizontalAlignment="Stretch"
                         Command="{x:Bind SettingsVM.ClearTempCommand, Mode=OneWay}"
                         Style="{StaticResource ListButtonStyle}">
-                        <Border Background="#66000000">
+                        <Border Background="#991D1D1D">
                             <TextBlock
-                                Margin="10"
+                                Margin="12"
                                 HorizontalAlignment="Left"
                                 Foreground="White"
                                 Text="Clean up temp files" />
-
                         </Border>
                     </Button>
                 </StackPanel>
             </ScrollViewer>
-
         </Grid>
     </Grid>
 </common:NavigableUserControl>
