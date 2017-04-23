@@ -12,7 +12,18 @@ namespace MyerSplash.UC
     {
         public TipsControl()
         {
+            this.Init();
             this.InitializeComponent();
+        }
+
+        private void Init()
+        {
+            var config = new ImageConfig.Builder()
+                .LimitedStorageCache(ApplicationData.Current.LocalCacheFolder, "cache", new SHA1CacheGenerator(), 1024 * 1024 * 1024)
+                .NewApi(false)
+                .AddDecoder<GifDecoder>()
+                .Build();
+            ImageLoader.Initialize(config);
         }
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)

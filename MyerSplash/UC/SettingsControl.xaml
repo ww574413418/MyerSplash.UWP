@@ -541,18 +541,6 @@
                     </StackPanel>
                     <StackPanel x:Name="AutoChangeSP">
                         <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
-                            <Border
-                                Margin="10,0,0,0"
-                                VerticalAlignment="Bottom"
-                                Background="{StaticResource MyerSplashThemeLightColor}">
-                                <TextBlock
-                                    Margin="4"
-                                    VerticalAlignment="Center"
-                                    FontSize="12"
-                                    FontWeight="Bold"
-                                    Foreground="Black"
-                                    Text="NEW" />
-                            </Border>
                             <TextBlock
                                 Margin="10,0,0,0"
                                 VerticalAlignment="Center"

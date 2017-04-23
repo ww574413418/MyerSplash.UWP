@@ -724,9 +724,9 @@ namespace MyerSplash.ViewModel
             }
             if (DeviceHelper.IsDesktop)
             {
-                if (!LocalSettingHelper.HasValue("TIPS252"))
+                if (!LocalSettingHelper.HasValue("TIPS260"))
                 {
-                    LocalSettingHelper.AddValue("TIPS252", true);
+                    LocalSettingHelper.AddValue("TIPS260", true);
                     var uc = new TipsControl();
                     var task = PopupService.Instance.ShowAsync(uc);
                 }

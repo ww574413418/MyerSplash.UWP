@@ -4,10 +4,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:ImageLib.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="using:MyerSplash.UC"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Width="450"
-    Height="220"
+    Width="400"
+    Height="340"
     d:DesignHeight="300"
     d:DesignWidth="600"
     mc:Ignorable="d">
@@ -33,43 +32,21 @@
                     Foreground="White"
                     Glyph="&#xE106;" />
             </Button>
-            <TextBlock
-                Margin="16,0,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                FontSize="20"
-                FontWeight="Bold"
-                Foreground="{StaticResource MyerSplashThemeColor}"
-                Text="WHAT'S NEW" />
-        </Grid>
-        <Grid Grid.Row="1">
-            <StackPanel Margin="16,8,16,0" VerticalAlignment="Top">
+            <StackPanel Margin="16,0,0,0" Orientation="Horizontal">
                 <TextBlock
-                    Margin="0,0,0,12"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    FontSize="20"
                     FontWeight="Bold"
-                    Foreground="White"
-                    Text="Optimize for auto-changing wallpapers"
-                    TextWrapping="WrapWholeWords" />
-                <TextBlock
-                    Foreground="#CCFFFFFF"
-                    Text="Haven't try this feature? Enable it in Settings. Let me know if you like it 😝"
-                    TextWrapping="WrapWholeWords" />
+                    Foreground="{StaticResource MyerSplashThemeColor}"
+                    Text="NEW: VIEWING EXIF" />
             </StackPanel>
-            <Button
-                x:Name="SettingsBtn"
-                Margin="0,8,8,8"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Click="SettingsBtn_Click"
-                Style="{StaticResource ListButtonStyle}">
-                <Border>
-                    <TextBlock
-                        Margin="12"
-                        FontWeight="Bold"
-                        Foreground="White"
-                        Text="GO TO SETTINGS" />
-                </Border>
-            </Button>
+        </Grid>
+        <Grid Grid.Row="1" Margin="12">
+            <controls:ImageView
+                Margin="0"
+                Stretch="Uniform"
+                UriSource="ms-appx:///Assets/Image/GIF.gif" />
         </Grid>
     </Grid>
 </UserControl>
