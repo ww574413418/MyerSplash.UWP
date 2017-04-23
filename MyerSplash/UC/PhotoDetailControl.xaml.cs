@@ -415,6 +415,12 @@ namespace MyerSplash.UC
                                         .Over()
                                         .Start();
 
+            SetAsGrid.GetVisual().StartBuildAnimation().Animate(AnimateProperties.Offset.Y)
+                                        .To(show ? -100f : 0f)
+                                        .Spend(show ? showDurationForInfo : hideDurationForInfo)
+                                        .Over()
+                                        .Start();
+
             InfoBtn.GetVisual().CenterPoint = new Vector3((float)InfoBtn.ActualWidth / 2f, (float)InfoBtn.ActualHeight / 2f, 0);
             InfoBtn.GetVisual().StartBuildAnimation().Animate(AnimateProperties.RotationAngleInDegrees)
                 .To(show ? 180f : 0f)
