@@ -217,7 +217,7 @@
     <None Include="MyerSplash_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Image\GIF.gif" />
+    <Content Include="Assets\Image\hint.gif" />
     <Content Include="Assets\Image\lock.png" />
     <Content Include="Assets\Icon\search.png" />
     <Content Include="Assets\Image\banner.jpg" />

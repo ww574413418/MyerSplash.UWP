@@ -46,7 +46,7 @@
             <controls:ImageView
                 Margin="0"
                 Stretch="Uniform"
-                UriSource="ms-appx:///Assets/Image/GIF.gif" />
+                UriSource="ms-appx:///Assets/Image/hint.gif" />
         </Grid>
     </Grid>
 </UserControl>
