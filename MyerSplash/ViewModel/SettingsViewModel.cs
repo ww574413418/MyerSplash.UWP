@@ -107,6 +107,32 @@ namespace MyerSplash.ViewModel
             }
         }
 
+        private RelayCommand _toggleScaleAnimationCommand;
+        public RelayCommand ToggleScaleAnimationCommand
+        {
+            get
+            {
+                if (_toggleScaleAnimationCommand != null) return _toggleScaleAnimationCommand;
+                return _toggleScaleAnimationCommand = new RelayCommand(() =>
+                  {
+                      App.AppSettings.EnableScaleAnimation = !App.AppSettings.EnableScaleAnimation;
+                  });
+            }
+        }
+
+        private RelayCommand _toggleLiveTileCommand;
+        public RelayCommand ToggleLiveTileCommand
+        {
+            get
+            {
+                if (_toggleLiveTileCommand != null) return _toggleLiveTileCommand;
+                return _toggleLiveTileCommand = new RelayCommand(() =>
+                {
+                    App.AppSettings.EnableTile = !App.AppSettings.EnableTile;
+                });
+            }
+        }
+
         public SettingsViewModel()
         {
             SavingPositionPath = DEFAULT_SAVING_POSITION;
