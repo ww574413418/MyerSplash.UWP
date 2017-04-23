@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="19204JuniperPhoton.MyerSplash" Publisher="CN=A9291247-1C35-4EE6-8B51-1551AF1EB838" Version="2.5.3.0" />
+  <Identity Name="19204JuniperPhoton.MyerSplash" Publisher="CN=A9291247-1C35-4EE6-8B51-1551AF1EB838" Version="2.6.0.0" />
   <mp:PhoneIdentity PhoneProductId="87aa2716-ca39-4d4a-a67a-94a23d13d31b" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>ms-resource:AppName</DisplayName>
@@ -29,16 +29,16 @@
         </uap:InitialRotationPreference>
       </uap:VisualElements>
       <Extensions>
-        <Extension Category="windows.backgroundTasks" EntryPoint="BackgroundTask.WallpaperAutoChangeTask">
-          <BackgroundTasks>
-            <Task Type="timer" />
-          </BackgroundTasks>
-        </Extension>
         <uap:Extension Category="windows.protocol">
           <uap:Protocol Name="myersplash-share">
             <uap:Logo>NewStoreLogo.png</uap:Logo>
           </uap:Protocol>
         </uap:Extension>
+        <Extension Category="windows.backgroundTasks" EntryPoint="BackgroundTask.WallpaperAutoChangeTask">
+          <BackgroundTasks>
+            <Task Type="timer" />
+          </BackgroundTasks>
+        </Extension>
       </Extensions>
     </Application>
   </Applications>
