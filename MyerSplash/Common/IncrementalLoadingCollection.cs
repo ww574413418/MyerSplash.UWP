@@ -75,12 +75,10 @@ namespace MyerSplash.Common
                     }
                 }
 
-                // 是否还有更多
                 this.HasMoreItems = result.HasMoreItems;
 
                 await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    // 加载完成事件
                     this.OnLoadMoreCompleted?.Invoke(items == null ? 0 : items.Count());
                 });
 

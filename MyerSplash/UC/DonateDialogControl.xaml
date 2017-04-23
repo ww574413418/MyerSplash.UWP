@@ -19,17 +19,15 @@
                         FontSize="20"
                         FontWeight="Bold"
                         Foreground="{StaticResource MyerSplashDarkColor}"
-                        Text="TREAT ME A DRINK ☕" />
+                        Text="☕ TREAT ME A DRINK" />
                     <TextBlock
                         Margin="12,12,0,0"
                         FontSize="12"
                         Foreground="{StaticResource MyerSplashDarkColor}"
-                        Text="If you think this app is amazing. How about treating me a drink? "
+                        Text="Think of treating me a drink if you like this app."
                         TextWrapping="Wrap" />
                 </StackPanel>
-
             </Grid>
-
             <Button
                 x:Name="InAppClick"
                 Margin="8,12,8,0"
@@ -41,7 +39,7 @@
                         x:Name="IAPTB"
                         Margin="12"
                         FontWeight="SemiBold"
-                        Foreground="#B2FFFFFF"
+                        Foreground="White"
                         Text="Via in-app purchase" />
                 </Border>
             </Button>
@@ -55,7 +53,7 @@
                     <TextBlock
                         Margin="12"
                         FontWeight="SemiBold"
-                        Foreground="#B2FFFFFF"
+                        Foreground="White"
                         Text="Via Alipay (My Account is 18520944923)" />
                 </Border>
             </Button>
@@ -72,6 +70,7 @@
                     Margin="12"
                     FontWeight="Bold"
                     Foreground="White"
+                    Opacity="0.7"
                     Text="CLOSE" />
             </Border>
         </Button>

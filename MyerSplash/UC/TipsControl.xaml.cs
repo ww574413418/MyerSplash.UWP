@@ -30,11 +30,5 @@ namespace MyerSplash.UC
         {
             PopupService.Instance.TryHide();
         }
-
-        private void SettingsBtn_Click(object sender, RoutedEventArgs e)
-        {
-            PopupService.Instance.TryHide();
-            App.MainVM.ShowSettingsUC = true;
-        }
     }
 }

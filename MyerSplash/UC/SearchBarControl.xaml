@@ -244,9 +244,11 @@
             x:Name="MaskBorder"
             Grid.RowSpan="2"
             attach:UIElementTapCommand.ItemTapCommand="{x:Bind MainVM.HideSearchCommand, Mode=OneWay}"
-            Background="Black"
-            Opacity="0.9" />
-        <Grid x:Name="ContentGrid" VerticalAlignment="Center" Margin="0,0,0,200">
+            Background="{StaticResource MaskColorBrush}" />
+        <Grid
+            x:Name="ContentGrid"
+            Margin="0,0,0,200"
+            VerticalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="1*" />

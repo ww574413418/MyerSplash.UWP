@@ -109,7 +109,8 @@
                             Margin="12,0,0,0"
                             VerticalAlignment="Center"
                             FontSize="15"
-                            Foreground="#99FFFFFF"
+                            Foreground="White"
+                            Opacity="0.6"
                             Text="SETTINGS" />
                     </Grid>
                 </Button>
@@ -136,7 +137,8 @@
                             Margin="12,0,0,0"
                             VerticalAlignment="Center"
                             FontSize="15"
-                            Foreground="#99FFFFFF"
+                            Foreground="White"
+                            Opacity="0.6"
                             Text="ABOUT" />
                     </Grid>
                 </Button>

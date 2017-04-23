@@ -1,14 +1,11 @@
 ﻿using JP.Utils.Data;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.Globalization;
 using Windows.System.UserProfile;
 
 namespace MyerSplash.Common
 {
+    [Obsolete]
     public static class GlobalLocaleHelper
     {
         public static void SetupLang(string locale)

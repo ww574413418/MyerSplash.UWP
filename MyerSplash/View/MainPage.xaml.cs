@@ -28,9 +28,9 @@ namespace MyerSplash.View
         private Visual _refreshBtnVisual;
         private Visual _titleStackVisual;
 
-        private double _lastVerticalOffset = 0;
-        private bool _isHideTitleGrid = false;
-        private bool _restoreTitleStackStatus = false;
+        private double _lastVerticalOffset;
+        private bool _isHideTitleGrid;
+        private bool _restoreTitleStackStatus;
 
         private UnsplashImageBase _clickedImg;
         private FrameworkElement _clickedContainer;

@@ -1,8 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using JP.API;
 using JP.Utils.Debug;
-using JP.Utils.Helper;
 using MyerSplash.Common;
 using System;
 using System.Collections.Generic;
@@ -10,7 +8,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
-using Windows.UI.Xaml;
 
 namespace MyerSplash.ViewModel
 {
@@ -18,24 +15,8 @@ namespace MyerSplash.ViewModel
     {
         public static int DEFAULT_PAGE_INDEX => 1;
 
-        //public static uint DEFAULT_PER_PAGE
-        //{
-        //    get
-        //    {
-        //        if (DeviceHelper.IsMobile) return 10u;
-        //        else if (Window.Current.CoreWindow.Bounds.Width >= 1500)
-        //        {
-        //            return 40u;
-        //        }
-        //        else return 20u;
-        //    }
-        //}
-
         private int PageIndex { get; set; } = DEFAULT_PAGE_INDEX;
 
-        /// <summary>
-        /// 列表增量加载完成后发生，此回调在UI线程进行
-        /// </summary>
         public event Action<IEnumerable<T>, int> OnLoadIncrementalDataCompleted;
         public event Action<bool> OnHasMoreItemChanged;
 

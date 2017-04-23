@@ -1,10 +1,8 @@
 ﻿using GalaSoft.MvvmLight;
 using JP.Utils.Data.Json;
 using MyerSplashShared.Shared;
-using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using Windows.Data.Json;
-using System;
 
 namespace MyerSplash.Model
 {

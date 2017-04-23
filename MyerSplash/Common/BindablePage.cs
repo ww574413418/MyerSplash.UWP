@@ -95,7 +95,7 @@ namespace MyerSplash.Common
             SetNavigationBackBtn();
             SetUpTitleBar();
 
-            //resolve global keydown
+            // Resolve global keydown
             if (GlobalPageKeyDown != null)
             {
                 Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
@@ -114,7 +114,7 @@ namespace MyerSplash.Common
                 }
             }
 
-            //resolve global keydown
+            // Resolve global keydown
             if (GlobalPageKeyDown != null)
             {
                 Window.Current.CoreWindow.KeyDown -= CoreWindow_KeyDown;

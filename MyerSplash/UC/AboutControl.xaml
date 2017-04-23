@@ -8,7 +8,6 @@
     d:DesignHeight="700"
     d:DesignWidth="400"
     mc:Ignorable="d">
-
     <Grid x:Name="RootGrid">
         <Grid.Background>
             <ImageBrush ImageSource="ms-appx:///Assets/Image/banner.jpg" Stretch="UniformToFill" />
@@ -17,11 +16,11 @@
             <RowDefinition Height="60" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Border Grid.RowSpan="2" Background="#E5000000" />
+        <Border Grid.RowSpan="2" Background="{StaticResource MaskColorBrush}" />
         <Grid x:Name="TitleBar" Background="Transparent" />
         <Button
             x:Name="CloseBtn"
-            Width="70"
+            Width="68"
             HorizontalAlignment="Left"
             VerticalAlignment="Stretch"
             Click="CloseBtn_Click"
@@ -95,100 +94,46 @@
                                 Text="{x:Bind AboutVM.Version, Mode=OneWay}" />
                         </StackPanel>
                     </Border>
-                    <TextBlock
-                        Margin="0,24,0,0"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        FontSize="20"
-                        FontWeight="Bold"
-                        Foreground="{StaticResource MyerSplashThemeColor}"
-                        Text="CREDITS" />
-                    <TextBlock
-                        Margin="4"
-                        HorizontalAlignment="Center"
-                        FontSize="15"
-                        Foreground="White"
-                        Text="Photos are from Unsplash, a website providing free (do whatever you want) high-resolution photos."
-                        TextAlignment="Center"
-                        TextWrapping="Wrap" />
-                    <TextBlock
-                        Margin="0,8,0,0"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        FontSize="20"
-                        FontWeight="Bold"
-                        Foreground="{StaticResource MyerSplashThemeColor}"
-                        Text="FEEDBACK" />
+                    <TextBlock Style="{StaticResource SubTitleTextBlockStyle}" Text="CREDITS" />
+                    <TextBlock Style="{StaticResource SubContentTextBlockStyle}" Text="Photos are from Unsplash, a website providing free (do whatever you want) high-resolution photos." />
+                    <TextBlock Style="{StaticResource SubTitleTextBlockStyle}" Text="FEEDBACK" />
                     <Button
                         Margin="0,4,0,0"
                         HorizontalAlignment="Center"
                         Background="{x:Null}"
                         Command="{x:Bind AboutVM.FeedbackCommand, Mode=OneWay}"
                         Style="{StaticResource ListButtonStyle}">
-                        <TextBlock
-                            Margin="8"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Foreground="White"
-                            Text="Tell me your ideas" />
+                        <TextBlock Style="{StaticResource SubContentTextBlockStyle}" Text="Tell me your ideas" />
                     </Button>
                     <Button
                         HorizontalAlignment="Center"
                         Background="{x:Null}"
                         Command="{x:Bind AboutVM.VisitGitHubCommand, Mode=OneWay}"
                         Style="{StaticResource ListButtonStyle}">
-                        <TextBlock
-                            Margin="8"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Foreground="White"
-                            Text="Contribute your code" />
+                        <TextBlock Style="{StaticResource SubContentTextBlockStyle}" Text="Contribute your code" />
                     </Button>
                     <Button
                         HorizontalAlignment="Center"
                         Background="{x:Null}"
                         Command="{x:Bind AboutVM.VisitTwitterCommand, Mode=OneWay}"
                         Style="{StaticResource ListButtonStyle}">
-                        <TextBlock
-                            Margin="8"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Foreground="White"
-                            Text="Follow me on Twitter" />
+                        <TextBlock Style="{StaticResource SubContentTextBlockStyle}" Text="Follow me on Twitter" />
                     </Button>
-                    <TextBlock
-                        Margin="0,8,0,0"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        FontSize="20"
-                        FontWeight="Bold"
-                        Foreground="{StaticResource MyerSplashThemeColor}"
-                        Text="LOVE THIS APP" />
+                    <TextBlock Style="{StaticResource SubTitleTextBlockStyle}" Text="LOVE THIS APP" />
                     <Button
                         Margin="0,4,0,0"
                         HorizontalAlignment="Center"
                         Background="{x:Null}"
                         Command="{x:Bind AboutVM.DonateCommand, Mode=OneWay}"
                         Style="{StaticResource ListButtonStyle}">
-                        <TextBlock
-                            x:Name="DonateBtn"
-                            Margin="8"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Foreground="White"
-                            Text="Treat me a drink" />
+                        <TextBlock Style="{StaticResource SubContentTextBlockStyle}" Text="Treat me a drink" />
                     </Button>
                     <Button
                         HorizontalAlignment="Center"
                         Background="{x:Null}"
                         Command="{x:Bind AboutVM.RateCommand, Mode=OneWay}"
                         Style="{StaticResource ListButtonStyle}">
-                        <TextBlock
-                            Margin="8"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Foreground="White"
-                            Text="Rate this app" />
+                        <TextBlock Style="{StaticResource SubContentTextBlockStyle}" Text="Rate this app" />
                     </Button>
                 </StackPanel>
             </ScrollViewer>

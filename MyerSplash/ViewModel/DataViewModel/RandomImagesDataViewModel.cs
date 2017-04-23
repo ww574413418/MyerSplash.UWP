@@ -15,7 +15,7 @@ namespace MyerSplash.ViewModel.DataViewModel
 
         protected async override Task<IEnumerable<UnsplashImageBase>> RequestAsync(int pageIndex)
         {
-            var result = await CloudService.GetRandomImages((int)20, CTSFactory.MakeCTS(5000).Token);
+            var result = await CloudService.GetRandomImages(20, CTSFactory.MakeCTS(5000).Token);
             if (result.IsRequestSuccessful)
             {
                 var list = UnsplashImage.ParseListFromJson(result.JsonSrc);

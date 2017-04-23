@@ -1,13 +1,8 @@
 ﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Messaging;
-using JP.Utils.Data;
 using MyerSplash.LiveTile;
-using MyerSplashCustomControl;
 using System;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.Core;
 using Windows.Storage;
-using Windows.UI.Core;
 
 namespace MyerSplash.Common
 {

@@ -10,17 +10,22 @@
     d:DesignWidth="400"
     mc:Ignorable="d">
     <Grid Background="{StaticResource MyerSplashDarkColor}" CornerRadius="2">
-        <StackPanel Margin="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Background="{StaticResource MyerSplashThemeColor}">
             <TextBlock
-                Margin="12,12,0,0"
+                Margin="12,0,0,0"
                 HorizontalAlignment="Left"
-                FontSize="20"
-                FontWeight="Bold"
-                Foreground="{StaticResource MyerSplashThemeColor}"
+                Foreground="Black"
+                Style="{StaticResource SubTitleTextBlockStyle}"
                 Text="DELETE OPTIONS" />
+        </Grid>
+        <StackPanel Grid.Row="1" Margin="8">
             <Button
                 x:Name="DeleteDownloadingBtn"
-                Margin="0,12,0,0"
+                Margin="0"
                 HorizontalAlignment="Stretch"
                 Click="DeleteDownloadingBtn_Click"
                 Style="{StaticResource ListButtonStyle}">
@@ -28,7 +33,7 @@
                     <TextBlock
                         Margin="12"
                         FontWeight="SemiBold"
-                        Foreground="#B2FFFFFF"
+                        Foreground="White"
                         Text="Delete downloading items" />
                 </Border>
             </Button>
@@ -41,7 +46,7 @@
                     <TextBlock
                         Margin="12"
                         FontWeight="SemiBold"
-                        Foreground="#B2FFFFFF"
+                        Foreground="White"
                         Text="Delete downloaded items" />
                 </Border>
             </Button>
@@ -55,19 +60,21 @@
                     <TextBlock
                         Margin="12"
                         FontWeight="SemiBold"
-                        Foreground="#B2FFFFFF"
+                        Foreground="White"
                         Text="Delete failed items" />
                 </Border>
             </Button>
             <TextBlock
                 Margin="12"
                 FontSize="12"
-                Foreground="#66FFFFFF"
+                Foreground="White"
+                Opacity="0.4"
                 Text="Note that the delete operation will not cancel download tasks. This will only clear the list."
                 TextWrapping="Wrap" />
         </StackPanel>
         <Button
             x:Name="CancelBtn"
+            Grid.Row="1"
             Margin="0,8,8,8"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"

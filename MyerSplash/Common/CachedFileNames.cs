@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MyerSplash.Common
+﻿namespace MyerSplash.Common
 {
     public static class CachedFileNames
     {
         public static string MainListFileName => "MainList.list";
+
         public static string CateListFileName => "Catelist.list";
+
         public static string DownloadListFileName => "DownloadList.list";
-        public static string LikedListFileName => "LikedList.list";
     }
 }

@@ -19,7 +19,6 @@ namespace MyerSplash.UC
                      var control = s as ExifInfoControl;
                      control.TitleTB.Foreground = e.NewValue as SolidColorBrush;
                      control.TextTB.Foreground = e.NewValue as SolidColorBrush;
-                     //control.Ell.Fill = e.NewValue as SolidColorBrush;
                  }));
 
         public SolidColorBrush BackgroundBrush
@@ -33,7 +32,6 @@ namespace MyerSplash.UC
                 typeof(ExifInfoControl), new PropertyMetadata(null, (s, e) =>
                 {
                     var control = s as ExifInfoControl;
-                    //control.FontIcon.Foreground = e.NewValue as SolidColorBrush;
                 }));
 
         public string Text
@@ -76,7 +74,6 @@ namespace MyerSplash.UC
                 new PropertyMetadata(null, (s, e) =>
                 {
                     var control = s as ExifInfoControl;
-                    //control.FontIcon.Glyph = e.NewValue as string;
                 }));
 
         public ExifInfoControl()

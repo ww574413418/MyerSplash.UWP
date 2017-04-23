@@ -15,12 +15,13 @@
             <RowDefinition Height="60" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Grid>
+        <Grid Background="{StaticResource MyerSplashThemeColor}">
             <Button
                 x:Name="CloseBtn"
-                Margin="0,0,8,0"
+                Width="60"
+                Height="60"
                 HorizontalAlignment="Right"
-                VerticalAlignment="Center"
+                VerticalAlignment="Stretch"
                 Click="CloseBtn_Click"
                 Style="{StaticResource ListButtonStyle}"
                 Visibility="Visible">
@@ -28,22 +29,24 @@
                     Margin="12"
                     FontFamily="Segoe MDL2 Assets"
                     FontSize="16"
-                    Foreground="White"
+                    Foreground="Black"
                     Glyph="&#xE106;" />
             </Button>
             <StackPanel Margin="16,0,0,0" Orientation="Horizontal">
                 <TextBlock
+                    Margin="0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     FontSize="20"
                     FontWeight="Bold"
-                    Foreground="{StaticResource MyerSplashThemeColor}"
-                    Text="NEW: VIEWING EXIF" />
+                    Foreground="Black"
+                    Style="{StaticResource SubTitleTextBlockStyle}"
+                    Text="⚡ WHAT'S NEW" />
             </StackPanel>
         </Grid>
-        <Grid Grid.Row="1" Margin="12">
+        <Grid Grid.Row="1">
             <controls:ImageView
-                Margin="0"
+                Margin="12"
                 Stretch="Uniform"
                 UriSource="ms-appx:///Assets/Image/hint.gif" />
         </Grid>

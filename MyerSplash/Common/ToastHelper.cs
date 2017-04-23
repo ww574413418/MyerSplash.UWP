@@ -1,7 +1,4 @@
-﻿using System.Text;
-using Windows.Data.Xml.Dom;
-using Windows.Foundation.Collections;
-using Windows.Foundation.Metadata;
+﻿using Windows.Data.Xml.Dom;
 using Windows.UI.Notifications;
 
 namespace MyerSplash.Common

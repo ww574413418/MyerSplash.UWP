@@ -20,4 +20,5 @@
     <SolidColorBrush x:Key="MainBarIconColorBrush">#C1FFFFFF</SolidColorBrush>
     <Color x:Key="ToolButtonEllColor">#7F000000</Color>
     <SolidColorBrush x:Key="DownloadingColorBrush">#FFD93A58</SolidColorBrush>
+    <SolidColorBrush x:Key="MaskColorBrush">#E5000000</SolidColorBrush>
 </ResourceDictionary>

@@ -1,8 +1,6 @@
-﻿using JP.Utils.Helper;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
-using Windows.Phone.UI.Input;
 using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
