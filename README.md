@@ -9,5 +9,8 @@ An UWP app that allows you to browse and download high-quality wallpaper from Un
 
 AND MyerSplash for Android is open-source too. Visit it [here](https://github.com/JuniperPhoton/MyerSplashAndroid).
 
+## Building
+Make sure you are using Visual Studio 2017 and install the Build 10586 SDK to build project. Any pull requrests are welcomed.
+
 ## License 
 The project is released under MIT License.
