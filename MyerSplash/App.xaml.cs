@@ -76,7 +76,7 @@ namespace MyerSplash
         }
 #pragma warning restore    
 
-        private async void CreateFrame(string arg)
+        private void CreateFrame(string arg)
         {
             Frame rootFrame = Window.Current.Content as Frame;
 
@@ -91,29 +91,15 @@ namespace MyerSplash
             Window.Current.Activate();
 
             TitleBarHelper.SetUpLightTitleBar();
-            if (DeviceHelper.IsMobile)
-            {
-                StatusBarHelper.SetUpStatusBar();
-            }
 
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
             SystemNavigationManager.GetForCurrentView().BackRequested -= App_BackRequested;
             SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
-            if (APIInfoHelper.HasHardwareButton)
-            {
-                HardwareButtons.BackPressed -= HardwareButtons_BackPressed;
-                HardwareButtons.BackPressed += HardwareButtons_BackPressed;
-            }
         }
 
         protected override void OnActivated(IActivatedEventArgs args)
         {
             CreateFrame(null);
-        }
-
-        private void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)
-        {
-            e.Handled = NavigationService.GoBack();
         }
 
         private void App_BackRequested(object sender, BackRequestedEventArgs e)

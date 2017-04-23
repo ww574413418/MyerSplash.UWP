@@ -1,5 +1,4 @@
-﻿using JP.Utils.Helper;
-using MyerSplash.Common;
+﻿using MyerSplash.Common;
 using MyerSplash.Model;
 using MyerSplash.ViewModel;
 using System;
@@ -11,7 +10,6 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace MyerSplash.View
@@ -30,9 +28,9 @@ namespace MyerSplash.View
         private Visual _refreshBtnVisual;
         private Visual _titleStackVisual;
 
-        private double _lastVerticalOffset = 0;
-        private bool _isHideTitleGrid = false;
-        private bool _restoreTitleStackStatus = false;
+        private double _lastVerticalOffset;
+        private bool _isHideTitleGrid;
+        private bool _restoreTitleStackStatus;
 
         private UnsplashImageBase _clickedImg;
         private FrameworkElement _clickedContainer;
@@ -82,20 +80,6 @@ namespace MyerSplash.View
             this.Loaded += MainPage_Loaded;
             InitComposition();
             InitBinding();
-
-            InitDeviceDependencyUI();
-        }
-
-        private void InitDeviceDependencyUI()
-        {
-            if (DeviceHelper.IsMobile)
-            {
-                TitleStack.Margin = new Thickness(0);
-                TitleStack.HorizontalAlignment = HorizontalAlignment.Stretch;
-                TitleTB.HorizontalAlignment = HorizontalAlignment.Center;
-                //HamBtnBorder.Background = App.Current.Resources["TitleBarDarkBrush"] as SolidColorBrush;
-                //C3.Width = new GridLength(0);
-            }
         }
 
         private void MainPage_Loaded(object sender, RoutedEventArgs e)

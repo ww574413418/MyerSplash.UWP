@@ -1,9 +1,6 @@
 ﻿using JP.Utils.Data;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace MyerSplashShared.API
 {
@@ -22,6 +19,8 @@ namespace MyerSplashShared.API
         public static string GetCategories=> $"https://{HOST}/categories?";
 
         public static string GetFeaturedImages => $"https://{HOST}/collections/featured?";
+
+        public static string GetImageDetail => $"https://{HOST}/photos/";
 
         public static string MakeFullUrlForGetReq(string baseUrl, List<KeyValuePair<string, string>> paramList)
         {

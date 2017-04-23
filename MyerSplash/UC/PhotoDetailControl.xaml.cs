@@ -1,7 +1,7 @@
-﻿using CompositionHelper.Animation.Fluent;
+﻿using CompositionHelper;
+using CompositionHelper.Animation.Fluent;
 using GalaSoft.MvvmLight.Messaging;
 using JP.Utils.Debug;
-using JP.Utils.Helper;
 using MyerSplash.Common;
 using MyerSplash.Model;
 using MyerSplashCustomControl;
@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Storage;
-using Windows.System;
+using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -38,11 +38,16 @@ namespace MyerSplash.UC
         private Visual _flipperVisual;
         private Visual _taskbarImageVisual;
         private Visual _lockScreenImageVisual;
-        private Visual _secondaryToolVisual;
+        private Visual _previewBtnVisual;
         private Visual _setAsSPVisual;
+        private Visual _exifInfoVisual;
+        private Visual _operationSPVisual;
 
         private CancellationTokenSource _cts;
         private int _showingPreview = 0;
+
+        private bool _showingExif;
+        private bool _hideAfterHidingExif;
 
         private UnsplashImageBase _currentImage;
         public UnsplashImageBase CurrentImage
@@ -84,11 +89,6 @@ namespace MyerSplash.UC
                       FlipperControl.DisplayIndex = (int)DownloadStatus.OK;
                   }
               });
-
-            if (DeviceHelper.IsMobile)
-            {
-                SecondaryToolSP.Visibility = Visibility.Collapsed;
-            }
         }
 
         private async void _dataTransferManager_DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
@@ -113,8 +113,10 @@ namespace MyerSplash.UC
             _flipperVisual = ElementCompositionPreview.GetElementVisual(FlipperControl);
             _taskbarImageVisual = ElementCompositionPreview.GetElementVisual(TaskBarImage);
             _lockScreenImageVisual = ElementCompositionPreview.GetElementVisual(LockImage);
-            _secondaryToolVisual = ElementCompositionPreview.GetElementVisual(SecondaryToolSP);
+            _previewBtnVisual = ElementCompositionPreview.GetElementVisual(PreviewBtn);
             _setAsSPVisual = ElementCompositionPreview.GetElementVisual(SetAsSP);
+            _exifInfoVisual = ElementCompositionPreview.GetElementVisual(ExifInfoGrid);
+            _operationSPVisual = ElementCompositionPreview.GetElementVisual(OperationSP);
 
             ResetVisualInitState();
         }
@@ -127,9 +129,10 @@ namespace MyerSplash.UC
             _detailGridVisual.Opacity = 0;
             _taskbarImageVisual.Opacity = 0;
             _lockScreenImageVisual.Opacity = 0;
-            _secondaryToolVisual.Opacity = 1;
+            _previewBtnVisual.Opacity = 1;
             _setAsSPVisual.Opacity = 0;
             _setAsSPVisual.Offset = new Vector3(0f, 150f, 0f);
+            _exifInfoVisual.Offset = new Vector3(0f, 200f, 0f);
 
             PhotoSV.ChangeView(null, 0, null);
             StartLoadingAnimation();
@@ -137,7 +140,15 @@ namespace MyerSplash.UC
 
         private void MaskBorder_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            HideDetailControl();
+            if (_showingExif)
+            {
+                _hideAfterHidingExif = true;
+                ToggleExifInfo(false);
+            }
+            else
+            {
+                HideDetailControl();
+            }
         }
 
         public void HideDetailControl()
@@ -163,7 +174,7 @@ namespace MyerSplash.UC
 
         private void TogglePreviewButtonAnimation(bool show)
         {
-            _secondaryToolVisual.StartBuildAnimation()
+            _previewBtnVisual.StartBuildAnimation()
                 .Animate(AnimateProperties.Opacity)
                 .To(show ? 1 : 0)
                 .Spend(300)
@@ -190,6 +201,7 @@ namespace MyerSplash.UC
             if (show)
             {
                 var task = CheckImageDownloadStatusAsync();
+                var task2 = CurrentImage.GetExifInfoAsync();
                 ToggleFlipperControlAnimation(true);
                 ToggleShareBtnAnimation(true);
                 ToggleInfoGridAnimation(true);
@@ -321,8 +333,20 @@ namespace MyerSplash.UC
 
         private void InfoPlaceHolderGrid_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            var grid = sender as Grid;
-            grid.Clip = new RectangleGeometry() { Rect = new Rect(0, 0, e.NewSize.Width, e.NewSize.Height) };
+            SetInfoPlaceholderGridClip(true);
+        }
+
+        private void SetInfoPlaceholderGridClip(bool clip)
+        {
+            if (!clip)
+            {
+                InfoPlaceHolderGrid.ClearValue(ClipProperty);
+                return;
+            }
+            InfoPlaceHolderGrid.Clip = new RectangleGeometry()
+            {
+                Rect = new Rect(0, 0, InfoPlaceHolderGrid.ActualWidth, InfoPlaceHolderGrid.ActualHeight)
+            };
         }
 
         private async void LargeImage_DragStarting(UIElement sender, DragStartingEventArgs args)
@@ -337,6 +361,72 @@ namespace MyerSplash.UC
             args.Data.RequestedOperation = DataPackageOperation.Copy;
             args.Data.SetText(image.ShareText);
             args.Data.SetWebLink(new Uri(image.GetSaveImageUrlFromSettings()));
+        }
+
+        private void ToggleExifInfo(bool show)
+        {
+            _showingExif = show;
+            if (show)
+            {
+                SetInfoPlaceholderGridClip(false);
+                InfoPlaceHolderGrid.Background = CurrentImage.MajorColor;
+                _exifInfoVisual.Offset = new Vector3(0f, 100f, 0f);
+            }
+            else
+            {
+                InfoPlaceHolderGrid.Background = new SolidColorBrush(Colors.Transparent);
+            }
+
+            var showDurationForInfo = 600f;
+            var hideDurationForInfo = _hideAfterHidingExif ? 200f : 400f;
+
+            var showDurationForExif = 400f;
+            var hideDurationForExif = _hideAfterHidingExif ? 200f : 600f;
+
+            AutherNameBtn.BorderThickness = new Thickness(0, 0, 0, show ? 0 : 2);
+
+            _infoGridVisual.StartBuildAnimation().Animate(AnimateProperties.Offset.Y)
+                .To(show ? -100f : 0f)
+                .Spend(show ? showDurationForInfo : hideDurationForInfo)
+                .Over()
+                .Start()
+                .Completed += (s, e) =>
+                  {
+                      if (!show)
+                      {
+                          SetInfoPlaceholderGridClip(true);
+                          if (_hideAfterHidingExif)
+                          {
+                              _hideAfterHidingExif = false;
+                              HideDetailControl();
+                          }
+                      }
+                  };
+
+            _exifInfoVisual.StartBuildAnimation().Animate(AnimateProperties.Offset.Y)
+               .To(show ? 0f : 100f)
+               .Spend(show ? showDurationForExif : hideDurationForExif)
+               .Over()
+               .Start();
+
+            _operationSPVisual.StartBuildAnimation().Animate(AnimateProperties.Offset.Y)
+                                        .To(show ? -100f : 0f)
+                                        .Spend(show ? showDurationForInfo : hideDurationForInfo)
+                                        .Over()
+                                        .Start();
+
+            SetAsGrid.GetVisual().StartBuildAnimation().Animate(AnimateProperties.Offset.Y)
+                                        .To(show ? -100f : 0f)
+                                        .Spend(show ? showDurationForInfo : hideDurationForInfo)
+                                        .Over()
+                                        .Start();
+
+            InfoBtn.GetVisual().CenterPoint = new Vector3((float)InfoBtn.ActualWidth / 2f, (float)InfoBtn.ActualHeight / 2f, 0);
+            InfoBtn.GetVisual().StartBuildAnimation().Animate(AnimateProperties.RotationAngleInDegrees)
+                .To(show ? 180f : 0f)
+                .Spend(show ? showDurationForInfo : hideDurationForInfo)
+                .Over()
+                .Start();
         }
 
         private void TogglePreview()
@@ -523,7 +613,8 @@ namespace MyerSplash.UC
 
         private void InfoBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            _showingExif = !_showingExif;
+            ToggleExifInfo(_showingExif);
         }
 
         private void SetAsGrid_SizeChanged(object sender, SizeChangedEventArgs e)

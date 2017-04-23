@@ -1,6 +1,7 @@
 ﻿using JP.Utils.Data;
 using JP.Utils.Debug;
-using JP.Utils.Network;
+using MyerSplashShared.API;
+using MyerSplashShared.Utils;
 using System;
 using System.ComponentModel;
 using System.IO;
@@ -87,7 +88,7 @@ namespace MyerSplashShared.Shared
             {
                 ExpectedFileName = GenerateRandomFileName();
             }
-            using (var stream = await FileDownloadUtil.GetIRandomAccessStreamFromUrlAsync(this.RemoteUrl, CTSFactory.MakeCTS().Token))
+            using (var stream = await FileDownloader.GetIRandomAccessStreamFromUrlAsync(this.RemoteUrl, CTSFactory.MakeCTS().Token))
             {
                 var file = await SaveStreamIntoFileAsync(stream.AsStream(), ExpectedFileName, cachedFolder);
                 if (file != null)

@@ -1,24 +1,20 @@
-﻿using JP.Utils.Helper;
-using JP.Utils.UI;
+﻿using JP.Utils.UI;
 using MyerSplash.Common;
 using MyerSplash.Model;
 using MyerSplash.ViewModel;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Numerics;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Devices.Input;
 using Windows.Foundation;
 using Windows.Storage;
-using Windows.Storage.Streams;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
 
 namespace MyerSplash.UC
 {
@@ -71,15 +67,6 @@ namespace MyerSplash.UC
             this.InitializeComponent();
             this._compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
             this._listVisual = ElementCompositionPreview.GetElementVisual(ImageGridView);
-            InitDeviceDependencyUI();
-        }
-
-        private void InitDeviceDependencyUI()
-        {
-            if (DeviceHelper.IsMobile)
-            {
-                this.ImageGridView.Margin = new Thickness(0);
-            }
         }
 
         private void ImageGridView_ItemClick(object sender, ItemClickEventArgs e)

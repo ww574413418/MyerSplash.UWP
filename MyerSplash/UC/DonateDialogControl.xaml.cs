@@ -68,7 +68,6 @@ namespace MyerSplash.UC
             catch (Exception ex)
             {
                 await Logger.LogAsync(ex);
-                //ToastService.SendToast(ex.Message.ToString(), 3000);
             }
             finally
             {

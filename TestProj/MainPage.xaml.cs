@@ -1,20 +1,8 @@
-﻿using Microsoft.Graphics.Canvas;
+﻿using MyerSplashShared.Utils;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
-using Windows.ApplicationModel;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 namespace TestProj
 {
@@ -28,10 +16,8 @@ namespace TestProj
 
         private async void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
-            var folder = await Package.Current.InstalledLocation.GetFolderAsync("Assets");
-            var file = await folder.GetFileAsync("test0.jpg");
-            IEX.FilePath = file.Path;
-            IEX.Invalidate();
+            var file = await KnownFolders.PicturesLibrary.CreateFileAsync("test.jpg", CreationCollisionOption.GenerateUniqueName);
+            await FileDownloader.GetStreamFromUrlAsync("https://images.unsplash.com/photo-1492329856248-4d21e5165e6e?ixlib=rb-0.3.5&q=100&fm=jpg&crop=entropy&cs=tinysrgb&s=37af915f62521c4b5766c48863866dc8", null, file);
         }
     }
 }

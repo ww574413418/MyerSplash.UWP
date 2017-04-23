@@ -1,8 +1,6 @@
-﻿using JP.Utils.Helper;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
-using Windows.Phone.UI.Input;
 using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -348,21 +346,10 @@ namespace MyerSplashCustomControl
 
             _inStory.Begin();
 
-            if (APIInfoHelper.HasHardwareButton)
-            {
-                HardwareButtons.BackPressed += HardwareButtons_BackPressed;
-            }
-
             SystemNavigationManager.GetForCurrentView().BackRequested += BottomDialog_BackRequested;
         }
 
         private void BottomDialog_BackRequested(object sender, BackRequestedEventArgs e)
-        {
-            HandleBack();
-            e.Handled = true;
-        }
-
-        private void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)
         {
             HandleBack();
             e.Handled = true;
@@ -388,7 +375,6 @@ namespace MyerSplashCustomControl
             _outStory.Begin();
             _maskBorder.Visibility = Visibility.Collapsed;
 
-            HardwareButtons.BackPressed -= HardwareButtons_BackPressed;
             SystemNavigationManager.GetForCurrentView().BackRequested -= BottomDialog_BackRequested;
         }
     }

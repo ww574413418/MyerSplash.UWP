@@ -1,10 +1,10 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using JP.Utils.Helper;
-using JP.Utils.Network;
+using JP.Utils.Data.Json;
 using JP.Utils.UI;
 using MyerSplash.Common;
 using MyerSplash.Interface;
+using MyerSplashShared.API;
 using MyerSplashShared.Shared;
 using System;
 using System.Collections.Generic;
@@ -82,6 +82,26 @@ namespace MyerSplash.Model
                     _largeBitmap = value;
                     RaisePropertyChanged(() => LargeBitmap);
                 }
+            }
+        }
+
+        public string LocationString
+        {
+            get
+            {
+                if (Location == null || Location.City == null || Location.Country == null)
+                {
+                    return "Unknown";
+                }
+                return $"{Location.City}, {Location.Country}";
+            }
+        }
+
+        public string SizeString
+        {
+            get
+            {
+                return $"{Width} x {Height}";
             }
         }
 
@@ -203,6 +223,41 @@ namespace MyerSplash.Model
                 {
                     _height = value;
                     RaisePropertyChanged(() => Height);
+                }
+            }
+        }
+
+        private ImageExif _exif;
+        public ImageExif Exif
+        {
+            get
+            {
+                return _exif;
+            }
+            set
+            {
+                if (_exif != value)
+                {
+                    _exif = value;
+                    RaisePropertyChanged(() => Exif);
+                }
+            }
+        }
+
+        private ImageLocation _location;
+        public ImageLocation Location
+        {
+            get
+            {
+                return _location;
+            }
+            set
+            {
+                if (_location != value)
+                {
+                    _location = value;
+                    RaisePropertyChanged(() => Location);
+                    RaisePropertyChanged(() => LocationString);
                 }
             }
         }
@@ -344,10 +399,6 @@ namespace MyerSplash.Model
                 if (_downloadCommand != null) return _downloadCommand;
                 return _downloadCommand = new RelayCommand(() =>
                   {
-                      if (DeviceHelper.IsMobile && !AppSettings.Instance.EnableQuickDownload)
-                      {
-                          return;
-                      }
                       var downloaditem = new DownloadItem(this);
                       var task = downloaditem.DownloadFullImageAsync(CTSFactory.MakeCTS());
                       var task2 = App.VMLocator.DownloadsVM.AddDownloadingImageAsync(downloaditem);
@@ -456,6 +507,46 @@ namespace MyerSplash.Model
                 case 2: return RegularImageUrl;
                 default: return "";
             }
+        }
+
+        public async Task GetExifInfoAsync()
+        {
+            var result = await CloudService.GetImageDetail(ID, MyerSplashShared.API.CTSFactory.MakeCTS().Token);
+            if (result.IsRequestSuccessful)
+            {
+                ParseExif(result.JsonSrc);
+            }
+        }
+
+        private void ParseExif(string json)
+        {
+            if (string.IsNullOrEmpty(json))
+            {
+                return;
+            }
+            var result = JsonObject.TryParse(json, out JsonObject obj);
+            if (!result)
+            {
+                return;
+            }
+
+            Width = JsonParser.GetNumberFromJsonObj(obj, "width");
+            Height = JsonParser.GetNumberFromJsonObj(obj, "height");
+
+            Exif = new ImageExif();
+
+            var exifObj = JsonParser.GetJsonObjFromJsonObj(obj, "exif");
+            Exif.Model = JsonParser.GetStringFromJsonObj(exifObj, "model");
+            Exif.ExposureTime = JsonParser.GetStringFromJsonObj(exifObj, "exposure_time");
+            Exif.Aperture = JsonParser.GetStringFromJsonObj(exifObj, "aperture");
+            Exif.Iso = (int)JsonParser.GetNumberFromJsonObj(exifObj, "iso");
+
+            var location = new ImageLocation();
+            var locationObj = JsonParser.GetJsonObjFromJsonObj(obj, "location");
+            location.City = JsonParser.GetStringFromJsonObj(locationObj, "city");
+            location.Country = JsonParser.GetStringFromJsonObj(locationObj, "country");
+
+            Location = location;
         }
 
         public abstract void ParseObjectFromJsonString(string json);
