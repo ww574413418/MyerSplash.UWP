@@ -18,6 +18,7 @@ using MyerSplashCustomControl;
 using MyerSplash.UC;
 using JP.Utils.Helper;
 using Windows.UI.ViewManagement;
+using Microsoft.QueryStringDotNET;
 
 namespace MyerSplash.ViewModel
 {
@@ -611,12 +612,7 @@ namespace MyerSplash.ViewModel
         {
             if (!string.IsNullOrEmpty(_launcherArg))
             {
-                if (_launcherArg == Constant.RANDOM_KEY)
-                {
-                    DataVM = new RandomImagesDataViewModel(UrlHelper.GetRandomImages, false);
-                    return;
-                }
-                else if (_launcherArg == Constant.SEARCH_KEY)
+                if (_launcherArg == Value.SEARCH)
                 {
                     ShowSearchBar = true;
                 }
@@ -718,9 +714,25 @@ namespace MyerSplash.ViewModel
         public void Activate(object param)
         {
             _launcherArg = param as string;
-            if (_launcherArg == Constant.SEARCH_KEY)
+            if (_launcherArg == Value.SEARCH)
             {
                 ShowSearchBar = true;
+            }
+            else if (_launcherArg == Value.DOWNLOADS)
+            {
+                ShowDownloadsUC = true;
+            }
+            else
+            {
+                var queryStr = QueryString.Parse(_launcherArg);
+                if (queryStr.Contains(Key.FILE_PATH_KEY))
+                {
+                    var filePath = queryStr[Key.FILE_PATH_KEY];
+                    if (filePath != null)
+                    {
+                        var task = SetAsWallpaper(filePath);
+                    }
+                }
             }
             if (DeviceHelper.IsDesktop)
             {
@@ -731,6 +743,11 @@ namespace MyerSplash.ViewModel
                     var task = PopupService.Instance.ShowAsync(uc);
                 }
             }
+        }
+
+        private async Task SetAsWallpaper(string filePath)
+        {
+            await WallpaperSettingHelper.SetAsBackgroundAsync(await StorageFile.GetFileFromPathAsync(filePath));
         }
 
         public void Deactivate(object param)

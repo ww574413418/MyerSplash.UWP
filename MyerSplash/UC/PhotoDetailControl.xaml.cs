@@ -81,12 +81,13 @@ namespace MyerSplash.UC
             var manager = DataTransferManager.GetForCurrentView();
             manager.DataRequested += _dataTransferManager_DataRequested;
 
-            Messenger.Default.Register<GenericMessage<string>>(this, MessengerTokens.REPORT_DOWNLOADED, msg =>
+            Messenger.Default.Register<GenericMessage<string>>(this, MessengerTokens.REPORT_DOWNLOADED, async msg =>
               {
                   var id = msg.Content;
-                  if (id == CurrentImage.ID)
+                  if (id == CurrentImage?.ID)
                   {
-                      FlipperControl.DisplayIndex = (int)DownloadStatus.OK;
+                      await Task.Yield();
+                      FlipperControl.DisplayIndex = (int)DownloadStatus.Ok;
                   }
               });
         }
@@ -265,7 +266,7 @@ namespace MyerSplash.UC
 
         private async void DownloadBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (CurrentImage.DownloadStatus == DownloadStatus.OK)
+            if (CurrentImage.DownloadStatus == DownloadStatus.Ok)
             {
                 return;
             }
@@ -286,8 +287,8 @@ namespace MyerSplash.UC
                 //Still in this page
                 if (IsShown)
                 {
-                    CurrentImage.DownloadStatus = DownloadStatus.OK;
-                    FlipperControl.DisplayIndex = (int)DownloadStatus.OK;
+                    CurrentImage.DownloadStatus = DownloadStatus.Ok;
+                    FlipperControl.DisplayIndex = (int)DownloadStatus.Ok;
                     ToastService.SendToast("Saved :D", 1000);
                 }
             }

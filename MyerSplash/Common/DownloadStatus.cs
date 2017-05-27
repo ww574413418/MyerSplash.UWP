@@ -2,8 +2,9 @@
 {
     public enum DownloadStatus
     {
-        Pending = 0,
+        Close = 3,
+        Ok = 2,
         Downloading = 1,
-        OK = 2
+        Pending = 0,
     }
 }

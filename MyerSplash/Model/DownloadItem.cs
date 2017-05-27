@@ -368,7 +368,7 @@ namespace MyerSplash.Model
 
             var backgroundDownloader = new BackgroundDownloader();
             backgroundDownloader.SuccessToastNotification = ToastHelper.CreateToastNotification("Saved:D",
-                                $"Find it in {folder.Path}.");
+                                $"Find it in {folder.Path}.", newFile.Path);
 
             var downloadOperation = backgroundDownloader.CreateDownload(new Uri(url), newFile);
             downloadOperation.Priority = BackgroundTransferPriority.High;
@@ -410,7 +410,7 @@ namespace MyerSplash.Model
             if (Progress >= 100)
             {
                 _resultFile = e.ResultFile;
-                Image.DownloadStatus = Common.DownloadStatus.OK;
+                Image.DownloadStatus = Common.DownloadStatus.Ok;
                 Image.DownloadedFile = _resultFile as StorageFile;
                 Messenger.Default.Send(new GenericMessage<string>(Image.ID), MessengerTokens.REPORT_DOWNLOADED);
             }

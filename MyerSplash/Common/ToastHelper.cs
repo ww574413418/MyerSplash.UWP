@@ -1,34 +1,67 @@
-﻿using Windows.Data.Xml.Dom;
+﻿using Microsoft.QueryStringDotNET;
+using Microsoft.Toolkit.Uwp.Notifications;
+using System;
+using System.IO;
 using Windows.UI.Notifications;
 
 namespace MyerSplash.Common
 {
     public static class ToastHelper
     {
-        public static ToastNotification CreateToastNotification(string title, string content)
+        public static ToastNotification CreateToastNotification(string title, string content, string filePath)
         {
-            string xml = $@"<toast activationType='foreground'>
-                                            <visual>
-                                                <binding template='ToastGeneric'>
-                                                </binding>
-                                            </visual>
-                                        </toast>";
+            ToastContent toastContent = new ToastContent()
+            {
+                Visual = new ToastVisual()
+                {
+                    BindingGeneric = new ToastBindingGeneric()
+                    {
+                        Children =
+                        {
+                            new AdaptiveText()
+                            {
+                                Text = title
+                            },
 
-            XmlDocument doc = new XmlDocument();
-            doc.LoadXml(xml);
+                            new AdaptiveText()
+                            {
+                                Text = content
+                            },
+                        },
 
-            var binding = doc.SelectSingleNode("//binding");
+                        AppLogoOverride = new ToastGenericAppLogo()
+                        {
+                            Source = "ms-appx:///Assets/tran_logo.targetsize-88_altform-unplated.png",
+                            HintCrop = ToastGenericAppLogoCrop.Default
+                        },
 
-            var el = doc.CreateElement("text");
-            el.InnerText = title;
+                        HeroImage = new ToastGenericHeroImage()
+                        {
+                            Source = filePath,
+                            AlternateText = Path.GetFileName(filePath)
+                        }
+                    }
+                },
 
-            binding.AppendChild(el);
+                Actions = new ToastActionsCustom()
+                {
+                    Buttons =
+                    {
+                        new ToastButton("Set as wallpaper", new QueryString()
+                        {
+                            { Key.ACTION_KEY, Value.SET_AS },
+                            { Key.FILE_PATH_KEY, filePath }
+                        }.ToString())
+                    }
+                },
 
-            el = doc.CreateElement("text");
-            el.InnerText = content;
-            binding.AppendChild(el);
+                Launch = new QueryString()
+                {
+                    { Key.ACTION_KEY, Value.DOWNLOADS },
+                }.ToString()
+            };
 
-            return new ToastNotification(doc);
+            return new ToastNotification(toastContent.GetXml());
         }
     }
 }

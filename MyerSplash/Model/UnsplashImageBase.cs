@@ -478,7 +478,7 @@ namespace MyerSplash.Model
                     var pro = await file.GetBasicPropertiesAsync();
                     if (pro.Size > 10)
                     {
-                        this.DownloadStatus = DownloadStatus.OK;
+                        this.DownloadStatus = DownloadStatus.Ok;
                         DownloadedFile = file;
                     }
                 }
