@@ -19,6 +19,7 @@ using MyerSplash.UC;
 using JP.Utils.Helper;
 using Windows.UI.ViewManagement;
 using Microsoft.QueryStringDotNET;
+using Windows.System;
 
 namespace MyerSplash.ViewModel
 {
@@ -581,7 +582,8 @@ namespace MyerSplash.ViewModel
 
         private async Task RestoreMainListDataAsync()
         {
-            InitDataVM();
+            DataVM = new ImageDataViewModel(UrlHelper.GetNewImages, false);
+
             if (AppSettings.Instance.DefaultCategory == 0)
             {
                 return;
@@ -605,32 +607,6 @@ namespace MyerSplash.ViewModel
 
                     return;
                 }
-            }
-        }
-
-        private void InitDataVM()
-        {
-            if (!string.IsNullOrEmpty(_launcherArg))
-            {
-                if (_launcherArg == Value.SEARCH)
-                {
-                    ShowSearchBar = true;
-                }
-            }
-            switch (AppSettings.Instance.DefaultCategory)
-            {
-                case 0:
-                    {
-                        DataVM = new RandomImagesDataViewModel(UrlHelper.GetRandomImages, false);
-                    }; break;
-                case 1:
-                    {
-                        DataVM = new ImageDataViewModel(UrlHelper.GetNewImages, false);
-                    }; break;
-                case 2:
-                    {
-                        DataVM = new ImageDataViewModel(UrlHelper.GetFeaturedImages, true);
-                    }; break;
             }
         }
 
@@ -709,45 +685,53 @@ namespace MyerSplash.ViewModel
             }
         }
 
-        private string _launcherArg;
-
         public void Activate(object param)
         {
-            _launcherArg = param as string;
-            if (_launcherArg == Value.SEARCH)
-            {
-                ShowSearchBar = true;
-            }
-            else if (_launcherArg == Value.DOWNLOADS)
-            {
-                ShowDownloadsUC = true;
-            }
-            else
-            {
-                var queryStr = QueryString.Parse(_launcherArg);
-                if (queryStr.Contains(Key.FILE_PATH_KEY))
-                {
-                    var filePath = queryStr[Key.FILE_PATH_KEY];
-                    if (filePath != null)
-                    {
-                        var task = SetAsWallpaper(filePath);
-                    }
-                }
-            }
+            var task = HandleLaunchArg(param as string);
+
             if (DeviceHelper.IsDesktop)
             {
                 if (!LocalSettingHelper.HasValue("TIPS260"))
                 {
                     LocalSettingHelper.AddValue("TIPS260", true);
                     var uc = new TipsControl();
-                    var task = PopupService.Instance.ShowAsync(uc);
+                    var task2 = PopupService.Instance.ShowAsync(uc);
                 }
             }
         }
 
-        private async Task SetAsWallpaper(string filePath)
+        private async Task HandleLaunchArg(string arg)
         {
-            await WallpaperSettingHelper.SetAsBackgroundAsync(await StorageFile.GetFileFromPathAsync(filePath));
+            if (arg == Value.SEARCH)
+            {
+                ShowSearchBar = true;
+            }
+            else if (arg == Value.DOWNLOADS)
+            {
+                ShowDownloadsUC = true;
+            }
+            else
+            {
+                var queryStr = QueryString.Parse(arg);
+                var action = queryStr[Key.ACTION_KEY];
+                if (!queryStr.Contains(Key.FILE_PATH_KEY))
+                {
+                    return;
+                }
+                var filePath = queryStr[Key.FILE_PATH_KEY];
+                if (filePath != null)
+                {
+                    switch (action)
+                    {
+                        case Value.SET_AS:
+                            await WallpaperSettingHelper.SetAsBackgroundAsync(await StorageFile.GetFileFromPathAsync(filePath));
+                            break;
+                        case Value.VIEW:
+                            await Launcher.LaunchFileAsync(await StorageFile.GetFileFromPathAsync(filePath));
+                            break;
+                    }
+                }
+            }
         }
 
         public void Deactivate(object param)

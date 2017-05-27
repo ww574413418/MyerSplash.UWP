@@ -31,7 +31,7 @@ namespace MyerSplash.Common
 
                         AppLogoOverride = new ToastGenericAppLogo()
                         {
-                            Source = "ms-appx:///Assets/tran_logo.targetsize-88_altform-unplated.png",
+                            Source = "ms-appx:///Assets/Icon/ic_done_white_48dp.png",
                             HintCrop = ToastGenericAppLogoCrop.Default
                         },
 

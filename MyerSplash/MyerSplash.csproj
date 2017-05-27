@@ -214,6 +214,7 @@
     <None Include="MyerSplash_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Icon\ic_done_white_48dp.png" />
     <Content Include="Assets\Image\hint.gif" />
     <Content Include="Assets\Image\lock.png" />
     <Content Include="Assets\Icon\search.png" />

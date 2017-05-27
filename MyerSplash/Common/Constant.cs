@@ -2,14 +2,15 @@
 {
     public sealed class Key
     {
-        public static string ACTION_KEY => "Action";
-        public static string FILE_PATH_KEY => "FilePath";
+        public const string ACTION_KEY = "Action";
+        public const string FILE_PATH_KEY = "FilePath";
     }
 
     public sealed class Value
     {
-        public static string SEARCH => "Search";
-        public static string DOWNLOADS => "Downloads";
-        public static string SET_AS => "SetAs";
+        public const string SEARCH = "Search";
+        public const string DOWNLOADS = "Downloads";
+        public const string SET_AS = "SetAs";
+        public const string VIEW = "View";
     }
 }
