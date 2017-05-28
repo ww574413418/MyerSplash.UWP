@@ -215,12 +215,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Icon\ic_done_white_48dp.png" />
-    <Content Include="Assets\Image\hint.gif" />
     <Content Include="Assets\Image\lock.png" />
     <Content Include="Assets\Icon\search.png" />
     <Content Include="Assets\Image\banner.jpg" />
     <Content Include="Assets\Image\pc_taskbar_l.png" />
     <Content Include="Assets\Image\pc_taskbar_r.png" />
+    <Content Include="Assets\Image\hint.png" />
     <Content Include="Assets\Logo-500.png" />
     <Content Include="Assets\NewStoreLogo.scale-100.png" />
     <Content Include="Assets\NewStoreLogo.scale-125.png" />

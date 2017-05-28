@@ -691,11 +691,11 @@ namespace MyerSplash.ViewModel
 
             if (DeviceHelper.IsDesktop)
             {
-                if (!LocalSettingHelper.HasValue("TIPS260"))
+                if (!LocalSettingHelper.HasValue("TIPS261"))
                 {
-                    LocalSettingHelper.AddValue("TIPS260", true);
-                    //var uc = new TipsControl();
-                    //var task2 = PopupService.Instance.ShowAsync(uc);
+                    LocalSettingHelper.AddValue("TIPS261", true);
+                    var uc = new TipsControl();
+                    var task2 = PopupService.Instance.ShowAsync(uc);
                 }
             }
         }
