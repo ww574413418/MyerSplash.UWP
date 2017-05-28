@@ -18,6 +18,8 @@ using MyerSplashCustomControl;
 using MyerSplash.UC;
 using JP.Utils.Helper;
 using Windows.UI.ViewManagement;
+using Microsoft.QueryStringDotNET;
+using Windows.System;
 
 namespace MyerSplash.ViewModel
 {
@@ -552,7 +554,7 @@ namespace MyerSplash.ViewModel
                     name = Categories[SelectedIndex].Title.ToUpper();
                 }
                 else name = DefaultTitleName;
-                return $"# {name}";
+                return $"{name}";
             }
         }
 
@@ -580,7 +582,8 @@ namespace MyerSplash.ViewModel
 
         private async Task RestoreMainListDataAsync()
         {
-            InitDataVM();
+            DataVM = new ImageDataViewModel(UrlHelper.GetNewImages, false);
+
             if (AppSettings.Instance.DefaultCategory == 0)
             {
                 return;
@@ -604,37 +607,6 @@ namespace MyerSplash.ViewModel
 
                     return;
                 }
-            }
-        }
-
-        private void InitDataVM()
-        {
-            if (!string.IsNullOrEmpty(_launcherArg))
-            {
-                if (_launcherArg == Constant.RANDOM_KEY)
-                {
-                    DataVM = new RandomImagesDataViewModel(UrlHelper.GetRandomImages, false);
-                    return;
-                }
-                else if (_launcherArg == Constant.SEARCH_KEY)
-                {
-                    ShowSearchBar = true;
-                }
-            }
-            switch (AppSettings.Instance.DefaultCategory)
-            {
-                case 0:
-                    {
-                        DataVM = new RandomImagesDataViewModel(UrlHelper.GetRandomImages, false);
-                    }; break;
-                case 1:
-                    {
-                        DataVM = new ImageDataViewModel(UrlHelper.GetNewImages, false);
-                    }; break;
-                case 2:
-                    {
-                        DataVM = new ImageDataViewModel(UrlHelper.GetFeaturedImages, true);
-                    }; break;
             }
         }
 
@@ -713,22 +685,51 @@ namespace MyerSplash.ViewModel
             }
         }
 
-        private string _launcherArg;
-
         public void Activate(object param)
         {
-            _launcherArg = param as string;
-            if (_launcherArg == Constant.SEARCH_KEY)
+            var task = HandleLaunchArg(param as string);
+
+            if (DeviceHelper.IsDesktop)
+            {
+                if (!LocalSettingHelper.HasValue("TIPS261"))
+                {
+                    LocalSettingHelper.AddValue("TIPS261", true);
+                    var uc = new TipsControl();
+                    var task2 = PopupService.Instance.ShowAsync(uc);
+                }
+            }
+        }
+
+        private async Task HandleLaunchArg(string arg)
+        {
+            if (arg == Value.SEARCH)
             {
                 ShowSearchBar = true;
             }
-            if (DeviceHelper.IsDesktop)
+            else if (arg == Value.DOWNLOADS)
             {
-                if (!LocalSettingHelper.HasValue("TIPS260"))
+                ShowDownloadsUC = true;
+            }
+            else
+            {
+                var queryStr = QueryString.Parse(arg);
+                var action = queryStr[Key.ACTION_KEY];
+                if (!queryStr.Contains(Key.FILE_PATH_KEY))
                 {
-                    LocalSettingHelper.AddValue("TIPS260", true);
-                    var uc = new TipsControl();
-                    var task = PopupService.Instance.ShowAsync(uc);
+                    return;
+                }
+                var filePath = queryStr[Key.FILE_PATH_KEY];
+                if (filePath != null)
+                {
+                    switch (action)
+                    {
+                        case Value.SET_AS:
+                            await WallpaperSettingHelper.SetAsBackgroundAsync(await StorageFile.GetFileFromPathAsync(filePath));
+                            break;
+                        case Value.VIEW:
+                            await Launcher.LaunchFileAsync(await StorageFile.GetFileFromPathAsync(filePath));
+                            break;
+                    }
                 }
             }
         }

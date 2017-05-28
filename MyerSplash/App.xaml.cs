@@ -1,17 +1,10 @@
-﻿using BackgroundTask;
-using JP.Utils.Helper;
+﻿using Microsoft.QueryStringDotNET;
 using MyerSplash.Common;
 using MyerSplash.View;
 using MyerSplash.ViewModel;
 using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.ApplicationModel.Background;
-using Windows.Phone.UI.Input;
-using Windows.Storage;
-using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -72,11 +65,11 @@ namespace MyerSplash
 #endif
             if (e.PrelaunchActivated) return;
             var task = JumpListHelper.SetupJumpList();
-            CreateFrame(e.Arguments);
+            CreateFrameAndNavigate(e.Arguments);
         }
 #pragma warning restore    
 
-        private void CreateFrame(string arg)
+        private Frame CreateFrameAndNavigate(string arg)
         {
             Frame rootFrame = Window.Current.Content as Frame;
 
@@ -95,11 +88,28 @@ namespace MyerSplash
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
             SystemNavigationManager.GetForCurrentView().BackRequested -= App_BackRequested;
             SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
+
+            return rootFrame;
         }
 
-        protected override void OnActivated(IActivatedEventArgs args)
+        protected override void OnActivated(IActivatedEventArgs e)
         {
-            CreateFrame(null);
+            string arg = null;
+            if (e is ToastNotificationActivatedEventArgs)
+            {
+                var toastActivationArgs = e as ToastNotificationActivatedEventArgs;
+                var args = QueryString.Parse(toastActivationArgs.Argument);
+                arg = args[Key.ACTION_KEY];
+                if (args.Contains(Key.FILE_PATH_KEY))
+                {
+                    var filePath = args[Key.FILE_PATH_KEY];
+                    if (filePath != null)
+                    {
+                        arg = toastActivationArgs.Argument;
+                    }
+                }
+            }
+            CreateFrameAndNavigate(arg);
         }
 
         private void App_BackRequested(object sender, BackRequestedEventArgs e)

@@ -59,11 +59,14 @@ namespace MyerSplashShared.Shared
         {
             if (!string.IsNullOrEmpty(LocalPath))
             {
-                var file = await StorageFile.GetFileFromPathAsync(LocalPath);
-                if (file != null)
+                try
                 {
+                    var file = await StorageFile.GetFileFromPathAsync(LocalPath);
                     await SetImageSourceAsync(file as StorageFile);
                     return;
+                }
+                catch(FileNotFoundException)
+                {
                 }
             }
             await DownloadFromRemoteUrlAsync(setBitmap);

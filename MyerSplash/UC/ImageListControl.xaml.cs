@@ -314,7 +314,7 @@ namespace MyerSplash.UC
                 _scrollViewer.ChangeView(null, 0, null);
             }
             var offsetAnimation = _compositor.CreateScalarKeyFrameAnimation();
-            offsetAnimation.InsertKeyFrame(1f, 80f);
+            offsetAnimation.InsertKeyFrame(1f, 100f);
             offsetAnimation.Duration = TimeSpan.FromMilliseconds(300);
 
             _listVisual.StartAnimation("Offset.y", offsetAnimation);

@@ -1,9 +1,16 @@
 ﻿namespace MyerSplash.Common
 {
-    public class Constant
+    public sealed class Key
     {
-        public static string RANDOM_KEY => "random";
+        public const string ACTION_KEY = "Action";
+        public const string FILE_PATH_KEY = "FilePath";
+    }
 
-        public static string SEARCH_KEY => "search";
+    public sealed class Value
+    {
+        public const string SEARCH = "Search";
+        public const string DOWNLOADS = "Downloads";
+        public const string SET_AS = "SetAs";
+        public const string VIEW = "View";
     }
 }
