@@ -9,14 +9,10 @@ namespace MyerSplash.Common
         public static async Task SetupJumpList()
         {
             var jumpList = await JumpList.LoadCurrentAsync();
-            if (jumpList.Items.Count > 0)
-            {
-                return;
-            }
-
             jumpList.Items.Clear();
 
             var searchItem = JumpListItem.CreateWithArguments(Value.SEARCH, Value.SEARCH);
+            searchItem.Logo = new Uri("ms-appx:///Assets/Icon/search.png");
             jumpList.Items.Add(searchItem);
 
             await jumpList.SaveAsync();
