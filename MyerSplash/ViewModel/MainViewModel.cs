@@ -694,8 +694,8 @@ namespace MyerSplash.ViewModel
                 if (!LocalSettingHelper.HasValue("TIPS260"))
                 {
                     LocalSettingHelper.AddValue("TIPS260", true);
-                    var uc = new TipsControl();
-                    var task2 = PopupService.Instance.ShowAsync(uc);
+                    //var uc = new TipsControl();
+                    //var task2 = PopupService.Instance.ShowAsync(uc);
                 }
             }
         }
