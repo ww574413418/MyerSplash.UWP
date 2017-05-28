@@ -144,6 +144,7 @@ namespace MyerSplash.ViewModel
                             item.IsMenuOn = false;
                             item.CheckDownloadStatusAsync(downloadOpeations);
                             item.OnMenuStatusChanged += Item_OnMenuStatusChanged;
+                            item.Image.DownloadImgForListAsync();
                         }
                     }
                     else
