@@ -16,7 +16,7 @@ namespace MyerSplash.Common
 
             jumpList.Items.Clear();
 
-            var searchItem = JumpListItem.CreateWithArguments(Key.ACTION_KEY, Value.SEARCH);
+            var searchItem = JumpListItem.CreateWithArguments(Value.SEARCH, Value.SEARCH);
             jumpList.Items.Add(searchItem);
 
             await jumpList.SaveAsync();

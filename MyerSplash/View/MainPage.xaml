@@ -5,14 +5,10 @@
     xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:attach="using:JP.Utils.Framework"
-    xmlns:cc="using:JP.Utils.Control"
     xmlns:common="using:MyerSplash.Common"
-    xmlns:control="using:MyerSplashCustomControl"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:model="using:MyerSplash.Model"
     xmlns:uc="using:MyerSplash.UC"
-    xmlns:win2d="using:Microsoft.Graphics.Canvas.UI.Xaml"
     Background="{StaticResource TitleBarDarkBrush}"
     mc:Ignorable="d">
     <Interactivity:Interaction.Behaviors>
@@ -83,7 +79,7 @@
             Margin="12"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Background="Black">
+            Background="#DB000000">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="60" />
                 <ColumnDefinition Width="Auto" />
@@ -104,8 +100,7 @@
             <Border
                 Grid.Column="1"
                 Height="{StaticResource PosterHeight}"
-                HorizontalAlignment="Left"
-                Background="Black">
+                HorizontalAlignment="Left">
                 <TextBlock
                     x:Name="TitleTB"
                     Margin="12,4"

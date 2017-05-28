@@ -554,7 +554,7 @@ namespace MyerSplash.ViewModel
                     name = Categories[SelectedIndex].Title.ToUpper();
                 }
                 else name = DefaultTitleName;
-                return $"# {name}";
+                return $"{name}";
             }
         }
 
