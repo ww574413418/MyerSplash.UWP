@@ -82,14 +82,14 @@ namespace MyerSplash.UC
             manager.DataRequested += _dataTransferManager_DataRequested;
 
             Messenger.Default.Register<GenericMessage<string>>(this, MessengerTokens.REPORT_DOWNLOADED, async msg =>
-              {
-                  var id = msg.Content;
-                  if (id == CurrentImage?.ID)
-                  {
-                      await Task.Yield();
-                      FlipperControl.DisplayIndex = (int)DownloadStatus.Ok;
-                  }
-              });
+               {
+                   var id = msg.Content;
+                   if (id == CurrentImage?.ID)
+                   {
+                       await Task.Delay(1000);
+                       FlipperControl.DisplayIndex = (int)DownloadStatus.Ok;
+                   }
+               });
         }
 
         private async void _dataTransferManager_DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
