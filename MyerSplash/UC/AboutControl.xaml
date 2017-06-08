@@ -121,16 +121,9 @@
                     </Button>
                     <TextBlock Style="{StaticResource SubTitleTextBlockStyle}" Text="LOVE THIS APP" />
                     <Button
+                        HorizontalAlignment="Center"
+                        Background="{x:Null}"
                         Margin="0,4,0,0"
-                        HorizontalAlignment="Center"
-                        Background="{x:Null}"
-                        Command="{x:Bind AboutVM.DonateCommand, Mode=OneWay}"
-                        Style="{StaticResource ListButtonStyle}">
-                        <TextBlock Style="{StaticResource SubContentTextBlockStyle}" Text="Treat me a drink" />
-                    </Button>
-                    <Button
-                        HorizontalAlignment="Center"
-                        Background="{x:Null}"
                         Command="{x:Bind AboutVM.RateCommand, Mode=OneWay}"
                         Style="{StaticResource ListButtonStyle}">
                         <TextBlock Style="{StaticResource SubContentTextBlockStyle}" Text="Rate this app" />

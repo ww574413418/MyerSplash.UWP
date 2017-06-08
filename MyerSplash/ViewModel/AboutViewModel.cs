@@ -56,20 +56,6 @@ namespace MyerSplash.ViewModel
             }
         }
 
-        private RelayCommand _donateCommand;
-        public RelayCommand DonateCommand
-        {
-            get
-            {
-                if (_donateCommand != null) return _donateCommand;
-                return _donateCommand = new RelayCommand(async () =>
-                  {
-                      var uc = new DonateDialogControl();
-                      await PopupService.Instance.ShowAsync(uc);
-                  });
-            }
-        }
-
         private RelayCommand _feedbackCommand;
         public RelayCommand FeedbackCommand
         {

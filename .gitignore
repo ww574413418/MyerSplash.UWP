@@ -221,3 +221,4 @@ MyerSplash/BundleArtifacts/
 CustomControlNative/Generated Files/
 *.opendb
 *.appx
+BackgroundTask/BackgroundTask.nuget.props

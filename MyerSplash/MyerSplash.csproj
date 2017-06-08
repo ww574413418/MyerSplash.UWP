@@ -140,9 +140,6 @@
     <Compile Include="UC\DeleteDialogControl.xaml.cs">
       <DependentUpon>DeleteDialogControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UC\DonateDialogControl.xaml.cs">
-      <DependentUpon>DonateDialogControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UC\DownloadItemTemplate.xaml.cs">
       <DependentUpon>DownloadItemTemplate.xaml</DependentUpon>
     </Compile>
@@ -302,10 +299,6 @@
     <Page Include="UC\DeleteDialogControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UC\DonateDialogControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UC\DownloadItemTemplate.xaml">
       <SubType>Designer</SubType>
