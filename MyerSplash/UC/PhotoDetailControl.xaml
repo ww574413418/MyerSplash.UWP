@@ -68,7 +68,7 @@
             Tapped="MaskBorder_Tapped" />
         <Grid
             x:Name="DetailContentGrid"
-            MaxWidth="640"
+            MaxWidth="{StaticResource MaxWidthOfDetails}"
             Margin="0,-5,0,0"
             Background="Transparent">
             <Grid.RowDefinitions>
@@ -204,7 +204,6 @@
                             </Border>
                         </Button>
                     </StackPanel>
-
                 </Grid>
             </Grid>
             <Grid

@@ -5,6 +5,7 @@ using JP.Utils.Debug;
 using MyerSplash.Common;
 using MyerSplash.Model;
 using MyerSplashCustomControl;
+using MyerSplashShared.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +17,7 @@ using Windows.Foundation;
 using Windows.Storage;
 using Windows.UI;
 using Windows.UI.Composition;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
@@ -26,12 +28,12 @@ namespace MyerSplash.UC
 {
     public sealed partial class PhotoDetailControl : UserControl, INotifyPropertyChanged
     {
-        public event Action OnHideControl;
+        public event EventHandler<EventArgs> OnHidden;
         public event PropertyChangedEventHandler PropertyChanged;
 
         private Compositor _compositor;
         private Visual _detailGridVisual;
-        private Visual _borderGridVisual;
+        private Visual _maskBorderGridVisual;
         private Visual _shareBtnVisual;
         private Visual _infoGridVisual;
         private Visual _loadingPath;
@@ -90,6 +92,15 @@ namespace MyerSplash.UC
                        FlipperControl.DisplayIndex = (int)DownloadStatus.Ok;
                    }
                });
+
+            Window.Current.CoreWindow.SizeChanged += CoreWindow_SizeChanged;
+        }
+
+        private void CoreWindow_SizeChanged(CoreWindow sender, WindowSizeChangedEventArgs args)
+        {
+            var size = GetTargetSize();
+            DetailContentGrid.Width = size.X;
+            DetailContentGrid.Height = size.Y;
         }
 
         private async void _dataTransferManager_DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
@@ -107,7 +118,7 @@ namespace MyerSplash.UC
         {
             _compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
             _detailGridVisual = ElementCompositionPreview.GetElementVisual(DetailGrid);
-            _borderGridVisual = ElementCompositionPreview.GetElementVisual(MaskBorder);
+            _maskBorderGridVisual = ElementCompositionPreview.GetElementVisual(MaskBorder);
             _infoGridVisual = ElementCompositionPreview.GetElementVisual(InfoGrid);
             _loadingPath = ElementCompositionPreview.GetElementVisual(LoadingPath);
             _shareBtnVisual = ElementCompositionPreview.GetElementVisual(ShareBtn);
@@ -134,6 +145,7 @@ namespace MyerSplash.UC
             _setAsSPVisual.Opacity = 0;
             _setAsSPVisual.Offset = new Vector3(0f, 150f, 0f);
             _exifInfoVisual.Offset = new Vector3(0f, 200f, 0f);
+            _maskBorderGridVisual.Opacity = 0;
 
             PhotoSV.ChangeView(null, 0, null);
             StartLoadingAnimation();
@@ -148,29 +160,8 @@ namespace MyerSplash.UC
             }
             else
             {
-                HideDetailControl();
+                Hide();
             }
-        }
-
-        public void HideDetailControl()
-        {
-            ToggleSetAsSP(false);
-
-            DismissPreview();
-            TogglePreviewButtonAnimation(false);
-
-            ToggleFlipperControlAnimation(false);
-            ToggleShareBtnAnimation(false);
-
-            var batch = _compositor.CreateScopedBatch(CompositionBatchTypes.Animation);
-            ToggleInfoGridAnimation(false);
-            batch.Completed += (s, ex) =>
-            {
-                OnHideControl?.Invoke();
-                ToggleDetailGridAnimation(false);
-                FlipperControl.DisplayIndex = (int)DownloadStatus.Pending;
-            };
-            batch.End();
         }
 
         private void TogglePreviewButtonAnimation(bool show)
@@ -183,11 +174,101 @@ namespace MyerSplash.UC
                 .Start();
         }
 
-        public void ToggleDetailGridAnimation(bool show)
+        private FrameworkElement _listItem;
+
+        /// <summary>
+        /// Toggle the enter animation by passing a list item. This control will take care of the rest part.
+        /// </summary>
+        /// <param name="listItem"></param>
+        public async void Show(FrameworkElement listItem)
         {
-            IsShown = show;
+            _listItem = listItem;
+
+            await ToggleListItemAnimationAsync(true);
+
+            ToggleDetailGridAnimation(true);
+        }
+
+        public void Hide()
+        {
+            PhotoSV.ChangeView(null, 0, null);
+
+            ToggleSetAsSP(false);
+
+            DismissPreview();
+            TogglePreviewButtonAnimation(false);
+
+            ToggleFlipperControlAnimation(false);
+            ToggleShareBtnAnimation(false);
+
+            var batch = _compositor.CreateScopedBatch(CompositionBatchTypes.Animation);
+            ToggleInfoGridAnimation(false);
+            batch.Completed += async (s, ex) =>
+            {
+                var innerBatch = _compositor.CreateScopedBatch(CompositionBatchTypes.Animation);
+                await ToggleListItemAnimationAsync(false);
+                innerBatch.Completed += (ss, exx) =>
+                {
+                    _listItem.GetVisual().Opacity = 1f;
+                    _listItem = null;
+
+                    OnHidden?.Invoke(this,new EventArgs());
+                    ToggleDetailGridAnimation(false);
+                    FlipperControl.DisplayIndex = (int)DownloadStatus.Pending;
+                };
+                innerBatch.End();
+            };
+            batch.End();
+        }
+
+        private async Task ToggleListItemAnimationAsync(bool show)
+        {
+            _listItem.GetVisual().Opacity = 0f;
+
+            var targetImageSize = GetTargetImageSize();
+            var targetImagePosition = GetTargetPosition();
 
             this.Visibility = Visibility.Visible;
+            await this.WaitForNonZeroSizeAsync();
+
+            var listItemSize = new Vector2((float)_listItem.ActualWidth, (float)_listItem.ActualHeight);
+            var listItemCenterPosition = _listItem.TransformToVisual(Window.Current.Content)
+                                            .TransformPoint(new Point(_listItem.ActualWidth / 2, _listItem.ActualHeight / 2));
+            var targetSize = GetTargetImageSize();
+
+            var offsetXAbs = (float)listItemCenterPosition.X - (targetImagePosition.X + targetImageSize.X / 2);
+            var offsetYAbs = (float)listItemCenterPosition.Y - (targetImagePosition.Y + targetImageSize.Y / 2);
+
+            var startX = show ? offsetXAbs : 0;
+            var startY = show ? offsetYAbs : 0;
+
+            var endX = show ? 0f : offsetXAbs;
+            var endY = show ? 0f : offsetYAbs;
+
+            var startScale = show ? listItemSize.X / targetImageSize.X : 1f;
+            var endScale = show ? 1f : listItemSize.X / targetImageSize.X;
+
+            _detailGridVisual.Opacity = 1f;
+
+            var detailGridContentVisual = DetailContentGrid.GetVisual();
+            detailGridContentVisual.CenterPoint = new Vector3(targetImageSize.X / 2f, targetImageSize.Y / 2f, 1f);
+
+            var scaleAnim = _compositor.CreateVector3KeyFrameAnimation();
+            scaleAnim.Duration = TimeSpan.FromMilliseconds(400);
+            scaleAnim.InsertKeyFrame(0f, new Vector3(startScale, startScale, 1f));
+            scaleAnim.InsertKeyFrame(1f, new Vector3(endScale, endScale, 1f));
+            detailGridContentVisual.StartAnimation("Scale", scaleAnim);
+
+            var offsetAnim = _compositor.CreateVector3KeyFrameAnimation();
+            offsetAnim.Duration = TimeSpan.FromMilliseconds(400);
+            offsetAnim.InsertKeyFrame(0f, new Vector3(startX, startY, 0f));
+            offsetAnim.InsertKeyFrame(1f, new Vector3(endX, endY, 0f));
+            detailGridContentVisual.StartAnimation("Offset", offsetAnim);
+        }
+
+        private void ToggleDetailGridAnimation(bool show)
+        {
+            IsShown = show;
 
             TogglePreviewButtonAnimation(true);
 
@@ -198,6 +279,8 @@ namespace MyerSplash.UC
 
             var batch = _compositor.CreateScopedBatch(CompositionBatchTypes.Animation);
             _detailGridVisual.StartAnimation("Opacity", fadeAnimation);
+
+            _maskBorderGridVisual.StartAnimation("Opacity", fadeAnimation);
 
             if (show)
             {
@@ -262,8 +345,6 @@ namespace MyerSplash.UC
             this.FlipperControl.DisplayIndex = (int)CurrentImage.DownloadStatus;
         }
 
-        #region Download
-
         private async void DownloadBtn_Click(object sender, RoutedEventArgs e)
         {
             if (CurrentImage.DownloadStatus == DownloadStatus.Ok)
@@ -322,7 +403,6 @@ namespace MyerSplash.UC
         {
             _cts?.Cancel();
         }
-        #endregion
 
         private void DetailGrid_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
         {
@@ -399,7 +479,7 @@ namespace MyerSplash.UC
                           if (_hideAfterHidingExif)
                           {
                               _hideAfterHidingExif = false;
-                              HideDetailControl();
+                              Hide();
                           }
                       }
                   };
@@ -634,6 +714,50 @@ namespace MyerSplash.UC
         private void AutherNameBtn_Click(object sender, RoutedEventArgs e)
         {
             ToggleSetAsSP(false);
+        }
+
+        private Vector2 GetTargetSize()
+        {
+            var windowWidth = Window.Current.Bounds.Width;
+            var windowHeight = Window.Current.Bounds.Height;
+
+            var height = Math.Min(windowWidth * (2f / 3f), windowHeight - 200);
+            var width = 1.5f * height;
+
+            var maxWidth = ResourcesHelper.GetDimentionInPixel("MaxWidthOfDetails");
+            if (width >= maxWidth)
+            {
+                width = maxWidth;
+                height = width / 1.5f;
+            }
+
+            return new Vector2((float)width, (float)height + 100f);
+        }
+
+        private Vector2 GetTargetImageSize()
+        {
+            var windowWidth = Window.Current.Bounds.Width;
+            var windowHeight = Window.Current.Bounds.Height;
+
+            var height = Math.Min(windowWidth * (2f / 3f), windowHeight - 200);
+            var width = 1.5f * height;
+
+            var maxWidth = ResourcesHelper.GetDimentionInPixel("MaxWidthOfDetails");
+            if (width >= maxWidth)
+            {
+                width = maxWidth;
+                height = width / 1.5f;
+            }
+
+            return new Vector2((float)width, (float)height);
+        }
+
+        private Vector2 GetTargetPosition()
+        {
+            var size = GetTargetSize();
+            var x = (Window.Current.Bounds.Width - size.X) / 2;
+            var y = (Window.Current.Bounds.Height - size.Y) / 2;
+            return new Vector2((float)x, (float)y);
         }
     }
 }
