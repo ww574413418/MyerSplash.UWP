@@ -7,13 +7,10 @@ using MyerSplash.Model;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Media;
 using MyerSplashShared.API;
 using MyerSplash.ViewModel.DataViewModel;
-using System.Collections.Generic;
 using Windows.Storage;
 using System;
-using Newtonsoft.Json;
 using MyerSplashCustomControl;
 using MyerSplash.UC;
 using JP.Utils.Helper;
@@ -571,6 +568,8 @@ namespace MyerSplash.ViewModel
             App.MainVM = this;
 
             SelectedIndex = -1;
+
+            DataVM = new ImageDataViewModel(UrlHelper.GetNewImages, false);
         }
 
         private async Task SearchByKeywordAsync()
@@ -578,36 +577,6 @@ namespace MyerSplash.ViewModel
             DataVM = new SearchResultViewModel(UrlHelper.SearchImages, SearchKeyword);
             RaisePropertyChanged(() => SelectedTitle);
             await RefreshListAsync();
-        }
-
-        private async Task RestoreMainListDataAsync()
-        {
-            DataVM = new ImageDataViewModel(UrlHelper.GetNewImages, false);
-
-            if (AppSettings.Instance.DefaultCategory == 0)
-            {
-                return;
-            }
-            var file = await CacheUtil.GetCachedFileFolder().TryGetFileAsync(CachedFileNames.MainListFileName);
-            if (file != null)
-            {
-                var str = await FileIO.ReadTextAsync(file);
-                var list = JsonConvert.DeserializeObject<List<UnsplashImage>>(str);
-                if (list != null)
-                {
-                    list.ForEach(s => DataVM.DataList.Add(s));
-
-                    for (int i = 0; i < DataVM.DataList.Count; i++)
-                    {
-                        var item = DataVM.DataList[i];
-                        if (i % 2 == 0) item.BackColor = Application.Current.Resources["ImageBackBrush1"] as SolidColorBrush;
-                        else item.BackColor = Application.Current.Resources["ImageBackBrush2"] as SolidColorBrush;
-                        var task = item.RestoreDataAsync();
-                    }
-
-                    return;
-                }
-            }
         }
 
         private async Task RefreshAllAsync()
@@ -621,10 +590,6 @@ namespace MyerSplash.ViewModel
             IsRefreshing = true;
             await DataVM.RefreshAsync();
             IsRefreshing = false;
-            if (SelectedIndex == 1)
-            {
-                await SaveMainListDataAsync();
-            }
         }
 
         private async Task GetCategoriesAsync()
@@ -657,32 +622,6 @@ namespace MyerSplash.ViewModel
         {
             this.Categories = await SerializerHelper.DeserializeFromJsonByFile<ObservableCollection<UnsplashCategory>>(CachedFileNames.CateListFileName);
             SelectedIndex = App.AppSettings.DefaultCategory;
-        }
-
-        private async Task SaveMainListDataAsync()
-        {
-            if (this.DataVM.DataList?.Count > 0)
-            {
-                var list = new List<UnsplashImage>();
-                foreach (var item in DataVM.DataList)
-                {
-                    if (item is UnsplashImage)
-                    {
-                        list.Add(item as UnsplashImage);
-                    }
-                }
-                if (list.Count > 0)
-                {
-                    ToastService.SendToast("Fetched :D");
-
-                    var str = JsonConvert.SerializeObject(list, new JsonSerializerSettings()
-                    {
-                        TypeNameHandling = TypeNameHandling.All
-                    });
-                    var file = await ApplicationData.Current.LocalFolder.CreateFileAsync(CachedFileNames.MainListFileName, CreationCollisionOption.OpenIfExists);
-                    await FileIO.WriteTextAsync(file, str);
-                }
-            }
         }
 
         public void Activate(object param)
@@ -744,7 +683,6 @@ namespace MyerSplash.ViewModel
             if (IsFirstActived)
             {
                 IsFirstActived = false;
-                await RestoreMainListDataAsync();
                 await RefreshAllAsync();
             }
         }
