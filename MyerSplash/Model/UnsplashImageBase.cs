@@ -8,12 +8,14 @@ using MyerSplashShared.API;
 using MyerSplashShared.Shared;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Data.Json;
 using Windows.Storage;
 using Windows.Storage.Streams;
+using System.Linq;
 using Windows.System;
 using Windows.UI;
 using Windows.UI.Xaml.Media;
@@ -422,6 +424,14 @@ namespace MyerSplash.Model
         public string GetFileNameForDownloading()
         {
             var fileName = $"{Owner.Name}  {CreateTimeString} .jpg";
+            var invalidChars = Path.GetInvalidFileNameChars();
+            foreach(var c in invalidChars)
+            {
+                if (fileName.Contains(c))
+                {
+                    fileName = fileName.Replace(c.ToString(), "");
+                }
+            }
             return fileName;
         }
 
