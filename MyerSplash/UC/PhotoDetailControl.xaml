@@ -207,8 +207,6 @@
             <Grid
                 x:Name="InfoPlaceHolderGrid"
                 Grid.Row="1"
-                PointerEntered="InfoPlaceHolderGrid_PointerEntered"
-                PointerExited="InfoPlaceHolderGrid_PointerExited"
                 SizeChanged="InfoPlaceHolderGrid_SizeChanged">
                 <Grid x:Name="ExifInfoGrid" Background="{x:Bind CurrentImage.MajorColor, Mode=OneWay}">
                     <Grid.RowDefinitions>

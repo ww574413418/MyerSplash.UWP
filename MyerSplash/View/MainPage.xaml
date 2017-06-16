@@ -59,100 +59,13 @@
                     </Grid>
                 </Grid>
             </Button>
-            <Border
-                x:Name="TouchGrid"
-                Width="20"
-                HorizontalAlignment="Left"
-                Background="#02000000"
-                ManipulationCompleted="TouchGrid_ManipulationCompleted"
-                ManipulationDelta="TouchGrid_ManipulationDelta"
-                ManipulationMode="TranslateX" />
         </Grid>
         <Grid
             x:Name="TitleGrid"
             Background="Transparent"
             PointerEntered="TitleGrid_PointerEntered"
             PointerExited="TitleGrid_PointerExited" />
-        <Grid
-            x:Name="TitleStack"
-            Grid.RowSpan="2"
-            Margin="12"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Background="#DB000000">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="60" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="60" />
-                <ColumnDefinition x:Name="C3" Width="60" />
-            </Grid.ColumnDefinitions>
-            <Border x:Name="HamBtnBorder">
-                <uc:HamburgerButton
-                    x:Name="HamBtn"
-                    Width="{StaticResource PosterHeight}"
-                    Height="{StaticResource PosterHeight}"
-                    Margin="0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Command="{x:Bind MainVM.OpenDrawerCommand, Mode=OneWay}" />
-
-            </Border>
-            <Border
-                Grid.Column="1"
-                Height="{StaticResource PosterHeight}"
-                HorizontalAlignment="Left">
-                <TextBlock
-                    x:Name="TitleTB"
-                    Margin="12,4"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    CacheMode="BitmapCache"
-                    FontSize="25"
-                    FontWeight="Bold"
-                    Foreground="White"
-                    Tapped="StackPanel_Tapped"
-                    Text="{x:Bind MainVM.SelectedTitle, Mode=OneWay, FallbackValue=#NEW}"
-                    TextTrimming="CharacterEllipsis" />
-            </Border>
-            <Button
-                x:Name="SearchBtn"
-                Grid.Column="2"
-                Width="{StaticResource PosterHeight}"
-                Height="{StaticResource PosterHeight}"
-                Margin="0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                BorderThickness="0"
-                Command="{x:Bind MainVM.SearchCommand, Mode=OneWay}"
-                Style="{StaticResource ListButtonStyle}">
-                <FontIcon
-                    FontFamily="Segoe MDL2 Assets"
-                    Foreground="{StaticResource MainBarIconColorBrush}"
-                    Glyph="&#xE094;"
-                    RenderTransformOrigin="0.5,0.5">
-                    <FontIcon.RenderTransform>
-                        <CompositeTransform ScaleX="-1" />
-                    </FontIcon.RenderTransform>
-                </FontIcon>
-            </Button>
-            <Button
-                x:Name="DownloadEntryBtn"
-                Grid.Column="3"
-                Width="{StaticResource PosterHeight}"
-                Height="{StaticResource PosterHeight}"
-                Margin="0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                BorderThickness="0"
-                Command="{x:Bind MainVM.ShowDownloadsCommand, Mode=OneWay}"
-                Style="{StaticResource ListButtonStyle}">
-                <FontIcon
-                    FontFamily="Segoe MDL2 Assets"
-                    Foreground="{StaticResource MainBarIconColorBrush}"
-                    Glyph="&#xE118;" />
-            </Button>
-        </Grid>
-
+        <uc:NavigationView x:Name="NavigationView" Grid.RowSpan="5" OnTapTitle="NavigationView_OnTapTitle"/>
         <uc:NoNetworkControl
             x:Name="NoNetworkControl"
             Grid.Row="1"
@@ -161,30 +74,12 @@
             x:Name="NoItemControl"
             Grid.Row="1"
             Visibility="{x:Bind MainVM.NoItemHintVisibility, Mode=OneWay, FallbackValue=Collapsed}" />
-
         <uc:PhotoDetailControl
             x:Name="DetailControl"
             Grid.RowSpan="2"
             Visibility="Collapsed"
             d:IsHidden="True"
             OnHidden="DetailControl_OnHidden" />
-        <Border
-            x:Name="DrawerMaskBorder"
-            Grid.RowSpan="2"
-            attach:UIElementTapCommand.ItemTapCommand="{x:Bind MainVM.OpenDrawerCommand, Mode=OneWay}"
-            d:IsHidden="True"
-            Background="Black"
-            Opacity="0.8" />
-        <uc:DrawerControl
-            x:Name="DrawerControl"
-            Grid.RowSpan="2"
-            Width="270"
-            HorizontalAlignment="Left"
-            d:IsHidden="True"
-            DataContext="{x:Bind MainVM, Mode=OneWay}"
-            ManipulationCompleted="DrawerControl_ManipulationCompleted"
-            ManipulationDelta="DrawerControl_ManipulationDelta"
-            ManipulationMode="TranslateX" />
         <uc:SearchBarControl
             x:Name="SearchControl"
             Grid.RowSpan="2"
