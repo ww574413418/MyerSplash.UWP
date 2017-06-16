@@ -430,20 +430,6 @@ namespace MyerSplash.UC
             };
         }
 
-        private async void LargeImage_DragStarting(UIElement sender, DragStartingEventArgs args)
-        {
-            var image = (sender as FrameworkElement).DataContext as UnsplashImageBase;
-            if (image == null) return;
-            var file = await StorageFile.GetFileFromPathAsync(image.ListImageBitmap.LocalPath);
-            if (file != null)
-            {
-                args.Data.SetStorageItems(new List<StorageFile>() { file });
-            }
-            args.Data.RequestedOperation = DataPackageOperation.Copy;
-            args.Data.SetText(image.ShareText);
-            args.Data.SetWebLink(new Uri(image.GetSaveImageUrlFromSettings()));
-        }
-
         private void ToggleExifInfo(bool show)
         {
             _showingExif = show;

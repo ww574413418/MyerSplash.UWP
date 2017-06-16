@@ -175,13 +175,32 @@ namespace MyerSplash.Model
             }
         }
 
-        private SolidColorBrush _backColor;
+        private SolidColorBrush _backColorBrush;
         [IgnoreDataMember]
-        public SolidColorBrush BackColor
+        public SolidColorBrush BackColorBrush
         {
             get
             {
-                return _backColor;
+                return _backColorBrush;
+            }
+            set
+            {
+                if (_backColorBrush != value)
+                {
+                    _backColorBrush = value;
+                    RaisePropertyChanged(() => BackColorBrush);
+                }
+            }
+        }
+
+        private Color _backColor;
+        [IgnoreDataMember]
+        public Color BackColor
+        {
+            get
+            {
+                var color = _backColor;
+                return Color.FromArgb((byte)(255 * 0.5), color.R, color.G, color.B);
             }
             set
             {
@@ -425,7 +444,7 @@ namespace MyerSplash.Model
         {
             var fileName = $"{Owner.Name}  {CreateTimeString} .jpg";
             var invalidChars = Path.GetInvalidFileNameChars();
-            foreach(var c in invalidChars)
+            foreach (var c in invalidChars)
             {
                 if (fileName.Contains(c))
                 {

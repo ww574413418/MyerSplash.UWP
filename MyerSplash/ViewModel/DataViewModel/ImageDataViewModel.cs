@@ -125,13 +125,14 @@ namespace MyerSplash.ViewModel
             }
         }
 
-        protected async override void LoadMoreItemCompleted(IEnumerable<UnsplashImageBase> list, int index)
+        protected async override void LoadMoreItemCompleted(IEnumerable<UnsplashImageBase> list, int pagingIndex)
         {
             var tasks = new List<Task>();
             for (var i = 0; i < list.Count(); i++)
             {
                 var item = list.ElementAt(i);
-                item.BackColor = new SolidColorBrush(item.ColorValue.ToColor());
+                item.BackColor = item.ColorValue.ToColor();
+                item.BackColorBrush = new SolidColorBrush(item.ColorValue.ToColor());
                 item.MajorColor = new SolidColorBrush(item.ColorValue.ToColor());
 
                 tasks.Add(item.DownloadImgForListAsync());
@@ -146,7 +147,7 @@ namespace MyerSplash.ViewModel
 
             }
 
-            if (index == 1)
+            if (pagingIndex == 1)
             {
                 await UpdateLiveTileAsync();
             }
@@ -171,11 +172,7 @@ namespace MyerSplash.ViewModel
 
         protected async virtual Task<IEnumerable<UnsplashImageBase>> RequestAsync(int pageIndex)
         {
-#if DEBUG
-            var cts = CTSFactory.MakeCTS();
-#else
             var cts = CTSFactory.MakeCTS(15000);
-#endif
             try
             {
                 var result = await CloudService.GetImages(pageIndex, (int)20u, cts.Token, RequestUrl);

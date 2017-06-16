@@ -30,9 +30,8 @@ namespace MyerSplash.Common
 
         public IncrementalLoadingCollection(Func<uint, Task<ResultData<T>>> dataFetchDelegate)
         {
-            if (dataFetchDelegate == null) throw new ArgumentNullException("dataFetchDelegate should not be null");
-
-            this.DataFetchDelegate = dataFetchDelegate;
+            this.DataFetchDelegate = dataFetchDelegate ?? 
+                throw new ArgumentNullException("dataFetchDelegate should not be null");
         }
 
         public bool HasMoreItems

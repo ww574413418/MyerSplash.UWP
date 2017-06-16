@@ -45,13 +45,19 @@
                     SizeChanged="RootGrid_SizeChanged"
                     Tapped="RootGrid_Tapped"
                     Unloaded="RootGrid_Unloaded">
-                    <Border Background="{x:Bind BackColor, Mode=OneWay}" Opacity="0.3" />
+                    <Border Background="{x:Bind BackColorBrush, Mode=OneWay}" Opacity="0.3" />
                     <Image
                         x:Name="Img"
                         Source="{x:Bind ListImageBitmap.Bitmap, Mode=OneWay}"
                         Stretch="UniformToFill" />
-                    <Border x:Name="MaskBorder" Background="#53000000">
+                    <Border x:Name="MaskBorder">
                         <Grid>
+                            <Grid.Background>
+                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1" >
+                                    <GradientStop Offset="0.382" Color="#33000000"/>
+                                    <GradientStop Color="{x:Bind BackColor,Mode=OneWay}" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Grid.Background>
                             <StackPanel
                                 Margin="16,0,0,16"
                                 HorizontalAlignment="Left"
