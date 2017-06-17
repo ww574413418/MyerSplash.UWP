@@ -630,9 +630,10 @@ namespace MyerSplash.ViewModel
 
             if (DeviceHelper.IsDesktop)
             {
-                if (!LocalSettingHelper.HasValue("TIPS261"))
+                var key = (string)App.Current.Resources["CoachKey"];
+                if (!LocalSettingHelper.HasValue(key))
                 {
-                    LocalSettingHelper.AddValue("TIPS261", true);
+                    LocalSettingHelper.AddValue(key, true);
                     var uc = new TipsControl();
                     var task2 = PopupService.Instance.ShowAsync(uc);
                 }
