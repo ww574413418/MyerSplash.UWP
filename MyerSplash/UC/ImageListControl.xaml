@@ -50,52 +50,44 @@
                         x:Name="Img"
                         Source="{x:Bind ListImageBitmap.Bitmap, Mode=OneWay}"
                         Stretch="UniformToFill" />
-                    <Border x:Name="MaskBorder">
-                        <Grid>
-                            <Grid.Background>
-                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1" >
-                                    <GradientStop Offset="0.382" Color="#33000000"/>
-                                    <GradientStop Color="{x:Bind BackColor,Mode=OneWay}" Offset="1"/>
-                                </LinearGradientBrush>
-                            </Grid.Background>
-                            <StackPanel
-                                Margin="16,0,0,16"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Bottom"
-                                Orientation="Horizontal">
-                                <FontIcon
-                                    FontFamily="Segoe MDL2 Assets"
-                                    Foreground="#FFFF4A43"
-                                    Glyph="&#xE00B;" />
-                                <TextBlock
-                                    Margin="8,0,0,0"
-                                    FontWeight="Bold"
-                                    Foreground="White"
-                                    Text="Likes" />
-                                <TextBlock
-                                    Margin="8,0,0,0"
-                                    FontWeight="Bold"
-                                    Foreground="White"
-                                    Text="{x:Bind LikesString, Mode=OneWay}" />
-                            </StackPanel>
-                            <Button
-                                x:Name="DownloadBtn"
-                                Width="50"
-                                Height="50"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Bottom"
-                                Command="{x:Bind DownloadCommand}"
-                                Style="{StaticResource ListButtonStyle}"
-                                Tapped="DownloadBtn_Tapped">
-                                <FontIcon
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    FontFamily="Segoe MDL2 Assets"
-                                    Foreground="White"
-                                    Glyph="&#xE118;" />
-                            </Button>
-                        </Grid>
-                    </Border>
+                    <Grid x:Name="MaskBorder" Background="#53000000">
+                        <StackPanel
+                            Margin="16,0,0,16"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Bottom"
+                            Orientation="Horizontal">
+                            <FontIcon
+                                FontFamily="Segoe MDL2 Assets"
+                                Foreground="#FFFF4A43"
+                                Glyph="&#xE00B;" />
+                            <TextBlock
+                                Margin="8,0,0,0"
+                                FontWeight="Bold"
+                                Foreground="White"
+                                Text="Likes" />
+                            <TextBlock
+                                Margin="8,0,0,0"
+                                FontWeight="Bold"
+                                Foreground="White"
+                                Text="{x:Bind LikesString, Mode=OneWay}" />
+                        </StackPanel>
+                        <Button
+                            x:Name="DownloadBtn"
+                            Width="50"
+                            Height="50"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Command="{x:Bind DownloadCommand}"
+                            Style="{StaticResource ListButtonStyle}"
+                            Tapped="DownloadBtn_Tapped">
+                            <FontIcon
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontFamily="Segoe MDL2 Assets"
+                                Foreground="White"
+                                Glyph="&#xE118;" />
+                        </Button>
+                    </Grid>
                     <Button
                         Width="50"
                         Height="50"
@@ -165,14 +157,15 @@
                         </Button>
                     </StackPanel>
                 </Grid>
-                <Grid Height="50" Visibility="{x:Bind MainVM.EndVisibility, Mode=OneWay}">
-                    <TextBlock
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        FontSize="20"
-                        Foreground="{StaticResource HintTextForegroundBrush}"
-                        Text="——— END ———" />
-                </Grid>
+                <TextBlock
+                    Height="50"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    Foreground="{StaticResource HintTextForegroundBrush}"
+                    Text="——— YOU ARE REACHING THE END ———"
+                    Visibility="{x:Bind MainVM.EndVisibility, Mode=OneWay}" />
             </Grid>
         </control:AdaptiveGridView.Footer>
     </control:AdaptiveGridView>

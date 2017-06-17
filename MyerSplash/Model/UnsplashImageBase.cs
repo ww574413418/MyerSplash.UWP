@@ -193,25 +193,6 @@ namespace MyerSplash.Model
             }
         }
 
-        private Color _backColor;
-        [IgnoreDataMember]
-        public Color BackColor
-        {
-            get
-            {
-                var color = _backColor;
-                return Color.FromArgb((byte)(255 * 0.5), color.R, color.G, color.B);
-            }
-            set
-            {
-                if (_backColor != value)
-                {
-                    _backColor = value;
-                    RaisePropertyChanged(() => BackColor);
-                }
-            }
-        }
-
         public string ColorValue { get; set; }
 
         private double _width;

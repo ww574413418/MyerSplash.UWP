@@ -131,7 +131,6 @@ namespace MyerSplash.ViewModel
             for (var i = 0; i < list.Count(); i++)
             {
                 var item = list.ElementAt(i);
-                item.BackColor = item.ColorValue.ToColor();
                 item.BackColorBrush = new SolidColorBrush(item.ColorValue.ToColor());
                 item.MajorColor = new SolidColorBrush(item.ColorValue.ToColor());
 
