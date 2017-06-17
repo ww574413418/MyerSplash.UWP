@@ -9,32 +9,34 @@
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style x:Key="OptionTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="Margin" Value="12" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontWeight" Value="Normal" />
+        </Style>
+    </UserControl.Resources>
     <Grid Background="{StaticResource MyerSplashDarkColor}" CornerRadius="2">
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Grid Background="{StaticResource MyerSplashThemeColor}">
+        <Grid>
             <TextBlock
-                Margin="12,0,0,0"
+                Margin="20,0,0,0"
                 HorizontalAlignment="Left"
-                Foreground="Black"
+                Foreground="{StaticResource MyerSplashThemeColor}"
                 Style="{StaticResource SubTitleTextBlockStyle}"
                 Text="DELETE OPTIONS" />
         </Grid>
         <StackPanel Grid.Row="1" Margin="8">
             <Button
                 x:Name="DeleteDownloadingBtn"
-                Margin="0"
                 HorizontalAlignment="Stretch"
                 Click="DeleteDownloadingBtn_Click"
                 Style="{StaticResource ListButtonStyle}">
                 <Border>
-                    <TextBlock
-                        Margin="12"
-                        FontWeight="SemiBold"
-                        Foreground="White"
-                        Text="Delete downloading items" />
+                    <TextBlock Style="{StaticResource OptionTextBlockStyle}" Text="Delete downloading items" />
                 </Border>
             </Button>
             <Button
@@ -43,32 +45,22 @@
                 Click="DeleteDownloadedBtn_Click"
                 Style="{StaticResource ListButtonStyle}">
                 <Border>
-                    <TextBlock
-                        Margin="12"
-                        FontWeight="SemiBold"
-                        Foreground="White"
-                        Text="Delete downloaded items" />
+                    <TextBlock Style="{StaticResource OptionTextBlockStyle}" Text="Delete downloaded items" />
                 </Border>
             </Button>
             <Button
                 x:Name="DeleteAllBtn"
-                Margin="0"
                 HorizontalAlignment="Stretch"
                 Click="DeleteAllBtn_Click"
                 Style="{StaticResource ListButtonStyle}">
                 <Border>
-                    <TextBlock
-                        Margin="12"
-                        FontWeight="SemiBold"
-                        Foreground="White"
-                        Text="Delete failed items" />
+                    <TextBlock Style="{StaticResource OptionTextBlockStyle}" Text="Delete failed items" />
                 </Border>
             </Button>
             <TextBlock
                 Margin="12"
                 FontSize="12"
-                Foreground="White"
-                Opacity="0.4"
+                Foreground="{StaticResource HintColorBrush}"
                 Text="Note that the delete operation will not cancel download tasks. This will only clear the list."
                 TextWrapping="Wrap" />
         </StackPanel>
@@ -82,9 +74,8 @@
             Style="{StaticResource ListButtonStyle}">
             <Border>
                 <TextBlock
-                    Margin="12"
                     FontWeight="Bold"
-                    Foreground="White"
+                    Style="{StaticResource OptionTextBlockStyle}"
                     Text="CANCEL" />
             </Border>
         </Button>

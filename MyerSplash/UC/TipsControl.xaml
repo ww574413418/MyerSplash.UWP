@@ -14,7 +14,7 @@
             <RowDefinition Height="60" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Grid Background="{StaticResource MyerSplashThemeColor}">
+        <Grid>
             <Button
                 x:Name="CloseBtn"
                 Width="60"
@@ -28,7 +28,7 @@
                     Margin="12"
                     FontFamily="Segoe MDL2 Assets"
                     FontSize="16"
-                    Foreground="Black"
+                    Foreground="White"
                     Glyph="&#xE106;" />
             </Button>
             <StackPanel Margin="16,0,0,0" Orientation="Horizontal">
@@ -38,7 +38,7 @@
                     VerticalAlignment="Center"
                     FontSize="20"
                     FontWeight="Bold"
-                    Foreground="Black"
+                    Foreground="{StaticResource MyerSplashThemeColor}"
                     Style="{StaticResource SubTitleTextBlockStyle}"
                     Text="⚡ WHAT'S NEW" />
             </StackPanel>

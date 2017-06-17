@@ -38,13 +38,8 @@
             <Button
                 x:Name="RefreshBtn"
                 Grid.RowSpan="2"
-                Margin="20"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Background="{x:Null}"
                 Command="{x:Bind MainVM.RefreshCommand, Mode=OneWay}"
-                Foreground="White"
-                Style="{StaticResource ButtonCommonStyle}">
+                Style="{StaticResource FabStyle}">
                 <Grid Width="60" Height="60">
                     <uc:EllipseShadowControl Radius="25" />
                     <Ellipse
@@ -165,9 +160,9 @@
         <uc:PhotoDetailControl
             x:Name="DetailControl"
             Grid.RowSpan="2"
-            Visibility="Collapsed"
             d:IsHidden="True"
-            OnHidden="DetailControl_OnHidden" />
+            OnHidden="DetailControl_OnHidden"
+            Visibility="Collapsed" />
         <Border
             x:Name="DrawerMaskBorder"
             Grid.RowSpan="2"
