@@ -1,9 +1,9 @@
 ﻿using MyerSplash.Common;
 using MyerSplash.Model;
 using MyerSplash.ViewModel;
+using MyerSplashShared.Utils;
 using System;
 using System.Numerics;
-using Windows.Foundation;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -34,7 +34,6 @@ namespace MyerSplash.View
 
         private UnsplashImageBase _clickedImg;
         private FrameworkElement _clickedContainer;
-        private bool _waitForToggleDetailAnimation;
 
         public bool IsLoading
         {
@@ -164,34 +163,17 @@ namespace MyerSplash.View
             ListControl.ScrollToTop();
         }
 
-        private void ListControl_OnClickItemStarted(UnsplashImageBase img, FrameworkElement container)
+        private async void ListControl_OnClickItemStarted(UnsplashImageBase img, FrameworkElement container)
         {
             _clickedContainer = container;
             _clickedImg = img;
 
             DetailControl.Visibility = Visibility.Visible;
-            if (DetailControl.ActualHeight == 0)
-            {
-                _waitForToggleDetailAnimation = true;
-            }
-            else
-            {
-                _waitForToggleDetailAnimation = false;
-                ToggleDetailControlAnimation();
-            }
+            await DetailControl.WaitForNonZeroSizeAsync();
+            ToggleDetailControlAnimation();
         }
 
-        private void DetailControl_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            if (_waitForToggleDetailAnimation)
-            {
-                _waitForToggleDetailAnimation = false;
-
-                ToggleDetailControlAnimation();
-            }
-        }
-
-        private void DetailControl_OnHideControl()
+        private void DetailControl_OnHidden(object sender, EventArgs args)
         {
             if (_restoreTitleStackStatus)
             {
@@ -199,17 +181,10 @@ namespace MyerSplash.View
                 ToggleRefreshBtnAnimation(true);
                 _restoreTitleStackStatus = false;
             }
-            ListControl.HideItemDetailAnimation();
         }
 
         private void ToggleDetailControlAnimation()
         {
-            var currentPos = _clickedContainer.TransformToVisual(ListControl).TransformPoint(new Point(0, 0));
-            var targetPos = GetTargetPosition();
-            var targetRatio = GetTargetSize().X / _clickedContainer.ActualWidth;
-            var targetOffsetX = targetPos.X - currentPos.X;
-            var targetOffsetY = targetPos.Y - currentPos.Y;
-
             if (_titleStackVisual.Offset.Y == 0)
             {
                 _restoreTitleStackStatus = true;
@@ -217,45 +192,14 @@ namespace MyerSplash.View
             ToggleTitleStackAnimation(false);
             ToggleRefreshBtnAnimation(false);
 
-            ListControl.MoveItemAnimation(new Vector3((float)targetOffsetX, (float)targetOffsetY, 0f), (float)targetRatio);
             DetailControl.CurrentImage = _clickedImg;
-            DetailControl.ToggleDetailGridAnimation(true);
+            DetailControl.Show(_clickedContainer);
 
             NavigationService.AddOperation(() =>
             {
-                DetailControl.HideDetailControl();
+                DetailControl.Hide();
                 return true;
             });
-        }
-
-        private Vector2 GetTargetPosition()
-        {
-            var size = GetTargetSize();
-
-            var x = 0f;
-            var y = 0f;
-            if (size.X != this.ActualWidth)
-            {
-                x = (float)(this.ActualWidth - size.X) / 2f;
-            }
-            y = (float)(this.ActualHeight - size.Y) / 2f;
-
-            return new Vector2(x, y);
-        }
-
-        private Vector2 GetTargetSize()
-        {
-            var width = Math.Min(640, this.ActualWidth);
-            var height = width / 1.5 + 100;
-
-            return new Vector2((float)width, (float)height);
-        }
-
-        private void DetailControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            DetailControl.Visibility = Visibility.Collapsed;
-            DetailControl.SizeChanged -= DetailControl_SizeChanged;
-            DetailControl.SizeChanged += DetailControl_SizeChanged;
         }
 
         #region Scrolling
@@ -295,14 +239,12 @@ namespace MyerSplash.View
                 _isHideTitleGrid = true;
                 ToggleRefreshBtnAnimation(false);
                 ToggleTitleStackAnimation(false);
-                //ToggleTitleBarAnimation(false);
             }
             else if (scrollViewer.VerticalOffset < _lastVerticalOffset && _isHideTitleGrid)
             {
                 _isHideTitleGrid = false;
                 ToggleRefreshBtnAnimation(true);
                 ToggleTitleStackAnimation(true);
-                //ToggleTitleBarAnimation(true);
             }
             _lastVerticalOffset = scrollViewer.VerticalOffset;
         }

@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="400"
     Height="340"
+    xmlns:controls="using:ImageLib.Controls"
     d:DesignHeight="300"
     d:DesignWidth="600"
     mc:Ignorable="d">
@@ -14,7 +15,7 @@
             <RowDefinition Height="60" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Grid Background="{StaticResource MyerSplashThemeColor}">
+        <Grid>
             <Button
                 x:Name="CloseBtn"
                 Width="60"
@@ -28,7 +29,7 @@
                     Margin="12"
                     FontFamily="Segoe MDL2 Assets"
                     FontSize="16"
-                    Foreground="Black"
+                    Foreground="White"
                     Glyph="&#xE106;" />
             </Button>
             <StackPanel Margin="16,0,0,0" Orientation="Horizontal">
@@ -38,15 +39,15 @@
                     VerticalAlignment="Center"
                     FontSize="20"
                     FontWeight="Bold"
-                    Foreground="Black"
+                    Foreground="{StaticResource MyerSplashThemeColor}"
                     Style="{StaticResource SubTitleTextBlockStyle}"
                     Text="⚡ WHAT'S NEW" />
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1">
-            <Image
+            <controls:ImageView
                 Margin="12"
-                Source="ms-appx:///Assets/Image/hint.png"
+                UriSource="ms-appx:///Assets/Image/coach.gif"
                 Stretch="Uniform" />
         </Grid>
     </Grid>

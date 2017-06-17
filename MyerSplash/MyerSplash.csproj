@@ -140,9 +140,6 @@
     <Compile Include="UC\DeleteDialogControl.xaml.cs">
       <DependentUpon>DeleteDialogControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UC\DonateDialogControl.xaml.cs">
-      <DependentUpon>DonateDialogControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UC\DownloadItemTemplate.xaml.cs">
       <DependentUpon>DownloadItemTemplate.xaml</DependentUpon>
     </Compile>
@@ -215,12 +212,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Icon\ic_done_white_48dp.png" />
+    <Content Include="Assets\Image\coach.gif" />
     <Content Include="Assets\Image\lock.png" />
     <Content Include="Assets\Icon\search.png" />
     <Content Include="Assets\Image\banner.jpg" />
     <Content Include="Assets\Image\pc_taskbar_l.png" />
     <Content Include="Assets\Image\pc_taskbar_r.png" />
-    <Content Include="Assets\Image\hint.png" />
     <Content Include="Assets\Logo-500.png" />
     <Content Include="Assets\NewStoreLogo.scale-100.png" />
     <Content Include="Assets\NewStoreLogo.scale-125.png" />
@@ -291,6 +288,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="ResourceDictionary\DimentionDictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UC\AboutControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -302,10 +303,6 @@
     <Page Include="UC\DeleteDialogControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UC\DonateDialogControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UC\DownloadItemTemplate.xaml">
       <SubType>Designer</SubType>
