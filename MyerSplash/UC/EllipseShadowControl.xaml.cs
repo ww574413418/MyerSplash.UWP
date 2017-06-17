@@ -1,5 +1,4 @@
-﻿using CompositionHelper.Helper;
-using Microsoft.Graphics.Canvas;
+﻿using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.Brushes;
 using Microsoft.Graphics.Canvas.Effects;
 using Microsoft.Graphics.Canvas.UI.Xaml;
@@ -45,7 +44,7 @@ namespace MyerSplash.UC
                 using (var effect = new ShadowEffect())
                 {
                     effect.Source = renderTarget;
-                    effect.ShadowColor = "#5C000000".ToColor();
+                    effect.ShadowColor = (Color)Application.Current.Resources["ShadowColor"];
                     effect.BlurAmount = 2f;
 
                     using (args.DrawingSession)

@@ -25,7 +25,7 @@ namespace MyerSplash.Interface
 
         SolidColorBrush MajorColor { get; set; }
 
-        SolidColorBrush BackColor { get; set; }
+        SolidColorBrush BackColorBrush { get; set; }
 
         string ColorValue { get; set; }
 

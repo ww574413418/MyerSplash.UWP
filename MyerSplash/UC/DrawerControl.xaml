@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:attach="using:JP.Utils.Framework"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="using:MyerSplash.UC"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:model="using:MyerSplash.Model"
     d:DesignHeight="700"
@@ -16,28 +15,27 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid Margin="0,0,0,0">
-            <StackPanel Margin="0,0,0,12" VerticalAlignment="Bottom">
-                <StackPanel Margin="0,0,0,4" Orientation="Horizontal">
-                    <Image
-                        Height="30"
-                        Margin="8,0,0,0"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Source="ms-appx:///Assets/tran_logo.targetsize-176_altform-unplated.png" />
-                    <TextBlock
-                        Margin="8,0,0,0"
-                        VerticalAlignment="Bottom"
-                        FontFamily="Segoe UI Light"
-                        FontSize="24"
-                        FontWeight="ExtraLight"
-                        Foreground="White"
-                        Text="Myer" />
-                    <TextBlock
-                        FontSize="24"
-                        FontWeight="Bold"
-                        Foreground="White"
-                        Text="Splash" />
-                </StackPanel>
+            <StackPanel Margin="0,0,0,12" Orientation="Horizontal">
+                <Image
+                    Height="30"
+                    Margin="8,0,0,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Source="ms-appx:///Assets/tran_logo.targetsize-176_altform-unplated.png" />
+                <TextBlock
+                    Margin="8,0,0,0"
+                    VerticalAlignment="Bottom"
+                    FontFamily="Segoe UI Light"
+                    FontSize="24"
+                    FontWeight="ExtraLight"
+                    Foreground="White"
+                    Text="Myer" />
+                <TextBlock
+                    VerticalAlignment="Bottom"
+                    FontSize="24"
+                    FontWeight="Bold"
+                    Foreground="White"
+                    Text="Splash" />
             </StackPanel>
             <Button
                 x:Name="FullscreenBtn"
@@ -55,7 +53,6 @@
         </Grid>
         <Grid Grid.Row="1">
             <ScrollViewer
-                Margin="0,0,0,0"
                 HorizontalAlignment="Center"
                 attach:ScrollViewerStyleChanger.Style="{StaticResource ScrollViewerCommonStyle}"
                 VerticalScrollBarVisibility="Hidden"
@@ -87,7 +84,7 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <Button
-                    Height="48"
+                    Height="{StaticResource DrawerBottomHeight}"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     Background="{x:Null}"
@@ -101,7 +98,7 @@
                         <FontIcon
                             FontFamily="Segoe MDL2 Assets"
                             FontSize="20"
-                            Foreground="#99FFFFFF"
+                            Foreground="{StaticResource HintColorBrush}"
                             Glyph="&#xE115;" />
                         <TextBlock
                             x:Uid="SettingsTB"
@@ -109,8 +106,7 @@
                             Margin="12,0,0,0"
                             VerticalAlignment="Center"
                             FontSize="15"
-                            Foreground="White"
-                            Opacity="0.6"
+                            Foreground="{StaticResource HintColorBrush}"
                             Text="SETTINGS" />
                     </Grid>
                 </Button>
@@ -129,7 +125,7 @@
                         </Grid.ColumnDefinitions>
                         <FontIcon
                             FontFamily="Segoe MDL2 Assets"
-                            Foreground="#99FFFFFF"
+                            Foreground="{StaticResource HintColorBrush}"
                             Glyph="&#xE170;" />
                         <TextBlock
                             x:Uid="AboutTB"
@@ -137,8 +133,7 @@
                             Margin="12,0,0,0"
                             VerticalAlignment="Center"
                             FontSize="15"
-                            Foreground="White"
-                            Opacity="0.6"
+                            Foreground="{StaticResource HintColorBrush}"
                             Text="ABOUT" />
                     </Grid>
                 </Button>

@@ -1,4 +1,5 @@
-﻿using JP.Utils.UI;
+﻿using CompositionHelper;
+using JP.Utils.UI;
 using MyerSplash.Common;
 using MyerSplash.Model;
 using MyerSplash.ViewModel;
@@ -31,7 +32,7 @@ namespace MyerSplash.UC
             }
         }
 
-        private Visual _containerVisual;
+        private Visual _tappedContainerVisual;
         private Visual _listVisual;
         private Compositor _compositor;
 
@@ -41,6 +42,7 @@ namespace MyerSplash.UC
         public int TargetOffsetY;
 
         private ScrollViewer _scrollViewer;
+        private FrameworkElement _tappedContainer;
 
         public bool Refreshing
         {
@@ -75,64 +77,31 @@ namespace MyerSplash.UC
             TapItem(item);
         }
 
-        private bool checkListImageDownloaded(UnsplashImageBase image)
+        private bool CheckListImageDownloaded(UnsplashImageBase image)
         {
             return !string.IsNullOrEmpty(image.ListImageBitmap.LocalPath);
         }
 
         private void TapItem(UnsplashImageBase image)
         {
-            if (!checkListImageDownloaded(image))
+            if (!CheckListImageDownloaded(image))
             {
                 return;
             }
 
-            var container = ImageGridView.ContainerFromItem(image) as FrameworkElement;
-            var rootGrid = (container as GridViewItem).ContentTemplateRoot as Grid;
-            Canvas.SetZIndex(container, ++_zindex);
+            _tappedContainer = ImageGridView.ContainerFromItem(image) as FrameworkElement;
 
-            _containerVisual = ElementCompositionPreview.GetElementVisual(container);
+            var rootGrid = (_tappedContainer as GridViewItem).ContentTemplateRoot as Grid;
+            Canvas.SetZIndex(_tappedContainer, ++_zindex);
+
+            _tappedContainerVisual = ElementCompositionPreview.GetElementVisual(_tappedContainer);
 
             var maskBorder = rootGrid.Children[2] as FrameworkElement;
             var img = rootGrid.Children[1] as FrameworkElement;
 
             ToggleItemPointAnimation(maskBorder, img, false);
 
-            OnClickItemStarted?.Invoke(image, container);
-        }
-
-        public void MoveItemAnimation(Vector3 targetOffset, float widthRatio)
-        {
-            var offsetAnimation = _compositor.CreateVector3KeyFrameAnimation();
-            offsetAnimation.InsertKeyFrame(1f, targetOffset);
-            offsetAnimation.Duration = TimeSpan.FromMilliseconds(400);
-
-            var scaleAnimation = _compositor.CreateScalarKeyFrameAnimation();
-            scaleAnimation.InsertKeyFrame(1f, widthRatio);
-            scaleAnimation.Duration = TimeSpan.FromMilliseconds(400);
-
-            var fadeAnimation = _compositor.CreateScalarKeyFrameAnimation();
-            fadeAnimation.InsertKeyFrame(1f, 0.5f);
-            fadeAnimation.Duration = TimeSpan.FromMilliseconds(400);
-
-            _containerVisual.StartAnimation("Offset", offsetAnimation);
-            _containerVisual.StartAnimation("Scale.x", scaleAnimation);
-            _containerVisual.StartAnimation("Scale.y", scaleAnimation);
-        }
-
-        public void HideItemDetailAnimation()
-        {
-            var offsetAnimation = _compositor.CreateVector3KeyFrameAnimation();
-            offsetAnimation.InsertKeyFrame(1f, new Vector3(0, 0, 0));
-            offsetAnimation.Duration = TimeSpan.FromMilliseconds(500);
-
-            var scaleAnimation = _compositor.CreateScalarKeyFrameAnimation();
-            scaleAnimation.InsertKeyFrame(1f, 1f);
-            scaleAnimation.Duration = TimeSpan.FromMilliseconds(500);
-
-            _containerVisual.StartAnimation("Offset", offsetAnimation);
-            _containerVisual.StartAnimation("Scale.x", scaleAnimation);
-            _containerVisual.StartAnimation("Scale.y", scaleAnimation);
+            OnClickItemStarted?.Invoke(image, _tappedContainer);
         }
 
         public void ScrollToTop()
@@ -161,7 +130,7 @@ namespace MyerSplash.UC
             // Don't animate if we're not in the visible viewport
             if (itemIndex >= itemsPanel.FirstVisibleIndex && itemIndex <= itemsPanel.LastVisibleIndex)
             {
-                var itemVisual = ElementCompositionPreview.GetElementVisual(itemContainer);
+                var itemVisual = itemContainer.GetVisual();
                 var delayIndex = itemIndex - itemsPanel.FirstVisibleIndex;
 
                 itemVisual.Opacity = 0f;
@@ -169,14 +138,14 @@ namespace MyerSplash.UC
 
                 // Create KeyFrameAnimations
                 var offsetAnimation = _compositor.CreateScalarKeyFrameAnimation();
-                offsetAnimation.InsertExpressionKeyFrame(1f, "0");
+                offsetAnimation.InsertKeyFrame(1f, 0f);
                 offsetAnimation.Duration = TimeSpan.FromMilliseconds(700);
-                offsetAnimation.DelayTime = TimeSpan.FromMilliseconds((delayIndex * 100));
+                offsetAnimation.DelayTime = TimeSpan.FromMilliseconds((delayIndex * 30));
 
                 var fadeAnimation = _compositor.CreateScalarKeyFrameAnimation();
-                fadeAnimation.InsertExpressionKeyFrame(1f, "1");
+                fadeAnimation.InsertKeyFrame(1f, 1f);
                 fadeAnimation.Duration = TimeSpan.FromMilliseconds(700);
-                fadeAnimation.DelayTime = TimeSpan.FromMilliseconds(delayIndex * 100);
+                fadeAnimation.DelayTime = TimeSpan.FromMilliseconds(delayIndex * 30);
 
                 // Start animations
                 itemVisual.StartAnimation("Offset.X", offsetAnimation);
@@ -191,7 +160,6 @@ namespace MyerSplash.UC
             _scrollViewer = ImageGridView.GetScrollViewer();
             _scrollViewer.ViewChanging -= ScrollViewer_ViewChanging;
             _scrollViewer.ViewChanging += ScrollViewer_ViewChanging;
-
         }
 
         private void ScrollViewer_ViewChanging(object sender, ScrollViewerViewChangingEventArgs e)
@@ -244,7 +212,7 @@ namespace MyerSplash.UC
             {
                 btn.Visibility = Visibility.Visible;
             }
-            if (!checkListImageDownloaded(unsplashImage))
+            if (!CheckListImageDownloaded(unsplashImage))
             {
                 btn.Visibility = Visibility.Collapsed;
             }

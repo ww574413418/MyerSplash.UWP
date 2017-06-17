@@ -1,6 +1,11 @@
-﻿using MyerSplashCustomControl;
+﻿using System;
+using MyerSplashCustomControl;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using ImageLib;
+using Windows.Storage;
+using ImageLib.Cache.Storage;
+using ImageLib.Gif;
 
 namespace MyerSplash.UC
 {
@@ -8,7 +13,18 @@ namespace MyerSplash.UC
     {
         public TipsControl()
         {
+            this.InitGif();
             this.InitializeComponent();
+        }
+
+        private void InitGif()
+        {
+            var config = new ImageConfig.Builder()
+                .LimitedStorageCache(ApplicationData.Current.LocalCacheFolder, "cache", new SHA1CacheGenerator(), 1024 * 1024 * 1024)
+                .NewApi(false)
+                .AddDecoder<GifDecoder>()
+                .Build();
+            ImageLoader.Initialize(config);
         }
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)

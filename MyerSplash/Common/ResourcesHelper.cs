@@ -15,5 +15,10 @@ namespace MyerSplash.Common
         {
             return App.Current.Resources[key] as string;
         }
+
+        public static double GetDimentionInPixel(string key)
+        {
+            return (double)App.Current.Resources[key];
+        }
     }
 }
