@@ -205,24 +205,31 @@ namespace MyerSplash.UC
             ToggleInfoGridAnimation(false);
             batch.Completed += async (s, ex) =>
             {
-                var innerBatch = _compositor.CreateScopedBatch(CompositionBatchTypes.Animation);
-                await ToggleListItemAnimationAsync(false);
-                innerBatch.Completed += (ss, exx) =>
-                {
-                    _listItem.GetVisual().Opacity = 1f;
-                    _listItem = null;
-
-                    OnHidden?.Invoke(this,new EventArgs());
-                    ToggleDetailGridAnimation(false);
-                    FlipperControl.DisplayIndex = (int)DownloadStatus.Pending;
-                };
-                innerBatch.End();
+                await DoHideListAsync();
             };
             batch.End();
         }
 
+        private async Task DoHideListAsync()
+        {
+            var innerBatch = _compositor.CreateScopedBatch(CompositionBatchTypes.Animation);
+            await ToggleListItemAnimationAsync(false);
+            innerBatch.Completed += (ss, exx) =>
+            {
+                _listItem.GetVisual().Opacity = 1f;
+                _listItem = null;
+
+                OnHidden?.Invoke(this, new EventArgs());
+                ToggleDetailGridAnimation(false);
+                FlipperControl.DisplayIndex = (int)DownloadStatus.Pending;
+            };
+            innerBatch.End();
+        }
+
         private async Task ToggleListItemAnimationAsync(bool show)
         {
+            var detailGridContentVisual = DetailContentGrid.GetVisual();
+
             _listItem.GetVisual().Opacity = 0f;
 
             var targetImageSize = GetTargetImageSize();
@@ -239,8 +246,8 @@ namespace MyerSplash.UC
             var offsetXAbs = (float)listItemCenterPosition.X - (targetImagePosition.X + targetImageSize.X / 2);
             var offsetYAbs = (float)listItemCenterPosition.Y - (targetImagePosition.Y + targetImageSize.Y / 2);
 
-            var startX = show ? offsetXAbs : 0;
-            var startY = show ? offsetYAbs : 0;
+            var startX = show ? offsetXAbs : detailGridContentVisual.Offset.X;
+            var startY = show ? offsetYAbs : detailGridContentVisual.Offset.Y;
 
             var endX = show ? 0f : offsetXAbs;
             var endY = show ? 0f : offsetYAbs;
@@ -250,7 +257,6 @@ namespace MyerSplash.UC
 
             _detailGridVisual.Opacity = 1f;
 
-            var detailGridContentVisual = DetailContentGrid.GetVisual();
             detailGridContentVisual.CenterPoint = new Vector3(targetImageSize.X / 2f, targetImageSize.Y / 2f, 1f);
 
             var scaleAnim = _compositor.CreateVector3KeyFrameAnimation();
@@ -297,6 +303,8 @@ namespace MyerSplash.UC
                 {
                     ResetVisualInitState();
                     this.Visibility = Visibility.Collapsed;
+
+                    ToggleElementsOpacity(true);
                 }
             };
             batch.End();
@@ -744,6 +752,32 @@ namespace MyerSplash.UC
             var x = (Window.Current.Bounds.Width - size.X) / 2;
             var y = (Window.Current.Bounds.Height - size.Y) / 2;
             return new Vector2((float)x, (float)y);
+        }
+
+        private void ToggleElementsOpacity(bool show)
+        {
+            InfoPlaceHolderGrid.GetVisual().Opacity = show ? 1f : 0f;
+            OperationSP.GetVisual().Opacity = show ? 1f : 0f;
+            PreviewBtn.GetVisual().Opacity = show ? 1f : 0f;
+            SetAsGrid.GetVisual().Opacity = show ? 1f : 0f;
+        }
+
+        private void InfoPlaceHolderGrid_ManipulationStarted(object sender, ManipulationStartedRoutedEventArgs e)
+        {
+            ToggleElementsOpacity(false);
+            e.Handled = true;
+        }
+
+        private void InfoPlaceHolderGrid_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
+        {
+            DetailContentGrid.GetVisual().Offset = new Vector3((float)e.Cumulative.Translation.X, (float)e.Cumulative.Translation.Y, 1f);
+        }
+
+        private async void InfoPlaceHolderGrid_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
+        {
+            ToggleExifInfo(false);
+            PhotoSV.ChangeView(null, 0, null);
+            await DoHideListAsync();
         }
     }
 }

@@ -52,6 +52,12 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="SetAsTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="Margin" Value="12,8" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
     </UserControl.Resources>
     <Grid
         x:Name="DetailGrid"
@@ -87,6 +93,10 @@
                     VerticalScrollMode="Auto">
                     <Image
                         x:Name="LargeImage"
+                        ManipulationCompleted="InfoPlaceHolderGrid_ManipulationCompleted"
+                        ManipulationDelta="InfoPlaceHolderGrid_ManipulationDelta"
+                        ManipulationMode="TranslateX,TranslateY"
+                        ManipulationStarted="InfoPlaceHolderGrid_ManipulationStarted"
                         Source="{x:Bind CurrentImage.ListImageBitmap.Bitmap, Mode=OneWay}"
                         Stretch="UniformToFill" />
                 </ScrollViewer>
@@ -105,7 +115,7 @@
                     Background="#FF101010"
                     Visibility="Collapsed">
                     <Image
-                        Width="181"
+                        Width="180"
                         HorizontalAlignment="Left"
                         Source="ms-appx:///Assets/Image/pc_taskbar_l.png"
                         Stretch="UniformToFill"
@@ -161,12 +171,7 @@
                                 Margin="4"
                                 Background="#B2000000"
                                 CornerRadius="4">
-                                <TextBlock
-                                    Margin="12,8"
-                                    HorizontalAlignment="Right"
-                                    FontSize="12"
-                                    Foreground="White"
-                                    Text="WALLPAPER" />
+                                <TextBlock Style="{StaticResource SetAsTextBlockStyle}" Text="WALLPAPER" />
                             </Border>
                         </Button>
                         <Button
@@ -177,12 +182,7 @@
                                 Margin="4"
                                 Background="#B2000000"
                                 CornerRadius="4">
-                                <TextBlock
-                                    Margin="12,8"
-                                    HorizontalAlignment="Right"
-                                    FontSize="12"
-                                    Foreground="White"
-                                    Text="LOCKSCREEN" />
+                                <TextBlock Style="{StaticResource SetAsTextBlockStyle}" Text="LOCKSCREEN" />
                             </Border>
                         </Button>
                         <Button
@@ -193,12 +193,7 @@
                                 Margin="4"
                                 Background="#B2000000"
                                 CornerRadius="4">
-                                <TextBlock
-                                    Margin="12,8"
-                                    HorizontalAlignment="Right"
-                                    FontSize="12"
-                                    Foreground="White"
-                                    Text="BOTH" />
+                                <TextBlock Style="{StaticResource SetAsTextBlockStyle}" Text="BOTH" />
                             </Border>
                         </Button>
                     </StackPanel>
