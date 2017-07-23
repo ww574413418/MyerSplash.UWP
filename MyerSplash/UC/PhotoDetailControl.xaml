@@ -271,7 +271,7 @@
                             x:Name="ByTB"
                             FontSize="12"
                             Foreground="{x:Bind CurrentImage.InfoForeColor, Mode=OneWay, FallbackValue=White}"
-                            Text="photo by" />
+                            Text="{x:Bind CurrentImage.PhotoByText, Mode=OneWay}" />
                         <StackPanel Orientation="Horizontal">
                             <Button
                                 x:Name="AutherNameBtn"
@@ -295,6 +295,7 @@
                                 Grid.RowSpan="2"
                                 Width="40"
                                 Height="40"
+                                Visibility="{x:Bind CurrentImage.ExifThumbVisibility, Mode=OneWay}"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch"
                                 Background="{x:Null}"

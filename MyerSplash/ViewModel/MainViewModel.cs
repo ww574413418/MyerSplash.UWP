@@ -589,6 +589,17 @@ namespace MyerSplash.ViewModel
         {
             IsRefreshing = true;
             await DataVM.RefreshAsync();
+            if (SelectedIndex == NEW_INDEX)
+            {
+                var date = DateTime.Now.ToString("yyyyMMdd");
+
+                if (DataVM.DataList.Count > 0 && DataVM.DataList[0].ID != date)
+                {
+                    var image = UnsplashImage.CreateRecommendationImage();
+                    DataVM.DataList.Insert(0, image);
+                    await image.RestoreDataAsync();
+                }
+            }
             IsRefreshing = false;
         }
 

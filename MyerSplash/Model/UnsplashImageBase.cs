@@ -19,6 +19,7 @@ using System.Linq;
 using Windows.System;
 using Windows.UI;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml;
 
 namespace MyerSplash.Model
 {
@@ -408,6 +409,71 @@ namespace MyerSplash.Model
             }
         }
 
+        private bool _isUnsplash;
+        public bool IsUnsplash
+        {
+            get
+            {
+                return _isUnsplash;
+            }
+            set
+            {
+                if (_isUnsplash != value)
+                {
+                    _isUnsplash = value;
+                    RaisePropertyChanged(() => IsUnsplash);
+                }
+            }
+        }
+
+        public Visibility LikesVisibility
+        {
+            get
+            {
+                if (IsUnsplash)
+                {
+                    return Visibility.Visible;
+                }
+                else return Visibility.Collapsed;
+            }
+        }
+
+        public Visibility RecommendationVisibility
+        {
+            get
+            {
+                if (IsUnsplash)
+                {
+                    return Visibility.Collapsed;
+                }
+                else return Visibility.Visible;
+            }
+        }
+
+        public Visibility ExifThumbVisibility
+        {
+            get
+            {
+                if (IsUnsplash)
+                {
+                    return Visibility.Visible;
+                }
+                else return Visibility.Collapsed;
+            }
+        }
+
+        public string PhotoByText
+        {
+            get
+            {
+                if (IsUnsplash)
+                {
+                    return "photo by";
+                }
+                else return "recommended by";
+            }
+        }
+
         [IgnoreDataMember]
         public StorageFile DownloadedFile { get; set; }
 
@@ -419,11 +485,12 @@ namespace MyerSplash.Model
         {
             ListImageBitmap = new CachedBitmapSource();
             LargeBitmap = new CachedBitmapSource();
+            IsUnsplash = true;
         }
 
         public string GetFileNameForDownloading()
         {
-            var fileName = $"{Owner.Name}  {CreateTimeString} .jpg";
+            var fileName = $"{Owner.Name}  {CreateTimeString}.jpg";
             var invalidChars = Path.GetInvalidFileNameChars();
             foreach (var c in invalidChars)
             {
