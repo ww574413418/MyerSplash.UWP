@@ -8,10 +8,7 @@
     d:DesignHeight="700"
     d:DesignWidth="400"
     mc:Ignorable="d">
-    <Grid x:Name="RootGrid">
-        <Grid.Background>
-            <ImageBrush ImageSource="ms-appx:///Assets/Image/banner.jpg" Stretch="UniformToFill" />
-        </Grid.Background>
+    <Grid x:Name="RootGrid" Background="Black">
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
             <RowDefinition />
@@ -97,33 +94,44 @@
                     <TextBlock Style="{StaticResource SubTitleTextBlockStyle}" Text="CREDITS" />
                     <TextBlock Style="{StaticResource SubContentTextBlockStyle}" Text="Photos are from Unsplash, a website providing free (do whatever you want) high-resolution photos." />
                     <TextBlock Style="{StaticResource SubTitleTextBlockStyle}" Text="FEEDBACK" />
-                    <Button
+                    <StackPanel
                         Margin="0,4,0,0"
                         HorizontalAlignment="Center"
-                        Background="{x:Null}"
-                        Command="{x:Bind AboutVM.FeedbackCommand, Mode=OneWay}"
-                        Style="{StaticResource ListButtonStyle}">
-                        <TextBlock Style="{StaticResource SubContentTextBlockStyle}" Text="Tell me your ideas" />
-                    </Button>
-                    <Button
-                        HorizontalAlignment="Center"
-                        Background="{x:Null}"
-                        Command="{x:Bind AboutVM.VisitGitHubCommand, Mode=OneWay}"
-                        Style="{StaticResource ListButtonStyle}">
-                        <TextBlock Style="{StaticResource SubContentTextBlockStyle}" Text="Contribute your code" />
-                    </Button>
-                    <Button
-                        HorizontalAlignment="Center"
-                        Background="{x:Null}"
-                        Command="{x:Bind AboutVM.VisitTwitterCommand, Mode=OneWay}"
-                        Style="{StaticResource ListButtonStyle}">
-                        <TextBlock Style="{StaticResource SubContentTextBlockStyle}" Text="Follow me on Twitter" />
-                    </Button>
+                        Orientation="Horizontal">
+                        <Button
+                            HorizontalAlignment="Center"
+                            Background="{x:Null}"
+                            Command="{x:Bind AboutVM.FeedbackCommand, Mode=OneWay}"
+                            Style="{StaticResource AboutImageButtonStyle}">
+                            <Image Source="ms-appx:///Assets/Icon/mail.png" Style="{StaticResource AboutImageStyle}" />
+                        </Button>
+                        <Button
+                            HorizontalAlignment="Center"
+                            Background="{x:Null}"
+                            Command="{x:Bind AboutVM.VisitGitHubCommand, Mode=OneWay}"
+                            Style="{StaticResource AboutImageButtonStyle}">
+                            <Image Source="ms-appx:///Assets/Icon/github.png" Style="{StaticResource AboutImageStyle}" />
+                        </Button>
+                        <Button
+                            HorizontalAlignment="Center"
+                            Background="{x:Null}"
+                            Command="{x:Bind AboutVM.VisitTwitterCommand, Mode=OneWay}"
+                            Style="{StaticResource AboutImageButtonStyle}">
+                            <Image Source="ms-appx:///Assets/Icon/twitter.png" Style="{StaticResource AboutImageStyle}" />
+                        </Button>
+                        <Button
+                            HorizontalAlignment="Center"
+                            Background="{x:Null}"
+                            Command="{x:Bind AboutVM.VisitWeiboCommand, Mode=OneWay}"
+                            Style="{StaticResource AboutImageButtonStyle}">
+                            <Image Source="ms-appx:///Assets/Icon/weibo.png" Style="{StaticResource AboutImageStyle}" />
+                        </Button>
+                    </StackPanel>
                     <TextBlock Style="{StaticResource SubTitleTextBlockStyle}" Text="LOVE THIS APP" />
                     <Button
+                        Margin="0,4,0,0"
                         HorizontalAlignment="Center"
                         Background="{x:Null}"
-                        Margin="0,4,0,0"
                         Command="{x:Bind AboutVM.RateCommand, Mode=OneWay}"
                         Style="{StaticResource ListButtonStyle}">
                         <TextBlock Style="{StaticResource SubContentTextBlockStyle}" Text="Rate this app" />

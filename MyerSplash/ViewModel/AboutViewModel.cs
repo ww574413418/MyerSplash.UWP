@@ -56,6 +56,19 @@ namespace MyerSplash.ViewModel
             }
         }
 
+        private RelayCommand _visitWeiboCommand;
+        public RelayCommand VisitWeiboCommand
+        {
+            get
+            {
+                if (_visitWeiboCommand != null) return _visitWeiboCommand;
+                return _visitWeiboCommand = new RelayCommand(async () =>
+                {
+                    await Launcher.LaunchUriAsync(new Uri("http://weibo.com/photon/"));
+                });
+            }
+        }
+
         private RelayCommand _feedbackCommand;
         public RelayCommand FeedbackCommand
         {
