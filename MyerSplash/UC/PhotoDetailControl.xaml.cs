@@ -728,7 +728,7 @@ namespace MyerSplash.UC
             return new Vector2((float)width, (float)height + 100f);
         }
 
-        private Vector2 GetTargetImageSize()
+        public Vector2 GetTargetImageSize()
         {
             var windowWidth = Window.Current.Bounds.Width;
             var windowHeight = Window.Current.Bounds.Height;
@@ -746,7 +746,7 @@ namespace MyerSplash.UC
             return new Vector2((float)width, (float)height);
         }
 
-        private Vector2 GetTargetPosition()
+        public Vector2 GetTargetPosition()
         {
             var size = GetTargetSize();
             var x = (Window.Current.Bounds.Width - size.X) / 2;

@@ -4,6 +4,7 @@ using MyerSplash.ViewModel;
 using MyerSplashShared.Utils;
 using System;
 using System.Numerics;
+using Windows.Foundation;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -185,11 +186,18 @@ namespace MyerSplash.View
 
         private void ToggleDetailControlAnimation()
         {
-            if (_titleStackVisual.Offset.Y == 0)
+            var position = DetailControl.GetTargetPosition();
+            var titleRect = TitleStack.TransformToVisual(Window.Current.Content)
+                .TransformBounds(new Rect(0, 0, TitleStack.ActualWidth, TitleStack.ActualHeight));
+            var clickedItemRect = _clickedContainer.TransformToVisual(Window.Current.Content)
+                .TransformBounds(new Rect(0, 0, _clickedContainer.ActualWidth, _clickedContainer.ActualHeight));
+            titleRect.Intersect(clickedItemRect);
+            if (!titleRect.IsEmpty)
             {
                 _restoreTitleStackStatus = true;
+                ToggleTitleStackAnimation(false);
             }
-            ToggleTitleStackAnimation(false);
+
             ToggleRefreshBtnAnimation(false);
 
             DetailControl.CurrentImage = _clickedImg;
