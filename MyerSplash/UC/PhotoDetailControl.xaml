@@ -278,7 +278,7 @@
                                 VerticalAlignment="Center"
                                 Background="{x:Null}"
                                 BorderBrush="{x:Bind CurrentImage.InfoForeColor, FallbackValue=White, Mode=OneWay}"
-                                BorderThickness="0,0,0,2"
+                                BorderThickness="{x:Bind CurrentImage.NameThickness, Mode=OneWay}"
                                 Click="AutherNameBtn_Click"
                                 Command="{x:Bind CurrentImage.NavigateHomeCommand, Mode=OneWay}"
                                 Style="{StaticResource ButtonCommonStyle}">
@@ -295,12 +295,12 @@
                                 Grid.RowSpan="2"
                                 Width="40"
                                 Height="40"
-                                Visibility="{x:Bind CurrentImage.ExifThumbVisibility, Mode=OneWay}"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch"
                                 Background="{x:Null}"
                                 Click="InfoBtn_Click"
-                                Style="{StaticResource ButtonCommonStyle}">
+                                Style="{StaticResource ButtonCommonStyle}"
+                                Visibility="{x:Bind CurrentImage.ExifThumbVisibility, Mode=OneWay}">
                                 <FontIcon
                                     x:Name="ExifIcon"
                                     FontFamily="Segoe MDL2 Assets"
