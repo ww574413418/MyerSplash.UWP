@@ -9,6 +9,13 @@
         <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="Foreground" Value="White" />
     </Style>
+    <Style x:Key="CloseIconStyle" TargetType="FontIcon">
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Glyph" Value="&#xE0A6;" />
+        <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
+        <Setter Property="FontWeight" Value="Black" />
+    </Style>
     <Style x:Key="SearchTextBoxStyle" TargetType="TextBox">
         <Setter Property="MinWidth" Value="{ThemeResource TextControlThemeMinWidth}" />
         <Setter Property="MinHeight" Value="{ThemeResource TextControlThemeMinHeight}" />

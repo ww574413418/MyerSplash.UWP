@@ -40,10 +40,7 @@
             VerticalAlignment="Stretch"
             Click="CloseBtn_Click"
             Style="{StaticResource ListButtonStyle}">
-            <FontIcon
-                FontFamily="Segoe MDL2 Assets"
-                Foreground="White"
-                Glyph="&#xE0D5;" />
+            <FontIcon Style="{StaticResource CloseIconStyle}" />
         </Button>
         <Grid Grid.Row="1" MaxWidth="600">
             <ScrollViewer
