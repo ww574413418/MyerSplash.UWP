@@ -23,4 +23,5 @@
     <SolidColorBrush x:Key="DownloadingColorBrush">#FFD93A58</SolidColorBrush>
     <SolidColorBrush x:Key="MaskColorBrush">#E5000000</SolidColorBrush>
     <SolidColorBrush x:Key="HintColorBrush">#FFBFBFBF</SolidColorBrush>
+    <SolidColorBrush x:Key="SettingsButtonBackgroundBrush">#991D1D1D</SolidColorBrush>
 </ResourceDictionary>
