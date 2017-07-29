@@ -128,7 +128,7 @@
                     </StackPanel>
                     <StackPanel x:Name="AutoChangeSP" Margin="0">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Style="{StaticResource SettingItemTextBlockStyle}" Text="Auto-change wallpaper in background every day" />
+                            <TextBlock Style="{StaticResource SettingItemTextBlockStyle}" Text="Auto-change recommended wallpaper in background every day" />
                             <Button
                                 Margin="12,0,0,0"
                                 HorizontalAlignment="Right"

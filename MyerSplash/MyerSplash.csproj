@@ -216,11 +216,11 @@
     <Content Include="Assets\Icon\mail.png" />
     <Content Include="Assets\Icon\twitter.png" />
     <Content Include="Assets\Icon\weibo.png" />
-    <Content Include="Assets\Image\coach.gif" />
     <Content Include="Assets\Image\lock.png" />
     <Content Include="Assets\Icon\search.png" />
     <Content Include="Assets\Image\pc_taskbar_l.png" />
     <Content Include="Assets\Image\pc_taskbar_r.png" />
+    <Content Include="Assets\Image\recommended_tip.jpg" />
     <Content Include="Assets\Logo-500.png" />
     <Content Include="Assets\NewStoreLogo.scale-100.png" />
     <Content Include="Assets\NewStoreLogo.scale-125.png" />
