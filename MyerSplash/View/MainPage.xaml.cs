@@ -4,6 +4,7 @@ using MyerSplash.ViewModel;
 using MyerSplashShared.Utils;
 using System;
 using System.Numerics;
+using Windows.Foundation;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -185,11 +186,18 @@ namespace MyerSplash.View
 
         private void ToggleDetailControlAnimation()
         {
-            if (_titleStackVisual.Offset.Y == 0)
+            var position = DetailControl.GetTargetPosition();
+            var titleRect = TitleStack.TransformToVisual(Window.Current.Content)
+                .TransformBounds(new Rect(0, 0, TitleStack.ActualWidth, TitleStack.ActualHeight));
+            var clickedItemRect = _clickedContainer.TransformToVisual(Window.Current.Content)
+                .TransformBounds(new Rect(0, 0, _clickedContainer.ActualWidth, _clickedContainer.ActualHeight));
+            titleRect.Intersect(clickedItemRect);
+            if (!titleRect.IsEmpty)
             {
                 _restoreTitleStackStatus = true;
+                ToggleTitleStackAnimation(false);
             }
-            ToggleTitleStackAnimation(false);
+
             ToggleRefreshBtnAnimation(false);
 
             DetailControl.CurrentImage = _clickedImg;
@@ -247,83 +255,6 @@ namespace MyerSplash.View
                 ToggleTitleStackAnimation(true);
             }
             _lastVerticalOffset = scrollViewer.VerticalOffset;
-        }
-        #endregion
-
-        #region Drawer manipulation
-        private void TouchGrid_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
-        {
-            if (e.Cumulative.Translation.X >= 70)
-            {
-                if (!DrawerOpended)
-                {
-                    DrawerOpended = true;
-                }
-                else
-                {
-                    ToggleDrawerAnimation(true);
-                    ToggleDrawerMaskAnimation(true);
-                }
-
-                NavigationService.AddOperation(() =>
-                {
-                    if (MainVM.DrawerOpened)
-                    {
-                        MainVM.DrawerOpened = false;
-                        return true;
-                    }
-                    return false;
-                });
-            }
-            else
-            {
-                if (DrawerOpended)
-                {
-                    DrawerOpended = false;
-                }
-                else
-                {
-                    ToggleDrawerAnimation(false);
-                    ToggleDrawerMaskAnimation(false);
-                }
-            }
-        }
-
-        private void TouchGrid_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
-        {
-            if (_drawerMaskVisual.Opacity < 1)
-            {
-                DrawerMaskBorder.Visibility = Visibility.Visible;
-                _drawerMaskVisual.Opacity += 0.02f;
-            }
-            var targetOffsetX = _drawerVisual.Offset.X + e.Delta.Translation.X;
-            _drawerVisual.Offset = new Vector3((float)(targetOffsetX > 1 ? 1 : targetOffsetX), 0f, 0f);
-        }
-
-        private void DrawerControl_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
-        {
-            if (e.Delta.Translation.X > 0) return;
-
-            if (_drawerMaskVisual.Opacity > 0)
-            {
-                _drawerMaskVisual.Opacity -= 0.01f;
-            }
-            var targetOffsetX = _drawerVisual.Offset.X - Math.Abs(e.Delta.Translation.X);
-            _drawerVisual.Offset = new Vector3((float)(targetOffsetX <= -300f ? -300f : targetOffsetX), 0f, 0f);
-        }
-
-        private void DrawerControl_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
-        {
-            //DrawerMaskBorder.Visibility = Visibility.Collapsed;
-
-            if (e.Cumulative.Translation.X < 0)
-            {
-                DrawerOpended = false;
-            }
-            else
-            {
-
-            }
         }
         #endregion
 

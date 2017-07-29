@@ -22,6 +22,10 @@ namespace MyerSplashShared.API
 
         public static string GetImageDetail => $"https://{HOST}/photos/";
 
+        public static string GetRecommendedWallpaper => "http://juniperphoton.net/myersplash/wallpapers";
+
+        public static string GetRecommendedThumbWallpaper => "http://juniperphoton.net/myersplash/wallpapers/thumbs";
+
         public static string MakeFullUrlForGetReq(string baseUrl, List<KeyValuePair<string, string>> paramList)
         {
             if(!baseUrl.EndsWith("?"))

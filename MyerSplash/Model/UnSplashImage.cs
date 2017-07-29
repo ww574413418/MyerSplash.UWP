@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using Windows.Data.Json;
 using System;
+using MyerSplashShared.API;
 
 namespace MyerSplash.Model
 {
@@ -9,6 +10,34 @@ namespace MyerSplash.Model
     {
         public UnsplashImage()
         {
+        }
+
+        public static UnsplashImage CreateRecommendationImage()
+        {
+            var date = DateTime.Now.ToString("yyyyMMdd");
+            var thumbUrl = $"{UrlHelper.GetRecommendedThumbWallpaper}/{date}.jpg";
+            var largeUrl = $"{UrlHelper.GetRecommendedWallpaper}/{date}.jpg";
+
+            var image = new UnsplashImage()
+            {
+                Likes = 100,
+                ThumbImageUrl = thumbUrl,
+                RegularImageUrl = thumbUrl,
+                SmallImageUrl = thumbUrl,
+                FullImageUrl = largeUrl,
+                RawImageUrl = largeUrl,
+                ColorValue = "#ffffff",
+                ID = date,
+                CreateTime = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd 00:00:00")),
+                IsUnsplash = false,
+                Owner = new UnsplashUser()
+                {
+                    Name = "JuniperPhoton",
+                    Id = "JuniperPhoton",
+                }
+            };
+
+            return image;
         }
 
         public static ObservableCollection<UnsplashImage> ParseListFromJson(string json)

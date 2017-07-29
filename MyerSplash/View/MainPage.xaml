@@ -54,14 +54,6 @@
                     </Grid>
                 </Grid>
             </Button>
-            <Border
-                x:Name="TouchGrid"
-                Width="20"
-                HorizontalAlignment="Left"
-                Background="#02000000"
-                ManipulationCompleted="TouchGrid_ManipulationCompleted"
-                ManipulationDelta="TouchGrid_ManipulationDelta"
-                ManipulationMode="TranslateX" />
         </Grid>
         <Grid
             x:Name="TitleGrid"
@@ -90,7 +82,6 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Command="{x:Bind MainVM.OpenDrawerCommand, Mode=OneWay}" />
-
             </Border>
             <Border
                 Grid.Column="1"
@@ -177,8 +168,6 @@
             HorizontalAlignment="Left"
             d:IsHidden="True"
             DataContext="{x:Bind MainVM, Mode=OneWay}"
-            ManipulationCompleted="DrawerControl_ManipulationCompleted"
-            ManipulationDelta="DrawerControl_ManipulationDelta"
             ManipulationMode="TranslateX" />
         <uc:SearchBarControl
             x:Name="SearchControl"
