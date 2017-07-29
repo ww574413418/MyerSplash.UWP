@@ -52,11 +52,11 @@
                         Stretch="UniformToFill" />
                     <Grid x:Name="MaskBorder" Background="#53000000">
                         <StackPanel
-                            Visibility="{x:Bind LikesVisibility,Mode=OneWay}"
                             Margin="16,0,0,16"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Bottom"
-                            Orientation="Horizontal">
+                            Orientation="Horizontal"
+                            Visibility="{x:Bind LikesVisibility, Mode=OneWay}">
                             <FontIcon
                                 FontFamily="Segoe MDL2 Assets"
                                 Foreground="#FFFF4A43"
@@ -71,19 +71,6 @@
                                 FontWeight="Bold"
                                 Foreground="White"
                                 Text="{x:Bind LikesString, Mode=OneWay}" />
-                        </StackPanel>
-                        <StackPanel
-                            Visibility="{x:Bind RecommendationVisibility,Mode=OneWay}"
-                            Margin="16,0,0,16"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Bottom"
-                            Orientation="Horizontal">
-                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE00A;" Foreground="#FFFFF024" />
-                            <TextBlock
-                                Margin="8,0,0,0"
-                                FontWeight="Bold"
-                                Foreground="White"
-                                Text="Recommended" />
                         </StackPanel>
                         <Button
                             x:Name="DownloadBtn"
@@ -118,6 +105,33 @@
                             Foreground="White"
                             Glyph="&#xE118;" />
                     </Button>
+                    <Grid
+                        Margin="12,0,0,12"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Bottom"
+                        Visibility="{x:Bind RecommendationVisibility, Mode=OneWay}">
+                        <Rectangle
+                            Fill="#B8000000"
+                            RadiusX="4"
+                            RadiusY="4" />
+                        <StackPanel
+                            Margin="8"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                            <FontIcon
+                                FontFamily="Segoe MDL2 Assets"
+                                FontSize="12"
+                                Foreground="#FFFFF024"
+                                Glyph="&#xE00A;" />
+                            <TextBlock
+                                Margin="8,0,0,0"
+                                FontSize="12"
+                                FontWeight="Bold"
+                                Foreground="White"
+                                Text="Recommended" />
+                        </StackPanel>
+                    </Grid>
                 </Grid>
             </DataTemplate>
         </control:AdaptiveGridView.ItemTemplate>

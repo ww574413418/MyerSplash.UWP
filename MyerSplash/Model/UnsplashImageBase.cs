@@ -194,6 +194,22 @@ namespace MyerSplash.Model
             }
         }
 
+        [IgnoreDataMember]
+        public Thickness NameThickness
+        {
+            get
+            {
+                if (IsUnsplash)
+                {
+                    return new Thickness(0, 0, 0, 2);
+                }
+                else
+                {
+                    return new Thickness(0);
+                }
+            }
+        }
+
         public string ColorValue { get; set; }
 
         private double _width;

@@ -40,10 +40,7 @@
             VerticalAlignment="Stretch"
             Click="CloseBtn_Click"
             Style="{StaticResource ListButtonStyle}">
-            <FontIcon
-                FontFamily="Segoe MDL2 Assets"
-                Foreground="White"
-                Glyph="&#xE0D5;" />
+            <FontIcon Style="{StaticResource CloseIconStyle}" />
         </Button>
         <Grid Grid.Row="1" MaxWidth="600">
             <ScrollViewer
@@ -91,44 +88,22 @@
                             IsOn="{Binding Source={StaticResource AppSettings}, Path=EnableScaleAnimation, Mode=TwoWay}"
                             Style="{StaticResource ToggleSwitchStyle}" />
                     </Grid>
-                    <StackPanel Margin="0">
-                        <TextBlock Style="{StaticResource SettingItemTextBlockStyle}" Text="Save position" />
-                        <Button
-                            Margin="12"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            Background="{x:Null}"
-                            Style="{StaticResource ButtonCommonStyle}">
-                            <Grid>
-                                <Border
-                                    Background="#66000000"
-                                    BorderBrush="{StaticResource MyerSplashThemeColor}"
-                                    BorderThickness="1">
-                                    <TextBlock
-                                        Margin="4,4,48,4"
-                                        Foreground="White"
-                                        Text="{x:Bind SettingsVM.SavingPositionPath, Mode=OneWay}"
-                                        TextTrimming="CharacterEllipsis" />
-                                </Border>
-                                <Button
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Stretch"
-                                    Command="{x:Bind SettingsVM.OpenSavingFolderCommand, Mode=OneWay}"
-                                    Style="{StaticResource ButtonCommonStyle}">
-                                    <Border Background="{StaticResource MyerSplashThemeColor}">
-                                        <TextBlock
-                                            Margin="4,0"
-                                            VerticalAlignment="Center"
-                                            FontWeight="Bold"
-                                            Text="OPEN" />
-                                    </Border>
-                                </Button>
-                            </Grid>
-                        </Button>
-                    </StackPanel>
+                    <Button
+                        Margin="12"
+                        HorizontalAlignment="Stretch"
+                        Command="{x:Bind SettingsVM.OpenSavingFolderCommand, Mode=OneWay}"
+                        Style="{StaticResource ListButtonStyle}">
+                        <Border Background="{StaticResource SettingsButtonBackgroundBrush}">
+                            <TextBlock
+                                Margin="12"
+                                HorizontalAlignment="Left"
+                                Foreground="White"
+                                Text="Open folder that wallpapers are saved into" />
+                        </Border>
+                    </Button>
                     <StackPanel x:Name="AutoChangeSP" Margin="0">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Style="{StaticResource SettingItemTextBlockStyle}" Text="Auto-change wallpaper in background every day" />
+                            <TextBlock Style="{StaticResource SettingItemTextBlockStyle}" Text="Auto-change recommended wallpaper in background every day" />
                             <Button
                                 Margin="12,0,0,0"
                                 HorizontalAlignment="Right"
@@ -176,7 +151,7 @@
                         HorizontalAlignment="Stretch"
                         Command="{x:Bind SettingsVM.ClearCacheCommand, Mode=OneWay}"
                         Style="{StaticResource ListButtonStyle}">
-                        <Border Background="#991D1D1D">
+                        <Border Background="{StaticResource SettingsButtonBackgroundBrush}">
                             <TextBlock
                                 Margin="12"
                                 HorizontalAlignment="Left"
@@ -196,7 +171,7 @@
                         HorizontalAlignment="Stretch"
                         Command="{x:Bind SettingsVM.ClearTempCommand, Mode=OneWay}"
                         Style="{StaticResource ListButtonStyle}">
-                        <Border Background="#991D1D1D">
+                        <Border Background="{StaticResource SettingsButtonBackgroundBrush}">
                             <TextBlock
                                 Margin="12"
                                 HorizontalAlignment="Left"
