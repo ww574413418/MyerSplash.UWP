@@ -64,7 +64,24 @@ namespace MyerSplashShared.Utils
                         }
                         if (file != null)
                         {
-                            var setResult = await UserProfilePersonalizationSettings.Current.TrySetWallpaperImageAsync(file);
+                            var setResult = false;
+                            var value = (int)ApplicationData.Current.LocalSettings.Values["BackgroundWallpaperSource"];
+                            switch (value)
+                            {
+                                case 0:
+                                    break;
+                                case 1:
+                                    setResult = await UserProfilePersonalizationSettings.Current.TrySetWallpaperImageAsync(file);
+                                    break;
+                                case 2:
+                                    setResult = await UserProfilePersonalizationSettings.Current.TrySetLockScreenImageAsync(file);
+                                    break;
+                                case 3:
+                                    var setDesktopResult = await UserProfilePersonalizationSettings.Current.TrySetWallpaperImageAsync(file);
+                                    var setLockscreenResult = await UserProfilePersonalizationSettings.Current.TrySetLockScreenImageAsync(file);
+                                    setResult = setDesktopResult && setLockscreenResult;
+                                    break;
+                            }
                             Debug.WriteLine($"===========TrySetWallpaperImageAsync result{setResult}=============");
                             return setResult;
                         }
