@@ -1,12 +1,10 @@
 ﻿using GalaSoft.MvvmLight;
-using JP.Utils.Data.Json;
 using MyerSplashShared.Shared;
-using System.Threading.Tasks;
-using Windows.Data.Json;
+using Newtonsoft.Json;
 
 namespace MyerSplash.Model
 {
-    public class UnsplashUser : ViewModelBase, IParseFromJson
+    public class UnsplashUser : ViewModelBase
     {
         private CachedBitmapSource _avatarBitmap;
         public CachedBitmapSource AvatarBitmap
@@ -26,6 +24,7 @@ namespace MyerSplash.Model
         }
 
         private string _name;
+        [JsonProperty("name")]
         public string Name
         {
             get
@@ -42,13 +41,29 @@ namespace MyerSplash.Model
             }
         }
 
+        [JsonProperty("id")]
         public string Id { get; set; }
 
-        public string AvatarUrl { get; set; }
-
-        public string HomePageUrl { get; set; }
+        [JsonProperty("links")]
+        private Links _links;
+        public Links Links
+        {
+            get
+            {
+                return _links;
+            }
+            set
+            {
+                if (_links != value)
+                {
+                    _links = value;
+                    RaisePropertyChanged(() => Links);
+                }
+            }
+        }
 
         private string _bio;
+        [JsonProperty("bio")]
         public string Bio
         {
             get
@@ -65,44 +80,9 @@ namespace MyerSplash.Model
             }
         }
 
-
         public UnsplashUser()
         {
 
         }
-
-        public async Task DownloadAvatarAsync()
-        {
-            AvatarBitmap = new CachedBitmapSource();
-            AvatarBitmap.RemoteUrl = AvatarUrl;
-            AvatarBitmap.ExpectedFileName = Id;
-            await AvatarBitmap.LoadBitmapAsync();
-        }
-
-        #region Static method
-
-        public void ParseObjectFromJsonObject(JsonObject obj)
-        {
-            var id = JsonParser.GetStringFromJsonObj(obj, "id");
-            var name = JsonParser.GetStringFromJsonObj(obj, "name");
-            var bio = JsonParser.GetStringFromJsonObj(obj, "bio");
-            var profile_image = JsonParser.GetJsonObjFromJsonObj(obj, "profile_image");
-            var image = JsonParser.GetStringFromJsonObj(profile_image, "medium");
-            var links = JsonParser.GetJsonObjFromJsonObj(obj, "links");
-            var homeUrl = JsonParser.GetStringFromJsonObj(links, "html");
-
-            this.Name = name;
-            this.Id = id;
-            this.Bio = bio;
-            this.AvatarUrl = image;
-            this.HomePageUrl = homeUrl;
-        }
-
-        public void ParseObjectFromJsonString(string json)
-        {
-            var obj = JsonObject.Parse(json);
-            ParseObjectFromJsonObject(obj);
-        }
-        #endregion
     }
 }

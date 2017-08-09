@@ -126,7 +126,9 @@
                         </StackPanel>
                         <ComboBox SelectedIndex="{Binding Source={StaticResource AppSettings}, Path=BackgroundWallpaperSource, Mode=TwoWay}" Style="{StaticResource SettingItemComboBoxStyle}">
                             <ComboBoxItem Content="Disable" Style="{StaticResource ComboBoxItemStyle}" />
-                            <ComboBoxItem Content="Enable" Style="{StaticResource ComboBoxItemStyle}" />
+                            <ComboBoxItem Content="Desktop" Style="{StaticResource ComboBoxItemStyle}" />
+                            <ComboBoxItem Content="Lockscreen" Style="{StaticResource ComboBoxItemStyle}" />
+                            <ComboBoxItem Content="Desktop and lockscreen" Style="{StaticResource ComboBoxItemStyle}" />
                         </ComboBox>
                     </StackPanel>
                     <TextBlock Style="{StaticResource SettingItemTextBlockStyle}" Text="Loading quality in list" />

@@ -1,10 +1,12 @@
 ﻿using GalaSoft.MvvmLight;
+using Newtonsoft.Json;
 
 namespace MyerSplash.Model
 {
     public class ImageLocation : ViewModelBase
     {
         private string _city;
+        [JsonProperty("city")]
         public string City
         {
             get
@@ -22,6 +24,7 @@ namespace MyerSplash.Model
         }
 
         private string _country;
+        [JsonProperty("country")]
         public string Country
         {
             get
