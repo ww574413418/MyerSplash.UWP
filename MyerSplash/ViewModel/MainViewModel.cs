@@ -17,8 +17,6 @@ using JP.Utils.Helper;
 using Windows.UI.ViewManagement;
 using Microsoft.QueryStringDotNET;
 using Windows.System;
-using Newtonsoft.Json;
-using System.Collections.Generic;
 
 namespace MyerSplash.ViewModel
 {
@@ -608,32 +606,8 @@ namespace MyerSplash.ViewModel
         private async Task GetCategoriesAsync()
         {
             if (Categories?.Count > 0) return;
-
-            var result = await CloudService.GetCategories(CTSFactory.MakeCTS().Token);
-            if (result.IsRequestSuccessful)
-            {
-                Categories = JsonConvert.DeserializeObject<ObservableCollection<UnsplashCategory>>(result.JsonSrc);
-                Categories.Insert(0, new UnsplashCategory()
-                {
-                    Title = "Featured",
-                });
-                Categories.Insert(0, new UnsplashCategory()
-                {
-                    Title = "New",
-                });
-                Categories.Insert(0, new UnsplashCategory()
-                {
-                    Title = "Random",
-                });
-                SelectedIndex = App.AppSettings.DefaultCategory;
-                await SerializerHelper.SerializerToJson<ObservableCollection<UnsplashCategory>>(Categories, CachedFileNames.CateListFileName, CacheUtil.GetCachedFileFolder());
-            }
-        }
-
-        private async Task RestoreCategoriyListAsync()
-        {
-            this.Categories = await SerializerHelper.DeserializeFromJsonByFile<ObservableCollection<UnsplashCategory>>(CachedFileNames.CateListFileName);
-            SelectedIndex = App.AppSettings.DefaultCategory;
+            Categories = await UnsplashCategoryFactory.GetCategoriesAsync();
+            SelectedIndex = NEW_INDEX;
         }
 
         public void Activate(object param)

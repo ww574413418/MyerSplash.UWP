@@ -105,10 +105,12 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Content Include="Assets\Json\built_in_categories.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Compile Include="Common\AppSettings.cs" />
     <Compile Include="Common\BackgroundTaskRegister.cs" />
     <Compile Include="Common\BindablePage.cs" />
-    <Compile Include="Common\CachedFileNames.cs" />
     <Compile Include="Common\Constant.cs" />
     <Compile Include="Common\CustomizedTitleBarPage.cs" />
     <Compile Include="Common\DownloadStatus.cs" />
@@ -127,6 +129,7 @@
     <Compile Include="Model\ImageExif.cs" />
     <Compile Include="Model\ImageLocation.cs" />
     <Compile Include="Model\UnsplashCategory.cs" />
+    <Compile Include="Model\UnsplashCategoryFactory.cs" />
     <Compile Include="Model\UnsplashImage.cs" />
     <Compile Include="Model\UnsplashImageFactory.cs" />
     <Compile Include="Model\UnsplashUrl.cs" />

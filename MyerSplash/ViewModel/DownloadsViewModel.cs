@@ -19,6 +19,8 @@ namespace MyerSplash.ViewModel
 {
     public class DownloadsViewModel : ViewModelBase
     {
+        public static string CACHED_FILE_NAME => "DownloadList.list";
+
         private DownloadItem _menuOpenedItem;
 
         private ObservableCollection<DownloadItem> _downloadingImages;
@@ -113,14 +115,14 @@ namespace MyerSplash.ViewModel
                       await Logger.LogAsync(e.ErrorContext.Error);
                   }
             });
-            var file = await ApplicationData.Current.LocalFolder.CreateFileAsync(CachedFileNames.DownloadListFileName, CreationCollisionOption.OpenIfExists);
+            var file = await ApplicationData.Current.LocalFolder.CreateFileAsync(CACHED_FILE_NAME, CreationCollisionOption.OpenIfExists);
             await FileIO.WriteTextAsync(file, str);
         }
 
 #pragma warning disable
         public async Task RestoreListAsync()
         {
-            var file = await ApplicationData.Current.LocalFolder.CreateFileAsync(CachedFileNames.DownloadListFileName, CreationCollisionOption.OpenIfExists);
+            var file = await ApplicationData.Current.LocalFolder.CreateFileAsync(CACHED_FILE_NAME, CreationCollisionOption.OpenIfExists);
             if (file != null)
             {
                 var str = await FileIO.ReadTextAsync(file);
