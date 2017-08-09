@@ -36,7 +36,7 @@
             </Grid>
         </control:AdaptiveGridView.Header>
         <control:AdaptiveGridView.ItemTemplate>
-            <DataTemplate x:DataType="model:UnsplashImageBase">
+            <DataTemplate x:DataType="model:UnsplashImage">
                 <Grid
                     x:Name="RootGrid"
                     CanDrag="True"

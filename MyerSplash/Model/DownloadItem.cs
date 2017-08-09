@@ -35,8 +35,8 @@ namespace MyerSplash.Model
         private IStorageFile _resultFile;
         private CancellationTokenSource _cts;
 
-        private UnsplashImageBase _image;
-        public UnsplashImageBase Image
+        private UnsplashImage _image;
+        public UnsplashImage Image
         {
             get
             {
@@ -281,7 +281,7 @@ namespace MyerSplash.Model
             }
         }
 
-        public DownloadItem(UnsplashImageBase image)
+        public DownloadItem(UnsplashImage image)
         {
             Image = image;
             Progress = 0;

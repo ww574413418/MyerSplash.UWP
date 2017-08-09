@@ -17,6 +17,8 @@ using JP.Utils.Helper;
 using Windows.UI.ViewManagement;
 using Microsoft.QueryStringDotNET;
 using Windows.System;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace MyerSplash.ViewModel
 {
@@ -522,7 +524,7 @@ namespace MyerSplash.ViewModel
                         }
                         else if (value > NEW_INDEX)
                         {
-                            DataVM = new ImageDataViewModel(Categories[value].RequestUrl, false);
+                            DataVM = new ImageDataViewModel(Categories[value].Links.Photos, false);
                         }
                         if (DataVM != null)
                         {
@@ -595,7 +597,7 @@ namespace MyerSplash.ViewModel
 
                 if (DataVM.DataList.Count > 0 && DataVM.DataList[0].ID != date)
                 {
-                    var image = UnsplashImage.CreateRecommendationImage();
+                    var image = UnsplashImageFactory.CreateRecommendationImage();
                     DataVM.DataList.Insert(0, image);
                     await image.RestoreDataAsync();
                 }
@@ -610,22 +612,21 @@ namespace MyerSplash.ViewModel
             var result = await CloudService.GetCategories(CTSFactory.MakeCTS().Token);
             if (result.IsRequestSuccessful)
             {
-                var list = UnsplashCategory.GenerateListFromJson(result.JsonSrc);
-                this.Categories = list;
-                this.Categories.Insert(0, new UnsplashCategory()
+                Categories = JsonConvert.DeserializeObject<ObservableCollection<UnsplashCategory>>(result.JsonSrc);
+                Categories.Insert(0, new UnsplashCategory()
                 {
                     Title = "Featured",
                 });
-                this.Categories.Insert(0, new UnsplashCategory()
+                Categories.Insert(0, new UnsplashCategory()
                 {
                     Title = "New",
                 });
-                this.Categories.Insert(0, new UnsplashCategory()
+                Categories.Insert(0, new UnsplashCategory()
                 {
                     Title = "Random",
                 });
                 SelectedIndex = App.AppSettings.DefaultCategory;
-                await SerializerHelper.SerializerToJson<ObservableCollection<UnsplashCategory>>(list, CachedFileNames.CateListFileName, CacheUtil.GetCachedFileFolder());
+                await SerializerHelper.SerializerToJson<ObservableCollection<UnsplashCategory>>(Categories, CachedFileNames.CateListFileName, CacheUtil.GetCachedFileFolder());
             }
         }
 

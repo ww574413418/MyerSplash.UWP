@@ -1,13 +1,12 @@
 ﻿using GalaSoft.MvvmLight;
-using JP.Utils.Data.Json;
-using System.Collections.ObjectModel;
-using Windows.Data.Json;
+using Newtonsoft.Json;
 
 namespace MyerSplash.Model
 {
     public class UnsplashCategory : ViewModelBase
     {
         private int _id;
+        [JsonProperty("id")]
         public int Id
         {
             get
@@ -25,6 +24,7 @@ namespace MyerSplash.Model
         }
 
         private string _title;
+        [JsonProperty("title")]
         public string Title
         {
             get
@@ -42,6 +42,7 @@ namespace MyerSplash.Model
         }
 
         private int _photoCount;
+        [JsonProperty("photo_count")]
         public int PhotoCount
         {
             get
@@ -58,36 +59,12 @@ namespace MyerSplash.Model
             }
         }
 
-        public string RequestUrl { get; set; }
+        [JsonProperty("links")]
+        public Links Links { get; set; }
 
         public UnsplashCategory()
         {
 
-        }
-
-        public static ObservableCollection<UnsplashCategory> GenerateListFromJson(string json)
-        {
-            var list = new ObservableCollection<UnsplashCategory>();
-            JsonArray array;
-            if(JsonArray.TryParse(json, out array))
-            {
-                foreach(var obj in array)
-                {
-                    var jsonObj = JsonObject.Parse(obj.ToString());
-                    var id = JsonParser.GetNumberFromJsonObj(jsonObj, "id");
-                    var title = JsonParser.GetStringFromJsonObj(jsonObj, "title");
-                    var linksObj = JsonParser.GetJsonObjFromJsonObj(jsonObj, "links");
-                    var url = JsonParser.GetStringFromJsonObj(linksObj, "photos");
-
-                    var cate = new UnsplashCategory();
-                    cate.Id = (int)id;
-                    cate.Title = title;
-                    cate.RequestUrl = url;
-
-                    list.Add(cate);
-                }
-            }
-            return list;
         }
     }
 }

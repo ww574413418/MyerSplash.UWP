@@ -51,8 +51,8 @@ namespace MyerSplash.UC
         private bool _showingExif;
         private bool _hideAfterHidingExif;
 
-        private UnsplashImageBase _currentImage;
-        public UnsplashImageBase CurrentImage
+        private UnsplashImage _currentImage;
+        public UnsplashImage CurrentImage
         {
             get
             {
