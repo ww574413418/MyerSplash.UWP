@@ -283,7 +283,7 @@ namespace MyerSplash.Model
 
         public DownloadItem(UnsplashImageBase image)
         {
-            this.Image = image;
+            Image = image;
             Progress = 0;
             ProgressString = "0 %";
             IsMenuOn = false;
@@ -346,7 +346,7 @@ namespace MyerSplash.Model
             }
         }
 
-        public async Task DownloadFullImageAsync(CancellationTokenSource cts)
+        public async Task<bool> DownloadFullImageAsync(CancellationTokenSource cts)
         {
             _cts = cts;
 
@@ -354,27 +354,38 @@ namespace MyerSplash.Model
 
             var url = Image.GetSaveImageUrlFromSettings();
 
-            if (string.IsNullOrEmpty(url)) return;
+            if (string.IsNullOrEmpty(url)) return false;
 
             DisplayIndex = (int)DisplayMenu.Downloading;
 
             Image.DownloadStatus = Common.DownloadStatus.Downloading;
 
-            ToastService.SendToast("Downloading in background...", 2000);
+            StorageFolder savedFolder = null;
+            StorageFile savedFile = null;
 
-            var folder = await AppSettings.Instance.GetSavingFolderAsync();
-
-            var newFile = await folder.CreateFileAsync(Image.GetFileNameForDownloading(), CreationCollisionOption.OpenIfExists);
+            try
+            {
+                savedFolder = await AppSettings.Instance.GetSavingFolderAsync();
+                savedFile = await savedFolder.CreateFileAsync(Image.GetFileNameForDownloading(), CreationCollisionOption.OpenIfExists);
+            }
+            catch (UnauthorizedAccessException e)
+            {
+                await Logger.LogAsync(e);
+                ToastService.SendToast("No right to create file for writing. Please check your security settings. \n If necessary, please contact me via about page.", 5000);
+                return false;
+            }
 
             var backgroundDownloader = new BackgroundDownloader();
             backgroundDownloader.SuccessToastNotification = ToastHelper.CreateToastNotification("Saved:D",
-                                $"Find it in {folder.Path}.", newFile.Path);
+                                $"Find it in {savedFolder.Path}.", savedFile.Path);
 
-            var downloadOperation = backgroundDownloader.CreateDownload(new Uri(url), newFile);
+            var downloadOperation = backgroundDownloader.CreateDownload(new Uri(url), savedFile);
             downloadOperation.Priority = BackgroundTransferPriority.High;
 
             DownloadOperationGUID = downloadOperation.Guid;
             _tcs.TrySetResult(0);
+
+            ToastService.SendToast("Downloading in background...", 2000);
 
             try
             {
@@ -385,6 +396,8 @@ namespace MyerSplash.Model
                 progress.ProgressChanged += Progress_ProgressChanged;
 
                 await downloadOperation.StartAsync().AsTask(_cts.Token, progress);
+
+                return true;
             }
             catch (TaskCanceledException)
             {
@@ -400,6 +413,8 @@ namespace MyerSplash.Model
                 Image.DownloadStatus = Common.DownloadStatus.Pending;
                 await Logger.LogAsync(e);
                 ToastService.SendToast("ERROR" + e.Message, 2000);
+
+                return false;
             }
         }
 

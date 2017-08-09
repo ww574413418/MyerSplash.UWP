@@ -495,7 +495,7 @@ namespace MyerSplash.Model
 
         public DownloadStatus DownloadStatus { get; set; } = DownloadStatus.Pending;
 
-        public string ShareText => $"Share {this.Owner.Name}'s amazing photo from MyerSplash app. {FullImageUrl}";
+        public string ShareText => $"Share {Owner.Name}'s amazing photo from MyerSplash app. {FullImageUrl}";
 
         public UnsplashImageBase()
         {

@@ -367,14 +367,15 @@ namespace MyerSplash.UC
                 _cts = new CancellationTokenSource();
                 var item = new DownloadItem(CurrentImage);
                 item = await App.VMLocator.DownloadsVM.AddDownloadingImageAsync(item);
-
+                
+                var savedResult = false;
                 if (item != null)
                 {
-                    await item.DownloadFullImageAsync(_cts);
+                    savedResult = await item.DownloadFullImageAsync(_cts);
                 }
 
                 //Still in this page
-                if (IsShown)
+                if (IsShown && savedResult)
                 {
                     CurrentImage.DownloadStatus = DownloadStatus.Ok;
                     FlipperControl.DisplayIndex = (int)DownloadStatus.Ok;
@@ -389,7 +390,7 @@ namespace MyerSplash.UC
             {
                 var task = Logger.LogAsync(ex);
                 FlipperControl.DisplayIndex = (int)DownloadStatus.Pending;
-                ToastService.SendToast($"Exception throws.{ex.Message}", 1000);
+                ToastService.SendToast($"Exception throws.{ex.Message}", 3000);
             }
         }
 
