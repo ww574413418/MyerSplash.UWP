@@ -33,7 +33,7 @@ namespace MyerSplash.View
         private bool _isHideTitleGrid;
         private bool _restoreTitleStackStatus;
 
-        private UnsplashImageBase _clickedImg;
+        private UnsplashImage _clickedImg;
         private FrameworkElement _clickedContainer;
 
         public bool IsLoading
@@ -164,7 +164,7 @@ namespace MyerSplash.View
             ListControl.ScrollToTop();
         }
 
-        private async void ListControl_OnClickItemStarted(UnsplashImageBase img, FrameworkElement container)
+        private async void ListControl_OnClickItemStarted(UnsplashImage img, FrameworkElement container)
         {
             _clickedContainer = container;
             _clickedImg = img;

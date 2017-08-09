@@ -21,7 +21,7 @@ namespace MyerSplash.UC
 {
     public sealed partial class ImageListControl : UserControl
     {
-        public event Action<UnsplashImageBase, FrameworkElement> OnClickItemStarted;
+        public event Action<UnsplashImage, FrameworkElement> OnClickItemStarted;
         public event Action<ScrollViewer> OnScrollViewerViewChanged;
 
         private MainViewModel MainVM
@@ -73,16 +73,16 @@ namespace MyerSplash.UC
 
         private void ImageGridView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var item = e.ClickedItem as UnsplashImageBase;
+            var item = e.ClickedItem as UnsplashImage;
             TapItem(item);
         }
 
-        private bool CheckListImageDownloaded(UnsplashImageBase image)
+        private bool CheckListImageDownloaded(UnsplashImage image)
         {
             return !string.IsNullOrEmpty(image.ListImageBitmap.LocalPath);
         }
 
-        private void TapItem(UnsplashImageBase image)
+        private void TapItem(UnsplashImage image)
         {
             if (!CheckListImageDownloaded(image))
             {
@@ -203,7 +203,7 @@ namespace MyerSplash.UC
             var img = rootGrid.Children[1] as FrameworkElement;
             var btn = rootGrid.FindName("DownloadBtn") as Button;
 
-            var unsplashImage = rootGrid.DataContext as UnsplashImageBase;
+            var unsplashImage = rootGrid.DataContext as UnsplashImage;
             if (unsplashImage.DownloadStatus != DownloadStatus.Pending)
             {
                 btn.Visibility = Visibility.Collapsed;
@@ -303,7 +303,7 @@ namespace MyerSplash.UC
 
         private async void RootGrid_DragStarting(UIElement sender, DragStartingEventArgs args)
         {
-            var image = (sender as FrameworkElement).DataContext as UnsplashImageBase;
+            var image = (sender as FrameworkElement).DataContext as UnsplashImage;
             var file = await StorageFile.GetFileFromPathAsync(image.ListImageBitmap.LocalPath);
             if (file == null)
             {
@@ -317,7 +317,7 @@ namespace MyerSplash.UC
 
         private void RootGrid_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            var image = (sender as FrameworkElement).DataContext as UnsplashImageBase;
+            var image = (sender as FrameworkElement).DataContext as UnsplashImage;
             TapItem(image);
         }
 

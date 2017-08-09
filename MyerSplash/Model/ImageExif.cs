@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using Newtonsoft.Json;
 
 namespace MyerSplash.Model
 {
@@ -7,6 +8,7 @@ namespace MyerSplash.Model
         private const string DEFAULT = "Unknown";
 
         private string _model;
+        [JsonProperty("model")]
         public string Model
         {
             get
@@ -24,6 +26,7 @@ namespace MyerSplash.Model
         }
 
         private string _exposureTime;
+        [JsonProperty("exposure_time")]
         public string ExposureTime
         {
             get
@@ -41,6 +44,7 @@ namespace MyerSplash.Model
         }
 
         private string _aperture;
+        [JsonProperty("aperture")]
         public string Aperture
         {
             get
@@ -58,6 +62,7 @@ namespace MyerSplash.Model
         }
 
         private int? _iso;
+        [JsonProperty("iso")]
         public int? Iso
         {
             get

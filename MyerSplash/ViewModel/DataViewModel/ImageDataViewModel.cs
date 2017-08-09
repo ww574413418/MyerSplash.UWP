@@ -13,28 +13,26 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml;
 using System.Diagnostics;
 using MyerSplash.LiveTile;
-using Windows.UI;
 
 namespace MyerSplash.ViewModel
 {
-    public class ImageDataViewModel : DataViewModelBase<UnsplashImageBase>
+    public class ImageDataViewModel : DataViewModelBase<UnsplashImage>
     {
-        public string RequestUrl { get; set; }
-
-        public bool Featured { get; set; } = false;
+        private string _requestUrl;
+        protected UnsplashImageFactory _imageFactory;
 
         public ImageDataViewModel(string url, bool featured)
         {
-            this.RequestUrl = url;
-            this.Featured = featured;
+            _requestUrl = url;
+            _imageFactory = new UnsplashImageFactory(featured);
         }
 
-        protected override void ClickItem(UnsplashImageBase item)
+        protected override void ClickItem(UnsplashImage item)
         {
 
         }
 
-        protected void UpdateHintVisibility(IEnumerable<UnsplashImageBase> list)
+        protected void UpdateHintVisibility(IEnumerable<UnsplashImage> list)
         {
             var task = RunOnUiThread(() =>
               {
@@ -65,7 +63,7 @@ namespace MyerSplash.ViewModel
               });
         }
 
-        protected async override Task<IEnumerable<UnsplashImageBase>> GetList(int pageIndex)
+        protected async override Task<IEnumerable<UnsplashImage>> GetList(int pageIndex)
         {
             try
             {
@@ -125,7 +123,7 @@ namespace MyerSplash.ViewModel
             }
         }
 
-        protected async override void LoadMoreItemCompleted(IEnumerable<UnsplashImageBase> list, int pagingIndex)
+        protected async override void LoadMoreItemCompleted(IEnumerable<UnsplashImage> list, int pagingIndex)
         {
             var tasks = new List<Task>();
             for (var i = 0; i < list.Count(); i++)
@@ -169,23 +167,15 @@ namespace MyerSplash.ViewModel
             }
         }
 
-        protected async virtual Task<IEnumerable<UnsplashImageBase>> RequestAsync(int pageIndex)
+        protected async virtual Task<IEnumerable<UnsplashImage>> RequestAsync(int pageIndex)
         {
             var cts = CTSFactory.MakeCTS(15000);
             try
             {
-                var result = await CloudService.GetImages(pageIndex, (int)20u, cts.Token, RequestUrl);
+                var result = await CloudService.GetImages(pageIndex, (int)20u, cts.Token, _requestUrl);
                 if (result.IsRequestSuccessful)
                 {
-                    IEnumerable<UnsplashImageBase> list = null;
-                    if (Featured)
-                    {
-                        list = UnsplashFeaturedImage.ParseListFromJson(result.JsonSrc);
-                    }
-                    else
-                    {
-                        list = UnsplashImage.ParseListFromJson(result.JsonSrc);
-                    }
+                    IEnumerable<UnsplashImage> list = _imageFactory.GetImages(result.JsonSrc);
                     await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                     {
                         UpdateHintVisibility(list);

@@ -105,10 +105,12 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Content Include="Assets\Json\built_in_categories.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Compile Include="Common\AppSettings.cs" />
     <Compile Include="Common\BackgroundTaskRegister.cs" />
     <Compile Include="Common\BindablePage.cs" />
-    <Compile Include="Common\CachedFileNames.cs" />
     <Compile Include="Common\Constant.cs" />
     <Compile Include="Common\CustomizedTitleBarPage.cs" />
     <Compile Include="Common\DownloadStatus.cs" />
@@ -121,16 +123,16 @@
     <Compile Include="Common\WallpaperSettingHelper.cs" />
     <Compile Include="Converter\BoolToVisibilityConverter.cs" />
     <Compile Include="Interface\INavigableUserControl.cs" />
-    <Compile Include="Interface\IUnsplashImage.cs" />
-    <Compile Include="Interface\IUnsplashImageFeatured.cs" />
     <Compile Include="LiveTile\LiveTileUpdater.cs" />
+    <Compile Include="Model\Links.cs" />
     <Compile Include="Model\DownloadItem.cs" />
-    <Compile Include="Model\IGenerateFromJson.cs" />
     <Compile Include="Model\ImageExif.cs" />
     <Compile Include="Model\ImageLocation.cs" />
     <Compile Include="Model\UnsplashCategory.cs" />
-    <Compile Include="Model\UnsplashFeaturedImage.cs" />
-    <Compile Include="Model\UnsplashImageBase.cs" />
+    <Compile Include="Model\UnsplashCategoryFactory.cs" />
+    <Compile Include="Model\UnsplashImage.cs" />
+    <Compile Include="Model\UnsplashImageFactory.cs" />
+    <Compile Include="Model\UnsplashUrl.cs" />
     <Compile Include="UC\AboutControl.xaml.cs">
       <DependentUpon>AboutControl.xaml</DependentUpon>
     </Compile>
@@ -184,7 +186,6 @@
     <Compile Include="Common\IncrementalLoadingCollection.cs" />
     <Compile Include="Common\ResourcesHelper.cs" />
     <Compile Include="Common\TitleBarHelper.cs" />
-    <Compile Include="Model\UnsplashImage.cs" />
     <Compile Include="Model\UnsplashUser.cs" />
     <Compile Include="UC\DrawerControl.xaml.cs">
       <DependentUpon>DrawerControl.xaml</DependentUpon>
