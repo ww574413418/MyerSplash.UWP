@@ -40,7 +40,7 @@
             Grid.RowSpan="2"
             PointerEntered="Img_PointerEntered"
             PointerExited="Img_PointerExited"
-            Source="{Binding Image.ListImageBitmap.Bitmap, Mode=OneWay}"
+            Source="{Binding ImageItem.ListImageBitmap.Bitmap, Mode=OneWay}"
             Stretch="UniformToFill" />
         <TextBlock
             Margin="12,0,0,12"
@@ -56,7 +56,7 @@
             Margin="0,0,6,4"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
-            Command="{Binding Image.CopyUrlCommand, Mode=OneWay}"
+            Command="{Binding ImageItem.CopyUrlCommand, Mode=OneWay}"
             PointerEntered="Img_PointerEntered"
             Style="{StaticResource ButtonCommonStyle}">
             <Grid>
@@ -101,10 +101,10 @@
                 Command="{Binding SetWallpaperCommand}"
                 Style="{StaticResource SetAsButtonStyle}">
                 <Grid>
-                    <Border Background="{Binding Image.MajorColor, FallbackValue=Black, Mode=OneWay}" />
+                    <Border Background="{Binding ImageItem.MajorColor, FallbackValue=Black, Mode=OneWay}" />
                     <Border Background="{StaticResource SetAsButtonMaskColorBrush}" />
                     <TextBlock
-                        Foreground="{Binding Image.InfoForeColor, FallbackValue=White, Mode=OneWay}"
+                        Foreground="{Binding ImageItem.InfoForeColor, FallbackValue=White, Mode=OneWay}"
                         Style="{StaticResource SetAsTextBlockStyle}"
                         Text="Background" />
                 </Grid>
@@ -115,10 +115,10 @@
                 Command="{Binding SetLockWallpaperCommand}"
                 Style="{StaticResource SetAsButtonStyle}">
                 <Grid>
-                    <Border Background="{Binding Image.MajorColor, FallbackValue=Black, Mode=OneWay}" />
+                    <Border Background="{Binding ImageItem.MajorColor, FallbackValue=Black, Mode=OneWay}" />
                     <Border Background="{StaticResource SetAsButtonMaskColorBrush}" />
                     <TextBlock
-                        Foreground="{Binding Image.InfoForeColor, FallbackValue=White, Mode=OneWay}"
+                        Foreground="{Binding ImageItem.InfoForeColor, FallbackValue=White, Mode=OneWay}"
                         Style="{StaticResource SetAsTextBlockStyle}"
                         Text="Lock screen" />
                 </Grid>
@@ -129,10 +129,10 @@
                 Command="{Binding SetBothCommand}"
                 Style="{StaticResource SetAsButtonStyle}">
                 <Grid>
-                    <Border Background="{Binding Image.MajorColor, FallbackValue=Black, Mode=OneWay}" />
+                    <Border Background="{Binding ImageItem.MajorColor, FallbackValue=Black, Mode=OneWay}" />
                     <Border Background="{StaticResource SetAsButtonMaskColorBrush}" />
                     <TextBlock
-                        Foreground="{Binding Image.InfoForeColor, FallbackValue=White, Mode=OneWay}"
+                        Foreground="{Binding ImageItem.InfoForeColor, FallbackValue=White, Mode=OneWay}"
                         Style="{StaticResource SetAsTextBlockStyle}"
                         Text="Both" />
                 </Grid>
@@ -155,7 +155,7 @@
                     <Border
                         x:Name="BackgrdBorder"
                         Grid.ColumnSpan="2"
-                        Background="{Binding Image.MajorColor, Mode=OneWay}" />
+                        Background="{Binding ImageItem.MajorColor, Mode=OneWay}" />
                     <Button
                         x:Name="SetAsBtn"
                         Grid.ColumnSpan="2"
@@ -174,14 +174,14 @@
                                 Grid.ColumnSpan="2"
                                 Margin="12,0,0,0"
                                 FontWeight="Bold"
-                                Foreground="{Binding Image.InfoForeColor, Mode=OneWay, FallbackValue=White}"
+                                Foreground="{Binding ImageItem.InfoForeColor, Mode=OneWay, FallbackValue=White}"
                                 Text="SET AS" />
                             <FontIcon
                                 x:Name="BackFI"
                                 Margin="12,0,0,0"
                                 HorizontalAlignment="Left"
                                 FontFamily="Segoe MDL2 Assets"
-                                Foreground="{Binding Image.InfoForeColor, Mode=OneWay, FallbackValue=White}"
+                                Foreground="{Binding ImageItem.InfoForeColor, Mode=OneWay, FallbackValue=White}"
                                 Glyph="&#xE0A6;" />
                         </Grid>
                     </Button>
@@ -195,7 +195,7 @@
                         <FontIcon
                             FontFamily="Segoe MDL2 Assets"
                             FontSize="20"
-                            Foreground="{Binding Image.InfoForeColor, Mode=OneWay, FallbackValue=White}"
+                            Foreground="{Binding ImageItem.InfoForeColor, Mode=OneWay, FallbackValue=White}"
                             Glyph="&#xEC50;" />
                         <ToolTipService.ToolTip>
                             <TextBlock Text="OPEN EXPLORER" />
@@ -206,7 +206,7 @@
                     x:Name="RetryGrid"
                     Grid.Row="1"
                     d:IsHidden="False"
-                    Background="{Binding Image.MajorColor, FallbackValue=Black, Mode=OneWay}">
+                    Background="{Binding ImageItem.MajorColor, FallbackValue=Black, Mode=OneWay}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition Width="52" />
@@ -223,7 +223,7 @@
                             Grid.ColumnSpan="2"
                             Margin="12,0,0,0"
                             FontWeight="Bold"
-                            Foreground="{Binding Image.InfoForeColor, Mode=OneWay, FallbackValue=White}"
+                            Foreground="{Binding ImageItem.InfoForeColor, Mode=OneWay, FallbackValue=White}"
                             Text="RETRY" />
                     </Button>
                     <Button
@@ -236,7 +236,7 @@
                         Style="{StaticResource ListButtonStyle}">
                         <FontIcon
                             FontFamily="Segoe MDL2 Assets"
-                            Foreground="{Binding Image.InfoForeColor, FallbackValue=White, Mode=OneWay}"
+                            Foreground="{Binding ImageItem.InfoForeColor, FallbackValue=White, Mode=OneWay}"
                             Glyph="&#xE107;" />
                     </Button>
                 </Grid>
@@ -244,11 +244,11 @@
                     x:Name="ProgressGrid"
                     Grid.Row="1"
                     d:IsHidden="True">
-                    <Border Background="{Binding Image.MajorColor, Mode=OneWay}" Opacity="0.95" />
+                    <Border Background="{Binding ImageItem.MajorColor, Mode=OneWay}" Opacity="0.95" />
                     <Border Background="#B2000000" />
                     <ProgressBar
                         VerticalAlignment="Stretch"
-                        Foreground="{Binding Image.MajorColor, FallbackValue=White, Mode=OneWay}"
+                        Foreground="{Binding ImageItem.MajorColor, FallbackValue=White, Mode=OneWay}"
                         IsIndeterminate="False"
                         Value="{Binding Progress, FallbackValue=30, Mode=TwoWay}" />
                     <TextBlock
@@ -256,7 +256,7 @@
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         FontWeight="Bold"
-                        Foreground="{Binding Image.InfoForeColor, Mode=OneWay}"
+                        Foreground="{Binding ImageItem.InfoForeColor, Mode=OneWay}"
                         Text="{Binding ProgressString, FallbackValue=30%, Mode=OneWay}" />
                     <Button
                         Width="{StaticResource DownloadProgressBarHeight}"
@@ -268,7 +268,7 @@
                         <FontIcon
                             FontFamily="Segoe MDL2 Assets"
                             FontSize="15"
-                            Foreground="{Binding Image.InfoForeColor, FallbackValue=White, Mode=OneWay}"
+                            Foreground="{Binding ImageItem.InfoForeColor, FallbackValue=White, Mode=OneWay}"
                             Glyph="&#xE106;" />
                     </Button>
                 </Grid>

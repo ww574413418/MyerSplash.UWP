@@ -8,7 +8,6 @@ namespace MyerSplash.ViewModel
         public ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
-
             SimpleIoc.Default.Register<DownloadsViewModel>(true);
         }
 

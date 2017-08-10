@@ -1,9 +1,8 @@
-﻿using GalaSoft.MvvmLight;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-namespace MyerSplash.Model
+namespace MyerSplash.Data
 {
-    public class ImageExif : ViewModelBase
+    public class ImageExif : ModelBase
     {
         private const string DEFAULT = "Unknown";
 

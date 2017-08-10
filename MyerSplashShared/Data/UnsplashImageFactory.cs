@@ -5,7 +5,7 @@ using System;
 using System.Collections.ObjectModel;
 using Windows.Data.Json;
 
-namespace MyerSplash.Model
+namespace MyerSplash.Data
 {
     public class UnsplashImageFactory
     {

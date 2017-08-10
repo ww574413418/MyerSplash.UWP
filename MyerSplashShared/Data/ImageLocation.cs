@@ -1,9 +1,8 @@
-﻿using GalaSoft.MvvmLight;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-namespace MyerSplash.Model
+namespace MyerSplash.Data
 {
-    public class ImageLocation : ViewModelBase
+    public class ImageLocation : ModelBase
     {
         private string _city;
         [JsonProperty("city")]

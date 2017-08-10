@@ -1,4 +1,6 @@
-﻿using MyerSplashCustomControl;
+﻿using GalaSoft.MvvmLight.Ioc;
+using MyerSplash.ViewModel;
+using MyerSplashCustomControl;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -6,6 +8,14 @@ namespace MyerSplash.UC
 {
     public sealed partial class DeleteDialogControl : UserControl
     {
+        public DownloadsViewModel DownloadsVM
+        {
+            get
+            {
+                return SimpleIoc.Default.GetInstance<DownloadsViewModel>();
+            }
+        }
+
         public DeleteDialogControl()
         {
             this.InitializeComponent();
@@ -18,17 +28,17 @@ namespace MyerSplash.UC
 
         private void DeleteAllBtn_Click(object sender, RoutedEventArgs e)
         {
-            App.VMLocator.DownloadsVM.DeleteFailed();
+            DownloadsVM.DeleteFailed();
         }
 
         private void DeleteDownloadingBtn_Click(object sender, RoutedEventArgs e)
         {
-            App.VMLocator.DownloadsVM.DeleteDownloading();
+            DownloadsVM.DeleteDownloading();
         }
 
         private void DeleteDownloadedBtn_Click(object sender, RoutedEventArgs e)
         {
-            App.VMLocator.DownloadsVM.DeleteDownloaded();
+            DownloadsVM.DeleteDownloaded();
         }
     }
 }

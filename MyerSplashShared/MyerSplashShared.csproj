@@ -108,12 +108,27 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\APIException.cs" />
-    <Compile Include="API\CloudService.cs" />
+    <Compile Include="Service\CloudService.cs" />
     <Compile Include="API\CTSFactory.cs" />
     <Compile Include="API\UrlHelper.cs" />
     <Compile Include="CachedBitmapSource\CachedBitmapSource.cs" />
     <Compile Include="Cache\CacheUtil.cs" />
+    <Compile Include="Data\ImageExif.cs" />
+    <Compile Include="Data\ImageLocation.cs" />
+    <Compile Include="Data\Links.cs" />
+    <Compile Include="Data\ModelBase.cs" />
+    <Compile Include="Data\UnsplashCategory.cs" />
+    <Compile Include="Data\UnsplashCategoryFactory.cs" />
+    <Compile Include="Data\UnsplashImage.cs" />
+    <Compile Include="Data\UnsplashImageFactory.cs" />
+    <Compile Include="Data\UnsplashUrl.cs" />
+    <Compile Include="Data\UnsplashUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\ImageService.cs" />
+    <Compile Include="Service\ImageServiceBase.cs" />
+    <Compile Include="Service\IService.cs" />
+    <Compile Include="Service\RandomImageService.cs" />
+    <Compile Include="Service\SearchImageService.cs" />
     <Compile Include="Utils\Extension.cs" />
     <Compile Include="Utils\FileDownloader.cs" />
     <Compile Include="Utils\SimpleWallpaperSetter.cs" />

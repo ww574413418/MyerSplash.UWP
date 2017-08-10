@@ -1,9 +1,8 @@
-﻿using GalaSoft.MvvmLight;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-namespace MyerSplash.Model
+namespace MyerSplash.Data
 {
-    public class Links : ViewModelBase
+    public class Links : ModelBase
     {
         [JsonProperty("html")]
         private string _homePageUrl;

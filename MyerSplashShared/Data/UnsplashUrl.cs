@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace MyerSplash.Model
+namespace MyerSplash.Data
 {
     public class UnsplashUrl
     {

@@ -2,8 +2,6 @@
 using GalaSoft.MvvmLight.Command;
 using JP.Utils.Debug;
 using JP.Utils.Helper;
-using MyerSplash.UC;
-using MyerSplashCustomControl;
 using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Email;

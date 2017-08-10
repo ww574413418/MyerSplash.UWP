@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.Storage;
 
-namespace MyerSplash.Model
+namespace MyerSplash.Data
 {
     public static class UnsplashCategoryFactory
     {

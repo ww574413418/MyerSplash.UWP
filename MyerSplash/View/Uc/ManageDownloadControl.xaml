@@ -6,12 +6,12 @@
     xmlns:common="using:MyerSplash.Common"
     xmlns:control="using:MyerSplashCustomControl"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="using:MyerSplash.UC"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:model="using:MyerSplash.Model"
     xmlns:uc="using:MyerSplash.UC"
     d:DesignHeight="600"
     d:DesignWidth="1000"
+    DataContext="{Binding DownloadsVM, Source={StaticResource Locator}}"
     mc:Ignorable="d">
     <UserControl.Background>
         <StaticResource ResourceKey="MyerSplashThemeColor" />
@@ -44,13 +44,6 @@
             MinItemWidth="240"
             SelectionMode="None"
             ShowsScrollingPlaceholders="False">
-            <!--<control:AdaptiveGridView.Header>
-                <Button Margin="12" Command="{x:Bind DownloadsVM.ClearCommand, Mode=OneWay}" Style="{StaticResource ButtonCommonStyle}" VerticalAlignment="Center">
-                    <TextBlock Margin="12"
-                               Foreground="{StaticResource MyerSplashThemeColor}"
-                               Text="CLEAR ALL" FontWeight="Bold" />
-                </Button>
-            </control:AdaptiveGridView.Header>-->
             <control:AdaptiveGridView.ItemTemplate>
                 <DataTemplate x:DataType="model:DownloadItem">
                     <uc:DownloadItemTemplate />

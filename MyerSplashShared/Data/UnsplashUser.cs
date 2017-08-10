@@ -1,10 +1,9 @@
-﻿using GalaSoft.MvvmLight;
-using MyerSplashShared.Shared;
+﻿using MyerSplashShared.Shared;
 using Newtonsoft.Json;
 
-namespace MyerSplash.Model
+namespace MyerSplash.Data
 {
-    public class UnsplashUser : ViewModelBase
+    public class UnsplashUser : ModelBase
     {
         private CachedBitmapSource _avatarBitmap;
         public CachedBitmapSource AvatarBitmap
