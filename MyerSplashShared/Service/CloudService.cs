@@ -12,7 +12,7 @@ namespace MyerSplashShared.Service
         private List<KeyValuePair<string, string>> GetDefaultParam()
         {
             var param = new List<KeyValuePair<string, string>>();
-            param.Add(new KeyValuePair<string, string>("client_id", UrlHelper.AppKey));
+            param.Add(new KeyValuePair<string, string>("client_id", Request.AppKey));
             return param;
         }
 
@@ -22,7 +22,7 @@ namespace MyerSplashShared.Service
             param.Add(new KeyValuePair<string, string>("page", page.ToString()));
             param.Add(new KeyValuePair<string, string>("per_page", pageCount.ToString()));
 
-            var result = await HttpRequestSender.SendGetRequestAsync(UrlHelper.MakeFullUrlForGetReq(url, param), token);
+            var result = await HttpRequestSender.SendGetRequestAsync(Request.AppendParamsToUrl(url, param), token);
             return result;
         }
 
@@ -31,7 +31,7 @@ namespace MyerSplashShared.Service
             var param = GetDefaultParam();
             param.Add(new KeyValuePair<string, string>("count", count.ToString()));
 
-            var result = await HttpRequestSender.SendGetRequestAsync(UrlHelper.MakeFullUrlForGetReq(UrlHelper.GetRandomImages, param), token);
+            var result = await HttpRequestSender.SendGetRequestAsync(Request.AppendParamsToUrl(Request.GetRandomImages, param), token);
             return result;
         }
 
@@ -42,7 +42,7 @@ namespace MyerSplashShared.Service
             param.Add(new KeyValuePair<string, string>("per_page", pageCount.ToString()));
             param.Add(new KeyValuePair<string, string>("query", query));
 
-            var result = await HttpRequestSender.SendGetRequestAsync(UrlHelper.MakeFullUrlForGetReq(UrlHelper.SearchImages, param), token);
+            var result = await HttpRequestSender.SendGetRequestAsync(Request.AppendParamsToUrl(Request.SearchImages, param), token);
             return result;
         }
 
@@ -53,14 +53,14 @@ namespace MyerSplashShared.Service
             param.Add(new KeyValuePair<string, string>("per_page", pageCount.ToString()));
             param.Add(new KeyValuePair<string, string>("query", query));
 
-            var result = await HttpRequestSender.SendGetRequestAsync(UrlHelper.MakeFullUrlForGetReq(UrlHelper.SearchImages, param), token);
+            var result = await HttpRequestSender.SendGetRequestAsync(Request.AppendParamsToUrl(Request.SearchImages, param), token);
             return result;
         }
 
         internal async Task<CommonRespMsg> GetImageDetailAsync(string id, CancellationToken token)
         {
             var param = GetDefaultParam();
-            var url = UrlHelper.MakeFullUrlForGetReq(UrlHelper.GetImageDetail + id, param);
+            var url = Request.AppendParamsToUrl(Request.GetImageDetail + id, param);
 
             var result = await HttpRequestSender.SendGetRequestAsync(url, token);
             return result;

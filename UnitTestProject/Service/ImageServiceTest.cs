@@ -13,10 +13,10 @@ namespace UnitTestProject.Service
     [TestClass]
     public class ImageServiceTest
     {
-        private ImageServiceBase _newImageService = new ImageService(UrlHelper.GetNewImages,
+        private ImageServiceBase _newImageService = new ImageService(Request.GetNewImages,
             new UnsplashImageFactory(false));
 
-        private ImageServiceBase _featuredImageService = new ImageService(UrlHelper.GetFeaturedImages,
+        private ImageServiceBase _featuredImageService = new ImageService(Request.GetFeaturedImages,
             new UnsplashImageFactory(true));
 
         private ImageServiceBase _randomImageService = new RandomImageService(new UnsplashImageFactory(false));

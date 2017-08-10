@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MyerSplashShared.API
 {
-    public static class UrlHelper
+    public static class Request
     {
         public static string HOST => "api.unsplash.com";
 
@@ -26,7 +26,7 @@ namespace MyerSplashShared.API
 
         public static string GetRecommendedThumbWallpaper => "http://juniperphoton.net/myersplash/wallpapers/thumbs";
 
-        public static string MakeFullUrlForGetReq(string baseUrl, List<KeyValuePair<string, string>> paramList)
+        public static string AppendParamsToUrl(string baseUrl, List<KeyValuePair<string, string>> paramList)
         {
             if(!baseUrl.EndsWith("?"))
             {
@@ -40,7 +40,7 @@ namespace MyerSplashShared.API
             return sb.ToString();
         }
 
-        public static string MakeFullUrlForPostReq(string baseUrl, bool withAuth)
+        public static string AppendParamsToUrl(string baseUrl, bool withAuth)
         {
             StringBuilder sb = new StringBuilder(baseUrl);
             if (withAuth)

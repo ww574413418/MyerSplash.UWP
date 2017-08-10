@@ -56,8 +56,8 @@ namespace MyerSplash.Data
         public static UnsplashImage CreateRecommendationImage()
         {
             var date = DateTime.Now.ToString("yyyyMMdd");
-            var thumbUrl = $"{UrlHelper.GetRecommendedThumbWallpaper}/{date}.jpg";
-            var largeUrl = $"{UrlHelper.GetRecommendedWallpaper}/{date}.jpg";
+            var thumbUrl = $"{Request.GetRecommendedThumbWallpaper}/{date}.jpg";
+            var largeUrl = $"{Request.GetRecommendedWallpaper}/{date}.jpg";
 
             var image = new UnsplashImage()
             {

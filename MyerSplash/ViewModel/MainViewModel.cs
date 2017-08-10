@@ -517,12 +517,12 @@ namespace MyerSplash.ViewModel
                         if (value == NEW_INDEX)
                         {
                             DataVM = new ImageDataViewModel(this,
-                                new ImageService(UrlHelper.GetNewImages, NormalFactory));
+                                new ImageService(Request.GetNewImages, NormalFactory));
                         }
                         else if (value == FEATURED_INDEX)
                         {
                             DataVM = new ImageDataViewModel(this,
-                                new ImageService(UrlHelper.GetFeaturedImages, FeaturedFactory));
+                                new ImageService(Request.GetFeaturedImages, FeaturedFactory));
                         }
                         else if (value == RANDOM_INDEX)
                         {
@@ -596,7 +596,7 @@ namespace MyerSplash.ViewModel
             SelectedIndex = -1;
 
             DataVM = new ImageDataViewModel(this,
-                new ImageService(UrlHelper.GetNewImages, NormalFactory));
+                new ImageService(Request.GetNewImages, NormalFactory));
         }
 
         private async Task SearchByKeywordAsync()
