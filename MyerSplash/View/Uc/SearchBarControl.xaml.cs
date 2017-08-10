@@ -9,7 +9,7 @@ using Windows.UI.Xaml.Data;
 using Windows.ApplicationModel;
 using MyerSplashShared.Utils;
 
-namespace MyerSplash.UC
+namespace MyerSplash.View.Uc
 {
     public sealed partial class SearchBarControl : UserControl
     {

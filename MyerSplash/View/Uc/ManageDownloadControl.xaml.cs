@@ -4,7 +4,7 @@ using MyerSplash.Common;
 using MyerSplash.ViewModel;
 using Windows.UI.Xaml;
 
-namespace MyerSplash.UC
+namespace MyerSplash.View.Uc
 {
     public sealed partial class ManageDownloadControl : NavigableUserControl
     {

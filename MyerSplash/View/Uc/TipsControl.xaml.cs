@@ -7,7 +7,7 @@ using Windows.Storage;
 using ImageLib.Cache.Storage;
 using ImageLib.Gif;
 
-namespace MyerSplash.UC
+namespace MyerSplash.View.Uc
 {
     public sealed partial class TipsControl : UserControl
     {

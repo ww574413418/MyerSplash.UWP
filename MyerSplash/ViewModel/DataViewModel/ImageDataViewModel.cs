@@ -7,12 +7,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using System.Diagnostics;
-using MyerSplash.LiveTile;
 using MyerSplash.Data;
 using MyerSplash.Model;
 using MyerSplashShared.Service;
+using MyerSplashShared.Utils;
 
-namespace MyerSplash.ViewModel
+namespace MyerSplash.ViewModel.DataViewModel
 {
     public class ImageDataViewModel : DataViewModelBase<ImageItem>
     {

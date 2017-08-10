@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 
-namespace MyerSplash.ViewModel
+namespace MyerSplash.ViewModel.DataViewModel
 {
     public abstract class DataViewModelBase<T> : ViewModelBase
     {

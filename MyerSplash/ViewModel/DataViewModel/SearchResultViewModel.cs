@@ -1,6 +1,6 @@
 ﻿using MyerSplashShared.Service;
 
-namespace MyerSplash.ViewModel
+namespace MyerSplash.ViewModel.DataViewModel
 {
     public class SearchResultViewModel : ImageDataViewModel
     {

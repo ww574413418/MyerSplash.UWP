@@ -1,6 +1,6 @@
 ﻿using Windows.UI.Xaml.Controls;
 
-namespace MyerSplash.UC
+namespace MyerSplash.View.Uc
 {
     public sealed partial class NoNetworkControl : UserControl
     {

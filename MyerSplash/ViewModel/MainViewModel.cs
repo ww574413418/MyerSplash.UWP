@@ -12,7 +12,7 @@ using MyerSplash.ViewModel.DataViewModel;
 using Windows.Storage;
 using System;
 using MyerSplashCustomControl;
-using MyerSplash.UC;
+using MyerSplash.View.Uc;
 using JP.Utils.Helper;
 using Windows.UI.ViewManagement;
 using Microsoft.QueryStringDotNET;

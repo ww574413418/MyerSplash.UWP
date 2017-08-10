@@ -6,7 +6,7 @@ using MyerSplash.Common;
 using MyerSplash.Data;
 using MyerSplash.ViewModel;
 using MyerSplashShared.Service;
-using MyerSplashShared.Shared;
+using MyerSplashShared.Utils;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

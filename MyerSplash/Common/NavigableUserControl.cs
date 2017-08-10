@@ -1,5 +1,5 @@
 ﻿using CompositionHelper;
-using MyerSplash.Interface;
+using MyerSplash.View.Uc;
 using System;
 using System.Numerics;
 using Windows.ApplicationModel;

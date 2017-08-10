@@ -12,7 +12,7 @@ using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace MyerSplashShared.Shared
+namespace MyerSplashShared.Utils
 {
     public class CachedBitmapSource : INotifyPropertyChanged
     {

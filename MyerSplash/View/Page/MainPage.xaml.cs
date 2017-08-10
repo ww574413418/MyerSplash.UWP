@@ -13,7 +13,7 @@ using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 
-namespace MyerSplash.View
+namespace MyerSplash.View.Page
 {
     public sealed partial class MainPage : CustomizedTitleBarPage
     {

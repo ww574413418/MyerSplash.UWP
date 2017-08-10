@@ -1,27 +1,9 @@
-﻿using MyerSplashShared.Shared;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace MyerSplash.Data
 {
     public class UnsplashUser : ModelBase
     {
-        private CachedBitmapSource _avatarBitmap;
-        public CachedBitmapSource AvatarBitmap
-        {
-            get
-            {
-                return _avatarBitmap;
-            }
-            set
-            {
-                if (_avatarBitmap != value)
-                {
-                    _avatarBitmap = value;
-                    RaisePropertyChanged(() => AvatarBitmap);
-                }
-            }
-        }
-
         private string _name;
         [JsonProperty("name")]
         public string Name

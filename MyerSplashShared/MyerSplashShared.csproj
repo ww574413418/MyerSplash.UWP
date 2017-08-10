@@ -110,9 +110,9 @@
     <Compile Include="API\APIException.cs" />
     <Compile Include="Service\CloudService.cs" />
     <Compile Include="API\CTSFactory.cs" />
-    <Compile Include="API\UrlHelper.cs" />
-    <Compile Include="CachedBitmapSource\CachedBitmapSource.cs" />
-    <Compile Include="Cache\CacheUtil.cs" />
+    <Compile Include="API\Request.cs" />
+    <Compile Include="Utils\CachedBitmapSource.cs" />
+    <Compile Include="Utils\CacheUtil.cs" />
     <Compile Include="Data\ImageExif.cs" />
     <Compile Include="Data\ImageLocation.cs" />
     <Compile Include="Data\Links.cs" />
@@ -131,6 +131,7 @@
     <Compile Include="Service\SearchImageService.cs" />
     <Compile Include="Utils\Extension.cs" />
     <Compile Include="Utils\FileDownloader.cs" />
+    <Compile Include="Utils\LiveTileUpdater.cs" />
     <Compile Include="Utils\SimpleWallpaperSetter.cs" />
     <EmbeddedResource Include="Properties\MyerSplashShared.rd.xml" />
   </ItemGroup>

@@ -10,7 +10,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 
-namespace MyerSplash.UC
+namespace MyerSplash.View.Uc
 {
     public sealed partial class DownloadItemTemplate : UserControl
     {

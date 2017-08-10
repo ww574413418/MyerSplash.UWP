@@ -123,7 +123,6 @@
     <Compile Include="Common\WallpaperSettingHelper.cs" />
     <Compile Include="Converter\BoolToVisibilityConverter.cs" />
     <Compile Include="View\Uc\INavigableUserControl.cs" />
-    <Compile Include="LiveTile\LiveTileUpdater.cs" />
     <Compile Include="Model\DownloadItem.cs" />
     <Compile Include="Model\ImageItem.cs" />
     <Compile Include="View\Uc\AboutControl.xaml.cs">
@@ -391,9 +390,7 @@
       <Name>MyerSplashShared</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Service\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

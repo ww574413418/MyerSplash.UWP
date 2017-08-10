@@ -1,6 +1,6 @@
 ﻿using Microsoft.QueryStringDotNET;
 using MyerSplash.Common;
-using MyerSplash.View;
+using MyerSplash.View.Page;
 using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;

@@ -1,5 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
-using MyerSplash.LiveTile;
+using MyerSplashShared.Utils;
 using System;
 using System.Threading.Tasks;
 using Windows.Storage;

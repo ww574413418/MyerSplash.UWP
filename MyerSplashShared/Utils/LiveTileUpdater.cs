@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.UI.Notifications;
 
-namespace MyerSplash.LiveTile
+namespace MyerSplashShared.Utils
 {
     public static class LiveTileUpdater
     {

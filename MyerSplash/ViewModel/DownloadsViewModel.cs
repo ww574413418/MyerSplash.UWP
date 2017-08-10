@@ -12,7 +12,7 @@ using Windows.Storage;
 using System.Threading.Tasks;
 using JP.Utils.Debug;
 using GalaSoft.MvvmLight.Command;
-using MyerSplash.UC;
+using MyerSplash.View.Uc;
 using System.Linq;
 using MyerSplash.Data;
 

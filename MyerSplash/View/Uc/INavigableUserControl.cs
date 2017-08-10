@@ -1,4 +1,4 @@
-﻿namespace MyerSplash.Interface
+﻿namespace MyerSplash.View.Uc
 {
     public interface INavigableUserControl
     {
