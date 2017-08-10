@@ -160,30 +160,26 @@ namespace MyerSplash.Data
             }
         }
 
-        private DateTime _createTime;
+        [JsonProperty("created_at")]
+        public string CreateTimeString { get; set; }
+
         public DateTime CreateTime
         {
             get
             {
-                return _createTime;
-            }
-            set
-            {
-                if (_createTime != value)
-                {
-                    _createTime = value;
-                    RaisePropertyChanged(() => CreateTime);
-                }
+                DateTime.TryParse(CreateTimeString, out DateTime time);
+                return time;
             }
         }
 
-        public string CreateTimeString
+        public string SimpleCreateTimeString
         {
             get
             {
-                return _createTime.ToString("yyyy-MM-dd hh-mm-ss");
+                return CreateTime.ToString("yyyy-MM-dd hh-mm-ss");
             }
         }
+
 
         private bool _isUnsplash;
         public bool IsUnsplash

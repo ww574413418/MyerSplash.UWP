@@ -360,7 +360,7 @@ namespace MyerSplash.Model
 
         public string GetFileNameForDownloading()
         {
-            var fileName = $"{Image.Owner.Name}  {Image.CreateTimeString}.jpg";
+            var fileName = $"{Image.Owner.Name}  {Image.SimpleCreateTimeString}.jpg";
             var invalidChars = Path.GetInvalidFileNameChars();
             foreach (var c in invalidChars)
             {

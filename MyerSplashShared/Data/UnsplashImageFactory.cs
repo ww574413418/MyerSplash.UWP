@@ -73,7 +73,7 @@ namespace MyerSplash.Data
 
                 ColorValue = "#ffffff",
                 ID = date,
-                CreateTime = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd 00:00:00")),
+                CreateTimeString = DateTime.Now.ToString("yyyy-MM-dd 00:00:00"),
                 IsUnsplash = false,
                 Owner = new UnsplashUser()
                 {
