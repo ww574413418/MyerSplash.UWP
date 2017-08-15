@@ -53,32 +53,26 @@
             </Button>
         </Grid>
         <Grid Grid.Row="1">
-            <ScrollViewer
-                HorizontalAlignment="Center"
+            <ListView
+                Margin="0,0,0,70"
                 attach:ScrollViewerStyleChanger.Style="{StaticResource ScrollViewerCommonStyle}"
-                VerticalScrollBarVisibility="Hidden"
-                VerticalScrollMode="Auto">
-                <ListBox
-                    Margin="0,0,0,70"
-                    Background="{x:Null}"
-                    ItemContainerStyle="{StaticResource MenuListBoxItemStyle}"
-                    ItemsSource="{x:Bind MainVM.Categories, Mode=OneWay}"
-                    SelectedIndex="{x:Bind MainVM.SelectedIndex, Mode=TwoWay}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate x:DataType="data:UnsplashCategory">
-                            <Grid Height="48">
-                                <TextBlock
-                                    Grid.Column="2"
-                                    Margin="24,0,0,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="15"
-                                    Foreground="White"
-                                    Text="{x:Bind Title, Mode=OneWay}" />
-                            </Grid>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </ScrollViewer>
+                Background="{x:Null}"
+                ItemsSource="{x:Bind MainVM.Categories, Mode=OneWay}"
+                SelectedIndex="{x:Bind MainVM.SelectedIndex, Mode=TwoWay}">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="data:UnsplashCategory">
+                        <Grid Height="48">
+                            <TextBlock
+                                Grid.Column="2"
+                                Margin="24,0,0,0"
+                                VerticalAlignment="Center"
+                                FontSize="15"
+                                Foreground="White"
+                                Text="{x:Bind Title, Mode=OneWay}" />
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
             <Grid VerticalAlignment="Bottom">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />

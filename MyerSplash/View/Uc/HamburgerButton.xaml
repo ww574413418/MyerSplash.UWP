@@ -11,10 +11,12 @@
         x:Name="HamburgerBtn"
         HorizontalAlignment="Stretch"
         VerticalAlignment="Stretch"
-        Background="Transparent"
-        BorderThickness="0"
         Style="{StaticResource ListButtonStyle}">
-        <Border Width="{StaticResource PosterHeight}" Height="{StaticResource PosterHeight}">
+        <Border
+            Width="{StaticResource PosterHeight}"
+            Height="{StaticResource PosterHeight}"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
             <Grid Width="40" Height="30">
                 <Grid.RowDefinitions>
                     <RowDefinition />

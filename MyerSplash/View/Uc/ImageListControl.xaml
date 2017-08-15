@@ -37,7 +37,7 @@
         </control:AdaptiveGridView.Header>
         <control:AdaptiveGridView.ItemTemplate>
             <DataTemplate x:DataType="model:ImageItem">
-                <Grid Margin="8">
+                <Grid>
                     <Grid
                         x:Name="RootGrid"
                         CanDrag="True"
@@ -135,7 +135,6 @@
                         </Grid>
                     </Grid>
                 </Grid>
-
             </DataTemplate>
         </control:AdaptiveGridView.ItemTemplate>
         <control:AdaptiveGridView.ItemContainerStyle>
@@ -144,7 +143,7 @@
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="VerticalContentAlignment" Value="Stretch" />
                 <Setter Property="VerticalAlignment" Value="Stretch" />
-                <Setter Property="Margin" Value="0" />
+                <Setter Property="Margin" Value="8" />
             </Style>
         </control:AdaptiveGridView.ItemContainerStyle>
         <control:AdaptiveGridView.Footer>

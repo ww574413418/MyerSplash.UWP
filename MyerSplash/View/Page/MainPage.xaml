@@ -113,7 +113,6 @@
                 Margin="0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
-                BorderThickness="0"
                 Command="{x:Bind MainVM.SearchCommand, Mode=OneWay}"
                 Style="{StaticResource ListButtonStyle}">
                 <FontIcon
@@ -131,10 +130,8 @@
                 Grid.Column="3"
                 Width="{StaticResource PosterHeight}"
                 Height="{StaticResource PosterHeight}"
-                Margin="0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
-                BorderThickness="0"
                 Command="{x:Bind MainVM.ShowDownloadsCommand, Mode=OneWay}"
                 Style="{StaticResource ListButtonStyle}">
                 <FontIcon
