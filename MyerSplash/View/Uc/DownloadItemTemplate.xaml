@@ -1,0 +1,278 @@
+﻿<UserControl
+    x:Class="MyerSplash.View.Uc.DownloadItemTemplate"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:flipper="using:FlipperControl"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style
+            x:Key="SetAsButtonStyle"
+            BasedOn="{StaticResource ButtonCommonStyle}"
+            TargetType="Button">
+            <Setter Property="Height" Value="52" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="VerticalContentAlignment" Value="Stretch" />
+        </Style>
+        <Style x:Key="SetAsTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="Margin" Value="12,0,0,0" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+        <SolidColorBrush x:Key="SetAsButtonMaskColorBrush">#26000000</SolidColorBrush>
+    </UserControl.Resources>
+    <Grid
+        x:Name="RootGrid"
+        Margin="4"
+        SizeChanged="RootGrid_SizeChanged">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="52" />
+        </Grid.RowDefinitions>
+        <Image
+            x:Name="Img"
+            Grid.RowSpan="2"
+            PointerEntered="Img_PointerEntered"
+            PointerExited="Img_PointerExited"
+            Source="{Binding ImageItem.ListImageBitmap.Bitmap, Mode=OneWay}"
+            Stretch="UniformToFill" />
+        <TextBlock
+            Margin="12,0,0,12"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
+            FontWeight="Bold"
+            Foreground="White"
+            Text="{Binding DownloadStatus, Mode=OneWay}" />
+        <Button
+            x:Name="CopyUrlBtn"
+            Grid.Column="1"
+            Height="40"
+            Margin="0,0,6,4"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Command="{Binding ImageItem.CopyUrlCommand, Mode=OneWay}"
+            PointerEntered="Img_PointerEntered"
+            Style="{StaticResource ButtonCommonStyle}">
+            <Grid>
+                <Rectangle
+                    Height="30"
+                    VerticalAlignment="Center"
+                    Fill="#B8000000"
+                    RadiusX="4"
+                    RadiusY="4" />
+                <StackPanel
+                    Margin="12,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+                    <FontIcon
+                        FontFamily="Segoe MDL2 Assets"
+                        FontSize="15"
+                        Foreground="White"
+                        Glyph="&#xE8C8;" />
+                    <TextBlock
+                        Margin="8,0,0,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontWeight="Bold"
+                        Foreground="White"
+                        Text="COPY URL" />
+                </StackPanel>
+            </Grid>
+        </Button>
+        <Grid
+            x:Name="MenuGrid"
+            Grid.RowSpan="2"
+            Margin="0,40,0,52"
+            VerticalAlignment="Bottom">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Button
+                x:Name="SetAsWallpaperBtn"
+                Command="{Binding SetWallpaperCommand}"
+                Style="{StaticResource SetAsButtonStyle}">
+                <Grid>
+                    <Border Background="{Binding ImageItem.MajorColor, FallbackValue=Black, Mode=OneWay}" />
+                    <Border Background="{StaticResource SetAsButtonMaskColorBrush}" />
+                    <TextBlock
+                        Foreground="{Binding ImageItem.InfoForeColor, FallbackValue=White, Mode=OneWay}"
+                        Style="{StaticResource SetAsTextBlockStyle}"
+                        Text="Background" />
+                </Grid>
+            </Button>
+            <Button
+                x:Name="SetAsLockBtn"
+                Grid.Row="1"
+                Command="{Binding SetLockWallpaperCommand}"
+                Style="{StaticResource SetAsButtonStyle}">
+                <Grid>
+                    <Border Background="{Binding ImageItem.MajorColor, FallbackValue=Black, Mode=OneWay}" />
+                    <Border Background="{StaticResource SetAsButtonMaskColorBrush}" />
+                    <TextBlock
+                        Foreground="{Binding ImageItem.InfoForeColor, FallbackValue=White, Mode=OneWay}"
+                        Style="{StaticResource SetAsTextBlockStyle}"
+                        Text="Lock screen" />
+                </Grid>
+            </Button>
+            <Button
+                x:Name="SetBothBtn"
+                Grid.Row="2"
+                Command="{Binding SetBothCommand}"
+                Style="{StaticResource SetAsButtonStyle}">
+                <Grid>
+                    <Border Background="{Binding ImageItem.MajorColor, FallbackValue=Black, Mode=OneWay}" />
+                    <Border Background="{StaticResource SetAsButtonMaskColorBrush}" />
+                    <TextBlock
+                        Foreground="{Binding ImageItem.InfoForeColor, FallbackValue=White, Mode=OneWay}"
+                        Style="{StaticResource SetAsTextBlockStyle}"
+                        Text="Both" />
+                </Grid>
+            </Button>
+        </Grid>
+        <flipper:FlipperControl
+            Grid.Row="1"
+            AllowTapToFlip="False"
+            DisplayIndex="{Binding DisplayIndex, Mode=OneWay}"
+            FlipDirection="BackToFront">
+            <flipper:FlipperControl.Views>
+                <Grid
+                    x:Name="SetAsGrid"
+                    Grid.Row="1"
+                    d:IsHidden="True">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="52" />
+                    </Grid.ColumnDefinitions>
+                    <Border
+                        x:Name="BackgrdBorder"
+                        Grid.ColumnSpan="2"
+                        Background="{Binding ImageItem.MajorColor, Mode=OneWay}" />
+                    <Button
+                        x:Name="SetAsBtn"
+                        Grid.ColumnSpan="2"
+                        Margin="0"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Command="{Binding SetAsCommand, Mode=OneWay}"
+                        Style="{StaticResource ListButtonStyle}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="199*" />
+                                <ColumnDefinition Width="142*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                x:Name="SetAsTB"
+                                Grid.ColumnSpan="2"
+                                Margin="12,0,0,0"
+                                FontWeight="Bold"
+                                Foreground="{Binding ImageItem.InfoForeColor, Mode=OneWay, FallbackValue=White}"
+                                Text="SET AS" />
+                            <FontIcon
+                                x:Name="BackFI"
+                                Margin="12,0,0,0"
+                                HorizontalAlignment="Left"
+                                FontFamily="Segoe MDL2 Assets"
+                                Foreground="{Binding ImageItem.InfoForeColor, Mode=OneWay, FallbackValue=White}"
+                                Glyph="&#xE0A6;" />
+                        </Grid>
+                    </Button>
+                    <Button
+                        x:Name="OpenBtn"
+                        Grid.Column="1"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Command="{Binding OpenCommand, Mode=OneWay}"
+                        Style="{StaticResource ListButtonStyle}">
+                        <FontIcon
+                            FontFamily="Segoe MDL2 Assets"
+                            FontSize="20"
+                            Foreground="{Binding ImageItem.InfoForeColor, Mode=OneWay, FallbackValue=White}"
+                            Glyph="&#xEC50;" />
+                        <ToolTipService.ToolTip>
+                            <TextBlock Text="OPEN EXPLORER" />
+                        </ToolTipService.ToolTip>
+                    </Button>
+                </Grid>
+                <Grid
+                    x:Name="RetryGrid"
+                    Grid.Row="1"
+                    d:IsHidden="False"
+                    Background="{Binding ImageItem.MajorColor, FallbackValue=Black, Mode=OneWay}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="52" />
+                    </Grid.ColumnDefinitions>
+                    <Button
+                        x:Name="RetryBtn"
+                        Grid.ColumnSpan="2"
+                        Margin="0"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Command="{Binding RetryDownloadCommand, Mode=OneWay}"
+                        Style="{StaticResource ListButtonStyle}">
+                        <TextBlock
+                            Grid.ColumnSpan="2"
+                            Margin="12,0,0,0"
+                            FontWeight="Bold"
+                            Foreground="{Binding ImageItem.InfoForeColor, Mode=OneWay, FallbackValue=White}"
+                            Text="RETRY" />
+                    </Button>
+                    <Button
+                        Grid.Column="1"
+                        Width="{StaticResource DownloadProgressBarHeight}"
+                        Height="{StaticResource DownloadProgressBarHeight}"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Stretch"
+                        Command="{Binding DeleteCommand, Mode=OneWay}"
+                        Style="{StaticResource ListButtonStyle}">
+                        <FontIcon
+                            FontFamily="Segoe MDL2 Assets"
+                            Foreground="{Binding ImageItem.InfoForeColor, FallbackValue=White, Mode=OneWay}"
+                            Glyph="&#xE107;" />
+                    </Button>
+                </Grid>
+                <Grid
+                    x:Name="ProgressGrid"
+                    Grid.Row="1"
+                    d:IsHidden="True">
+                    <Border Background="{Binding ImageItem.MajorColor, Mode=OneWay}" Opacity="0.95" />
+                    <Border Background="#B2000000" />
+                    <ProgressBar
+                        VerticalAlignment="Stretch"
+                        Foreground="{Binding ImageItem.MajorColor, FallbackValue=White, Mode=OneWay}"
+                        IsIndeterminate="False"
+                        Value="{Binding Progress, FallbackValue=30, Mode=TwoWay}" />
+                    <TextBlock
+                        Margin="12,0,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        FontWeight="Bold"
+                        Foreground="{Binding ImageItem.InfoForeColor, Mode=OneWay}"
+                        Text="{Binding ProgressString, FallbackValue=30%, Mode=OneWay}" />
+                    <Button
+                        Width="{StaticResource DownloadProgressBarHeight}"
+                        Height="{StaticResource DownloadProgressBarHeight}"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Stretch"
+                        Command="{Binding CancelCommand, Mode=OneWay}"
+                        Style="{StaticResource ListButtonStyle}">
+                        <FontIcon
+                            FontFamily="Segoe MDL2 Assets"
+                            FontSize="15"
+                            Foreground="{Binding ImageItem.InfoForeColor, FallbackValue=White, Mode=OneWay}"
+                            Glyph="&#xE106;" />
+                    </Button>
+                </Grid>
+            </flipper:FlipperControl.Views>
+        </flipper:FlipperControl>
+    </Grid>
+</UserControl>

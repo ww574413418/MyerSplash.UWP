@@ -1,8 +1,10 @@
-﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+﻿using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using JP.Utils.Debug;
 using MyerSplash.Common;
+using MyerSplash.Data;
+using MyerSplash.ViewModel;
 using MyerSplashCustomControl;
 using System;
 using System.Collections.Generic;
@@ -24,8 +26,17 @@ namespace MyerSplash.Model
         SetAs = 2
     }
 
-    public class DownloadItem : ViewModelBase
+    public class DownloadItem : ModelBase
     {
+        [IgnoreDataMember]
+        public DownloadsViewModel DownloadsVM
+        {
+            get
+            {
+                return SimpleIoc.Default.GetInstance<DownloadsViewModel>();
+            }
+        }
+
         public event Action<DownloadItem, bool> OnMenuStatusChanged;
 
         private TaskCompletionSource<int> _tcs;
@@ -35,19 +46,19 @@ namespace MyerSplash.Model
         private IStorageFile _resultFile;
         private CancellationTokenSource _cts;
 
-        private UnsplashImage _image;
-        public UnsplashImage Image
+        private ImageItem _imageItem;
+        public ImageItem ImageItem
         {
             get
             {
-                return _image;
+                return _imageItem;
             }
             set
             {
-                if (_image != value)
+                if (_imageItem != value)
                 {
-                    _image = value;
-                    RaisePropertyChanged(() => Image);
+                    _imageItem = value;
+                    RaisePropertyChanged(() => ImageItem);
                 }
             }
         }
@@ -66,7 +77,7 @@ namespace MyerSplash.Model
                     _progress = double.Parse(value.ToString("f0"));
                     RaisePropertyChanged(() => Progress);
                     ProgressString = $"{_progress} %";
-                    if (value >= 100) UpateUIWhenCompleted();
+                    if (value >= 100) UpateUiWhenCompleted();
                 }
             }
         }
@@ -244,7 +255,7 @@ namespace MyerSplash.Model
                 if (_deleteCommand != null) return _deleteCommand;
                 return _deleteCommand = new RelayCommand(() =>
                   {
-                      App.VMLocator.DownloadsVM.DeleteDownload(this);
+                      DownloadsVM.DeleteDownload(this);
                   });
             }
         }
@@ -281,9 +292,13 @@ namespace MyerSplash.Model
             }
         }
 
-        public DownloadItem(UnsplashImage image)
+        public DownloadItem()
         {
-            Image = image;
+        }
+
+        public DownloadItem(ImageItem image)
+        {
+            ImageItem = image;
             Progress = 0;
             ProgressString = "0 %";
             IsMenuOn = false;
@@ -295,7 +310,7 @@ namespace MyerSplash.Model
             await DownloadFullImageAsync(_cts = new CancellationTokenSource());
         }
 
-        public async void UpateUIWhenCompleted()
+        public async void UpateUiWhenCompleted()
         {
             await Task.Delay(500);
             DownloadStatus = "";
@@ -304,14 +319,14 @@ namespace MyerSplash.Model
 
         public async Task CheckDownloadStatusAsync(IReadOnlyList<DownloadOperation> operations)
         {
-            var task = Image.RestoreDataAsync();
+            ImageItem.Init();
+            var task = ImageItem.DownloadBitmapForListAsync();
 
             var folder = await AppSettings.Instance.GetSavingFolderAsync();
-            var item = await folder.TryGetItemAsync(Image.GetFileNameForDownloading());
+            var item = await folder.TryGetItemAsync(ImageItem.GetFileNameForDownloading());
             if (item != null)
             {
-                var file = item as StorageFile;
-                if (file != null)
+                if (item is StorageFile file)
                 {
                     _resultFile = file;
                     var prop = await _resultFile.GetBasicPropertiesAsync();
@@ -352,13 +367,13 @@ namespace MyerSplash.Model
 
             _tcs = new TaskCompletionSource<int>();
 
-            var url = Image.GetSaveImageUrlFromSettings();
+            var url = ImageItem.GetSaveImageUrlFromSettings();
 
             if (string.IsNullOrEmpty(url)) return false;
 
             DisplayIndex = (int)DisplayMenu.Downloading;
 
-            Image.DownloadStatus = Common.DownloadStatus.Downloading;
+            ImageItem.DownloadStatus = Common.DownloadStatus.Downloading;
 
             StorageFolder savedFolder = null;
             StorageFile savedFile = null;
@@ -366,19 +381,20 @@ namespace MyerSplash.Model
             try
             {
                 savedFolder = await AppSettings.Instance.GetSavingFolderAsync();
-                savedFile = await savedFolder.CreateFileAsync(Image.GetFileNameForDownloading(), CreationCollisionOption.OpenIfExists);
+                savedFile = await savedFolder.CreateFileAsync(ImageItem.GetFileNameForDownloading(), CreationCollisionOption.OpenIfExists);
             }
-            catch (UnauthorizedAccessException e)
+            catch (Exception e)
             {
                 await Logger.LogAsync(e);
                 ToastService.SendToast("No right to create file for writing. Please check your security settings. \n If necessary, please contact me via about page.", 5000);
                 return false;
             }
 
-            var backgroundDownloader = new BackgroundDownloader();
-            backgroundDownloader.SuccessToastNotification = ToastHelper.CreateToastNotification("Saved:D",
-                                $"Find it in {savedFolder.Path}.", savedFile.Path);
-
+            var backgroundDownloader = new BackgroundDownloader()
+            {
+                SuccessToastNotification = ToastHelper.CreateToastNotification("Saved:D",
+                                $"Find it in {savedFolder.Path}.", savedFile.Path)
+            };
             var downloadOperation = backgroundDownloader.CreateDownload(new Uri(url), savedFile);
             downloadOperation.Priority = BackgroundTransferPriority.High;
 
@@ -405,12 +421,12 @@ namespace MyerSplash.Model
                 ToastService.SendToast("Download has been cancelled.");
                 DownloadStatus = "";
                 DisplayIndex = (int)DisplayMenu.Retry;
-                Image.DownloadStatus = Common.DownloadStatus.Pending;
+                ImageItem.DownloadStatus = Common.DownloadStatus.Pending;
                 throw;
             }
             catch (Exception e)
             {
-                Image.DownloadStatus = Common.DownloadStatus.Pending;
+                ImageItem.DownloadStatus = Common.DownloadStatus.Pending;
                 await Logger.LogAsync(e);
                 ToastService.SendToast("ERROR" + e.Message, 2000);
 
@@ -425,9 +441,9 @@ namespace MyerSplash.Model
             if (Progress >= 100)
             {
                 _resultFile = e.ResultFile;
-                Image.DownloadStatus = Common.DownloadStatus.Ok;
-                Image.DownloadedFile = _resultFile as StorageFile;
-                Messenger.Default.Send(new GenericMessage<string>(Image.ID), MessengerTokens.REPORT_DOWNLOADED);
+                ImageItem.DownloadStatus = Common.DownloadStatus.Ok;
+                ImageItem.DownloadedFile = _resultFile as StorageFile;
+                Messenger.Default.Send(new GenericMessage<string>(ImageItem.Image.ID), MessengerTokens.REPORT_DOWNLOADED);
             }
         }
     }

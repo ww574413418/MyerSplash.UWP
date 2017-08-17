@@ -1,38 +1,46 @@
 ﻿using JP.Utils.Debug;
-using JP.Utils.UI;
-using MyerSplash.Model;
 using MyerSplashCustomControl;
 using MyerSplashShared.API;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.Core;
-using Windows.UI.Core;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml;
 using System.Diagnostics;
-using MyerSplash.LiveTile;
+using MyerSplash.Data;
+using MyerSplash.Model;
+using MyerSplashShared.Service;
+using MyerSplashShared.Utils;
 
-namespace MyerSplash.ViewModel
+namespace MyerSplash.ViewModel.DataViewModel
 {
-    public class ImageDataViewModel : DataViewModelBase<UnsplashImage>
+    public class ImageDataViewModel : DataViewModelBase<ImageItem>
     {
-        private string _requestUrl;
-        protected UnsplashImageFactory _imageFactory;
+        protected MainViewModel _mainViewModel;
+        protected ImageServiceBase _imageService;
 
-        public ImageDataViewModel(string url, bool featured)
+        public ImageDataViewModel(MainViewModel viewModel, ImageServiceBase service)
         {
-            _requestUrl = url;
-            _imageFactory = new UnsplashImageFactory(featured);
+            _mainViewModel = viewModel;
+            _imageService = service;
         }
 
-        protected override void ClickItem(UnsplashImage item)
+        protected override void ClickItem(ImageItem item)
         {
 
         }
 
-        protected void UpdateHintVisibility(IEnumerable<UnsplashImage> list)
+        protected IEnumerable<ImageItem> CreateImageItems(IEnumerable<UnsplashImage> images)
+        {
+            var list = new List<ImageItem>();
+            foreach (var i in images)
+            {
+                list.Add(new ImageItem(i));
+            }
+            return list;
+        }
+
+        protected void UpdateHintVisibility(IEnumerable<ImageItem> list)
         {
             var task = RunOnUiThread(() =>
               {
@@ -41,98 +49,95 @@ namespace MyerSplash.ViewModel
                   {
                       if (list.Count() == 0)
                       {
-                          App.MainVM.NoItemHintVisibility = Visibility.Visible;
+                          _mainViewModel.NoItemHintVisibility = Visibility.Visible;
                       }
                   }
-                  else App.MainVM.NoItemHintVisibility = Visibility.Collapsed;
+                  else _mainViewModel.NoItemHintVisibility = Visibility.Collapsed;
 
                   // Has loaded items but no more
                   if (list.Count() == 0)
                   {
-                      App.MainVM.FooterLoadingVisibility = Visibility.Collapsed;
-                      App.MainVM.EndVisibility = Visibility.Visible;
+                      _mainViewModel.FooterLoadingVisibility = Visibility.Collapsed;
+                      _mainViewModel.EndVisibility = Visibility.Visible;
                   }
                   //There are more items
                   else
                   {
-                      App.MainVM.FooterLoadingVisibility = Visibility.Visible;
-                      App.MainVM.EndVisibility = Visibility.Collapsed;
+                      _mainViewModel.FooterLoadingVisibility = Visibility.Visible;
+                      _mainViewModel.EndVisibility = Visibility.Collapsed;
                   }
 
                   return;
               });
         }
 
-        protected async override Task<IEnumerable<UnsplashImage>> GetList(int pageIndex)
+        protected async override Task<IEnumerable<ImageItem>> GetList(int pageIndex)
         {
             try
             {
                 if (pageIndex >= 2)
                 {
-                    App.MainVM.FooterLoadingVisibility = Visibility.Visible;
+                    _mainViewModel.FooterLoadingVisibility = Visibility.Visible;
                 }
 
                 return await RequestAsync(pageIndex);
             }
             catch (APIException)
             {
-                await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                await RunOnUiThread(() =>
                 {
-                    App.MainVM.FooterLoadingVisibility = Visibility.Collapsed;
-                    App.MainVM.IsRefreshing = false;
+                    _mainViewModel.FooterLoadingVisibility = Visibility.Collapsed;
+                    _mainViewModel.IsRefreshing = false;
 
-                    if (App.MainVM.DataVM.DataList?.Count == 0)
+                    if (_mainViewModel.DataVM.DataList?.Count == 0)
                     {
-                        App.MainVM.NoItemHintVisibility = Visibility.Visible;
+                        _mainViewModel.NoItemHintVisibility = Visibility.Visible;
                     }
                     else
                     {
-                        App.MainVM.NoItemHintVisibility = Visibility.Collapsed;
-                        App.MainVM.FooterReloadVisibility = Visibility.Visible;
+                        _mainViewModel.NoItemHintVisibility = Visibility.Collapsed;
+                        _mainViewModel.FooterReloadVisibility = Visibility.Visible;
                     }
 
                     ToastService.SendToast("Request failed.");
                 });
-                return new List<UnsplashImage>();
+                return new List<ImageItem>();
             }
             catch (TaskCanceledException)
             {
-                await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                await RunOnUiThread(() =>
                 {
-                    App.MainVM.FooterLoadingVisibility = Visibility.Collapsed;
-                    App.MainVM.IsRefreshing = false;
+                    _mainViewModel.FooterLoadingVisibility = Visibility.Collapsed;
+                    _mainViewModel.IsRefreshing = false;
 
-                    if (App.MainVM.DataVM.DataList?.Count == 0)
+                    if (_mainViewModel.DataVM.DataList?.Count == 0)
                     {
-                        App.MainVM.NoItemHintVisibility = Visibility.Visible;
+                        _mainViewModel.NoItemHintVisibility = Visibility.Visible;
                     }
                     else
                     {
-                        App.MainVM.NoItemHintVisibility = Visibility.Collapsed;
-                        App.MainVM.FooterReloadVisibility = Visibility.Visible;
+                        _mainViewModel.NoItemHintVisibility = Visibility.Collapsed;
+                        _mainViewModel.FooterReloadVisibility = Visibility.Visible;
                     }
 
                     ToastService.SendToast("Request timeout.");
                 });
-                return new List<UnsplashImage>();
+                return new List<ImageItem>();
             }
             catch (Exception e)
             {
                 var task = Logger.LogAsync(e);
-                return new List<UnsplashImage>();
+                return new List<ImageItem>();
             }
         }
 
-        protected async override void LoadMoreItemCompleted(IEnumerable<UnsplashImage> list, int pagingIndex)
+        protected async override void LoadMoreItemCompleted(IEnumerable<ImageItem> list, int pagingIndex)
         {
             var tasks = new List<Task>();
-            for (var i = 0; i < list.Count(); i++)
+            foreach (var item in list)
             {
-                var item = list.ElementAt(i);
-                item.BackColorBrush = new SolidColorBrush(item.ColorValue.ToColor());
-                item.MajorColor = new SolidColorBrush(item.ColorValue.ToColor());
-
-                tasks.Add(item.DownloadImgForListAsync());
+                item.Init();
+                tasks.Add(item.DownloadBitmapForListAsync());
             }
 
             try
@@ -167,19 +172,17 @@ namespace MyerSplash.ViewModel
             }
         }
 
-        protected async virtual Task<IEnumerable<UnsplashImage>> RequestAsync(int pageIndex)
+        protected async virtual Task<IEnumerable<ImageItem>> RequestAsync(int pageIndex)
         {
             var cts = CTSFactory.MakeCTS(15000);
             try
             {
-                var result = await CloudService.GetImages(pageIndex, (int)20u, cts.Token, _requestUrl);
-                if (result.IsRequestSuccessful)
+                _imageService.Page = pageIndex;
+                var result = await _imageService.GetImagesAsync(cts.Token);
+                if (result != null)
                 {
-                    IEnumerable<UnsplashImage> list = _imageFactory.GetImages(result.JsonSrc);
-                    await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                    {
-                        UpdateHintVisibility(list);
-                    });
+                    var list = CreateImageItems(result);
+                    UpdateHintVisibility(list);
                     return list;
                 }
                 else throw new ArgumentNullException();
@@ -187,7 +190,7 @@ namespace MyerSplash.ViewModel
             catch (Exception e)
             {
                 await Logger.LogAsync(e);
-                return new List<UnsplashImage>();
+                return new List<ImageItem>();
             }
         }
     }

@@ -20,7 +20,7 @@
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64</AppxBundlePlatforms>
-    <PackageCertificateThumbprint>4C200C2832D2CD2A2EBEDF407B6AF14A24AE77EC</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>D91846A8846511855CB845DA85EEF1D018020B1F</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -122,63 +122,55 @@
     <Compile Include="Common\NavigableUserControl.cs" />
     <Compile Include="Common\WallpaperSettingHelper.cs" />
     <Compile Include="Converter\BoolToVisibilityConverter.cs" />
-    <Compile Include="Interface\INavigableUserControl.cs" />
-    <Compile Include="LiveTile\LiveTileUpdater.cs" />
-    <Compile Include="Model\Links.cs" />
+    <Compile Include="View\Uc\INavigableUserControl.cs" />
     <Compile Include="Model\DownloadItem.cs" />
-    <Compile Include="Model\ImageExif.cs" />
-    <Compile Include="Model\ImageLocation.cs" />
-    <Compile Include="Model\UnsplashCategory.cs" />
-    <Compile Include="Model\UnsplashCategoryFactory.cs" />
-    <Compile Include="Model\UnsplashImage.cs" />
-    <Compile Include="Model\UnsplashImageFactory.cs" />
-    <Compile Include="Model\UnsplashUrl.cs" />
-    <Compile Include="UC\AboutControl.xaml.cs">
+    <Compile Include="Model\ImageItem.cs" />
+    <Compile Include="View\Uc\AboutControl.xaml.cs">
       <DependentUpon>AboutControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UC\BackgroundHintDialog.xaml.cs">
+    <Compile Include="View\Uc\BackgroundHintDialog.xaml.cs">
       <DependentUpon>BackgroundHintDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UC\DeleteDialogControl.xaml.cs">
+    <Compile Include="View\Uc\DeleteDialogControl.xaml.cs">
       <DependentUpon>DeleteDialogControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UC\DownloadItemTemplate.xaml.cs">
+    <Compile Include="View\Uc\DownloadItemTemplate.xaml.cs">
       <DependentUpon>DownloadItemTemplate.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UC\EllipseShadowControl.xaml.cs">
+    <Compile Include="View\Uc\EllipseShadowControl.xaml.cs">
       <DependentUpon>EllipseShadowControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UC\ExifInfoControl.xaml.cs">
+    <Compile Include="View\Uc\ExifInfoControl.xaml.cs">
       <DependentUpon>ExifInfoControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UC\LoadingTextControl.xaml.cs">
+    <Compile Include="View\Uc\LoadingTextControl.xaml.cs">
       <DependentUpon>LoadingTextControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UC\ManageDownloadControl.xaml.cs">
+    <Compile Include="View\Uc\ManageDownloadControl.xaml.cs">
       <DependentUpon>ManageDownloadControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UC\NoItemControl.xaml.cs">
+    <Compile Include="View\Uc\NoItemControl.xaml.cs">
       <DependentUpon>NoItemControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UC\NoNetworkControl.xaml.cs">
+    <Compile Include="View\Uc\NoNetworkControl.xaml.cs">
       <DependentUpon>NoNetworkControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UC\SearchBarControl.xaml.cs">
+    <Compile Include="View\Uc\SearchBarControl.xaml.cs">
       <DependentUpon>SearchBarControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UC\SettingsControl.xaml.cs">
+    <Compile Include="View\Uc\SettingsControl.xaml.cs">
       <DependentUpon>SettingsControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UC\ImageListControl.xaml.cs">
+    <Compile Include="View\Uc\ImageListControl.xaml.cs">
       <DependentUpon>ImageListControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UC\LoadingControl.xaml.cs">
+    <Compile Include="View\Uc\LoadingControl.xaml.cs">
       <DependentUpon>LoadingControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UC\PhotoDetailControl.xaml.cs">
+    <Compile Include="View\Uc\PhotoDetailControl.xaml.cs">
       <DependentUpon>PhotoDetailControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UC\TipsControl.xaml.cs">
+    <Compile Include="View\Uc\TipsControl.xaml.cs">
       <DependentUpon>TipsControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\AboutViewModel.cs" />
@@ -186,11 +178,10 @@
     <Compile Include="Common\IncrementalLoadingCollection.cs" />
     <Compile Include="Common\ResourcesHelper.cs" />
     <Compile Include="Common\TitleBarHelper.cs" />
-    <Compile Include="Model\UnsplashUser.cs" />
-    <Compile Include="UC\DrawerControl.xaml.cs">
+    <Compile Include="View\Uc\DrawerControl.xaml.cs">
       <DependentUpon>DrawerControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UC\HamburgerButton.xaml.cs">
+    <Compile Include="View\Uc\HamburgerButton.xaml.cs">
       <DependentUpon>HamburgerButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\DataViewModel\ImageDataViewModel.cs" />
@@ -200,7 +191,7 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\SettingsViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Compile Include="View\MainPage.xaml.cs">
+    <Compile Include="View\Page\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -296,79 +287,79 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UC\AboutControl.xaml">
+    <Page Include="View\Uc\AboutControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UC\BackgroundHintDialog.xaml">
+    <Page Include="View\Uc\BackgroundHintDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UC\DeleteDialogControl.xaml">
+    <Page Include="View\Uc\DeleteDialogControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UC\DownloadItemTemplate.xaml">
+    <Page Include="View\Uc\DownloadItemTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UC\DrawerControl.xaml">
+    <Page Include="View\Uc\DrawerControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UC\EllipseShadowControl.xaml">
+    <Page Include="View\Uc\EllipseShadowControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UC\ExifInfoControl.xaml">
+    <Page Include="View\Uc\ExifInfoControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UC\LoadingTextControl.xaml">
+    <Page Include="View\Uc\LoadingTextControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UC\ManageDownloadControl.xaml">
+    <Page Include="View\Uc\ManageDownloadControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UC\NoItemControl.xaml">
+    <Page Include="View\Uc\NoItemControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UC\NoNetworkControl.xaml">
+    <Page Include="View\Uc\NoNetworkControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UC\SearchBarControl.xaml">
+    <Page Include="View\Uc\SearchBarControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UC\SettingsControl.xaml">
+    <Page Include="View\Uc\SettingsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UC\HamburgerButton.xaml">
+    <Page Include="View\Uc\HamburgerButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UC\ImageListControl.xaml">
+    <Page Include="View\Uc\ImageListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UC\LoadingControl.xaml">
+    <Page Include="View\Uc\LoadingControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UC\PhotoDetailControl.xaml">
+    <Page Include="View\Uc\PhotoDetailControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UC\TipsControl.xaml">
+    <Page Include="View\Uc\TipsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\MainPage.xaml">
+    <Page Include="View\Page\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -399,6 +390,7 @@
       <Name>MyerSplashShared</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

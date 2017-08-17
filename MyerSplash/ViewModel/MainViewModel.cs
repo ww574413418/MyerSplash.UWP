@@ -12,11 +12,13 @@ using MyerSplash.ViewModel.DataViewModel;
 using Windows.Storage;
 using System;
 using MyerSplashCustomControl;
-using MyerSplash.UC;
+using MyerSplash.View.Uc;
 using JP.Utils.Helper;
 using Windows.UI.ViewManagement;
 using Microsoft.QueryStringDotNET;
 using Windows.System;
+using MyerSplash.Data;
+using MyerSplashShared.Service;
 
 namespace MyerSplash.ViewModel
 {
@@ -423,17 +425,21 @@ namespace MyerSplash.ViewModel
                 if (_showDownloadsCommand != null) return _showDownloadsCommand;
                 return _showDownloadsCommand = new RelayCommand(() =>
                   {
-                      ShowDownloadsUC = true;
+                      ShowDownloadsUC = !ShowDownloadsUC;
                       DrawerOpened = false;
-                      NavigationService.AddOperation(() =>
+
+                      if (ShowDownloadsUC)
                       {
-                          if (ShowDownloadsUC)
+                          NavigationService.AddOperation(() =>
                           {
-                              ShowDownloadsUC = false;
-                              return true;
-                          }
-                          return false;
-                      });
+                              if (ShowDownloadsUC)
+                              {
+                                  ShowDownloadsUC = false;
+                                  return true;
+                              }
+                              return false;
+                          });
+                      }
                   });
             }
         }
@@ -510,19 +516,23 @@ namespace MyerSplash.ViewModel
                     {
                         if (value == NEW_INDEX)
                         {
-                            DataVM = new ImageDataViewModel(UrlHelper.GetNewImages, false);
+                            DataVM = new ImageDataViewModel(this,
+                                new ImageService(Request.GetNewImages, NormalFactory));
                         }
                         else if (value == FEATURED_INDEX)
                         {
-                            DataVM = new ImageDataViewModel(UrlHelper.GetFeaturedImages, true);
+                            DataVM = new ImageDataViewModel(this,
+                                new ImageService(Request.GetFeaturedImages, FeaturedFactory));
                         }
                         else if (value == RANDOM_INDEX)
                         {
-                            DataVM = new RandomImagesDataViewModel(UrlHelper.GetRandomImages, false);
+                            DataVM = new RandomImagesDataViewModel(this,
+                                new RandomImageService(NormalFactory));
                         }
                         else if (value > NEW_INDEX)
                         {
-                            DataVM = new ImageDataViewModel(Categories[value].Links.Photos, false);
+                            DataVM = new ImageDataViewModel(this,
+                                new ImageService(Categories[value].Links.Photos, NormalFactory));
                         }
                         if (DataVM != null)
                         {
@@ -555,6 +565,24 @@ namespace MyerSplash.ViewModel
             }
         }
 
+        private UnsplashImageFactory _normalFactory;
+        public UnsplashImageFactory NormalFactory
+        {
+            get
+            {
+                return _normalFactory ?? (_normalFactory = new UnsplashImageFactory(false));
+            }
+        }
+
+        private UnsplashImageFactory _featuredFactory;
+        public UnsplashImageFactory FeaturedFactory
+        {
+            get
+            {
+                return _featuredFactory ?? (_featuredFactory = new UnsplashImageFactory(true));
+            }
+        }
+
         public MainViewModel()
         {
             FooterLoadingVisibility = Visibility.Collapsed;
@@ -565,16 +593,16 @@ namespace MyerSplash.ViewModel
             IsRefreshing = true;
             ShowDownloadsUC = false;
 
-            App.MainVM = this;
-
             SelectedIndex = -1;
 
-            DataVM = new ImageDataViewModel(UrlHelper.GetNewImages, false);
+            DataVM = new ImageDataViewModel(this,
+                new ImageService(Request.GetNewImages, NormalFactory));
         }
 
         private async Task SearchByKeywordAsync()
         {
-            DataVM = new SearchResultViewModel(UrlHelper.SearchImages, SearchKeyword);
+            DataVM = new SearchResultViewModel(SearchKeyword, this,
+                new SearchImageService(NormalFactory));
             RaisePropertyChanged(() => SelectedTitle);
             await RefreshListAsync();
         }
@@ -593,11 +621,13 @@ namespace MyerSplash.ViewModel
             {
                 var date = DateTime.Now.ToString("yyyyMMdd");
 
-                if (DataVM.DataList.Count > 0 && DataVM.DataList[0].ID != date)
+                if (DataVM.DataList.Count > 0 && DataVM.DataList[0].Image.ID != date)
                 {
                     var image = UnsplashImageFactory.CreateRecommendationImage();
-                    DataVM.DataList.Insert(0, image);
-                    await image.RestoreDataAsync();
+                    var imageItem = new ImageItem(image);
+                    DataVM.DataList.Insert(0, imageItem);
+                    imageItem.Init();
+                    await imageItem.DownloadBitmapForListAsync();
                 }
             }
             IsRefreshing = false;

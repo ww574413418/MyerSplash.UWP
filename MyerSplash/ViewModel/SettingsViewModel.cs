@@ -3,11 +3,11 @@ using GalaSoft.MvvmLight.Command;
 using System;
 using System.Threading.Tasks;
 using Windows.Storage;
-using MyerSplashShared.API;
 using MyerSplashCustomControl;
 using MyerSplash.Common;
 using Windows.System;
-using MyerSplash.UC;
+using MyerSplash.View.Uc;
+using MyerSplashShared.Utils;
 
 namespace MyerSplash.ViewModel
 {

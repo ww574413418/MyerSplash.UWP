@@ -1,7 +1,6 @@
 ﻿using Microsoft.QueryStringDotNET;
 using MyerSplash.Common;
-using MyerSplash.View;
-using MyerSplash.ViewModel;
+using MyerSplash.View.Page;
 using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -14,16 +13,6 @@ namespace MyerSplash
 {
     sealed partial class App : Application
     {
-        public static MainViewModel MainVM { get; set; }
-
-        public static ViewModelLocator VMLocator
-        {
-            get
-            {
-                return Current.Resources["Locator"] as ViewModelLocator;
-            }
-        }
-
         public static AppSettings AppSettings
         {
             get

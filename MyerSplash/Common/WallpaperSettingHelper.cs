@@ -1,4 +1,4 @@
-﻿using MyerSplash.UC;
+﻿using MyerSplash.View.Uc;
 using MyerSplashCustomControl;
 using System;
 using System.Threading.Tasks;

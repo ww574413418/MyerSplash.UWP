@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 
-namespace MyerSplash.ViewModel
+namespace MyerSplash.ViewModel.DataViewModel
 {
     public abstract class DataViewModelBase<T> : ViewModelBase
     {
@@ -78,13 +78,6 @@ namespace MyerSplash.ViewModel
                         return GetIncrementalListData(PageIndex++);
                     });
                 }
-                else
-                {
-                    //DataList.DataFetchDelegate = (c =>
-                    //  {
-                    //      return GetIncrementalListData(PageIndex++);
-                    //  });
-                }
 
                 await DataList.LoadMoreItemsAsync(20u);
 
@@ -109,17 +102,9 @@ namespace MyerSplash.ViewModel
             try
             {
                 newList = await GetList(pageIndex);
+                HasMoreItems = newList?.Count() > 0;
 
-                if (newList == null || newList.Count() == 0)
-                {
-                    HasMoreItems = false;
-                }
-                else if (newList.Count() > 0)
-                {
-                    HasMoreItems = true;
-                }
-
-                await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                await RunOnUiThread(() =>
                 {
                     if (pageIndex == DEFAULT_PAGE_INDEX)
                     {
@@ -136,9 +121,9 @@ namespace MyerSplash.ViewModel
             return new ResultData<T>() { Data = newList, HasMoreItems = HasMoreItems };
         }
 
-        protected async Task RunOnUiThread(DispatchedHandler act)
+        protected async Task RunOnUiThread(DispatchedHandler handler)
         {
-            await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, act);
+            await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, handler);
         }
 
         protected abstract Task<IEnumerable<T>> GetList(int pageIndex);

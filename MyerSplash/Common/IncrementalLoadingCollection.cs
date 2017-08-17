@@ -93,7 +93,6 @@ namespace MyerSplash.Common
         public delegate void LoadMoreStarted(uint count);
         public delegate void LoadMoreCompleted(int count);
 
-        public event LoadMoreStarted OnLoadMoreStarted;
         public event LoadMoreCompleted OnLoadMoreCompleted;
 
         public bool IsBusy = false;

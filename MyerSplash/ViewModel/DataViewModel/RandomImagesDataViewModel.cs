@@ -1,31 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using MyerSplash.Model;
-using MyerSplashShared.API;
+﻿using MyerSplashShared.Service;
 
 namespace MyerSplash.ViewModel.DataViewModel
 {
     public class RandomImagesDataViewModel : ImageDataViewModel
     {
-        public RandomImagesDataViewModel(string url, bool featured)
-            : base(url, featured)
+        public RandomImagesDataViewModel(MainViewModel viewModel, RandomImageService service)
+            : base(viewModel, service)
         {
-
-        }
-
-        protected async override Task<IEnumerable<UnsplashImage>> RequestAsync(int pageIndex)
-        {
-            var result = await CloudService.GetRandomImages(20, CTSFactory.MakeCTS(5000).Token);
-            if (result.IsRequestSuccessful)
-            {
-                var list = _imageFactory.GetImages(result.JsonSrc);
-                UpdateHintVisibility(list);
-                return list;
-            }
-            else
-            {
-                throw new APIException();
-            }
         }
     }
 }

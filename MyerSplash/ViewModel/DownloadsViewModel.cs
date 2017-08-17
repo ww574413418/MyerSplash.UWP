@@ -12,8 +12,9 @@ using Windows.Storage;
 using System.Threading.Tasks;
 using JP.Utils.Debug;
 using GalaSoft.MvvmLight.Command;
-using MyerSplash.UC;
+using MyerSplash.View.Uc;
 using System.Linq;
+using MyerSplash.Data;
 
 namespace MyerSplash.ViewModel
 {
@@ -133,20 +134,19 @@ namespace MyerSplash.ViewModel
                         Error = (s, e) =>
                           {
                               var msg = e.ErrorContext.Error.Message;
-                              ToastService.SendToast(msg, 5000);
                           },
                         TypeNameHandling = TypeNameHandling.All
                     });
                     if (list != null)
                     {
                         DownloadingImages = list;
-                        var downloadOpeations = await BackgroundDownloader.GetCurrentDownloadsAsync();
+                        var downloadTasks = await BackgroundDownloader.GetCurrentDownloadsAsync();
                         foreach (var item in DownloadingImages)
                         {
                             item.IsMenuOn = false;
-                            item.CheckDownloadStatusAsync(downloadOpeations);
+                            item.CheckDownloadStatusAsync(downloadTasks);
                             item.OnMenuStatusChanged += Item_OnMenuStatusChanged;
-                            item.Image.DownloadImgForListAsync();
+                            item.ImageItem.DownloadBitmapForListAsync();
                         }
                     }
                     else
@@ -167,7 +167,7 @@ namespace MyerSplash.ViewModel
 
             var existItem = DownloadingImages.Where(s =>
              {
-                 return s.Image.ID == item.Image.ID;
+                 return s.ImageItem.Image.ID == item.ImageItem.Image.ID;
              }).FirstOrDefault();
 
             if (existItem != null)
