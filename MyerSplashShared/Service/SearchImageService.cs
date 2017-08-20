@@ -13,9 +13,9 @@ namespace MyerSplashShared.Service
 
         public string Query { get; set; }
 
-        public SearchImageService(UnsplashImageFactory factory) : base(factory)
+        public SearchImageService(UnsplashImageFactory factory, string query) : base(factory)
         {
-
+            Query = query;
         }
 
         public override async Task<IEnumerable<UnsplashImage>> GetImagesAsync(CancellationToken token)
