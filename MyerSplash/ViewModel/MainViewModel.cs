@@ -601,8 +601,8 @@ namespace MyerSplash.ViewModel
 
         private async Task SearchByKeywordAsync()
         {
-            DataVM = new SearchResultViewModel(SearchKeyword, this,
-                new SearchImageService(NormalFactory));
+            var searchService = new SearchImageService(NormalFactory, SearchKeyword);
+            DataVM = new SearchResultViewModel(this, searchService);
             RaisePropertyChanged(() => SelectedTitle);
             await RefreshListAsync();
         }
