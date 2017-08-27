@@ -548,6 +548,6 @@
     </Style>
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="ms-appx:///MyerSplashCustomControl/ContentPopupEx/ContentPopupEx.xaml" />
-        <ResourceDictionary Source="ms-appx:///MyerSplashCustomControl/Control/CustomCanvasControl.xaml" />
+        <ResourceDictionary Source="ms-appx:///MyerSplashCustomControl/Drawing/CustomCanvasControl.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

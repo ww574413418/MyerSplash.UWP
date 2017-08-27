@@ -7,5 +7,4 @@
     <Thickness x:Key="PhoneButtonContentPadding">9.5,0,9.5,3.5</Thickness>
     <Thickness x:Key="PhoneBorderThickness">2.5</Thickness>
     <Thickness x:Key="ComboBoxItemPadding">11,5,11,7</Thickness>
-
 </ResourceDictionary>
