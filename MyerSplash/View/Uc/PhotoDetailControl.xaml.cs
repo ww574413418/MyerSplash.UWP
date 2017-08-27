@@ -91,7 +91,7 @@ namespace MyerSplash.View.Uc
             var manager = DataTransferManager.GetForCurrentView();
             manager.DataRequested += _dataTransferManager_DataRequested;
 
-            Messenger.Default.Register<GenericMessage<string>>(this, MessengerTokens.REPORT_DOWNLOADED, async msg =>
+            Messenger.Default.Register<GenericMessage<string>>(this, MessengerTokens.REPORT_DOWNLOADED, msg =>
                {
                    var id = msg.Content;
                    if (id == CurrentImage?.Image.ID)

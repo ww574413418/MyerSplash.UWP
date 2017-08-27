@@ -110,6 +110,8 @@
     <Compile Include="ContentPopupEx\ContentPopupEx.cs" />
     <Compile Include="ContentPopupEx\PopupService.cs" />
     <Compile Include="Control\AdaptiveGridView.cs" />
+    <Compile Include="Control\CustomCanvasControl.cs" />
+    <Compile Include="Control\EllipseShadowControl.cs" />
     <Compile Include="DialogService\DialogService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ToastControl\ToastService.cs" />
@@ -119,6 +121,11 @@
     <Page Include="ContentPopupEx\ContentPopupEx.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Control\CustomCanvasControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
