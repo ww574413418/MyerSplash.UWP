@@ -301,7 +301,7 @@
                                 x:Name="SelectedBorder"
                                 Width="8"
                                 HorizontalAlignment="Left"
-                                Background="{StaticResource MyerSplashThemeColor}" />
+                                Background="{StaticResource MyerSplashThemeColorBrush}" />
                         </Grid>
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
@@ -1350,10 +1350,10 @@
                             Margin="0"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            Fill="{StaticResource MyerSplashDarkColor}"
+                            Fill="{StaticResource MyerSplashDarkColorBrush}"
                             RadiusX="10"
                             RadiusY="10"
-                            Stroke="{StaticResource MyerSplashThemeColor}"
+                            Stroke="{StaticResource MyerSplashThemeColorBrush}"
                             StrokeThickness="2" />
                         <Rectangle
                             x:Name="SwitchKnobBounds"
@@ -1362,7 +1362,7 @@
                             Height="20"
                             Margin="0"
                             HorizontalAlignment="Center"
-                            Fill="{StaticResource MyerSplashThemeColor}"
+                            Fill="{StaticResource MyerSplashThemeColorBrush}"
                             Opacity="0"
                             RadiusX="10"
                             RadiusY="10"
@@ -1615,7 +1615,7 @@
                                 <VisualState x:Name="Selected">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LayoutRoot" Storyboard.TargetProperty="Background">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource MyerSplashThemeColor}" />
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource MyerSplashThemeColorBrush}" />
                                         </ObjectAnimationUsingKeyFrames>
                                         <PointerUpThemeAnimation Storyboard.TargetName="LayoutRoot" />
                                     </Storyboard>
@@ -1631,7 +1631,7 @@
                                 <VisualState x:Name="SelectedPointerOver">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LayoutRoot" Storyboard.TargetProperty="Background">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource MyerSplashThemeColor}" />
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource MyerSplashThemeColorBrush}" />
                                         </ObjectAnimationUsingKeyFrames>
                                         <PointerUpThemeAnimation Storyboard.TargetName="LayoutRoot" />
                                     </Storyboard>
@@ -1639,7 +1639,7 @@
                                 <VisualState x:Name="SelectedPressed">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LayoutRoot" Storyboard.TargetProperty="Background">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource MyerSplashThemeColor}" />
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource MyerSplashThemeColorBrush}" />
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
@@ -1666,7 +1666,7 @@
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="FontSize" Value="20" />
         <Setter Property="FontWeight" Value="Bold" />
-        <Setter Property="Foreground" Value="{StaticResource MyerSplashThemeColor}" />
+        <Setter Property="Foreground" Value="{StaticResource MyerSplashThemeColorBrush}" />
     </Style>
     <Style x:Key="SubContentTextBlockStyle" TargetType="TextBlock">
         <Setter Property="Margin" Value="8" />

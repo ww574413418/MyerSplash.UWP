@@ -14,7 +14,7 @@
     DataContext="{Binding DownloadsVM, Source={StaticResource Locator}}"
     mc:Ignorable="d">
     <UserControl.Background>
-        <StaticResource ResourceKey="MyerSplashThemeColor" />
+        <StaticResource ResourceKey="MyerSplashThemeColorBrush" />
     </UserControl.Background>
     <Grid Background="{StaticResource TitleBarDarkBrush}">
         <Grid.RowDefinitions>
@@ -82,7 +82,7 @@
                 <Ellipse
                     Width="50"
                     Height="50"
-                    Fill="{StaticResource MyerSplashThemeColor}" />
+                    Fill="{StaticResource MyerSplashThemeColorBrush}" />
                 <Grid>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE10C;" />
                     <Image

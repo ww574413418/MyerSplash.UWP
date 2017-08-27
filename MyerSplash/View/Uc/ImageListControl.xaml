@@ -148,7 +148,7 @@
             <Grid Height="100">
                 <Grid Height="50" Visibility="{x:Bind MainVM.FooterLoadingVisibility, Mode=OneWay}">
                     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                        <ProgressRing Foreground="{StaticResource MyerSplashThemeDarkColor}" IsActive="True" />
+                        <ProgressRing Foreground="{StaticResource MyerSplashThemeDarkColorBrush}" IsActive="True" />
                         <TextBlock
                             Margin="10,0,0,0"
                             VerticalAlignment="Center"
@@ -174,7 +174,7 @@
                             VerticalAlignment="Stretch"
                             Command="{x:Bind MainVM.RetryCommand, Mode=OneWay}"
                             Style="{StaticResource ButtonCommonStyle}">
-                            <Border Background="{StaticResource MyerSplashThemeColor}">
+                            <Border Background="{StaticResource MyerSplashThemeColorBrush}">
                                 <TextBlock
                                     Margin="5"
                                     HorizontalAlignment="Center"

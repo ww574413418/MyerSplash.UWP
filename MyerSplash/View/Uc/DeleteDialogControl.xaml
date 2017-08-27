@@ -16,7 +16,7 @@
             <Setter Property="FontWeight" Value="Normal" />
         </Style>
     </UserControl.Resources>
-    <Grid Background="{StaticResource MyerSplashDarkColor}" CornerRadius="2">
+    <Grid Background="{StaticResource MyerSplashDarkColorBrush}" CornerRadius="2">
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
             <RowDefinition />
@@ -25,7 +25,7 @@
             <TextBlock
                 Margin="20,0,0,0"
                 HorizontalAlignment="Left"
-                Foreground="{StaticResource MyerSplashThemeColor}"
+                Foreground="{StaticResource MyerSplashThemeColorBrush}"
                 Style="{StaticResource SubTitleTextBlockStyle}"
                 Text="DELETE OPTIONS" />
         </Grid>

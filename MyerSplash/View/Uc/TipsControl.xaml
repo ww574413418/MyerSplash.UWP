@@ -10,7 +10,7 @@
     d:DesignHeight="300"
     d:DesignWidth="600"
     mc:Ignorable="d">
-    <Grid Background="{StaticResource MyerSplashDarkColor}">
+    <Grid Background="{StaticResource MyerSplashDarkColorBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
             <RowDefinition />
@@ -39,7 +39,7 @@
                     VerticalAlignment="Center"
                     FontSize="20"
                     FontWeight="Bold"
-                    Foreground="{StaticResource MyerSplashThemeColor}"
+                    Foreground="{StaticResource MyerSplashThemeColorBrush}"
                     Style="{StaticResource SubTitleTextBlockStyle}"
                     Text="⚡ WHAT'S NEW" />
             </StackPanel>
