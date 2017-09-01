@@ -6,6 +6,7 @@ using ImageLib;
 using Windows.Storage;
 using ImageLib.Cache.Storage;
 using ImageLib.Gif;
+using Windows.System;
 
 namespace MyerSplash.View.Uc
 {
@@ -30,6 +31,11 @@ namespace MyerSplash.View.Uc
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
             PopupService.Instance.TryHide();
+        }
+
+        private async void LaunchBotButton_Click(object sender, RoutedEventArgs e)
+        {
+            await Launcher.LaunchUriAsync(new Uri("https://t.me/myersplashbot"));
         }
     }
 }

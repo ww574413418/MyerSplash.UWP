@@ -16,7 +16,7 @@
             </ResourceDictionary.MergedDictionaries>
             <vm:ViewModelLocator x:Key="Locator" />
             <common:AppSettings x:Key="AppSettings" />
-            <x:String x:Key="CoachKey">TIPS280</x:String>
+            <x:String x:Key="CoachKey">TIPS_TELEGRAM_BOT</x:String>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -105,6 +105,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Content Include="Assets\Image\coach.jpg" />
     <Content Include="Assets\Json\built_in_categories.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -212,7 +213,6 @@
     <Content Include="Assets\Icon\search.png" />
     <Content Include="Assets\Image\pc_taskbar_l.png" />
     <Content Include="Assets\Image\pc_taskbar_r.png" />
-    <Content Include="Assets\Image\recommended_tip.jpg" />
     <Content Include="Assets\Logo-500.png" />
     <Content Include="Assets\NewStoreLogo.scale-100.png" />
     <Content Include="Assets\NewStoreLogo.scale-125.png" />

@@ -2,17 +2,17 @@
     x:Class="MyerSplash.View.Uc.TipsControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="using:ImageLib.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Width="400"
-    Height="340"
+    Width="440"
+    Height="400"
     d:DesignHeight="300"
     d:DesignWidth="600"
     mc:Ignorable="d">
-    <Grid Background="{StaticResource MyerSplashDarkColorBrush}">
+    <Grid Background="{StaticResource MaskColorBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
+            <RowDefinition Height="50" />
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid>
@@ -44,8 +44,24 @@
                     Text="⚡ WHAT'S NEW" />
             </StackPanel>
         </Grid>
-        <Grid Grid.Row="1">
-            <Image Margin="12" Source="ms-appx:///Assets/Image/recommended_tip.jpg" />
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <TextBlock
+                Margin="16,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Foreground="White"
+                Text="Introducing Telegram Bot @MyerSplashBot." />
+            <Button
+                x:Name="LaunchBotButton"
+                Click="LaunchBotButton_Click"
+                Style="{StaticResource ListButtonStyle}" Margin="12,0,0,0">
+                <Border>
+                    <TextBlock Margin="8" Text="LAUNCH" FontWeight="Bold" Foreground="{StaticResource MyerSplashThemeColorBrush}"/>
+                </Border>
+            </Button>
+        </StackPanel>
+        <Grid Grid.Row="2">
+            <Image Margin="12" Source="ms-appx:///Assets/Image/coach.jpg" Stretch="UniformToFill" />
         </Grid>
     </Grid>
 </UserControl>
