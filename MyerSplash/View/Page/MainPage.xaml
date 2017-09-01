@@ -171,7 +171,7 @@
         <uc:DrawerControl
             x:Name="DrawerControl"
             Grid.RowSpan="2"
-            Width="270"
+            Width="280"
             HorizontalAlignment="Left"
             d:IsHidden="True"
             DataContext="{x:Bind MainVM, Mode=OneWay}"
