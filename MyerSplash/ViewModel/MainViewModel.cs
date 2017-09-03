@@ -531,8 +531,8 @@ namespace MyerSplash.ViewModel
                         }
                         else if (value > NEW_INDEX)
                         {
-                            DataVM = new ImageDataViewModel(this,
-                                new ImageService(Categories[value].Links.Photos, NormalFactory));
+                            DataVM = new SearchResultViewModel(this, 
+                                new SearchImageService(NormalFactory, Categories[value].Title));
                         }
                         if (DataVM != null)
                         {

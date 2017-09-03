@@ -18,7 +18,7 @@ namespace MyerSplash.View.Page
     public sealed partial class MainPage : CustomizedTitleBarPage
     {
         private const float TITLE_GRID_HEIGHT = 70;
-        private const float DRAWER_WIDTH = 275;
+        private const float DRAWER_WIDTH = 285;
 
         private MainViewModel MainVM { get; set; }
 

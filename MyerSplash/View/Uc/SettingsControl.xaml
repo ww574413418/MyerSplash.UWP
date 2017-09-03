@@ -23,7 +23,7 @@
         </Style>
     </UserControl.Resources>
     <UserControl.Background>
-        <StaticResource ResourceKey="MyerSplashThemeColor" />
+        <StaticResource ResourceKey="MyerSplashThemeColorBrush" />
     </UserControl.Background>
     <Grid Background="{StaticResource TitleBarDarkBrush}">
         <Grid.RowDefinitions>

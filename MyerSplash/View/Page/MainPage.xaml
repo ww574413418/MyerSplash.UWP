@@ -5,6 +5,7 @@
     xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:attach="using:JP.Utils.Framework"
+    xmlns:cc="using:MyerSplashCustomControl"
     xmlns:common="using:MyerSplash.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -41,11 +42,11 @@
                 Command="{x:Bind MainVM.RefreshCommand, Mode=OneWay}"
                 Style="{StaticResource FabStyle}">
                 <Grid Width="60" Height="60">
-                    <uc:EllipseShadowControl Radius="25" />
-                    <Ellipse
+                    <cc:EllipseShadowControl
                         Width="50"
                         Height="50"
-                        Fill="{StaticResource MyerSplashThemeColor}" />
+                        ForeColor="{StaticResource MyerSplashThemeColor}"
+                        Radius="23" />
                     <Grid>
                         <SymbolIcon
                             x:Name="RefreshIcon"
@@ -83,10 +84,16 @@
                     VerticalAlignment="Top"
                     Command="{x:Bind MainVM.OpenDrawerCommand, Mode=OneWay}" />
             </Border>
-            <Border
+            <Button
+                x:Name="TitleBtn"
                 Grid.Column="1"
                 Height="{StaticResource PosterHeight}"
-                HorizontalAlignment="Left">
+                Margin="0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                BorderThickness="0"
+                Style="{StaticResource ListButtonStyle}"
+                Tapped="StackPanel_Tapped">
                 <TextBlock
                     x:Name="TitleTB"
                     Margin="12,4"
@@ -99,7 +106,7 @@
                     Tapped="StackPanel_Tapped"
                     Text="{x:Bind MainVM.SelectedTitle, Mode=OneWay, FallbackValue=#NEW}"
                     TextTrimming="CharacterEllipsis" />
-            </Border>
+            </Button>
             <Button
                 x:Name="SearchBtn"
                 Grid.Column="2"
@@ -164,7 +171,7 @@
         <uc:DrawerControl
             x:Name="DrawerControl"
             Grid.RowSpan="2"
-            Width="270"
+            Width="280"
             HorizontalAlignment="Left"
             d:IsHidden="True"
             DataContext="{x:Bind MainVM, Mode=OneWay}"

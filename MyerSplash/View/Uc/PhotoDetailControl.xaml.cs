@@ -91,12 +91,11 @@ namespace MyerSplash.View.Uc
             var manager = DataTransferManager.GetForCurrentView();
             manager.DataRequested += _dataTransferManager_DataRequested;
 
-            Messenger.Default.Register<GenericMessage<string>>(this, MessengerTokens.REPORT_DOWNLOADED, async msg =>
+            Messenger.Default.Register<GenericMessage<string>>(this, MessengerTokens.REPORT_DOWNLOADED, msg =>
                {
                    var id = msg.Content;
                    if (id == CurrentImage?.Image.ID)
                    {
-                       await Task.Delay(1000);
                        FlipperControl.DisplayIndex = (int)DownloadStatus.Ok;
                    }
                });
@@ -224,8 +223,11 @@ namespace MyerSplash.View.Uc
             await ToggleListItemAnimationAsync(false);
             innerBatch.Completed += (ss, exx) =>
             {
-                _listItem.GetVisual().Opacity = 1f;
-                _listItem = null;
+                if (_listItem != null)
+                {
+                    _listItem.GetVisual().Opacity = 1f;
+                    _listItem = null;
+                }
 
                 OnHidden?.Invoke(this, new EventArgs());
                 ToggleDetailGridAnimation(false);
@@ -375,7 +377,7 @@ namespace MyerSplash.View.Uc
                 _cts = new CancellationTokenSource();
                 var item = new DownloadItem(CurrentImage);
                 item = await DownloadsVM.AddDownloadingImageAsync(item);
-                
+
                 var savedResult = false;
                 if (item != null)
                 {

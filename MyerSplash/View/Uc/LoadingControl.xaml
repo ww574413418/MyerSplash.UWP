@@ -71,7 +71,7 @@
                  Height="16"
                  HorizontalAlignment="Center"
                  VerticalAlignment="Center"
-                 Fill="{StaticResource MyerSplashThemeColor}"
+                 Fill="{StaticResource MyerSplashThemeColorBrush}"
                  RenderTransformOrigin="0.5,0.5"
                  Stretch="Fill">
             <Ellipse.RenderTransform>
@@ -84,7 +84,7 @@
                  Height="16"
                  HorizontalAlignment="Center"
                  VerticalAlignment="Center"
-                 Fill="{StaticResource MyerSplashThemeColor}"
+                 Fill="{StaticResource MyerSplashThemeColorBrush}"
                  RenderTransformOrigin="0.5,0.5"
                  Stretch="Fill">
             <Ellipse.RenderTransform>

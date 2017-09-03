@@ -2,10 +2,7 @@
 using MyerSplash.Data;
 using MyerSplashShared.API;
 using MyerSplashShared.Service;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace UnitTestProject.Service
@@ -20,8 +17,6 @@ namespace UnitTestProject.Service
             new UnsplashImageFactory(true));
 
         private ImageServiceBase _randomImageService = new RandomImageService(new UnsplashImageFactory(false));
-
-        private SearchImageService _searchImageService = new SearchImageService(new UnsplashImageFactory(false));
 
         [TestMethod]
         public async Task TestGetNewImages()
@@ -47,16 +42,16 @@ namespace UnitTestProject.Service
         [TestMethod]
         public async Task TestSearchHasResultImages()
         {
-            _searchImageService.Query = "sea";
-            var result = await _searchImageService.GetImagesAsync(CTSFactory.MakeCTS().Token);
+            var service = new SearchImageService(new UnsplashImageFactory(false), "sea");
+            var result = await service.GetImagesAsync(CTSFactory.MakeCTS().Token);
             Assert.IsTrue(result?.Count() > 0);
         }
 
         [TestMethod]
         public async Task TestSearchHasNoResultImages()
         {
-            _searchImageService.Query = "dwerewrwefsdfwe";
-            var result = await _searchImageService.GetImagesAsync(CTSFactory.MakeCTS().Token);
+            var service = new SearchImageService(new UnsplashImageFactory(false), "dfafefsdfasfsdf");
+            var result = await service.GetImagesAsync(CTSFactory.MakeCTS().Token);
             Assert.IsTrue(result?.Count() == 0);
         }
     }

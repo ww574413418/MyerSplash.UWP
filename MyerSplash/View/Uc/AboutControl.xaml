@@ -66,7 +66,7 @@
                         Padding="2"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        Background="{StaticResource MyerSplashThemeColor}"
+                        Background="{StaticResource MyerSplashThemeColorBrush}"
                         CornerRadius="2">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock
@@ -90,6 +90,15 @@
                     </Border>
                     <TextBlock Style="{StaticResource SubTitleTextBlockStyle}" Text="CREDITS" />
                     <TextBlock Style="{StaticResource SubContentTextBlockStyle}" Text="Photos are from Unsplash, a website providing free (do whatever you want) high-resolution photos." />
+                    <TextBlock Style="{StaticResource SubTitleTextBlockStyle}" Text="TELEGRAM BOT" />
+                    <Button
+                        Margin="0,4,0,0"
+                        HorizontalAlignment="Center"
+                        Background="{x:Null}"
+                        Command="{x:Bind AboutVM.TelegramCommand, Mode=OneWay}"
+                        Style="{StaticResource ListButtonStyle}">
+                        <TextBlock Style="{StaticResource SubContentTextBlockStyle}" Text="Launch telegram bot" />
+                    </Button>
                     <TextBlock Style="{StaticResource SubTitleTextBlockStyle}" Text="FEEDBACK" />
                     <StackPanel
                         Margin="0,4,0,0"

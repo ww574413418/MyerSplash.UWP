@@ -5,7 +5,7 @@
     xmlns:local="using:MyerSplashCustomControl"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <SolidColorBrush x:Key="MyerSplashThemeColor" Color="#18c3d8" />
+    <SolidColorBrush x:Key="MyerSplashThemeColorBrush" Color="#18c3d8" />
     <Style TargetType="local:DialogService">
         <Setter Property="Template">
             <Setter.Value>
@@ -530,7 +530,7 @@
                             </Border.RenderTransform>
                             <Grid>
                                 <Border
-                                    Background="{StaticResource MyerSplashThemeColor}"
+                                    Background="{StaticResource MyerSplashThemeColorBrush}"
                                     CornerRadius="2"
                                     Opacity="1" />
                                 <TextBlock
@@ -548,5 +548,6 @@
     </Style>
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="ms-appx:///MyerSplashCustomControl/ContentPopupEx/ContentPopupEx.xaml" />
+        <ResourceDictionary Source="ms-appx:///MyerSplashCustomControl/Drawing/CustomCanvasControl.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

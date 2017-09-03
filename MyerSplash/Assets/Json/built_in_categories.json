@@ -1,1 +1,42 @@
-﻿[{"id":2,"title":"Buildings","photo_count":22897,"links":{"self":"https://api.unsplash.com/categories/2","photos":"https://api.unsplash.com/categories/2/photos"}},{"id":3,"title":"Food & Drink","photo_count":3124,"links":{"self":"https://api.unsplash.com/categories/3","photos":"https://api.unsplash.com/categories/3/photos"}},{"id":4,"title":"Nature","photo_count":54184,"links":{"self":"https://api.unsplash.com/categories/4","photos":"https://api.unsplash.com/categories/4/photos"}},{"id":8,"title":"Objects","photo_count":13840,"links":{"self":"https://api.unsplash.com/categories/8","photos":"https://api.unsplash.com/categories/8/photos"}},{"id":6,"title":"People","photo_count":18319,"links":{"self":"https://api.unsplash.com/categories/6","photos":"https://api.unsplash.com/categories/6/photos"}},{"id":7,"title":"Technology","photo_count":1407,"links":{"self":"https://api.unsplash.com/categories/7","photos":"https://api.unsplash.com/categories/7/photos"}}]
+﻿[
+  {
+    "id": 2,
+    "title": "Sea"
+  },
+  {
+    "id": 3,
+    "title": "Dusk"
+  },
+  {
+    "id": 4,
+    "title": "Galaxy"
+  },
+  {
+    "id": 5,
+    "title": "Buildings"
+  },
+  {
+    "id": 6,
+    "title": "Food & Drink"
+  },
+  {
+    "id": 7,
+    "title": "Travel"
+  },
+  {
+    "id": 8,
+    "title": "Nature"
+  },
+  {
+    "id": 9,
+    "title": "Objects"
+  },
+  {
+    "id": 10,
+    "title": "People"
+  },
+  {
+    "id": 11,
+    "title": "Technology"
+  }
+]
