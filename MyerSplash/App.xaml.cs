@@ -65,7 +65,7 @@ namespace MyerSplash
             if (rootFrame == null)
             {
                 rootFrame = new Frame();
-                rootFrame.Background = App.Current.Resources["MyerSplashDarkColor"] as SolidColorBrush;
+                rootFrame.Background = App.Current.Resources["MyerSplashDarkColorBrush"] as SolidColorBrush;
                 Window.Current.Content = rootFrame;
             }
 

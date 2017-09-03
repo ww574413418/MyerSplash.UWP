@@ -67,7 +67,7 @@
                         BorderThickness="0"
                         Command="{x:Bind MainVM.BeginSearchCommand, Mode=OneWay}"
                         Style="{StaticResource ButtonCommonStyle}">
-                        <Grid Background="{StaticResource MyerSplashThemeLightColor}">
+                        <Grid Background="{StaticResource MyerSplashThemeLightColorBrush}">
                             <FontIcon
                                 Margin="0"
                                 HorizontalAlignment="Center"

@@ -25,9 +25,32 @@ namespace MyerSplash.View.Uc
                      control.CanvasControl.Invalidate();
                  }));
 
+        public Color ForeColor
+        {
+            get { return (Color)GetValue(ForeColorProperty); }
+            set { SetValue(ForeColorProperty, value); }
+        }
+
+        public static readonly DependencyProperty ForeColorProperty =
+            DependencyProperty.Register("ForeColor", typeof(Color), typeof(EllipseShadowControl),
+                new PropertyMetadata(Colors.Black, (s, e) =>
+                {
+                    var control = s as EllipseShadowControl;
+                    control.CanvasControl.Invalidate();
+                }));
+
         public EllipseShadowControl()
         {
             this.InitializeComponent();
+            this.SizeChanged += EllipseShadowControl_SizeChanged;
+        }
+
+        private void EllipseShadowControl_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (CanvasControl != null)
+            {
+                CanvasControl.Invalidate();
+            }
         }
 
         private void CanvasControl_Draw(CanvasControl sender, CanvasDrawEventArgs args)
@@ -39,7 +62,7 @@ namespace MyerSplash.View.Uc
             {
                 using (var ds = renderTarget.CreateDrawingSession())
                 {
-                    ds.FillEllipse(center, radius, radius, new CanvasSolidColorBrush(sender, Colors.Black));
+                    ds.FillEllipse(center, radius, radius, new CanvasSolidColorBrush(sender, ForeColor));
                 }
                 using (var effect = new ShadowEffect())
                 {
@@ -50,6 +73,7 @@ namespace MyerSplash.View.Uc
                     using (args.DrawingSession)
                     {
                         args.DrawingSession.DrawImage(effect, 1, 1);
+                        args.DrawingSession.DrawImage(renderTarget);
                     }
                 }
             }
