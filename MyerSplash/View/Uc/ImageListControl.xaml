@@ -129,7 +129,7 @@
                                 FontSize="12"
                                 FontWeight="Bold"
                                 Foreground="White"
-                                Text="Recommended" />
+                                Text="TODAY" />
                         </StackPanel>
                     </Grid>
                 </Grid>
