@@ -22,9 +22,9 @@ namespace MyerSplashShared.API
 
         public static string GetImageDetail => $"https://{HOST}/photos/";
 
-        public static string GetRecommendedWallpaper => "http://juniperphoton.net/myersplash/wallpapers";
+        public static string GetRecommendedWallpaper => "https://juniperphoton.net/myersplash/wallpapers";
 
-        public static string GetRecommendedThumbWallpaper => "http://juniperphoton.net/myersplash/wallpapers/thumbs";
+        public static string GetRecommendedThumbWallpaper => "https://juniperphoton.net/myersplash/wallpapers/thumbs";
 
         public static string AppendParamsToUrl(string baseUrl, List<KeyValuePair<string, string>> paramList)
         {

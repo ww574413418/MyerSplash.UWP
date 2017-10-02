@@ -24,6 +24,8 @@ namespace MyerSplash.View.Uc
         public event Action<ImageItem, FrameworkElement> OnClickItemStarted;
         public event Action<ScrollViewer> OnScrollViewerViewChanged;
 
+        private const float SCALE_ANIMATION_FACTOR = 1.05f;
+
         private MainViewModel MainVM
         {
             get
@@ -99,7 +101,7 @@ namespace MyerSplash.View.Uc
             var maskBorder = rootGrid.Children[2] as FrameworkElement;
             var img = rootGrid.Children[1] as FrameworkElement;
 
-            ToggleItemPointAnimation(maskBorder, img, false);
+            ToggleItemPointOverAnimation(maskBorder, img, false);
 
             OnClickItemStarted?.Invoke(image, _tappedContainer);
         }
@@ -189,7 +191,7 @@ namespace MyerSplash.View.Uc
             var maskBorder = rootGrid.Children[2] as FrameworkElement;
             var img = rootGrid.Children[1] as FrameworkElement;
 
-            ToggleItemPointAnimation(maskBorder, img, false);
+            ToggleItemPointOverAnimation(maskBorder, img, false);
         }
 
         private void RootGrid_PointerEntered(object sender, PointerRoutedEventArgs e)
@@ -217,7 +219,7 @@ namespace MyerSplash.View.Uc
                 btn.Visibility = Visibility.Collapsed;
             }
 
-            ToggleItemPointAnimation(maskBorder, img, true);
+            ToggleItemPointOverAnimation(maskBorder, img, true);
         }
 
         private void RootGrid_Unloaded(object sender, RoutedEventArgs e)
@@ -230,7 +232,7 @@ namespace MyerSplash.View.Uc
         private ScalarKeyFrameAnimation CreateScaleAnimation(bool show)
         {
             var scaleAnimation = _compositor.CreateScalarKeyFrameAnimation();
-            scaleAnimation.InsertKeyFrame(1f, show ? 1.1f : 1f);
+            scaleAnimation.InsertKeyFrame(1f, show ? SCALE_ANIMATION_FACTOR : 1f);
             scaleAnimation.Duration = TimeSpan.FromMilliseconds(1000);
             scaleAnimation.StopBehavior = AnimationStopBehavior.LeaveCurrentValue;
             return scaleAnimation;
@@ -245,7 +247,7 @@ namespace MyerSplash.View.Uc
             return fadeAnimation;
         }
 
-        private void ToggleItemPointAnimation(FrameworkElement mask, FrameworkElement img, bool show)
+        private void ToggleItemPointOverAnimation(FrameworkElement mask, FrameworkElement img, bool show)
         {
             var maskVisual = ElementCompositionPreview.GetElementVisual(mask);
             var imgVisual = ElementCompositionPreview.GetElementVisual(img);
