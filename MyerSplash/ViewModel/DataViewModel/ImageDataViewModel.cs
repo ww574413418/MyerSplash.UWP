@@ -79,7 +79,15 @@ namespace MyerSplash.ViewModel.DataViewModel
                     _mainViewModel.FooterLoadingVisibility = Visibility.Visible;
                 }
 
-                return await RequestAsync(pageIndex);
+                var result = await RequestAsync(pageIndex);
+
+                await RunOnUiThread(() =>
+                {
+                    _mainViewModel.NoItemHintVisibility = Visibility.Collapsed;
+                    _mainViewModel.NoNetworkHintVisibility = Visibility.Collapsed;
+                });
+
+                return result;
             }
             catch (Exception e2)
             {
