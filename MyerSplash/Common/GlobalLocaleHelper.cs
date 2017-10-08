@@ -10,7 +10,7 @@ namespace MyerSplash.Common
     {
         public static void SetupLang(string locale)
         {
-            if(locale!=null)
+            if (locale != null)
             {
                 ApplicationLanguages.PrimaryLanguageOverride = locale;
                 return;

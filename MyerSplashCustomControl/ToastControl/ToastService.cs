@@ -30,7 +30,7 @@ namespace MyerSplashCustomControl
         public static readonly DependencyProperty HideTimeSpanProperty =
             DependencyProperty.Register("HideTimeSpan", typeof(TimeSpan), typeof(ToastService), new PropertyMetadata(TimeSpan.FromSeconds(1.0)));
 
-        #endregion
+        #endregion DependencyProperty
 
         private Page _currentPage;
         public Page CurrentPage

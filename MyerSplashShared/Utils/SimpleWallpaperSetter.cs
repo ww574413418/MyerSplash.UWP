@@ -70,12 +70,15 @@ namespace MyerSplashShared.Utils
                             {
                                 case 0:
                                     break;
+
                                 case 1:
                                     setResult = await UserProfilePersonalizationSettings.Current.TrySetWallpaperImageAsync(file);
                                     break;
+
                                 case 2:
                                     setResult = await UserProfilePersonalizationSettings.Current.TrySetLockScreenImageAsync(file);
                                     break;
+
                                 case 3:
                                     var setDesktopResult = await UserProfilePersonalizationSettings.Current.TrySetWallpaperImageAsync(file);
                                     var setLockscreenResult = await UserProfilePersonalizationSettings.Current.TrySetLockScreenImageAsync(file);

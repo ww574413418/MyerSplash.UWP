@@ -4,16 +4,8 @@ namespace MyerSplashShared.API
 {
     public class APIException : Exception
     {
-        public string ErrorMessage { get; set; } = "";
-
-        public APIException(string message)
+        public APIException(string message) : base(message)
         {
-            ErrorMessage = message;
-        }
-
-        public APIException()
-        {
-
         }
     }
 }

@@ -9,11 +9,12 @@
     d:DesignHeight="700"
     d:DesignWidth="300"
     mc:Ignorable="d">
-    <Grid Background="{StaticResource TitleBarDarkBrush}">
+    <Grid x:Name="RootGrid" Background="{StaticResource AppBackgroundBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="120" />
             <RowDefinition />
         </Grid.RowDefinitions>
+        <Grid x:Name="BlurBackground" Grid.RowSpan="2" />
         <Grid Margin="0,0,0,0">
             <StackPanel Margin="0,0,0,12" Orientation="Horizontal">
                 <Image
@@ -52,13 +53,16 @@
             </Button>
         </Grid>
         <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="48" />
+            </Grid.RowDefinitions>
             <ScrollViewer
                 HorizontalAlignment="Center"
                 attach:ScrollViewerStyleChanger.Style="{StaticResource ScrollViewerCommonStyle}"
                 VerticalScrollBarVisibility="Hidden"
                 VerticalScrollMode="Auto">
                 <ListBox
-                    Margin="0,0,0,70"
                     Background="{x:Null}"
                     ItemContainerStyle="{StaticResource MenuListBoxItemStyle}"
                     ItemsSource="{x:Bind MainVM.Categories, Mode=OneWay}"
@@ -78,7 +82,7 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
             </ScrollViewer>
-            <Grid VerticalAlignment="Bottom" Background="{StaticResource TitleBarDarkBrush}">
+            <Grid VerticalAlignment="Bottom" Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />

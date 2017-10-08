@@ -94,6 +94,7 @@ namespace MyerSplash.Common
                     case 0:
                         var task0 = BackgroundTaskRegister.UnregisterAsync();
                         break;
+
                     case 1:
                     // fall through
                     case 2:

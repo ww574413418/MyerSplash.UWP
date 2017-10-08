@@ -1,13 +1,13 @@
-﻿using MyerSplash.ViewModel;
+﻿using MyerSplash.Common;
+using MyerSplash.ViewModel;
+using MyerSplashShared.Utils;
 using System;
+using System.Numerics;
+using Windows.ApplicationModel;
+using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Composition;
-using CompositionHelper;
-using System.Numerics;
 using Windows.UI.Xaml.Data;
-using Windows.ApplicationModel;
-using MyerSplashShared.Utils;
 
 namespace MyerSplash.View.Uc
 {

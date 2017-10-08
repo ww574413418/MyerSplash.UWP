@@ -16,13 +16,20 @@
     <UserControl.Background>
         <StaticResource ResourceKey="MyerSplashThemeColorBrush" />
     </UserControl.Background>
-    <Grid Background="{StaticResource TitleBarDarkBrush}">
+    <Grid x:Name="RootGrid" Background="{StaticResource AppBackgroundBrushDark}">
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Grid x:Name="TitleBar" Background="{StaticResource TitleBarDarkBrush}">
-            <TextBlock Style="{StaticResource MainPageTitleStyle}" Text="DOWNLOADS" />
+        <Grid x:Name="TitleBar" Background="Transparent">
+            <TextBlock
+                Margin="0,0,0,0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="25"
+                FontWeight="Bold"
+                Foreground="White"
+                Text="DOWNLOADS" />
         </Grid>
         <Button
             x:Name="CloseBtn"

@@ -1,21 +1,18 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using MyerSplash.Common;
+using MyerSplash.View.Uc;
+using MyerSplashCustomControl;
+using MyerSplashShared.Utils;
 using System;
 using System.Threading.Tasks;
 using Windows.Storage;
-using MyerSplashCustomControl;
-using MyerSplash.Common;
 using Windows.System;
-using MyerSplash.View.Uc;
-using MyerSplashShared.Utils;
 
 namespace MyerSplash.ViewModel
 {
     public class SettingsViewModel : ViewModelBase
     {
-        public static string SAVING_POSITION = "SAVING_POSITION";
-        public static string DEFAULT_SAVING_POSITION = "\\Pictures\\MyerSplash (Can't be modified)";
-
         private RelayCommand _backgroundWallpaperHelpCommand;
         public RelayCommand BackgroundWallpaperHelpCommand
         {
@@ -56,24 +53,7 @@ namespace MyerSplash.ViewModel
             }
         }
 
-        private string _savingPositionPath;
-        public string SavingPositionPath
-        {
-            get
-            {
-                return _savingPositionPath;
-            }
-            set
-            {
-                if (_savingPositionPath != value)
-                {
-                    _savingPositionPath = value;
-                    RaisePropertyChanged(() => SavingPositionPath);
-                }
-            }
-        }
-
-        private string _cacheHint;
+        private string _cacheHint = "Clean up cache";
         public string CacheHint
         {
             get
@@ -135,8 +115,6 @@ namespace MyerSplash.ViewModel
 
         public SettingsViewModel()
         {
-            SavingPositionPath = DEFAULT_SAVING_POSITION;
-            CacheHint = "Clean up cache";
         }
 
         private async Task ClearTempFileAsync()
@@ -186,7 +164,6 @@ namespace MyerSplash.ViewModel
             {
                 await file.DeleteAsync(StorageDeleteOption.PermanentDelete);
             }
-
         }
     }
 }

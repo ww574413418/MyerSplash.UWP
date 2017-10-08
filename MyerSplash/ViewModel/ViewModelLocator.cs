@@ -21,7 +21,6 @@ namespace MyerSplash.ViewModel
 
         public static void Cleanup()
         {
-
         }
     }
 }

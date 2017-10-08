@@ -16,19 +16,19 @@ namespace MyerSplashShared.API
 
         public static string GetRandomImages => $"https://{HOST}/photos/random?";
 
-        public static string GetCategories=> $"https://{HOST}/categories?";
+        public static string GetCategories => $"https://{HOST}/categories?";
 
         public static string GetFeaturedImages => $"https://{HOST}/collections/featured?";
 
         public static string GetImageDetail => $"https://{HOST}/photos/";
 
-        public static string GetRecommendedWallpaper => "https://juniperphoton.net/myersplash/wallpapers";
+        public static string GetTodayWallpaper => "https://juniperphoton.net/myersplash/wallpapers";
 
-        public static string GetRecommendedThumbWallpaper => "https://juniperphoton.net/myersplash/wallpapers/thumbs";
+        public static string GetTodayThumbWallpaper => "https://juniperphoton.net/myersplash/wallpapers/thumbs";
 
         public static string AppendParamsToUrl(string baseUrl, List<KeyValuePair<string, string>> paramList)
         {
-            if(!baseUrl.EndsWith("?"))
+            if (!baseUrl.EndsWith("?"))
             {
                 baseUrl = baseUrl + "?";
             }

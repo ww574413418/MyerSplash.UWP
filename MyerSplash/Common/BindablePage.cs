@@ -28,12 +28,11 @@ namespace MyerSplash.Common
 
         protected virtual void ConstructingInNotDesignMode()
         {
-
         }
 
         private void BindablePage_Loaded(object sender, RoutedEventArgs e)
         {
-            if(this.DataContext is INavigable)
+            if (this.DataContext is INavigable)
             {
                 (this.DataContext as INavigable).OnLoaded();
             }
@@ -61,12 +60,11 @@ namespace MyerSplash.Common
 
         protected virtual void SetUpTitleBar()
         {
-
         }
 
         protected virtual void SetNavigationBackBtn()
         {
-            if(this.Frame.CanGoBack)
+            if (this.Frame.CanGoBack)
             {
                 SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
             }

@@ -1,12 +1,12 @@
-﻿using System;
-using MyerSplashCustomControl;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using ImageLib;
-using Windows.Storage;
+﻿using ImageLib;
 using ImageLib.Cache.Storage;
 using ImageLib.Gif;
+using MyerSplashCustomControl;
+using System;
+using Windows.Storage;
 using Windows.System;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace MyerSplash.View.Uc
 {

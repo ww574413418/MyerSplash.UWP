@@ -16,6 +16,7 @@ namespace MyerSplashCustomControl
         PlainText,
         InputContent
     }
+
     public class DialogService : ContentControl
     {
         #region DependencyProperty
@@ -28,7 +29,6 @@ namespace MyerSplashCustomControl
 
         public static DependencyProperty TitleTextProperty = DependencyProperty.Register("TitleText",
             typeof(string), typeof(DialogService), new PropertyMetadata("Title"));
-
 
         public string ContentText
         {
@@ -44,6 +44,7 @@ namespace MyerSplashCustomControl
             get { return (SolidColorBrush)GetValue(DialogBackgroundProperty); }
             set { SetValue(DialogBackgroundProperty, value); }
         }
+
         public static DependencyProperty DialogBackgroundProperty = DependencyProperty.Register("DialogBackground",
             typeof(SolidColorBrush), typeof(DialogService), new PropertyMetadata(new SolidColorBrush(Colors.White)));
 
@@ -119,8 +120,6 @@ namespace MyerSplashCustomControl
         public static readonly DependencyProperty InputBoxHintTextProperty =
             DependencyProperty.Register("InputBoxHintText", typeof(string), typeof(DialogService), new PropertyMetadata("Input something."));
 
-
-
         public bool SelectAllWhenFocusInputBox
         {
             get { return (bool)GetValue(SelectAllWhenFocusInputBoxProperty); }
@@ -129,8 +128,6 @@ namespace MyerSplashCustomControl
 
         public static readonly DependencyProperty SelectAllWhenFocusInputBoxProperty =
             DependencyProperty.Register("SelectAllWhenFocusInputBox", typeof(bool), typeof(DialogService), new PropertyMetadata(true));
-
-
 
         public string InputBoxText
         {
@@ -148,7 +145,7 @@ namespace MyerSplashCustomControl
 
         private bool _isOpen { get; set; }
 
-        #endregion
+        #endregion DependencyProperty
 
         private Page _currentPage;
         public Page CurrentPage
@@ -190,6 +187,7 @@ namespace MyerSplashCustomControl
         private Popup _currentPopup;
 
         public event Action<string> OnLeftBtnClick;
+
         public event Action OnRightBtnClick;
 
         //Provide the method to solve getting Storyboard before OnApplyTemplate() execute problem.
@@ -238,8 +236,6 @@ namespace MyerSplashCustomControl
                 _content = content;
             }
         }
-
-
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
         {
@@ -379,4 +375,3 @@ namespace MyerSplashCustomControl
         }
     }
 }
-

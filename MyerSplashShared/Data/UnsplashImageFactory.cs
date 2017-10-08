@@ -53,11 +53,11 @@ namespace MyerSplash.Data
             return list;
         }
 
-        public static UnsplashImage CreateRecommendationImage()
+        public static UnsplashImage CreateTodayImage()
         {
             var date = DateTime.Now.ToString("yyyyMMdd");
-            var thumbUrl = $"{Request.GetRecommendedThumbWallpaper}/{date}.jpg";
-            var largeUrl = $"{Request.GetRecommendedWallpaper}/{date}.jpg";
+            var thumbUrl = $"{Request.GetTodayThumbWallpaper}/{date}.jpg";
+            var largeUrl = $"{Request.GetTodayWallpaper}/{date}.jpg";
 
             var image = new UnsplashImage()
             {
