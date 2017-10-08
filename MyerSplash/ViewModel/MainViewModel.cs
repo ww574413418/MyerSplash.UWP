@@ -620,7 +620,7 @@ namespace MyerSplash.ViewModel
             }
 
             // Don't hide the refreshing hint too fast
-            await Task.Delay(500);
+            await Task.Delay(1000);
             IsRefreshing = false;
         }
 
@@ -651,13 +651,13 @@ namespace MyerSplash.ViewModel
 
             if (DeviceHelper.IsDesktop)
             {
-                var key = (string)App.Current.Resources["CoachKey"];
-                if (!LocalSettingHelper.HasValue(key))
-                {
-                    LocalSettingHelper.AddValue(key, true);
-                    var uc = new TipsControl();
-                    var task2 = PopupService.Instance.ShowAsync(uc);
-                }
+                //var key = (string)App.Current.Resources["CoachKey"];
+                //if (!LocalSettingHelper.HasValue(key))
+                //{
+                //    LocalSettingHelper.AddValue(key, true);
+                //    var uc = new TipsControl();
+                //    var task2 = PopupService.Instance.ShowAsync(uc);
+                //}
             }
         }
 
