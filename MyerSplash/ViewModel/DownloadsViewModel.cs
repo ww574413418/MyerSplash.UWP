@@ -1,18 +1,18 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using JP.Utils.Debug;
 using MyerSplash.Model;
+using MyerSplash.View.Uc;
 using MyerSplashCustomControl;
+using Newtonsoft.Json;
+using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using Windows.Networking.BackgroundTransfer;
-using Windows.UI.Xaml;
-using System;
-using Newtonsoft.Json;
-using Windows.Storage;
-using System.Threading.Tasks;
-using JP.Utils.Debug;
-using GalaSoft.MvvmLight.Command;
-using MyerSplash.View.Uc;
 using System.Linq;
+using System.Threading.Tasks;
+using Windows.Networking.BackgroundTransfer;
+using Windows.Storage;
+using Windows.UI.Xaml;
 
 namespace MyerSplash.ViewModel
 {
@@ -119,12 +119,13 @@ namespace MyerSplash.ViewModel
                       await Logger.LogAsync(e.ErrorContext.Error);
                   }
             });
-            var file = await ApplicationData.Current.LocalFolder.CreateFileAsync(CACHED_FILE_NAME, 
+            var file = await ApplicationData.Current.LocalFolder.CreateFileAsync(CACHED_FILE_NAME,
                 CreationCollisionOption.OpenIfExists);
             await FileIO.WriteTextAsync(file, str);
         }
 
 #pragma warning disable
+
         public async Task RestoreListAsync()
         {
             var file = await ApplicationData.Current.LocalFolder.CreateFileAsync(CACHED_FILE_NAME,
@@ -161,6 +162,7 @@ namespace MyerSplash.ViewModel
                 }
             }
         }
+
 #pragma warning restore
 
         public async Task<DownloadItem> AddDownloadingImageAsync(DownloadItem item)

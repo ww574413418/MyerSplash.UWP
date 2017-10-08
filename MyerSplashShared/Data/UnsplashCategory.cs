@@ -63,7 +63,6 @@ namespace MyerSplash.Data
 
         public UnsplashCategory()
         {
-
         }
     }
 }

@@ -444,7 +444,7 @@
                                 Click="OKBtn_Click"
                                 Style="{StaticResource ButtonCommonStyle}">
                                 <Grid>
-                                    <!--<local:EllipseShadowControl Radius="25"/>-->
+                                    <!--<local:EllipseShadowControl Radius="25" />-->
                                     <Ellipse
                                         Width="50"
                                         Height="50"
@@ -470,7 +470,7 @@
                                     IsEnabled="True"
                                     Style="{StaticResource ButtonCommonStyle}">
                                     <Grid>
-                                        <!--<local:EllipseShadowControl Radius="25"/>-->
+                                        <!--<local:EllipseShadowControl Radius="25" />-->
                                         <Ellipse
                                             Width="50"
                                             Height="50"
@@ -520,7 +520,7 @@
                                 Click="DownloadBtn_Click"
                                 Style="{StaticResource ButtonCommonStyle}">
                                 <Grid>
-                                    <!--<local:EllipseShadowControl Radius="25"/>-->
+                                    <!--<local:EllipseShadowControl Radius="25" />-->
                                     <Ellipse
                                         Width="50"
                                         Height="50"

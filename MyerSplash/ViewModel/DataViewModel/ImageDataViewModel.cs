@@ -1,16 +1,16 @@
 ﻿using JP.Utils.Debug;
+using MyerSplash.Data;
+using MyerSplash.Model;
 using MyerSplashCustomControl;
 using MyerSplashShared.API;
+using MyerSplashShared.Service;
+using MyerSplashShared.Utils;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
-using System.Diagnostics;
-using MyerSplash.Data;
-using MyerSplash.Model;
-using MyerSplashShared.Service;
-using MyerSplashShared.Utils;
 
 namespace MyerSplash.ViewModel.DataViewModel
 {
@@ -27,7 +27,6 @@ namespace MyerSplash.ViewModel.DataViewModel
 
         protected override void ClickItem(ImageItem item)
         {
-
         }
 
         protected IEnumerable<ImageItem> CreateImageItems(IEnumerable<UnsplashImage> images)
@@ -126,7 +125,6 @@ namespace MyerSplash.ViewModel.DataViewModel
             }
             catch (Exception)
             {
-
             }
 
             if (pagingIndex == 1)
@@ -167,7 +165,7 @@ namespace MyerSplash.ViewModel.DataViewModel
                 }
                 else throw new APIException("Request failed");
             }
-            catch(TaskCanceledException)
+            catch (TaskCanceledException)
             {
                 throw new APIException("Request timeout");
             }

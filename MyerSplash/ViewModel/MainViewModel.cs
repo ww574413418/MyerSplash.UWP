@@ -2,23 +2,23 @@
 using GalaSoft.MvvmLight.Command;
 using JP.Utils.Data;
 using JP.Utils.Framework;
+using JP.Utils.Helper;
+using Microsoft.QueryStringDotNET;
 using MyerSplash.Common;
+using MyerSplash.Data;
 using MyerSplash.Model;
+using MyerSplash.View.Uc;
+using MyerSplash.ViewModel.DataViewModel;
+using MyerSplashCustomControl;
+using MyerSplashShared.API;
+using MyerSplashShared.Service;
+using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using Windows.UI.Xaml;
-using MyerSplashShared.API;
-using MyerSplash.ViewModel.DataViewModel;
 using Windows.Storage;
-using System;
-using MyerSplashCustomControl;
-using MyerSplash.View.Uc;
-using JP.Utils.Helper;
-using Windows.UI.ViewManagement;
-using Microsoft.QueryStringDotNET;
 using Windows.System;
-using MyerSplash.Data;
-using MyerSplashShared.Service;
+using Windows.UI.ViewManagement;
+using Windows.UI.Xaml;
 
 namespace MyerSplash.ViewModel
 {
@@ -81,6 +81,7 @@ namespace MyerSplash.ViewModel
         public bool IsFirstActived { get; set; } = true;
 
         #region Search
+
         private bool _showSearchBar;
         public bool ShowSearchBar
         {
@@ -169,7 +170,8 @@ namespace MyerSplash.ViewModel
                   });
             }
         }
-        #endregion
+
+        #endregion Search
 
         private RelayCommand _refreshCommand;
         public RelayCommand RefreshCommand
@@ -531,7 +533,7 @@ namespace MyerSplash.ViewModel
                         }
                         else if (value > NEW_INDEX)
                         {
-                            DataVM = new SearchResultViewModel(this, 
+                            DataVM = new SearchResultViewModel(this,
                                 new SearchImageService(NormalFactory, Categories[value].Title));
                         }
                         if (DataVM != null)
@@ -611,20 +613,29 @@ namespace MyerSplash.ViewModel
         {
             IsRefreshing = true;
             await DataVM.RefreshAsync();
+
             if (SelectedIndex == NEW_INDEX)
             {
-                var date = DateTime.Now.ToString("yyyyMMdd");
-
-                if (DataVM.DataList.Count > 0 && DataVM.DataList[0].Image.ID != date)
-                {
-                    var image = UnsplashImageFactory.CreateRecommendationImage();
-                    var imageItem = new ImageItem(image);
-                    DataVM.DataList.Insert(0, imageItem);
-                    imageItem.Init();
-                    await imageItem.DownloadBitmapForListAsync();
-                }
+                await InsertTodayWallpaperAsync();
             }
+
+            // Don't hide the refreshing hint too fast
+            await Task.Delay(500);
             IsRefreshing = false;
+        }
+
+        private async Task InsertTodayWallpaperAsync()
+        {
+            var date = DateTime.Now.ToString("yyyyMMdd");
+
+            if (DataVM.DataList.Count > 0 && DataVM.DataList[0].Image.ID != date)
+            {
+                var image = UnsplashImageFactory.CreateTodayImage();
+                var imageItem = new ImageItem(image);
+                DataVM.DataList.Insert(0, imageItem);
+                imageItem.Init();
+                await imageItem.DownloadBitmapForListAsync();
+            }
         }
 
         private async Task InitCategoriesAsync()
@@ -676,6 +687,7 @@ namespace MyerSplash.ViewModel
                         case Value.SET_AS:
                             await WallpaperSettingHelper.SetAsBackgroundAsync(await StorageFile.GetFileFromPathAsync(filePath));
                             break;
+
                         case Value.VIEW:
                             await Launcher.LaunchFileAsync(await StorageFile.GetFileFromPathAsync(filePath));
                             break;
@@ -686,7 +698,6 @@ namespace MyerSplash.ViewModel
 
         public void Deactivate(object param)
         {
-
         }
 
         public async void OnLoaded()

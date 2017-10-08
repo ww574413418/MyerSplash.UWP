@@ -21,7 +21,6 @@ namespace MyerSplash.Common
 
         protected virtual void CustomTitleBar()
         {
-            
         }
     }
 }

@@ -36,7 +36,6 @@ namespace MyerSplashCustomControl
 
         protected virtual void OnDraw(CanvasControl sender, CanvasDrawEventArgs args)
         {
-            
         }
     }
 }

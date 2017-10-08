@@ -35,6 +35,7 @@ namespace MyerSplash.View.Uc
         }
 
         public event EventHandler<EventArgs> OnHidden;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private Compositor _compositor;
@@ -547,12 +548,14 @@ namespace MyerSplash.View.Uc
                         showingVisual = null;
                     }
                     break;
+
                 case 1:
                     {
                         fadingVisual = null;
                         showingVisual = _taskbarImageVisual;
                     }
                     break;
+
                 case 2:
                     {
                         fadingVisual = _taskbarImageVisual;

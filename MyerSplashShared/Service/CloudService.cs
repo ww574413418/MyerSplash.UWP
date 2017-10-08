@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyerSplashShared.Service
 {
-    public class CloudService: IService
+    public class CloudService : IService
     {
         private List<KeyValuePair<string, string>> GetDefaultParam()
         {

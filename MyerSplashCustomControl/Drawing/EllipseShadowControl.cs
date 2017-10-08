@@ -3,14 +3,11 @@ using Microsoft.Graphics.Canvas.Brushes;
 using Microsoft.Graphics.Canvas.Effects;
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using System.Numerics;
-using Windows.UI;
-using Windows.UI.Xaml;
 
 namespace MyerSplashCustomControl
 {
     public class EllipseShadowControl : RoundGeoControl
     {
-
         protected override void OnDraw(CanvasControl sender, CanvasDrawEventArgs args)
         {
             var radius = Radius;

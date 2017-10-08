@@ -1,6 +1,6 @@
 ﻿namespace MyerSplashShared.Service
 {
-    interface IService
+    internal interface IService
     {
         // tagging interface
     }

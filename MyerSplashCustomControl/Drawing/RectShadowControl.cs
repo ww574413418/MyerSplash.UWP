@@ -2,9 +2,6 @@
 using Microsoft.Graphics.Canvas.Brushes;
 using Microsoft.Graphics.Canvas.Effects;
 using Microsoft.Graphics.Canvas.UI.Xaml;
-using System.Numerics;
-using Windows.UI;
-using Windows.UI.Xaml;
 
 namespace MyerSplashCustomControl
 {

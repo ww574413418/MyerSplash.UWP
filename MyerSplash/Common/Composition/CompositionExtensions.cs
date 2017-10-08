@@ -56,14 +56,19 @@ namespace MyerSplash.Common
             {
                 case AnimateProperties.Translation:
                     return TRANSLATION;
+
                 case AnimateProperties.TranslationX:
                     return $"{TRANSLATION}.X";
+
                 case AnimateProperties.TranslationY:
                     return $"{TRANSLATION}.Y";
+
                 case AnimateProperties.Opacity:
                     return "Opacity";
+
                 case AnimateProperties.RotationAngleInDegrees:
                     return "RotationAngleInDegrees";
+
                 default:
                     throw new ArgumentException("Unknown properties");
             }

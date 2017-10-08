@@ -135,7 +135,6 @@
                         </Grid>
                     </Grid>
                 </Grid>
-
             </DataTemplate>
         </control:AdaptiveGridView.ItemTemplate>
         <control:AdaptiveGridView.ItemContainerStyle>

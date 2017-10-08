@@ -1,6 +1,4 @@
 ﻿using Microsoft.Graphics.Canvas.Effects;
-using MyerSplash.Common.Composition;
-using System;
 using Windows.UI;
 using Windows.UI.Composition;
 
@@ -86,6 +84,7 @@ namespace MyerSplash.Common.Brush
                 case BackdropBrushType.Backdrop:
                     backdropBrush = compositor.CreateBackdropBrush();
                     break;
+
                 case BackdropBrushType.HostBackdrop:
                 default:
                     backdropBrush = compositor.CreateHostBackdropBrush();

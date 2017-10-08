@@ -1,6 +1,5 @@
 ﻿using MyerSplash.Common;
 using MyerSplash.Common.Composition;
-using System;
 using System.Numerics;
 using Windows.Foundation;
 using Windows.UI.Composition;

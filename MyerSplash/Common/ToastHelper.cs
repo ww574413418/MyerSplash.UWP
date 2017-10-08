@@ -1,6 +1,5 @@
 ﻿using Microsoft.QueryStringDotNET;
 using Microsoft.Toolkit.Uwp.Notifications;
-using System;
 using System.IO;
 using Windows.UI.Notifications;
 

@@ -18,8 +18,8 @@ namespace MyerSplash.View.Uc
         public LoadingControl()
         {
             this.InitializeComponent();
-           
-            if(!DesignMode.DesignModeEnabled)
+
+            if (!DesignMode.DesignModeEnabled)
             {
                 this.SizeChanged += LoadingControl_SizeChanged;
 

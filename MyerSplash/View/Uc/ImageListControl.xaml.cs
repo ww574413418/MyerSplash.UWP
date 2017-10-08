@@ -21,6 +21,7 @@ namespace MyerSplash.View.Uc
     public sealed partial class ImageListControl : UserControl
     {
         public event Action<ImageItem, FrameworkElement> OnClickItemStarted;
+
         public event Action<ScrollViewer> OnScrollViewerViewChanged;
 
         private const float SCALE_ANIMATION_FACTOR = 1.05f;
@@ -109,6 +110,7 @@ namespace MyerSplash.View.Uc
         }
 
         #region List Animation
+
         private void AdaptiveGridView_ContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs args)
         {
             int index = args.ItemIndex;
@@ -152,7 +154,8 @@ namespace MyerSplash.View.Uc
             }
             itemContainer.Loaded -= ItemContainer_Loaded;
         }
-        #endregion
+
+        #endregion List Animation
 
         private void ImageGridView_Loaded(object sender, RoutedEventArgs e)
         {

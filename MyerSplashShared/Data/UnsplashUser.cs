@@ -27,6 +27,7 @@ namespace MyerSplash.Data
 
         [JsonProperty("links")]
         private Links _links;
+
         public Links Links
         {
             get
@@ -63,7 +64,6 @@ namespace MyerSplash.Data
 
         public UnsplashUser()
         {
-
         }
     }
 }

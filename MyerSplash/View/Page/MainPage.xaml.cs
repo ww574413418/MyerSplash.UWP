@@ -1,22 +1,16 @@
-﻿using JP.Utils.UI;
-using Microsoft.Graphics.Canvas.Effects;
-using MyerSplash.Common;
+﻿using MyerSplash.Common;
 using MyerSplash.Model;
 using MyerSplash.ViewModel;
-using MyerSplashShared.Utils;
 using System;
 using System.Diagnostics;
 using System.Numerics;
-using System.Threading.Tasks;
 using Windows.Foundation;
-using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace MyerSplash.View.Page
@@ -126,6 +120,7 @@ namespace MyerSplash.View.Page
         }
 
         #region Loading animation
+
         private void ShowLoading()
         {
             ListControl.Refreshing = true;
@@ -135,9 +130,11 @@ namespace MyerSplash.View.Page
         {
             ListControl.Refreshing = false;
         }
-        #endregion
+
+        #endregion Loading animation
 
         #region Drawer animation
+
         private void ToggleDrawerAnimation(bool show)
         {
             var offsetAnim = _compositor.CreateScalarKeyFrameAnimation();
@@ -163,7 +160,8 @@ namespace MyerSplash.View.Page
               };
             batch.End();
         }
-        #endregion
+
+        #endregion Drawer animation
 
         private void StackPanel_Tapped(object sender, TappedRoutedEventArgs e)
         {
@@ -215,6 +213,7 @@ namespace MyerSplash.View.Page
         }
 
         #region Scrolling
+
         private void ToggleTitleBarAnimation(bool show)
         {
             var offsetAnimation = _compositor.CreateScalarKeyFrameAnimation();
@@ -262,7 +261,8 @@ namespace MyerSplash.View.Page
 
             Debug.WriteLine("offset:" + scrollViewer.VerticalOffset);
         }
-        #endregion
+
+        #endregion Scrolling
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {

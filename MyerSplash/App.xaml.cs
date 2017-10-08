@@ -44,6 +44,7 @@ namespace MyerSplash
         }
 
 #pragma warning disable 1998
+
         protected async override void OnLaunched(LaunchActivatedEventArgs e)
         {
 #if DEBUG
@@ -56,7 +57,8 @@ namespace MyerSplash
             var task = JumpListHelper.SetupJumpList();
             CreateFrameAndNavigate(e.Arguments);
         }
-#pragma warning restore    
+
+#pragma warning restore
 
         private Frame CreateFrameAndNavigate(string arg)
         {

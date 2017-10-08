@@ -62,7 +62,6 @@ namespace MyerSplash.View.Uc
                     control.TitleTB.Text = e.NewValue as string;
                 }));
 
-
         public string Symbol
         {
             get { return (string)GetValue(SymbolProperty); }

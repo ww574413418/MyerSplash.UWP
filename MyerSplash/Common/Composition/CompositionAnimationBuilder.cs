@@ -63,10 +63,12 @@ namespace MyerSplash.Common.Composition
                     animation = comp.CreateScalarKeyFrameAnimation();
                     (animation as ScalarKeyFrameAnimation).InsertKeyFrame(1f, _scalarValue);
                     break;
+
                 case AnimationType.Vector3:
                     animation = comp.CreateVector3KeyFrameAnimation();
                     (animation as Vector3KeyFrameAnimation).InsertKeyFrame(1f, _vector3Value);
                     break;
+
                 default:
                     throw new ArgumentException("Unknown animation type");
             }

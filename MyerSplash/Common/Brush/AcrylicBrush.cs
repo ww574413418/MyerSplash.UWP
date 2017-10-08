@@ -4,7 +4,6 @@
     {
         public AcrylicBrush()
         {
-
         }
 
         protected override BackdropBrushType GetBrushType()
