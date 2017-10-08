@@ -24,6 +24,14 @@
             <RowDefinition Height="100" />
             <RowDefinition />
         </Grid.RowDefinitions>
+        <uc:NoNetworkControl
+            x:Name="NoNetworkControl"
+            Grid.RowSpan="2"
+            Visibility="{x:Bind MainVM.NoNetworkHintVisibility, Mode=OneWay, FallbackValue=Collapsed}" />
+        <uc:NoItemControl
+            x:Name="NoItemControl"
+            Grid.RowSpan="2"
+            Visibility="{x:Bind MainVM.NoItemHintVisibility, Mode=OneWay, FallbackValue=Collapsed}" />
         <Grid
             x:Name="ContentGrid"
             Grid.Row="0"
@@ -141,16 +149,6 @@
                     Glyph="&#xE118;" />
             </Button>
         </Grid>
-
-        <uc:NoNetworkControl
-            x:Name="NoNetworkControl"
-            Grid.Row="1"
-            Visibility="{x:Bind MainVM.NoNetworkHintVisibility, Mode=OneWay, FallbackValue=Collapsed}" />
-        <uc:NoItemControl
-            x:Name="NoItemControl"
-            Grid.Row="1"
-            Visibility="{x:Bind MainVM.NoItemHintVisibility, Mode=OneWay, FallbackValue=Collapsed}" />
-
         <uc:PhotoDetailControl
             x:Name="DetailControl"
             Grid.RowSpan="2"

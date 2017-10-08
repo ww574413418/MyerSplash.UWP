@@ -179,7 +179,7 @@ namespace MyerSplash.ViewModel
                 if (_refreshCommand != null) return _refreshCommand;
                 return _refreshCommand = new RelayCommand(async () =>
                   {
-                      await RefreshAllAsync();
+                      await RefreshListAsync();
                   });
             }
         }
@@ -607,12 +607,6 @@ namespace MyerSplash.ViewModel
             await RefreshListAsync();
         }
 
-        private async Task RefreshAllAsync()
-        {
-            var task1 = GetCategoriesAsync();
-            await RefreshListAsync();
-        }
-
         private async Task RefreshListAsync()
         {
             IsRefreshing = true;
@@ -633,7 +627,7 @@ namespace MyerSplash.ViewModel
             IsRefreshing = false;
         }
 
-        private async Task GetCategoriesAsync()
+        private async Task InitCategoriesAsync()
         {
             if (Categories?.Count > 0) return;
             Categories = await UnsplashCategoryFactory.GetCategoriesAsync();
@@ -700,7 +694,8 @@ namespace MyerSplash.ViewModel
             if (IsFirstActived)
             {
                 IsFirstActived = false;
-                await RefreshAllAsync();
+                await InitCategoriesAsync();
+                await RefreshListAsync();
             }
         }
     }

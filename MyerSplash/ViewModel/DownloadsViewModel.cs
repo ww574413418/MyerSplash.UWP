@@ -6,7 +6,6 @@ using System.Collections.Specialized;
 using Windows.Networking.BackgroundTransfer;
 using Windows.UI.Xaml;
 using System;
-using MyerSplash.Common;
 using Newtonsoft.Json;
 using Windows.Storage;
 using System.Threading.Tasks;
@@ -14,7 +13,6 @@ using JP.Utils.Debug;
 using GalaSoft.MvvmLight.Command;
 using MyerSplash.View.Uc;
 using System.Linq;
-using MyerSplash.Data;
 
 namespace MyerSplash.ViewModel
 {
@@ -23,6 +21,8 @@ namespace MyerSplash.ViewModel
         public static string CACHED_FILE_NAME => "DownloadList.list";
 
         private DownloadItem _menuOpenedItem;
+
+        private object o = new object();
 
         private ObservableCollection<DownloadItem> _downloadingImages;
         public ObservableCollection<DownloadItem> DownloadingImages
@@ -103,7 +103,10 @@ namespace MyerSplash.ViewModel
                     await (item as DownloadItem).AwaitGuidCreatedAsync();
                 }
             }
-            await SaveListAsync();
+            lock (o)
+            {
+                var task = SaveListAsync();
+            }
         }
 
         public async Task SaveListAsync()
@@ -116,14 +119,16 @@ namespace MyerSplash.ViewModel
                       await Logger.LogAsync(e.ErrorContext.Error);
                   }
             });
-            var file = await ApplicationData.Current.LocalFolder.CreateFileAsync(CACHED_FILE_NAME, CreationCollisionOption.OpenIfExists);
+            var file = await ApplicationData.Current.LocalFolder.CreateFileAsync(CACHED_FILE_NAME, 
+                CreationCollisionOption.OpenIfExists);
             await FileIO.WriteTextAsync(file, str);
         }
 
 #pragma warning disable
         public async Task RestoreListAsync()
         {
-            var file = await ApplicationData.Current.LocalFolder.CreateFileAsync(CACHED_FILE_NAME, CreationCollisionOption.OpenIfExists);
+            var file = await ApplicationData.Current.LocalFolder.CreateFileAsync(CACHED_FILE_NAME,
+                CreationCollisionOption.OpenIfExists);
             if (file != null)
             {
                 var str = await FileIO.ReadTextAsync(file);
