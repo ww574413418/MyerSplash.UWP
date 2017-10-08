@@ -153,6 +153,7 @@
             x:Name="DetailControl"
             Grid.RowSpan="2"
             d:IsHidden="True"
+            OnHidden="DetailControl_OnHidden"
             Visibility="Collapsed" />
         <Border
             x:Name="DrawerMaskBorder"

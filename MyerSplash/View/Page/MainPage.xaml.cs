@@ -181,7 +181,6 @@ namespace MyerSplash.View.Page
             if (_restoreTitleStackStatus)
             {
                 ToggleTitleStackAnimation(true);
-                ToggleRefreshBtnAnimation(true);
                 _restoreTitleStackStatus = false;
             }
         }
@@ -199,8 +198,6 @@ namespace MyerSplash.View.Page
                 _restoreTitleStackStatus = true;
                 ToggleTitleStackAnimation(false);
             }
-
-            ToggleRefreshBtnAnimation(false);
 
             DetailControl.CurrentImage = _clickedImg;
             DetailControl.Show(_clickedContainer);
