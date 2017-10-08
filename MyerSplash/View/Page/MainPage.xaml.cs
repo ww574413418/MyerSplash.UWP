@@ -1,8 +1,8 @@
 ﻿using MyerSplash.Common;
 using MyerSplash.Model;
 using MyerSplash.ViewModel;
-using MyerSplashShared.Utils;
 using System;
+using System.Diagnostics;
 using System.Numerics;
 using Windows.Foundation;
 using Windows.UI.Composition;
@@ -85,7 +85,7 @@ namespace MyerSplash.View.Page
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
             _drawerMaskVisual.Opacity = 0;
-            _drawerVisual.Offset = new Vector3(-DRAWER_WIDTH, 0f, 0f);
+            _drawerVisual.SetTranslation(new Vector3(-DRAWER_WIDTH, 0f, 0f));
 
             DrawerMaskBorder.Visibility = Visibility.Collapsed;
         }
@@ -112,14 +112,15 @@ namespace MyerSplash.View.Page
         private void InitComposition()
         {
             _compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
-            _drawerVisual = ElementCompositionPreview.GetElementVisual(DrawerControl);
-            _drawerMaskVisual = ElementCompositionPreview.GetElementVisual(DrawerMaskBorder);
-            _titleGridVisual = ElementCompositionPreview.GetElementVisual(TitleGrid);
-            _refreshBtnVisual = ElementCompositionPreview.GetElementVisual(RefreshBtn);
-            _titleStackVisual = ElementCompositionPreview.GetElementVisual(TitleStack);
+            _drawerVisual = DrawerControl.GetVisual();
+            _drawerMaskVisual = DrawerMaskBorder.GetVisual();
+            _titleGridVisual = TitleGrid.GetVisual();
+            _refreshBtnVisual = RefreshBtn.GetVisual();
+            _titleStackVisual = TitleStack.GetVisual();
         }
 
         #region Loading animation
+
         private void ShowLoading()
         {
             ListControl.Refreshing = true;
@@ -129,16 +130,18 @@ namespace MyerSplash.View.Page
         {
             ListControl.Refreshing = false;
         }
-        #endregion
+
+        #endregion Loading animation
 
         #region Drawer animation
+
         private void ToggleDrawerAnimation(bool show)
         {
             var offsetAnim = _compositor.CreateScalarKeyFrameAnimation();
             offsetAnim.InsertKeyFrame(1f, show ? 0f : -DRAWER_WIDTH);
             offsetAnim.Duration = TimeSpan.FromMilliseconds(300);
 
-            _drawerVisual.StartAnimation("Offset.X", offsetAnim);
+            _drawerVisual.StartAnimation(_drawerVisual.GetTranslationXPropertyName(), offsetAnim);
         }
 
         private void ToggleDrawerMaskAnimation(bool show)
@@ -146,7 +149,7 @@ namespace MyerSplash.View.Page
             if (show) DrawerMaskBorder.Visibility = Visibility.Visible;
 
             var fadeAnimation = _compositor.CreateScalarKeyFrameAnimation();
-            fadeAnimation.InsertKeyFrame(1f, show ? 1f : 0f);
+            fadeAnimation.InsertKeyFrame(1f, show ? 0.8f : 0f);
             fadeAnimation.Duration = TimeSpan.FromMilliseconds(500);
 
             var batch = _compositor.CreateScopedBatch(CompositionBatchTypes.Animation);
@@ -157,20 +160,19 @@ namespace MyerSplash.View.Page
               };
             batch.End();
         }
-        #endregion
+
+        #endregion Drawer animation
 
         private void StackPanel_Tapped(object sender, TappedRoutedEventArgs e)
         {
             ListControl.ScrollToTop();
         }
 
-        private async void ListControl_OnClickItemStarted(ImageItem img, FrameworkElement container)
+        private void ListControl_OnClickItemStarted(ImageItem img, FrameworkElement container)
         {
             _clickedContainer = container;
             _clickedImg = img;
 
-            DetailControl.Visibility = Visibility.Visible;
-            await DetailControl.WaitForNonZeroSizeAsync();
             ToggleDetailControlAnimation();
         }
 
@@ -179,7 +181,6 @@ namespace MyerSplash.View.Page
             if (_restoreTitleStackStatus)
             {
                 ToggleTitleStackAnimation(true);
-                ToggleRefreshBtnAnimation(true);
                 _restoreTitleStackStatus = false;
             }
         }
@@ -198,8 +199,6 @@ namespace MyerSplash.View.Page
                 ToggleTitleStackAnimation(false);
             }
 
-            ToggleRefreshBtnAnimation(false);
-
             DetailControl.CurrentImage = _clickedImg;
             DetailControl.Show(_clickedContainer);
 
@@ -211,13 +210,14 @@ namespace MyerSplash.View.Page
         }
 
         #region Scrolling
+
         private void ToggleTitleBarAnimation(bool show)
         {
             var offsetAnimation = _compositor.CreateScalarKeyFrameAnimation();
             offsetAnimation.InsertKeyFrame(1f, show ? 0f : -100f);
             offsetAnimation.Duration = TimeSpan.FromMilliseconds(500);
 
-            _titleGridVisual.StartAnimation("Offset.Y", offsetAnimation);
+            _titleGridVisual.StartAnimation(_titleGridVisual.GetTranslationYPropertyName(), offsetAnimation);
         }
 
         private void ToggleRefreshBtnAnimation(bool show)
@@ -237,7 +237,7 @@ namespace MyerSplash.View.Page
             offsetAnimation.InsertKeyFrame(1f, show ? 0f : -100f);
             offsetAnimation.Duration = TimeSpan.FromMilliseconds(500);
 
-            _titleStackVisual.StartAnimation("Offset.Y", offsetAnimation);
+            _titleStackVisual.StartAnimation(_titleStackVisual.GetTranslationYPropertyName(), offsetAnimation);
         }
 
         private void ListControl_OnScrollViewerViewChanged(ScrollViewer scrollViewer)
@@ -255,8 +255,11 @@ namespace MyerSplash.View.Page
                 ToggleTitleStackAnimation(true);
             }
             _lastVerticalOffset = scrollViewer.VerticalOffset;
+
+            Debug.WriteLine("offset:" + scrollViewer.VerticalOffset);
         }
-        #endregion
+
+        #endregion Scrolling
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {

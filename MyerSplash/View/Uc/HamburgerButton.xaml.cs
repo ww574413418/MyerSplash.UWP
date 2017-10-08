@@ -13,7 +13,7 @@ namespace MyerSplash.View.Uc
         }
 
         public static readonly DependencyProperty CommandProperty =
-            DependencyProperty.Register("Command", typeof(ICommand), typeof(HamburgerButton), 
+            DependencyProperty.Register("Command", typeof(ICommand), typeof(HamburgerButton),
                 new PropertyMetadata(null));
 
         public HamburgerButton()

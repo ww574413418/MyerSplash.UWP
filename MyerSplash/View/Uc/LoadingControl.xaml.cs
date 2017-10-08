@@ -1,4 +1,4 @@
-﻿using CompositionHelper;
+﻿using MyerSplash.Common;
 using Windows.ApplicationModel;
 using Windows.Foundation;
 using Windows.UI.Composition;
@@ -18,8 +18,8 @@ namespace MyerSplash.View.Uc
         public LoadingControl()
         {
             this.InitializeComponent();
-           
-            if(!DesignMode.DesignModeEnabled)
+
+            if (!DesignMode.DesignModeEnabled)
             {
                 this.SizeChanged += LoadingControl_SizeChanged;
 

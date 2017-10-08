@@ -7,7 +7,6 @@ namespace MyerSplash.Common
     {
         public CustomizedTitleBarPage()
         {
-            
         }
 
         protected override void SetNavigationBackBtn()
@@ -22,7 +21,6 @@ namespace MyerSplash.Common
 
         protected virtual void CustomTitleBar()
         {
-            
         }
     }
 }

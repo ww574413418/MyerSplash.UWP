@@ -6,6 +6,7 @@ namespace MyerSplash.Data
     {
         [JsonProperty("html")]
         private string _homePageUrl;
+
         public string HomePageUrl
         {
             get

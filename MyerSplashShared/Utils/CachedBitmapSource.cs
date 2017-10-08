@@ -1,7 +1,6 @@
 ﻿using JP.Utils.Data;
 using JP.Utils.Debug;
 using MyerSplashShared.API;
-using MyerSplashShared.Utils;
 using System;
 using System.ComponentModel;
 using System.IO;
@@ -47,7 +46,6 @@ namespace MyerSplashShared.Utils
 
         public CachedBitmapSource()
         {
-
         }
 
         private void RaisePropertyChanged(string propertyName)
@@ -65,7 +63,7 @@ namespace MyerSplashShared.Utils
                     await SetImageSourceAsync(file as StorageFile);
                     return;
                 }
-                catch(FileNotFoundException)
+                catch (FileNotFoundException)
                 {
                 }
             }

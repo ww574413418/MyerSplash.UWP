@@ -25,12 +25,11 @@ namespace MyerSplash.Common
 
         public IncrementalLoadingCollection()
         {
-
         }
 
         public IncrementalLoadingCollection(Func<uint, Task<ResultData<T>>> dataFetchDelegate)
         {
-            this.DataFetchDelegate = dataFetchDelegate ?? 
+            this.DataFetchDelegate = dataFetchDelegate ??
                 throw new ArgumentNullException("dataFetchDelegate should not be null");
         }
 
@@ -89,8 +88,8 @@ namespace MyerSplash.Common
             }
         }
 
-
         public delegate void LoadMoreStarted(uint count);
+
         public delegate void LoadMoreCompleted(int count);
 
         public event LoadMoreCompleted OnLoadMoreCompleted;

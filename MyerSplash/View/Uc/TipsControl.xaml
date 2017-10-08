@@ -56,7 +56,7 @@
                 Click="LaunchBotButton_Click"
                 Style="{StaticResource ListButtonStyle}" Margin="12,0,0,0">
                 <Border>
-                    <TextBlock Margin="8" Text="LAUNCH" FontWeight="Bold" Foreground="{StaticResource MyerSplashThemeColorBrush}"/>
+                    <TextBlock Margin="8" Text="LAUNCH" FontWeight="Bold" Foreground="{StaticResource MyerSplashThemeColorBrush}" />
                 </Border>
             </Button>
         </StackPanel>

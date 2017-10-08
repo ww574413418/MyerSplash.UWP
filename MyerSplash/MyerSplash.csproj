@@ -11,8 +11,8 @@
     <AssemblyName>MyerSplash</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
+    <TargetPlatformVersion>10.0.15063.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.15063.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -110,11 +110,17 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Compile Include="Common\AppSettings.cs" />
+    <Compile Include="Common\Brush\AcrylicBrush.cs" />
+    <Compile Include="Common\Brush\AcrylicBrushBase.cs" />
+    <Compile Include="Common\Brush\AcrylicHostBrush.cs" />
     <Compile Include="Common\BackgroundTaskRegister.cs" />
     <Compile Include="Common\BindablePage.cs" />
+    <Compile Include="Common\Brush\CompositionBrushBuilder.cs" />
+    <Compile Include="Common\Composition\CompositionAnimationBuilder.cs" />
     <Compile Include="Common\Constant.cs" />
     <Compile Include="Common\CustomizedTitleBarPage.cs" />
     <Compile Include="Common\DownloadStatus.cs" />
+    <Compile Include="Common\Composition\CompositionExtensions.cs" />
     <Compile Include="Common\GlobalLocaleHelper.cs" />
     <Compile Include="Common\JumpListHelper.cs" />
     <Compile Include="Common\MessengerTokens.cs" />
@@ -211,6 +217,7 @@
     <Content Include="Assets\Icon\weibo.png" />
     <Content Include="Assets\Image\lock.png" />
     <Content Include="Assets\Icon\search.png" />
+    <Content Include="Assets\Image\Noise.jpg" />
     <Content Include="Assets\Image\pc_taskbar_l.png" />
     <Content Include="Assets\Image\pc_taskbar_r.png" />
     <Content Include="Assets\Logo-500.png" />
@@ -286,6 +293,11 @@
     <Page Include="ResourceDictionary\DimentionDictionary.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ResourceDictionary\BrushDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="View\Uc\AboutControl.xaml">
       <SubType>Designer</SubType>

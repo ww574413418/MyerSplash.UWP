@@ -1,16 +1,16 @@
 ﻿using JP.Utils.Debug;
+using MyerSplash.Data;
+using MyerSplash.Model;
 using MyerSplashCustomControl;
 using MyerSplashShared.API;
+using MyerSplashShared.Service;
+using MyerSplashShared.Utils;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
-using System.Diagnostics;
-using MyerSplash.Data;
-using MyerSplash.Model;
-using MyerSplashShared.Service;
-using MyerSplashShared.Utils;
 
 namespace MyerSplash.ViewModel.DataViewModel
 {
@@ -27,7 +27,6 @@ namespace MyerSplash.ViewModel.DataViewModel
 
         protected override void ClickItem(ImageItem item)
         {
-
         }
 
         protected IEnumerable<ImageItem> CreateImageItems(IEnumerable<UnsplashImage> images)
@@ -82,53 +81,33 @@ namespace MyerSplash.ViewModel.DataViewModel
 
                 return await RequestAsync(pageIndex);
             }
-            catch (APIException)
+            catch (Exception e2)
             {
-                await RunOnUiThread(() =>
+                var task = Logger.LogAsync(e2);
+                await HandleFailedAsync(e2);
+                return new List<ImageItem>();
+            }
+        }
+
+        private async Task HandleFailedAsync(Exception e)
+        {
+            await RunOnUiThread(() =>
+            {
+                _mainViewModel.FooterLoadingVisibility = Visibility.Collapsed;
+                _mainViewModel.IsRefreshing = false;
+
+                if (_mainViewModel.DataVM.DataList?.Count == 0)
                 {
-                    _mainViewModel.FooterLoadingVisibility = Visibility.Collapsed;
-                    _mainViewModel.IsRefreshing = false;
-
-                    if (_mainViewModel.DataVM.DataList?.Count == 0)
-                    {
-                        _mainViewModel.NoItemHintVisibility = Visibility.Visible;
-                    }
-                    else
-                    {
-                        _mainViewModel.NoItemHintVisibility = Visibility.Collapsed;
-                        _mainViewModel.FooterReloadVisibility = Visibility.Visible;
-                    }
-
-                    ToastService.SendToast("Request failed.");
-                });
-                return new List<ImageItem>();
-            }
-            catch (TaskCanceledException)
-            {
-                await RunOnUiThread(() =>
+                    _mainViewModel.NoNetworkHintVisibility = Visibility.Visible;
+                }
+                else
                 {
-                    _mainViewModel.FooterLoadingVisibility = Visibility.Collapsed;
-                    _mainViewModel.IsRefreshing = false;
+                    _mainViewModel.NoNetworkHintVisibility = Visibility.Collapsed;
+                    _mainViewModel.FooterReloadVisibility = Visibility.Visible;
+                }
 
-                    if (_mainViewModel.DataVM.DataList?.Count == 0)
-                    {
-                        _mainViewModel.NoItemHintVisibility = Visibility.Visible;
-                    }
-                    else
-                    {
-                        _mainViewModel.NoItemHintVisibility = Visibility.Collapsed;
-                        _mainViewModel.FooterReloadVisibility = Visibility.Visible;
-                    }
-
-                    ToastService.SendToast("Request timeout.");
-                });
-                return new List<ImageItem>();
-            }
-            catch (Exception e)
-            {
-                var task = Logger.LogAsync(e);
-                return new List<ImageItem>();
-            }
+                ToastService.SendToast(e.Message);
+            });
         }
 
         protected async override void LoadMoreItemCompleted(IEnumerable<ImageItem> list, int pagingIndex)
@@ -146,7 +125,6 @@ namespace MyerSplash.ViewModel.DataViewModel
             }
             catch (Exception)
             {
-
             }
 
             if (pagingIndex == 1)
@@ -185,12 +163,11 @@ namespace MyerSplash.ViewModel.DataViewModel
                     UpdateHintVisibility(list);
                     return list;
                 }
-                else throw new ArgumentNullException();
+                else throw new APIException("Request failed");
             }
-            catch (Exception e)
+            catch (TaskCanceledException)
             {
-                await Logger.LogAsync(e);
-                return new List<ImageItem>();
+                throw new APIException("Request timeout");
             }
         }
     }

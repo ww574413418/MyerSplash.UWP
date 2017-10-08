@@ -42,7 +42,6 @@ namespace MyerSplash.Data
 
         public ImageLocation()
         {
-
         }
     }
 }

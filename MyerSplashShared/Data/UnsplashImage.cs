@@ -1,9 +1,5 @@
-﻿using MyerSplashShared.API;
+﻿using Newtonsoft.Json;
 using System;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using JP.Utils.Data.Json;
-using Windows.Data.Json;
 
 namespace MyerSplash.Data
 {
@@ -179,7 +175,6 @@ namespace MyerSplash.Data
                 return CreateTime.ToString("yyyy-MM-dd hh-mm-ss");
             }
         }
-
 
         private bool _isUnsplash;
         public bool IsUnsplash
